@@ -235,6 +235,19 @@ nothing else.
 Always run `python3 tools/ledger.py build` after changing the generator, and
 open the result to confirm.
 
+### Plate previews on the dashboard
+
+`build` caches each plate's preview to `plates/<ID>.png` and shows it as a
+thumbnail in the Plates table, linking to the full image. Extraction happens
+once and the PNG is committed, deliberately: the `.goo` it came from is
+eventually deleted off the printer, so the cached image ends up being the only
+record of what that plate held. `.gitignore` therefore has an exception for
+`plates/*.png`.
+
+If the printer is unreachable when a new plate is recorded, the thumbnail is
+just missing and the build still succeeds; a later `build` backfills it while
+the file is still on the printer. `.ctb` plates never get one.
+
 ## Serving the dashboard
 
 **Live at <http://elite.internal/minis/dashboard.html>**

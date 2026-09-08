@@ -51,6 +51,9 @@ background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--
 .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
 border-radius:10px}
 table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.plateimg{width:64px;height:64px;object-fit:cover;border-radius:6px;background:#000;
+display:block}
+.noimg{color:var(--muted)}
 th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
 th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
 font-weight:600}
@@ -209,13 +212,13 @@ padding-top:14px}
 <div class="card"><div class="body"><div class="name">Horned Dragon<span class="badge">25mm</span></div><div class="code">P0025_Horned_Dragon_WP1</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Wing L &#183; printed</span><span class="part done" title="">Wing R &#183; printed</span></div></div></div>
 </div></section>
 <section><h2>Plates</h2>
-<div class="tablewrap"><table><thead><tr><th>ID</th><th>Date</th><th>Slicer file</th><th>Resin</th><th>Layer</th><th>Exposure</th><th>Bottom exp</th><th>Bottom layers</th><th>Lift</th><th>Result</th><th>Notes</th></tr></thead><tbody>
-<tr><td>P2608-01</td><td>2026-08-30</td><td>Signifer-flotsam-captain-marauder.goo</td><td>Elegoo Abs-like 3.0</td><td>0.03mm</td><td>1.9s</td><td>27.0s</td><td>4</td><td></td><td></td><td></td></tr>
-<tr><td>P2609-04</td><td>2026-09-01</td><td>32mm_P0059_Horned_Dragon_Body_WP4_STL.stl_0.030_1.500_2026_09_01_12_24.goo</td><td>Elegoo 8K Standard Gray</td><td>0.03mm</td><td>1.5s</td><td>27.0s</td><td>4</td><td></td><td></td><td>re-supported STL; the vendor _SUP mesh detached under peel force</td></tr>
-<tr><td>P2609-05</td><td>2026-09-02</td><td>32mm_P0089_Cheliax_Naval_Officer_S2P2_STL.stl_0.030_1.500_2026_09_02_08_16.goo</td><td>Elegoo 8K Standard Gray</td><td>0.03mm</td><td>1.5s</td><td>27.0s</td><td>4</td><td></td><td></td><td></td></tr>
-<tr><td>P2609-01</td><td>2026-09-07</td><td>32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>reprint of P0028 after Brian rejected the original</td></tr>
-<tr><td>P2609-02</td><td>2026-09-08</td><td>32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>ctb header encrypted; resin and bottom values from the slicer by hand</td></tr>
-<tr><td>P2609-03</td><td>2026-09-08</td><td>32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>Rigger + Subaquatic Marauder + 12x 25mm bases; 1824 layers; in progress</td></tr>
+<div class="tablewrap"><table><thead><tr><th>Plate</th><th>ID</th><th>Date</th><th>Slicer file</th><th>Resin</th><th>Layer</th><th>Exposure</th><th>Bottom exp</th><th>Bottom layers</th><th>Lift</th><th>Result</th><th>Notes</th></tr></thead><tbody>
+<tr><td><a href="plates/P2608-01.png" target="_blank"><img class="plateimg" src="plates/P2608-01.png" alt="" loading="lazy"></a></td><td>P2608-01</td><td>2026-08-30</td><td>Signifer-flotsam-captain-marauder.goo</td><td>Elegoo Abs-like 3.0</td><td>0.03mm</td><td>1.9s</td><td>27.0s</td><td>4</td><td></td><td></td><td></td></tr>
+<tr><td><a href="plates/P2609-04.png" target="_blank"><img class="plateimg" src="plates/P2609-04.png" alt="" loading="lazy"></a></td><td>P2609-04</td><td>2026-09-01</td><td>32mm_P0059_Horned_Dragon_Body_WP4_STL.stl_0.030_1.500_2026_09_01_12_24.goo</td><td>Elegoo 8K Standard Gray</td><td>0.03mm</td><td>1.5s</td><td>27.0s</td><td>4</td><td></td><td></td><td>re-supported STL; the vendor _SUP mesh detached under peel force</td></tr>
+<tr><td><a href="plates/P2609-05.png" target="_blank"><img class="plateimg" src="plates/P2609-05.png" alt="" loading="lazy"></a></td><td>P2609-05</td><td>2026-09-02</td><td>32mm_P0089_Cheliax_Naval_Officer_S2P2_STL.stl_0.030_1.500_2026_09_02_08_16.goo</td><td>Elegoo 8K Standard Gray</td><td>0.03mm</td><td>1.5s</td><td>27.0s</td><td>4</td><td></td><td></td><td></td></tr>
+<tr><td><a href="plates/P2609-01.png" target="_blank"><img class="plateimg" src="plates/P2609-01.png" alt="" loading="lazy"></a></td><td>P2609-01</td><td>2026-09-07</td><td>32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>reprint of P0028 after Brian rejected the original</td></tr>
+<tr><td><span class="noimg">&#8212;</span></td><td>P2609-02</td><td>2026-09-08</td><td>32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>ctb header encrypted; resin and bottom values from the slicer by hand</td></tr>
+<tr><td><a href="plates/P2609-03.png" target="_blank"><img class="plateimg" src="plates/P2609-03.png" alt="" loading="lazy"></a></td><td>P2609-03</td><td>2026-09-08</td><td>32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>Rigger + Subaquatic Marauder + 12x 25mm bases; 1824 layers; in progress</td></tr>
 </tbody></table></div></section>
 <footer>Generated by <code>tools/ledger.py build</code> from <code>PRINTS.md</code>. Base sizes cross-checked against the Paizo Printables reference sheet. &#9888; marks a part with no pre-supported 32&#8239;mm file &#8212; add supports in Chitubox.</footer>
 </div>

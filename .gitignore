@@ -7,6 +7,11 @@
 *.pdf
 *.jpg
 *.png
+# ...but keep the cached build-plate previews: the .goo they come from is
+# eventually deleted off the printer, so these become the only record of
+# what a plate held.
+!plates/
+!plates/*.png
 *_autosave/
 Thumbs.db
 .DS_Store
