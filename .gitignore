@@ -17,3 +17,7 @@ Thumbs.db
 .DS_Store
 __pycache__/
 *.log
+
+# UVtools ships as a 267 MB linux-x64 bundle; it is a tool we run, not
+# something this repo should carry.
+uvtools/

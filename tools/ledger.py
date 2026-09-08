@@ -28,7 +28,8 @@ PLATE_IMAGES = ROOT / "plates"
 REFERENCE = ROOT / "reference" / "models.tsv"
 
 # Directories that hold no miniatures.
-SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools", "reference"}
+SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools",
+             "reference", "uvtools", "plates"}
 
 # Ordered by how far along a part is. "reprint" ranks below "printed" on
 # purpose: Brian rejected it, so it has to go back on a plate and should show up
@@ -740,19 +741,30 @@ def ensure_plate_preview(plate):
     Never fails the caller — a missing preview just means no thumbnail.
     """
     plate_id, name = plate.get("ID", ""), plate.get("Slicer file", "")
-    if not plate_id or not name.lower().endswith(".goo"):
+    if not plate_id or not name.lower().endswith((".goo", ".ctb")):
         return None
     out = PLATE_IMAGES / f"{plate_id}.png"
     if out.exists():
         return out
+    url = PRINTER_URL + urllib.parse.quote(name)
     try:
         import preview as preview_mod
         import sliced
         PLATE_IMAGES.mkdir(exist_ok=True)
-        head = sliced.fetch_head(PRINTER_URL + urllib.parse.quote(name),
-                                 sliced.GOO_HEADER_BYTES)
-        preview_mod.extract(head, str(out), "big")
-        return out
+        if name.lower().endswith(".goo"):
+            head = sliced.fetch_head(url, sliced.GOO_HEADER_BYTES)
+            preview_mod.extract(head, str(out), "big")
+            return out
+        # Encrypted ctb: only UVtools can get at the thumbnail, and it needs
+        # the whole file.
+        if not sliced.uvtools_available():
+            return None
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".ctb") as tmp:
+            sliced.download(url, tmp.name)
+            # uvtools_thumbnail returns the str path it was given; keep this
+            # function's contract as "a Path, or None".
+            return out if sliced.uvtools_thumbnail(tmp.name, str(out)) else None
     except Exception:
         return None
 
@@ -782,8 +794,16 @@ def cmd_plate(source, plate_id=None, resin=None, notes=None):
     row["Bottom exp"] = f'{info["bottom_exposure_s"]}s' if "bottom_exposure_s" in info else ""
     row["Bottom layers"] = str(info.get("bottom_layers", ""))
     row["Resin"] = resin or info.get("resin_profile", "")
-    row["Notes"] = notes or ("settings from encrypted ctb filename only"
-                             if info.get("encrypted") else "")
+    if "lift_height_mm" in info:
+        row["Lift"] = f'{info["lift_height_mm"]}mm @ {info["lift_speed"]}'
+    if notes:
+        row["Notes"] = notes
+    elif info.get("via") == "uvtools":
+        row["Notes"] = "encrypted ctb, decrypted with UVtools"
+    elif info.get("encrypted"):
+        row["Notes"] = "settings from encrypted ctb filename only (UVtools unavailable)"
+    else:
+        row["Notes"] = ""
     if any(p["ID"] == row["ID"] for p in plates):
         print(f"plate {row['ID']} already exists — pick another id")
         return
@@ -852,8 +872,9 @@ def cmd_preview(source, out_path=None, which="big"):
     name = source.rsplit("/", 1)[-1]
     if not source.startswith("http") and not Path(source).exists():
         source = PRINTER_URL + urllib.parse.quote(name)
-    if not name.lower().endswith(".goo"):
-        print("only .goo files carry a preview; ctb is encrypted")
+    import sliced
+    if not name.lower().endswith(".goo") and not sliced.uvtools_available():
+        print("ctb previews need UVtools in ./uvtools; only .goo works without it")
         return
     out_path = out_path or re.sub(r"[^\w.-]", "_", name)[:60] + ".png"
     try:

@@ -246,7 +246,7 @@ record of what that plate held. `.gitignore` therefore has an exception for
 
 If the printer is unreachable when a new plate is recorded, the thumbnail is
 just missing and the build still succeeds; a later `build` backfills it while
-the file is still on the printer. `.ctb` plates never get one.
+the file is still on the printer. `.ctb` plates get one via UVtools, at the cost of downloading the whole file.
 
 ## Serving the dashboard
 
@@ -270,6 +270,24 @@ Thumbnail `src` attributes are percent-encoded — release directories contain
 spaces, which are fine over `file://` but not valid in an HTTP path. Keep the
 `urllib.parse.quote` call in `cmd_build` if you touch the image handling.
 
+## UVtools
+
+`./uvtools/UVtoolsCmd` (UVtools 6.2.0, linux-x64) decrypts Chitubox `.ctb`
+files and extracts plate thumbnails from any format it understands. It is
+**gitignored** — a 267 MB bundle is a tool we run, not something this repo
+carries — so a fresh clone will not have it, and everything degrades to the
+`.goo`-only path without it.
+
+Two quirks worth knowing:
+
+- `UVtoolsCmd print-properties` **exits 1 even on success.** Judge it by whether
+  its output parses, never by the return code.
+- Global flags such as `--no-progress` go *before* the subcommand; `--partial-mode`
+  goes after the input file and makes loading nearly instant.
+
+    ./uvtools/UVtoolsCmd --no-progress print-properties <file> --partial-mode
+    ./uvtools/UVtoolsCmd --no-progress extract <file> <dir> -c Thumbnails
+
 ## Reading print settings off the printer
 
 The Mars 5 Ultra serves a plain directory index at
@@ -288,14 +306,21 @@ it and everything else still works.
   layer count, rest times, resolution, plate size and layer count all parse
   cleanly. Verified against files whose filenames encode their own settings:
   4/4 exact.
-- **`.ctb`** — Chitubox's format. Every one on this printer is the encrypted
-  variant (magic `0x12FD0107`); everything past byte `0x30` is ciphertext. Only
-  the layer height and exposure Chitubox writes into the *filename* survive.
-- **Lift distance and speed** are not recoverable from either format. Chitubox
-  writes four identical placeholder `(0.03, 0.05)` pairs into that region of the
-  `.goo` header. The `Lift` column is manual.
+- **`.ctb`** — Chitubox's format, and every one on this printer is the encrypted
+  variant (magic `0x12FD0107`): everything past byte `0x30` is ciphertext, so we
+  cannot read it directly. **UVtools decrypts it**, and `plate` uses UVtools
+  automatically when `./uvtools/UVtoolsCmd` is present, recovering the same
+  fields as `.goo` plus lift, print time and resin weight. Without UVtools only
+  the filename's layer height and exposure survive.
+- **Lift height and speed** are stored in both formats and read the same in
+  both: `0.03mm @ 0.05`. These are not placeholders, as previously assumed —
+  UVtools reports the identical values from the encrypted ctb, and the Mars 5
+  Ultra has a tilting vat (`HaveTiltingVat: True`), where peeling is done by
+  tilting rather than by a long lift.
 
-So: **export `.goo`, not `.ctb`**, if the settings should stay readable.
+`.goo` is still much cheaper to read: its header comes down in a 195 KB range
+request, while UVtools needs the whole 25–110 MB file on disk. Prefer `.goo`
+when exporting; UVtools is the fallback that makes old `.ctb` files legible.
 
 ### Resin
 
@@ -318,7 +343,9 @@ whichever model was added first.
 so there is nothing to install. Read the PNG to check a plate's contents before
 recording them; it settles questions the filename cannot.
 
-`.ctb` files are encrypted and carry no readable preview.
+`.ctb` files carry a preview too, but only UVtools can get at it, and it needs
+the whole file — so a ctb preview costs a full download (~30s) where a goo one
+costs a 195 KB range request.
 
 ### A plate holds more than its name says
 

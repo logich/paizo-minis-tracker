@@ -8,7 +8,8 @@ Two formats turn up on the Mars 5 Ultra:
         parameters. Fully readable.
   .ctb  Chitubox's format. The ones this printer holds are the encrypted
         variant (magic 0x12FD0107) — everything past byte 0x30 is ciphertext,
-        so only what the slicer put in the filename can be recovered.
+        so nothing but the filename is readable by us directly. UVtools can
+        decrypt them, and is used when it is available; see uvtools_properties.
 
 Field offsets below were located empirically and checked against files whose
 filenames encode their own layer height and exposure.
@@ -22,8 +23,12 @@ settings are not present in the file.
 """
 
 import re
+import shutil
 import struct
+import subprocess
+import tempfile
 import urllib.request
+from pathlib import Path
 
 GOO_HEADER_BYTES = 195_500          # enough to cover every field we read
 GOO_MAGIC = b"V3.0"
@@ -60,6 +65,83 @@ FROM_NAME = re.compile(
     r"_(?P<layer>\d\.\d{3})_(?P<exposure>\d\.\d{3})_"
     r"(?P<y>\d{4})_(?P<mo>\d{2})_(?P<d>\d{2})_(?P<h>\d{2})_(?P<mi>\d{2})\.(goo|ctb)$",
     re.IGNORECASE)
+
+
+
+UVTOOLS = Path(__file__).resolve().parent.parent / "uvtools" / "UVtoolsCmd"
+
+# UVtools property name -> the name this module uses.
+UVTOOLS_FIELDS = {
+    "LayerHeight": "layer_height_mm",
+    "ExposureTime": "exposure_s",
+    "BottomExposureTime": "bottom_exposure_s",
+    "BottomLayerCount": "bottom_layers",
+    "LayerCount": "total_layers",
+    "MaterialName": "resin_profile",
+    "MachineName": "printer_name",
+    "LiftHeight": "lift_height_mm",
+    "LiftSpeed": "lift_speed",
+    "RetractSpeed": "retract_speed",
+    "PrintTime": "print_time_s",
+    "MaterialGrams": "grams",
+}
+
+
+def uvtools_available():
+    return UVTOOLS.exists()
+
+
+def uvtools_properties(local_path):
+    """Decrypt a .ctb with UVtools and return the properties we track.
+
+    Needs the whole file locally, unlike the .goo header path — the encrypted
+    layout puts what we want behind the ciphertext.
+    """
+    if not uvtools_available():
+        return {}
+    # UVtoolsCmd exits 1 even when print-properties succeeds, so judge it by
+    # whether the output parses rather than by the return code.
+    proc = subprocess.run(
+        [str(UVTOOLS), "--no-progress", "print-properties", str(local_path),
+         "--partial-mode"],
+        capture_output=True, text=True, timeout=300)
+    out = {}
+    for line in proc.stdout.splitlines():
+        m = re.match(r"^(\w+): (.*)$", line.strip())
+        if not m:
+            continue
+        key, raw = m.group(1), m.group(2).strip()
+        if key not in UVTOOLS_FIELDS:
+            continue
+        field = UVTOOLS_FIELDS[key]
+        try:
+            out[field] = int(raw) if field in ("bottom_layers", "total_layers") else float(raw)
+        except ValueError:
+            out[field] = raw           # names stay strings
+    return out
+
+
+def uvtools_thumbnail(local_path, out_path, index=0):
+    """Write a plate thumbnail out of any file UVtools can open."""
+    if not uvtools_available():
+        return None
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run(
+            [str(UVTOOLS), "--no-progress", "extract", str(local_path), tmp,
+             "-c", "Thumbnails"],
+            capture_output=True, text=True, timeout=300)
+        thumb = Path(tmp) / f"Thumbnail{index}.png"
+        if not thumb.exists():
+            return None
+        shutil.copyfile(thumb, out_path)
+        return out_path
+
+
+def download(url, dest):
+    """Fetch a whole sliced file; UVtools cannot work from a range request."""
+    with urllib.request.urlopen(url, timeout=600) as r, open(dest, "wb") as fh:
+        shutil.copyfileobj(r, fh)
+    return dest
 
 
 def fetch_head(source, nbytes):
@@ -103,11 +185,25 @@ def read_goo(source, name=None):
     return out
 
 
-def read_ctb(source, name=None):
+def read_ctb(source, name=None, allow_download=True):
     head = fetch_head(source, 64)
     magic = struct.unpack("<I", head[0:4])[0]
     out = {"format": "ctb", "encrypted": magic == CTB_ENCRYPTED_MAGIC}
     out.update(from_filename(name or str(source)))
+    if out["encrypted"] and uvtools_available() and allow_download:
+        # The whole file has to come down for UVtools to decrypt it.
+        try:
+            if str(source).startswith("http"):
+                with tempfile.NamedTemporaryFile(suffix=".ctb", delete=True) as tmp:
+                    download(str(source), tmp.name)
+                    props = uvtools_properties(tmp.name)
+            else:
+                props = uvtools_properties(source)
+            if props:
+                out.update(props)
+                out["via"] = "uvtools"
+        except Exception:
+            pass
     if not out["encrypted"]:
         # Plaintext CTB keeps its parameters in a fixed header.
         head = fetch_head(source, 256)
