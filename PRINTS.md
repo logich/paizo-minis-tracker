@@ -21,6 +21,9 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2608-01 | 2026-08-30 | Signifer-flotsam-captain-marauder.goo | Elegoo Abs-like 3.0 | 0.03mm | 1.9s | 27.0s | 4 |  |  |  |
+| P2609-04 | 2026-09-01 | 32mm_P0059_Horned_Dragon_Body_WP4_STL.stl_0.030_1.500_2026_09_01_12_24.goo | Elegoo 8K Standard Gray | 0.03mm | 1.5s | 27.0s | 4 |  |  |  |
+| P2609-05 | 2026-09-02 | 32mm_P0089_Cheliax_Naval_Officer_S2P2_STL.stl_0.030_1.500_2026_09_02_08_16.goo | Elegoo 8K Standard Gray | 0.03mm | 1.5s | 27.0s | 4 |  |  |  |
 | P2609-01 | 2026-09-07 | 32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | reprint of P0028 after Brian rejected the original |
 | P2609-02 | 2026-09-08 | 32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | ctb header encrypted; resin and bottom values from the slicer by hand |
 | P2609-03 | 2026-09-08 | 32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | Rigger + Subaquatic Marauder + 12x 25mm bases; 1824 layers; in progress |
@@ -54,7 +57,7 @@ Regenerate the dashboard after any change:
 | P0088_Cheliax_Marine_S2P2 | Cheliax Marine | 25mm | A | printed |  | pass |  |
 | P0088_Cheliax_Marine_S2P2 | Cheliax Marine | 25mm | B | printed |  | pass |  |
 | P0088_Cheliax_Marine_S2P2 | Cheliax Marine | 25mm | C | printed |  | pass |  |
-| P0089_Cheliax_Naval_Officer_S2P2 | Cheliax Naval Officer | 25mm | main | printed |  | pass |  |
+| P0089_Cheliax_Naval_Officer_S2P2 | Cheliax Naval Officer | 25mm | main | review | P2609-05 |  |  |
 | P0090_Cheliax_Naval_Captain_S2P2 | Cheliax Naval Captain | 25mm | main | printed |  | pass |  |
 | P0091_Deep_One_S2P2 | Deep One | 25mm | A | printed |  | pass |  |
 | P0091_Deep_One_S2P2 | Deep One | 25mm | B | printed |  | pass |  |
@@ -111,7 +114,7 @@ Regenerate the dashboard after any change:
 | P0056_Barbarian_Amiri_WP4 | Amiri, Iconic Barbarian | 25mm | main | printed |  | pass |  |
 | P0057_Champion_Seelah_WP4 | Seelah, Iconic Paladin | 25mm | main | printed |  | pass |  |
 | P0058_Investigator_Quinn_WP4 | Quinn, Iconic Investigator | 25mm | main | printed |  | pass |  |
-| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Body | printed |  | pass |  |
+| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Body | review | P2609-04 |  | reprinted 2026-09-01 |
 | P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Rocks | printed |  | pass |  |
 | P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingL | printed |  | pass |  |
 | P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingR | printed |  | pass |  |
@@ -124,7 +127,7 @@ Regenerate the dashboard after any change:
 | P0082_Bosun_S2P1 | Bosun | 25mm | A | printed |  | pass |  |
 | P0082_Bosun_S2P1 | Bosun | 25mm | B | printed |  | pass |  |
 | P0082_Bosun_S2P1 | Bosun | 25mm | C | printed |  | pass |  |
-| P0083_Marine_Marauder_S2P1 | Marine Marauder | 25mm | main | printed |  | pass |  |
+| P0083_Marine_Marauder_S2P1 | Marine Marauder | 25mm | main | review | P2608-01 |  |  |
 | P0084_Ocean_Nomad_S2P1 | Ocean Nomad | 25mm | main | printed |  | pass |  |
 | P0085_Grindylow_S2P1 | Grindylow | 25mm | A | printed |  | pass |  |
 | P0085_Grindylow_S2P1 | Grindylow | 25mm | B | printed |  | pass |  |
@@ -181,7 +184,7 @@ Regenerate the dashboard after any change:
 | 2-P0041_Rekhep_Archon_WP2 | Rekhep Archon | 50mm | main | printed |  | pass |  |
 | 3-P0026_Andoran Golden Legionnaire_S1P1 | Andoran Golden Legionnaire | 25mm | main | printed |  | pass |  |
 | 3-P0027_Andoran Steel Falcon_S1P1 | Andoran Steel Falcon | 25mm | main | printed |  | pass |  |
-| 3-P0028_Hellknight Signifer_S1P1 | Hellknight Signifer | 25mm | main | printed | P2609-01 |  | reprinted 2026-09-07 on P2609-01 after Brian rejected the first print; awaiting his review |
+| 3-P0028_Hellknight Signifer_S1P1 | Hellknight Signifer | 25mm | main | review | P2609-01 |  | Brian rejected the first print: fingers of the left hand did not print properly. Reprinted 2026-09-07 on P2609-01 |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm L | printed |  | pass |  |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm R | printed |  | pass |  |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm head | printed |  | pass |  |

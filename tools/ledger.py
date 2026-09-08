@@ -12,6 +12,7 @@ Model/Mini/Base columns are derived from reference/models.tsv and are
 refreshed on every scan, so don't hand-edit those.
 """
 
+import datetime
 import html
 import re
 import sys
@@ -316,7 +317,8 @@ def write_ledger(preamble, plates, sections):
     lines = ["# Paizo Minis — Print Tracker", ""]
     lines += preamble or DEFAULT_PREAMBLE
     lines += ["", "## Plates", ""]
-    lines += render_table(PLATE_COLUMNS, plates)
+    lines += render_table(PLATE_COLUMNS,
+                          sorted(plates, key=lambda p: (p.get("Date", ""), p.get("ID", ""))))
     for name, rows in sections.items():
         lines += ["", f"## {name}", ""]
         lines += render_table(COLUMNS, rows.values())
@@ -638,13 +640,25 @@ def cmd_build():
 # sliced files
 
 
-def printer_files(base=PRINTER_URL):
-    """List the sliced files the printer is holding."""
+def printer_index(base=PRINTER_URL):
+    """Map each sliced file the printer holds to its modification time.
+
+    Files named by hand ("Signifer-flotsam-captain-marauder.goo") carry no date
+    in the filename, so the index's mtime is the only thing that dates them.
+    """
     with urllib.request.urlopen(base, timeout=30) as r:
         page = r.read().decode("utf-8", "replace")
-    names = [urllib.parse.unquote(h)
-             for h in re.findall(r'(?<=<a href=")[^"]+(?=")', page)]
-    return [n for n in names if n.lower().endswith((".goo", ".ctb"))]
+    out = {}
+    for href, mtime in re.findall(r'<a href="([^"]+)">[^<]*</a></td><td name=(-?\d+)>', page):
+        name = urllib.parse.unquote(href)
+        if name.lower().endswith((".goo", ".ctb")):
+            out[name] = int(mtime)
+    return out
+
+
+def printer_files(base=PRINTER_URL):
+    """List the sliced files the printer is holding."""
+    return list(printer_index(base))
 
 
 def describe(source, name):
@@ -653,6 +667,20 @@ def describe(source, name):
         return sliced.read(source, name=name)
     except Exception as exc:
         return {"format": "?", "error": str(exc)}
+
+
+def mtime_date(source, name):
+    """Fall back to the file's modification time when the name has no date."""
+    try:
+        if str(source).startswith("http"):
+            stamp = printer_index().get(urllib.parse.unquote(name))
+            if stamp is None:
+                return ""
+        else:
+            stamp = Path(source).stat().st_mtime
+        return datetime.date.fromtimestamp(stamp).isoformat()
+    except Exception:
+        return ""
 
 
 def next_plate_id(plates, date):
@@ -704,7 +732,10 @@ def cmd_plate(source, plate_id=None, resin=None, notes=None):
         return
 
     preamble, plates, sections = parse_ledger()
-    date = (info.get("sliced") or "")[:10] or "?"
+    date = (info.get("sliced") or "")[:10]
+    if not date:
+        date = mtime_date(source, name)
+    date = date or "?"
     row = {c: "" for c in PLATE_COLUMNS}
     row["ID"] = plate_id or next_plate_id(plates, date if date != "?" else "2026-01")
     row["Date"] = date
