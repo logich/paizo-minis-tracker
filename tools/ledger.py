@@ -527,7 +527,9 @@ def cmd_build():
             if info:
                 jpgs = sorted(Path(ROOT / info["dir"]).glob("Release_*.jpg"))
                 if jpgs:
-                    src = jpgs[0].relative_to(ROOT).as_posix()
+                    # Percent-encode: these paths contain spaces, which are fine
+                    # over file:// but not valid in an HTTP request path.
+                    src = urllib.parse.quote(jpgs[0].relative_to(ROOT).as_posix())
                     thumb = f'<img src="{e(src)}" alt="" loading="lazy">'
             chips = []
             for p in sorted(parts, key=lambda r: r["Part"]):

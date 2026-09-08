@@ -183,6 +183,18 @@ nothing else.
 Always run `python3 tools/ledger.py build` after changing the generator, and
 open the result to confirm.
 
+## Serving the dashboard
+
+nginx serves `/var/www/html` on port 80. `/var/www/html/minis` is a symlink to
+this repository, and `index.html` here is a symlink to `dashboard.html`, so
+<http://elite/minis/> serves the current dashboard with its thumbnails. Creating
+the `/var/www/html` symlink needs root; everything else does not, and the repo is
+already world-readable so `www-data` needs no permission changes.
+
+Thumbnail `src` attributes are percent-encoded — release directories contain
+spaces, which are fine over `file://` but not valid in an HTTP path. Keep the
+`urllib.parse.quote` call in `cmd_build` if you touch the image handling.
+
 ## Reading print settings off the printer
 
 The Mars 5 Ultra serves a plain directory index at
