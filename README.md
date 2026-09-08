@@ -123,12 +123,13 @@ today's plate, C had a failed base" — and it will edit `PRINTS.md` and rebuild
 
 ## Serving it on the home server
 
-**The dashboard is live at <http://elite/minis/dashboard.html>.**
+**The dashboard is live at <http://elite.internal/minis/dashboard.html>.**
 
-That is the URL to open from a phone or any other machine on the network —
-thumbnails only render when the page is served from the repository root, so a
-copy of the file on its own will show empty cards. <http://elite/minis/> also
-works, via the `index.html` symlink.
+Use the fully qualified name — the bare `elite` only resolves on the LAN, while
+`elite.internal` also works over VPN. That is the URL to open from a phone or
+any other machine; thumbnails only render when the page is served from the
+repository root, so a copy of the file on its own will show empty cards.
+<http://elite.internal/minis/> also works, via the `index.html` symlink.
 
 The setup, for reference: nginx runs on this box with `root /var/www/html` and
 an `index index.html` directive, so a single symlink was enough — no nginx
@@ -139,8 +140,9 @@ sudo ln -s /pool/Work/paizo-minis /var/www/html/minis
 ```
 
 `index.html` in the repository is a symlink to `dashboard.html`, which is what
-makes the bare directory URL work. If `elite` ever stops resolving, the server
-is at `192.168.1.201`.
+makes the bare directory URL work. nginx is the `default_server` with
+`server_name _`, so it answers on any hostname. If DNS fails entirely, the
+server is at `192.168.1.201`.
 
 This exposes the whole repository over the LAN. Directory listing is off
 (`try_files $uri $uri/ =404`), so nobody can browse it, but the STLs are

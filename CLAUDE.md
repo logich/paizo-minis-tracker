@@ -185,10 +185,12 @@ open the result to confirm.
 
 ## Serving the dashboard
 
-**Live at <http://elite/minis/dashboard.html>** (`http://elite/minis/` also
-works). Point the user there rather than sending the file when they are on a
-phone — thumbnails are relative paths and only resolve when the page is served
-from the repository root.
+**Live at <http://elite.internal/minis/dashboard.html>**
+(`http://elite.internal/minis/` also works). Always use the fully qualified
+`elite.internal`, not the bare `elite`: the short name only resolves on the LAN,
+the FQDN also resolves over VPN. Point the user at this URL rather than sending
+the file when they are on a phone — thumbnails are relative paths and only
+resolve when the page is served from the repository root.
 
 `build` writes to the served location directly, so the URL is current the moment
 `build` finishes. Nothing needs deploying or copying.
@@ -196,7 +198,8 @@ from the repository root.
 The setup: nginx serves `/var/www/html` on port 80; `/var/www/html/minis` is a
 root-owned symlink to this repository, and `index.html` here is a symlink to
 `dashboard.html`. The repo is world-readable, so `www-data` needs no permission
-changes. The server is `192.168.1.201` if the hostname stops resolving.
+changes. nginx is the `default_server` with `server_name _`, so it answers on
+any hostname. The server is `192.168.1.201` if DNS fails entirely.
 
 Thumbnail `src` attributes are percent-encoded — release directories contain
 spaces, which are fine over `file://` but not valid in an HTTP path. Keep the
