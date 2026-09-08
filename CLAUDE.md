@@ -292,6 +292,21 @@ names the resin (`Elegoo Abs-like 3.0`, `Dragon Resin Durable Grey`,
 Resin column from it. It records the profile the slice was made with, not proof
 of what was in the vat — correct it by hand if they differed.
 
+## Seeing what a plate actually held
+
+`.goo` files embed two rendered previews of the build plate — 116x116 and
+290x290, RGB565, big-endian, at offsets 194 and 27108. This is the only
+reliable way to tell what a plate held, since Chitubox names the file after
+whichever model was added first.
+
+    python3 tools/ledger.py preview "<file|url|printer-filename>" [out.png] [small|big]
+
+`tools/preview.py` does the decoding and writes the PNG with zlib and struct,
+so there is nothing to install. Read the PNG to check a plate's contents before
+recording them; it settles questions the filename cannot.
+
+`.ctb` files are encrypted and carry no readable preview.
+
 ### A plate holds more than its name says
 
 Chitubox names the file after whichever model was added to the plate **first**.

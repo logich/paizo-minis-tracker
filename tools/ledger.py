@@ -803,6 +803,27 @@ def cmd_assign(plate, stage, targets):
         print(f"  ... and {len(changed) - 6} more")
 
 
+def cmd_preview(source, out_path=None, which="big"):
+    """Write the plate preview embedded in a .goo to a PNG.
+
+    The only reliable way to see what a plate actually held, since the filename
+    names just the first model added to it.
+    """
+    import preview as preview_mod
+    name = source.rsplit("/", 1)[-1]
+    if not source.startswith("http") and not Path(source).exists():
+        source = PRINTER_URL + urllib.parse.quote(name)
+    if not name.lower().endswith(".goo"):
+        print("only .goo files carry a preview; ctb is encrypted")
+        return
+    out_path = out_path or re.sub(r"[^\w.-]", "_", name)[:60] + ".png"
+    try:
+        head = __import__("sliced").fetch_head(source, __import__("sliced").GOO_HEADER_BYTES)
+        print("wrote", preview_mod.extract(head, out_path, which))
+    except Exception as exc:
+        print(f"could not extract a preview from {name}: {exc}")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "scan":
@@ -817,6 +838,13 @@ if __name__ == "__main__":
             print("usage: ledger.py assign <plate-id|-> <stage> <model-or-release>...")
             sys.exit(2)
         cmd_assign(sys.argv[2], sys.argv[3], sys.argv[4:])
+    elif cmd == "preview":
+        if len(sys.argv) < 3:
+            print("usage: ledger.py preview <file|url|printer-filename> [out.png] [small|big]")
+            sys.exit(2)
+        cmd_preview(sys.argv[2],
+                    sys.argv[3] if len(sys.argv) > 3 else None,
+                    sys.argv[4] if len(sys.argv) > 4 else "big")
     elif cmd == "printer":
         cmd_printer()
     elif cmd == "plate":
