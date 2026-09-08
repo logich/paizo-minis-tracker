@@ -23,16 +23,17 @@ Regenerate the dashboard after any change:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | P2609-01 | 2026-09-07 | 32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  |
 | P2609-02 | 2026-09-08 | 32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | ctb header encrypted; resin and bottom values from the slicer by hand |
+| P2609-03 | 2026-09-08 | 32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | Rigger + Subaquatic Marauder + 12x 25mm bases; 1824 layers; in progress |
 
 ## 202609 September Release
 
 | Model | Mini | Base | Part | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | sliced | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | sliced | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | sliced | P2609-02 |  |  |
-| P0095_Rigger_S2P3 | Rigger | 25mm | main | todo |  |  |  |
-| P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | todo |  |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | printed | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | printed | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | printed | P2609-02 |  |  |
+| P0095_Rigger_S2P3 | Rigger | 25mm | main | sliced | P2609-03 |  |  |
+| P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | sliced | P2609-03 |  |  |
 | P0097_Draugr_S2P3 | Draugr | 25mm | A | todo |  |  |  |
 | P0097_Draugr_S2P3 | Draugr | 25mm | B | todo |  |  |  |
 | P0097_Draugr_S2P3 | Draugr | 25mm | C | todo |  |  |  |
