@@ -192,7 +192,10 @@ re-adds the parts as `todo`.
 ## File naming inside a model directory
 
 - `32mm_<code>_STL.stl` — the 32 mm mesh; **this is what gets printed**.
-- `32mm_<code>_SUP.stl` — same mesh, pre-supported. Prefer it when it exists.
+- `32mm_<code>_SUP.stl` — same mesh, pre-supported by the vendor. Usually the
+  one to print, but not always: the Horned Dragon body detached under peel
+  force on the `_SUP` mesh and only printed once it was re-supported from the
+  raw `_STL`. A slicer filename ending `_STL` generally means exactly that.
 - `32mm_<code>_PRE.stl` — the same thing under a different name; only P0094
   Athamaru A uses it. Treated as pre-supported too.
 - Files without the `32mm_` prefix are the full-size versions — not used here.
