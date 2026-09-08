@@ -364,6 +364,37 @@ def cmd_scan(seed_printed_before=None):
 # status
 
 
+def variant_of(part):
+    """The miniature a part belongs to, when a model ships several sculpts.
+
+    Multi-sculpt models label parts by a leading letter — `A`, or `A Body` and
+    `A Cape` for one that also comes in pieces. Everything else (`Body`,
+    `Tentacles L`, `Wing R`, `main`) is a component of a single miniature.
+    Returns "" when the part carries no variant letter.
+    """
+    head = part.split()[0] if part.split() else ""
+    return head if len(head) == 1 and head.isalpha() else ""
+
+
+def bases_needed(rows):
+    """Bases still to print for these rows, counted per miniature.
+
+    One base per assembled mini, not per part: Gutaki's body and two tentacle
+    arms make one mini on one 50mm base, while Athamaru A/B/C are three minis
+    needing three 25mm bases.
+    """
+    pending = {}
+    for (model, part), r in rows.items():
+        if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE):
+            continue
+        pending.setdefault((model, r.get("Base", "?")), set()).add(variant_of(part))
+    out = Counter()
+    for (model, base), variants in pending.items():
+        named = {v for v in variants if v}
+        out[base] += len(named) if named else 1
+    return out
+
+
 def stage_rank(stage):
     try:
         return STAGES.index(stage)
@@ -382,10 +413,7 @@ def cmd_status():
     print("-" * 78)
     for release, rows in sections.items():
         done = sum(1 for r in rows.values() if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
-        bases = Counter()
-        for key, r in rows.items():
-            if stage_rank(r["Stage"]) < stage_rank(DONE_STAGE):
-                bases[r.get("Base", "?")] += 1
+        bases = bases_needed(rows)
         grand["done"] += done
         grand["all"] += len(rows)
         base_txt = ", ".join(f"{n}x {b}" for b, n in sorted(bases.items())) or "-"
@@ -474,9 +502,7 @@ def cmd_build():
                 if r.get("Result") == "fail")
     remaining_bases = Counter()
     for rows in sections.values():
-        for r in rows.values():
-            if stage_rank(r["Stage"]) < stage_rank(DONE_STAGE):
-                remaining_bases[r.get("Base", "?")] += 1
+        remaining_bases.update(bases_needed(rows))
 
     e = html.escape
     # A standalone file, not an embedded fragment: it needs a real document
@@ -502,8 +528,7 @@ def cmd_build():
         r_done = sum(1 for r in rows.values()
                      if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
         pct = round(100 * r_done / len(rows)) if rows else 0
-        bases = Counter(r.get("Base", "?") for r in rows.values()
-                        if stage_rank(r["Stage"]) < stage_rank(DONE_STAGE))
+        bases = bases_needed(rows)
         out.append("<section>")
         out.append(f'<div class="rel"><h2>{e(release)}</h2>'
                    f'<span class="count">{r_done} of {len(rows)} parts · {pct}%</span></div>')

@@ -59,6 +59,24 @@ Releases sort newest-first everywhere, by the `YYYYMM` prefix on the directory
 name; anything without one sorts last. Applied in `write_ledger`, so every write
 normalises it.
 
+## How "bases still needed" is counted
+
+One base per assembled **miniature**, not per part. `bases_needed()` groups a
+release's unprinted rows by model and base size, then counts distinct *variants*
+within each model:
+
+- A part whose label starts with a single letter (`A`, or `A Body` / `A Cape`
+  for a multi-sculpt model that also comes in pieces) belongs to that variant.
+  Athamaru A/B/C are three separate minis, so three 25 mm bases.
+- Anything else (`Body`, `Tentacles L`, `Wing R`, `main`) is a component of one
+  miniature. Gutaki's body and two tentacle arms assemble into a single mini on
+  a single 50 mm base.
+
+`variant_of()` implements the rule. It was validated against the source sheet,
+which annotates multi-sculpt models as "(3 Models)": it agrees on all 79 models
+that appear there. If a future release breaks that pattern, fix `variant_of` and
+re-run the check rather than adjusting counts by hand.
+
 ## Updating the tracker when the user reports results
 
 Edit `PRINTS.md` directly, then rebuild. Typical flow:
