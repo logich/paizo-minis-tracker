@@ -1,0 +1,14 @@
+# The model library itself is ~18 GB of vendor STLs and slicer projects.
+# Only the tracker, its reference data and its generated dashboard are versioned.
+*.stl
+*.lys
+*.ctp
+*.chitubox
+*.pdf
+*.jpg
+*.png
+*_autosave/
+Thumbs.db
+.DS_Store
+__pycache__/
+*.log

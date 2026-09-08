@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paizo Minis Print Tracker</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f5f3;--card:#fff;--ink:#1b1a18;--muted:#6c6862;
+--line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--todo:#c9c4bc;--chip:#efece7}
+@media(prefers-color-scheme:dark){:root{--bg:#16151a;--card:#1f1e25;--ink:#eceaf0;
+--muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--todo:#3d3947;--chip:#2a2833}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:0 0 28px;font-size:14px}
+.totals{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 16px;min-width:112px}
+.stat b{display:block;font-size:24px;letter-spacing:-.02em}
+.stat span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+section{margin-bottom:38px}
+.rel{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.rel h2{font-size:17px;margin:0;letter-spacing:-.01em}
+.rel .count{color:var(--muted);font-size:13px}
+.bar{height:6px;border-radius:3px;background:var(--todo);overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bases{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.bases b{color:var(--ink);font-weight:600}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(268px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 14px;display:flex;gap:12px}
+.card img{width:60px;height:60px;object-fit:cover;border-radius:7px;flex:0 0 60px;
+background:var(--chip)}
+.card .body{min-width:0;flex:1}
+.name{font-weight:600;font-size:14px;margin-bottom:1px}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+color:var(--muted);margin-bottom:7px;word-break:break-all}
+.parts{display:flex;flex-wrap:wrap;gap:4px}
+.part{font-size:11.5px;padding:2px 7px;border-radius:999px;background:var(--chip);
+border:1px solid var(--line);white-space:nowrap}
+.part.done{background:color-mix(in srgb,var(--ok) 18%,transparent);
+border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.part.fail{background:color-mix(in srgb,var(--fail) 18%,transparent);
+border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
+.badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
+background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
+border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+font-weight:600}
+tr:last-child td{border-bottom:0}
+footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);
+padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Paizo Minis &#8212; Print Tracker</h1>
+<p class="sub">32&nbsp;mm prints for the Pathfinder game &#183; Elegoo Mars 5 Ultra &#183; generated from PRINTS.md</p>
+<div class="totals">
+<div class="stat"><b>170/187</b><span>parts printed</span></div>
+<div class="stat"><b>17</b><span>remaining</span></div>
+<div class="stat"><b>0</b><span>failures</span></div>
+<div class="stat"><b>11</b><span>25mm bases left</span></div>
+<div class="stat"><b>3</b><span>50mm bases left</span></div>
+<div class="stat"><b>3</b><span>75mm bases left</span></div>
+</div>
+<section>
+<div class="rel"><h2>202609 September Release</h2><span class="count">0 of 17 parts &#183; 0%</span></div>
+<div class="bar"><i style="width:0%"></i></div>
+<div class="bases">Bases still needed: <b>11</b>&times; 25mm &#183; <b>3</b>&times; 50mm &#183; <b>3</b>&times; 75mm</div>
+<div class="grid">
+<div class="card"><img src="202609 September Release/P0094_Athamaru_S2P3/Release_P0094_Athamaru_A_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Athamaru<span class="badge">25mm</span></div><div class="code">P0094_Athamaru_S2P3</div><div class="parts"><span class="part" title="P2609-02">A &#183; sliced</span><span class="part" title="P2609-02">B &#183; sliced</span><span class="part" title="P2609-02">C &#183; sliced</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0095_Rigger_S2P3/Release_P0095_Rigger_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Rigger<span class="badge">25mm</span></div><div class="code">P0095_Rigger_S2P3</div><div class="parts"><span class="part" title="">main &#183; todo</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0096_Subaquatic_Marauder_S2P3/Release_P0096_Subaquatic_Marauder_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Subaquatic Marauder<span class="badge">25mm</span></div><div class="code">P0096_Subaquatic_Marauder_S2P3</div><div class="parts"><span class="part" title="">main &#183; todo</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0097_Draugr_S2P3/Release_P0097_Draugr_A_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Draugr<span class="badge">25mm</span></div><div class="code">P0097_Draugr_S2P3</div><div class="parts"><span class="part" title="">A &#183; todo</span><span class="part" title="">B &#183; todo</span><span class="part" title="">C &#183; todo</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0098_Reefclaw_S2P3/Release_P0098_Reefclaw_A_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Reefclaw<span class="badge">25mm</span></div><div class="code">P0098_Reefclaw_S2P3</div><div class="parts"><span class="part" title="">A &#183; todo</span><span class="part" title="">B &#183; todo</span><span class="part" title="">C &#183; todo</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0099_Gutaki_S2P3/Release_P0099_Gutaki_S2P3.jpg" alt="" loading="lazy"><div class="body"><div class="name">Gutaki<span class="badge">50mm</span></div><div class="code">P0099_Gutaki_S2P3</div><div class="parts"><span class="part" title="">Body &#183; todo</span><span class="part" title="">Tentacles L &#183; todo</span><span class="part" title="">Tentacles R &#183; todo</span></div></div></div>
+<div class="card"><img src="202609 September Release/P0100_Scylla_S2PB/Release_P0100_Scylla_S2PB.jpg" alt="" loading="lazy"><div class="body"><div class="name">Scylla<span class="badge">75mm</span></div><div class="code">P0100_Scylla_S2PB</div><div class="parts"><span class="part" title="">Body &#183; todo</span><span class="part" title="">Full &#183; todo</span><span class="part" title="">Tentacles &#183; todo</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202608 August Release</h2><span class="count">12 of 12 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Cheliax Marine<span class="badge">25mm</span></div><div class="code">P0088_Cheliax_Marine_S2P2</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Cheliax Naval Officer<span class="badge">25mm</span></div><div class="code">P0089_Cheliax_Naval_Officer_S2P2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Cheliax Naval Captain<span class="badge">25mm</span></div><div class="code">P0090_Cheliax_Naval_Captain_S2P2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Deep One<span class="badge">25mm</span></div><div class="code">P0091_Deep_One_S2P2</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Flotsam Terror<span class="badge">25mm</span></div><div class="code">P0092_Flotsam_Terror_S2P2</div><div class="parts"><span class="part done" title="">Arms &#183; printed</span><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Full &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Living Waterfall<span class="badge">50mm</span></div><div class="code">P0093_Living_Waterfall_S2P2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202608 August extras sale</h2><span class="count">34 of 34 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">PQ0030_Hellknight_Chargers<span class="badge">50mm</span></div><div class="code">PQ0030_Hellknight_Chargers</div><div class="parts"><span class="part done" title="">PQ0030A1 &#183; printed</span><span class="part done" title="">PQ0030A2 &#183; printed</span><span class="part done" title="">PQ0030B1 &#183; printed</span><span class="part done" title="">PQ0030B2 &#183; printed</span><span class="part done" title="">PQ0030C1 &#183; printed</span><span class="part done" title="">PQ0030C2 &#183; printed</span><span class="part done" title="">PQ0030D &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">PQ0041_Dread_Zombie<span class="badge">?</span></div><div class="code">PQ0041_Dread_Zombie</div><div class="parts"><span class="part done" title="">Zombie &#183; printed</span><span class="part done" title="">Zombie (32mm) &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Augustana_irregulars_A_Supported<span class="badge">?</span></div><div class="code">Paizo_Augustana_irregulars_A_Supported</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Grave_Knight_Supported<span class="badge">?</span></div><div class="code">Paizo_Grave_Knight_Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Hellknight_Sharpshooters_Supported<span class="badge">?</span></div><div class="code">Paizo_Hellknight_Sharpshooters_Supported</div><div class="parts"><span class="part done" title="">SharpshootersA3 &#183; printed</span><span class="part done" title="">SharpshootersB3 &#183; printed</span><span class="part done" title="">SharpshootersC3 &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Ironkettles_wall_Supported<span class="badge">?</span></div><div class="code">Paizo_Ironkettles_wall_Supported</div><div class="parts"><span class="part done" title="">wallA &#183; printed</span><span class="part done" title="">wallB &#183; printed</span><span class="part done" title="">wallC &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Merandals_Hawks_Supported<span class="badge">?</span></div><div class="code">Paizo_Merandals_Hawks_Supported</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_Signifers_Supported<span class="badge">?</span></div><div class="code">Paizo_Signifers_Supported</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_bastions_Supported<span class="badge">?</span></div><div class="code">Paizo_bastions_Supported</div><div class="parts"><span class="part done" title="">A supp &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_cave_bear_Supported<span class="badge">?</span></div><div class="code">Paizo_cave_bear_Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_elk_Supported<span class="badge">?</span></div><div class="code">Paizo_elk_Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_fire_serpent__Supported<span class="badge">?</span></div><div class="code">Paizo_fire_serpent__Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_goblin_spellcaster_Supported<span class="badge">?</span></div><div class="code">Paizo_goblin_spellcaster_Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_orc_malee_Supported<span class="badge">?</span></div><div class="code">Paizo_orc_malee_Supported</div><div class="parts"><span class="part done" title="needs supports">32mm Paizo PFQ orc malee &#183; printed &#9888;</span><span class="part done" title="">Paizo PFQ orc malee Supported &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202607 July release</h2><span class="count">26 of 26 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Fumbus, Iconic Alchemist<span class="badge">25mm</span></div><div class="code">P0055_Alchemist_Fumbus_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Amiri, Iconic Barbarian<span class="badge">25mm</span></div><div class="code">P0056_Barbarian_Amiri_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Seelah, Iconic Paladin<span class="badge">25mm</span></div><div class="code">P0057_Champion_Seelah_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Quinn, Iconic Investigator<span class="badge">25mm</span></div><div class="code">P0058_Investigator_Quinn_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Horned Dragon<span class="badge">50mm</span></div><div class="code">P0059_Horned_Dragon_WP4</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Rocks &#183; printed</span><span class="part done" title="">WingL &#183; printed</span><span class="part done" title="">WingR &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Vrolikai Demon<span class="badge">50mm</span></div><div class="code">P0060_Vrolikai_Demon_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Goblin Pyro<span class="badge">25mm</span></div><div class="code">P0061_Goblin_Pyro_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Goblin Warrior<span class="badge">25mm</span></div><div class="code">P0062_Goblin_Warrior_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Goblin Commando<span class="badge">25mm</span></div><div class="code">P0063_Goblin_Commando_WP4</div><div class="parts"><span class="part done" title="">Barrel &#183; printed</span><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Goblin Chanter<span class="badge">25mm</span></div><div class="code">P0064_Goblin_Chanter_WP4</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Bosun<span class="badge">25mm</span></div><div class="code">P0082_Bosun_S2P1</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Marine Marauder<span class="badge">25mm</span></div><div class="code">P0083_Marine_Marauder_S2P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Ocean Nomad<span class="badge">25mm</span></div><div class="code">P0084_Ocean_Nomad_S2P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Grindylow<span class="badge">25mm</span></div><div class="code">P0085_Grindylow_S2P1</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Sea Hag<span class="badge">25mm</span></div><div class="code">P0086_Sea_Hag_S2P1</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Full &#183; printed</span><span class="part done" title="">Tentacles &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Sargassum Heap<span class="badge">50mm</span></div><div class="code">P0087_Sargassum_Heap_S2P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202606 June Release</h2><span class="count">19 of 19 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Brastlewark Snarecrafter<span class="badge">25mm</span></div><div class="code">P0043_Brastlewark_Snarecrafter_S1P3</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Order of the Gate Hellknight<span class="badge">25mm</span></div><div class="code">P0044_Order_of_the_Gate_Hellknight_S1P3</div><div class="parts"><span class="part done" title="">A Arm &#183; printed</span><span class="part done" title="">A Body &#183; printed</span><span class="part done" title="">A Cape &#183; printed</span><span class="part done" title="">B Arm &#183; printed</span><span class="part done" title="">B Body &#183; printed</span><span class="part done" title="">C Arm &#183; printed</span><span class="part done" title="">C Body &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Twilight Talon<span class="badge">25mm</span></div><div class="code">P0045_Twilight_Talon_S1P3</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Skeletal Hellknight Bonesinger<span class="badge">25mm</span></div><div class="code">P0046_Skeletal_Hellknight_Bonesinger_S1P3</div><div class="parts"><span class="part done" title="">Fixed Hand &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Strix<span class="badge">25mm</span></div><div class="code">P0047_Strix_S1P3</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Nessari (Tyrant Devil)<span class="badge">50mm</span></div><div class="code">P0048_Nessari_Tyrant_Devil_S1P3</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">WingL &#183; printed</span><span class="part done" title="">WingR &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Abrogail Adamant<span class="badge">75mm</span></div><div class="code">P0049_Abrogail Adamant_S1PB</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Legs &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Abrogail Thrune<span class="badge">25mm</span></div><div class="code">P0050_Abrogail Thrune_S1PB</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202605 May Release</h2><span class="count">35 of 35 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Andoran Soldier<span class="badge">25mm</span></div><div class="code">1-P0033_Andoran_Soldier_S1P2</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Chelaxian Soldier<span class="badge">25mm</span></div><div class="code">1-P0034_Cheliax_Soldier_S1P2</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Gylou (Handmaiden Devil)<span class="badge">25mm</span></div><div class="code">1-P0035_Gylou_S1P2</div><div class="parts"><span class="part done" title="">body &#183; printed</span><span class="part done" title="">tentacles &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Phistophilus (Contract Devil)<span class="badge">25mm</span></div><div class="code">1-P0036_Phistophilus_S1P2</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Horn L &#183; printed</span><span class="part done" title="">Horn R &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Talmandor<span class="badge">50mm</span></div><div class="code">2-P0037_Talmandor_S1P2</div><div class="parts"><span class="part done" title="">Wing &#183; printed</span><span class="part done" title="">body &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Balisse Angel<span class="badge">25mm</span></div><div class="code">2-P0038_Balisse_Angel_WP2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Hellbreaker<span class="badge">25mm</span></div><div class="code">2-P0039_Hellbreaker_S1P2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Leukodaemon<span class="badge">50mm</span></div><div class="code">2-P0040_Leukodaemon_WP2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Rekhep Archon<span class="badge">50mm</span></div><div class="code">2-P0041_Rekhep_Archon_WP2</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Andoran Golden Legionnaire<span class="badge">25mm</span></div><div class="code">3-P0026_Andoran Golden Legionnaire_S1P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Andoran Steel Falcon<span class="badge">25mm</span></div><div class="code">3-P0027_Andoran Steel Falcon_S1P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Hellknight Signifer<span class="badge">25mm</span></div><div class="code">3-P0028_Hellknight Signifer_S1P1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Arboreal Warden<span class="badge">50mm</span></div><div class="code">4-P0032_Arboreal_Warden_WP2</div><div class="parts"><span class="part done" title="">arm L &#183; printed</span><span class="part done" title="">arm R &#183; printed</span><span class="part done" title="">arm head &#183; printed</span><span class="part done" title="">body &#183; printed</span><span class="part done" title="">shoulder &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Vidileth Alghollthu<span class="badge">50mm</span></div><div class="code">4-P0042_Vidileth_WP2_STL</div><div class="parts"><span class="part done" title="">main &#183; printed</span><span class="part done" title="">with Base &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Ort (Druge Devil)<span class="badge">25mm</span></div><div class="code">5-P0029_Ort Druge Devil_S1P1</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Sarglagon (Drowning Devil)<span class="badge">50mm</span></div><div class="code">6-P0031_Sarglagon Drowning Devil_S1P1</div><div class="parts"><span class="part done" title="">Arm L &#183; printed</span><span class="part done" title="">Arm R &#183; printed</span><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Tail &#183; printed</span><span class="part done" title="">Tail with Base &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202604 April Release</h2><span class="count">27 of 27 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Ezren, Iconic Wizard<span class="badge">25mm</span></div><div class="code">P0001_Ezren_Iconic_Wizard_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Kyra, Iconic Cleric<span class="badge">25mm</span></div><div class="code">P0002_Kyra_Iconic_Fighter_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Merisiel, Iconic Rogue<span class="badge">25mm</span></div><div class="code">P0003_Merisiel_Iconic_Rogue_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Valeros, Iconic Fighter<span class="badge">25mm</span></div><div class="code">P0004_Valeros_Iconic_Fighter_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Lem, Iconic Bard<span class="badge">25mm</span></div><div class="code">P0005_Lem_Iconic_Bard_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Lini, Iconic Druid (with Droogami)<span class="badge">25mm</span></div><div class="code">P0006_Lini_Iconic_Druid_with_Droogami_WP1</div><div class="parts"><span class="part done" title="">Droogami &#183; printed</span><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Harsk, Iconic Ranger<span class="badge">25mm</span></div><div class="code">P0007_Harsk_Iconic_Ranger_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Feiya, Iconic Witch (with Daji)<span class="badge">25mm</span></div><div class="code">P0008_Feiya_Iconic_Witch_with_Daji_WP1</div><div class="parts"><span class="part done" title="">Fox &#183; printed</span><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Boggard Warrior<span class="badge">25mm</span></div><div class="code">P0012_Boggard Warrior_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Boggard Swampseer<span class="badge">25mm</span></div><div class="code">P0013_Boggard Swampseer_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Boggard Scout<span class="badge">25mm</span></div><div class="code">P0014_Boggard Scout_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Rain in Cloudy Day<span class="badge">25mm</span></div><div class="code">P0015_Rain in Cloudy Day_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Giant Rat<span class="badge">25mm</span></div><div class="code">P0016_Giant Rat_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Giant Spider<span class="badge">25mm</span></div><div class="code">P0017_Giant Spider_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Skeleton Guard<span class="badge">25mm</span></div><div class="code">P0018_Skeleton Guard_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Kobold Warrior<span class="badge">25mm</span></div><div class="code">P0019_Kobold Warrior_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Kobold Trapmaster<span class="badge">25mm</span></div><div class="code">P0020_Kobold Trapmaster_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Kobold Scout<span class="badge">25mm</span></div><div class="code">P0021_Kobold Scout_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Cinder Rat<span class="badge">25mm</span></div><div class="code">P0022_Cinder Rat_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Xulgath Warrior<span class="badge">25mm</span></div><div class="code">P0023_Xulgath Warrior_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Zolgran, Kobold Boss<span class="badge">25mm</span></div><div class="code">P0024_Zolgran Kobold Boss_WP1</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Vordine (Infantry Devil)<span class="badge">25mm</span></div><div class="code">P0030_Vordine Infantry Devil_S1P1</div><div class="parts"><span class="part done" title="">A &#183; printed</span><span class="part done" title="">B &#183; printed</span><span class="part done" title="">C &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Paizo_lurker_in_light__Supported<span class="badge">?</span></div><div class="code">Paizo_lurker_in_light__Supported</div><div class="parts"><span class="part done" title="">main &#183; printed</span></div></div></div>
+</div></section>
+<section>
+<div class="rel"><h2>202604 Dragons</h2><span class="count">17 of 17 parts &#183; 100%</span></div>
+<div class="bar"><i style="width:100%"></i></div>
+<div class="grid">
+<div class="card"><div class="body"><div class="name">Mirage Dragon<span class="badge">75mm</span></div><div class="code">P0009_Mirage Dragon_WP1</div><div class="parts"><span class="part done" title="">Base &#183; printed</span><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Head &#183; printed</span><span class="part done" title="">Wing L &#183; printed</span><span class="part done" title="">Wing R &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Diabolic Dragon<span class="badge">75mm</span></div><div class="code">P0010_Diabolic Dragon_WP1</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Head &#183; printed</span><span class="part done" title="">Wing L &#183; printed</span><span class="part done" title="">Wing R &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Empyreal Dragon<span class="badge">50mm</span></div><div class="code">P0011_Empyreal Dragon_WP1</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Head &#183; printed</span><span class="part done" title="">Tail &#183; printed</span><span class="part done" title="">Wing L &#183; printed</span><span class="part done" title="">Wing R &#183; printed</span></div></div></div>
+<div class="card"><div class="body"><div class="name">Horned Dragon<span class="badge">25mm</span></div><div class="code">P0025_Horned_Dragon_WP1</div><div class="parts"><span class="part done" title="">Body &#183; printed</span><span class="part done" title="">Wing L &#183; printed</span><span class="part done" title="">Wing R &#183; printed</span></div></div></div>
+</div></section>
+<section><h2>Plates</h2>
+<div class="tablewrap"><table><thead><tr><th>ID</th><th>Date</th><th>Slicer file</th><th>Resin</th><th>Layer</th><th>Exposure</th><th>Bottom exp</th><th>Bottom layers</th><th>Lift</th><th>Result</th><th>Notes</th></tr></thead><tbody>
+<tr><td>P2609-01</td><td>2026-09-07</td><td>32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td></td></tr>
+<tr><td>P2609-02</td><td>2026-09-08</td><td>32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb</td><td>Dragon Resin Durable Grey</td><td>0.03mm</td><td>2.8s</td><td>27.0s</td><td>5</td><td></td><td></td><td>ctb header encrypted; resin and bottom values from the slicer by hand</td></tr>
+</tbody></table></div></section>
+<footer>Generated by <code>tools/ledger.py build</code> from <code>PRINTS.md</code>. Base sizes cross-checked against the Paizo Printables reference sheet. &#9888; marks a part with no pre-supported 32&#8239;mm file &#8212; add supports in Chitubox.</footer>
+</div>
+</body></html>
