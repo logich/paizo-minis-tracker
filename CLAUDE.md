@@ -42,9 +42,11 @@ Each release is a `## <release name>` section holding one table:
 - `Mini`, `Base` — **derived; never hand-edit.** `scan` rewrites them from
   `reference/models.tsv` on every run.
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
-- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `primed` →
-  `painted` → `delivered`. Counts as printed from `printed` onward.
+- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `review` →
+  `primed` → `painted` → `delivered`, plus `reprint`. Counts as printed from
+  `printed` onward.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
+  `pass` means *Brian approved it* — see below.
 - `Notes` — free text.
 
 Print settings live on a **plate**, not on a part, because minis are batched.
@@ -76,6 +78,35 @@ within each model:
 which annotates multi-sculpt models as "(3 Models)": it agrees on all 79 models
 that appear there. If a future release breaks that pattern, fix `variant_of` and
 re-run the check rather than adjusting counts by hand.
+
+## Brian's approval gates completion
+
+Brian is the game master these are printed for. He has a better eye for print
+detail than the user does, so **nothing is complete until he has approved it.**
+Never set `Result` to `pass` on the user's say-so that a print finished — that
+tells you the stage, not the verdict.
+
+Two stages carry this:
+
+- **`review`** — cleaned and cured, and now with Brian. Sits between `cured` and
+  `primed`, because he looks at them once they are washed, de-supported and
+  cured and the detail is actually visible.
+- **`reprint`** — Brian rejected it; it has to go back on a plate. Put his
+  reason in `Notes` and set `Result` to `fail`.
+
+`reprint` deliberately ranks *below* `printed` in `STAGES`, so a rejected part
+drops out of the done count and reappears in the print queue. It is also skipped
+by `bases_needed()`: the part printed once, so its base already exists and only
+the miniature needs running again.
+
+`status` lists both queues — what is sitting with Brian, and what he has sent
+back, with his notes.
+
+    python3 tools/ledger.py assign - review P0094_Athamaru_S2P3   # handed over
+    python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3  # rejected
+
+When he approves, move the part on to `primed` (or wherever it goes next) and
+set `Result` to `pass`.
 
 ## Updating the tracker when the user reports results
 

@@ -6,9 +6,9 @@
 <title>Paizo Minis Print Tracker</title>
 <style>
 :root{color-scheme:light dark;--bg:#f6f5f3;--card:#fff;--ink:#1b1a18;--muted:#6c6862;
---line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--todo:#c9c4bc;--chip:#efece7}
+--line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--warn:#b1770f;--todo:#c9c4bc;--chip:#efece7}
 @media(prefers-color-scheme:dark){:root{--bg:#16151a;--card:#1f1e25;--ink:#eceaf0;
---muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--todo:#3d3947;--chip:#2a2833}}
+--muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--warn:#e0a83c;--todo:#3d3947;--chip:#2a2833}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
 font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -42,8 +42,10 @@ color:var(--muted);margin-bottom:7px;word-break:break-all}
 border:1px solid var(--line);white-space:nowrap}
 .part.done{background:color-mix(in srgb,var(--ok) 18%,transparent);
 border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
-.part.fail{background:color-mix(in srgb,var(--fail) 18%,transparent);
+.part.fail,.part.reprint{background:color-mix(in srgb,var(--fail) 18%,transparent);
 border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
+.part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
+border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
 .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
 background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--muted)}
 .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
@@ -64,6 +66,8 @@ padding-top:14px}
 <div class="totals">
 <div class="stat"><b>173/187</b><span>parts printed</span></div>
 <div class="stat"><b>14</b><span>remaining</span></div>
+<div class="stat"><b>0</b><span>awaiting Brian</span></div>
+<div class="stat"><b>0</b><span>to reprint</span></div>
 <div class="stat"><b>0</b><span>failures</span></div>
 <div class="stat"><b>8</b><span>25mm bases left</span></div>
 <div class="stat"><b>1</b><span>50mm bases left</span></div>

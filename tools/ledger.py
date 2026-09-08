@@ -28,8 +28,14 @@ REFERENCE = ROOT / "reference" / "models.tsv"
 # Directories that hold no miniatures.
 SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools", "reference"}
 
-STAGES = ["todo", "sliced", "printed", "cleaned", "cured", "primed", "painted", "delivered"]
-DONE_STAGE = "printed"  # counts as "off the printer"
+# Ordered by how far along a part is. "reprint" ranks below "printed" on
+# purpose: Brian rejected it, so it has to go back on a plate and should show up
+# in the print queue again.
+STAGES = ["todo", "reprint", "sliced", "printed", "cleaned", "cured",
+          "review", "primed", "painted", "delivered"]
+DONE_STAGE = "printed"     # counts as "off the printer"
+REVIEW_STAGE = "review"    # cleaned and cured, waiting on Brian
+REPRINT_STAGE = "reprint"  # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Stage", "Plate", "Result", "Notes"]
 PLATE_COLUMNS = ["ID", "Date", "Slicer file", "Resin", "Layer", "Exposure",
@@ -387,6 +393,10 @@ def bases_needed(rows):
     for (model, part), r in rows.items():
         if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE):
             continue
+        if r["Stage"] == REPRINT_STAGE:
+            # It printed once, so its base already exists; only the mini needs
+            # running again.
+            continue
         pending.setdefault((model, r.get("Base", "?")), set()).add(variant_of(part))
     out = Counter()
     for (model, base), variants in pending.items():
@@ -420,6 +430,16 @@ def cmd_status():
         print(f"{release:<32} {done:>5} / {len(rows):<5}  {base_txt}")
     print("-" * 78)
     print(f"{'TOTAL':<32} {grand['done']:>5} / {grand['all']:<5}")
+    for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
+                         ("Needs reprint", REPRINT_STAGE)):
+        queued = [r for rows in sections.values() for r in rows.values()
+                  if r["Stage"] == stage]
+        if queued:
+            print(f"\n{label}: {len(queued)} part(s)")
+            for r in queued:
+                note = f" — {r['Notes']}" if r.get("Notes") else ""
+                print(f"  {r['Model']} [{r['Part']}]{note}")
+
     fails = [(rel, r) for rel, rows in sections.items() for r in rows.values()
              if r.get("Result") == "fail"]
     if fails:
@@ -436,9 +456,9 @@ def cmd_status():
 
 CSS = """
 :root{color-scheme:light dark;--bg:#f6f5f3;--card:#fff;--ink:#1b1a18;--muted:#6c6862;
---line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--todo:#c9c4bc;--chip:#efece7}
+--line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--warn:#b1770f;--todo:#c9c4bc;--chip:#efece7}
 @media(prefers-color-scheme:dark){:root{--bg:#16151a;--card:#1f1e25;--ink:#eceaf0;
---muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--todo:#3d3947;--chip:#2a2833}}
+--muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--warn:#e0a83c;--todo:#3d3947;--chip:#2a2833}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
 font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -472,8 +492,10 @@ color:var(--muted);margin-bottom:7px;word-break:break-all}
 border:1px solid var(--line);white-space:nowrap}
 .part.done{background:color-mix(in srgb,var(--ok) 18%,transparent);
 border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
-.part.fail{background:color-mix(in srgb,var(--fail) 18%,transparent);
+.part.fail,.part.reprint{background:color-mix(in srgb,var(--fail) 18%,transparent);
 border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
+.part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
+border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
 .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
 background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--muted)}
 .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
@@ -500,6 +522,10 @@ def cmd_build():
                if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
     fails = sum(1 for rows in sections.values() for r in rows.values()
                 if r.get("Result") == "fail")
+    in_review = sum(1 for rows in sections.values() for r in rows.values()
+                    if r["Stage"] == REVIEW_STAGE)
+    to_reprint = sum(1 for rows in sections.values() for r in rows.values()
+                     if r["Stage"] == REPRINT_STAGE)
     remaining_bases = Counter()
     for rows in sections.values():
         remaining_bases.update(bases_needed(rows))
@@ -519,6 +545,8 @@ def cmd_build():
            '<div class="totals">',
            f'<div class="stat"><b>{done}/{total}</b><span>parts printed</span></div>',
            f'<div class="stat"><b>{total - done}</b><span>remaining</span></div>',
+           f'<div class="stat"><b>{in_review}</b><span>awaiting Brian</span></div>',
+           f'<div class="stat"><b>{to_reprint}</b><span>to reprint</span></div>',
            f'<div class="stat"><b>{fails}</b><span>failures</span></div>']
     for base, n in sorted(remaining_bases.items()):
         out.append(f'<div class="stat"><b>{n}</b><span>{e(base)} bases left</span></div>')
@@ -559,7 +587,11 @@ def cmd_build():
             chips = []
             for p in sorted(parts, key=lambda r: r["Part"]):
                 cls = "part"
-                if p.get("Result") == "fail":
+                if p["Stage"] == REPRINT_STAGE:
+                    cls += " reprint"
+                elif p["Stage"] == REVIEW_STAGE:
+                    cls += " review"
+                elif p.get("Result") == "fail":
                     cls += " fail"
                 elif stage_rank(p["Stage"]) >= stage_rank(DONE_STAGE):
                     cls += " done"

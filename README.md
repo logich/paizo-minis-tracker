@@ -45,12 +45,21 @@ Each row records:
 | `Mini` | Readable name, filled in automatically |
 | `Base` | Base size needed, filled in automatically |
 | `Part` | Which sculpt or component — `A`, `Body`, `Tentacles L`, `main` |
-| `Stage` | `todo` → `sliced` → `printed` → `cleaned` → `cured` → `primed` → `painted` → `delivered` |
+| `Stage` | `todo` → `sliced` → `printed` → `cleaned` → `cured` → `review` → `primed` → `painted` → `delivered`, plus `reprint` |
 | `Plate` | Which plate it printed on — see below |
-| `Result` | Blank, `pass`, or `fail` |
+| `Result` | Blank, `pass`, or `fail`. `pass` means Brian approved it |
 | `Notes` | Whatever's worth remembering |
 
 A part counts as printed from the `printed` stage onward.
+
+### Brian's approval
+
+Brian is the game master these are printed for, and has the better eye for print
+detail, so nothing counts as complete until he approves it. A part goes to
+`review` once it is cleaned and cured and handed to him. If he rejects it, set
+it to `reprint` with his reason in `Notes` — that drops it out of the done count
+and back into the print queue, without asking for another base, since the base
+from the first run already exists. `status` lists both queues.
 
 **Don't hand-edit `Mini` or `Base`** — `scan` regenerates them from
 `reference/models.tsv`.
