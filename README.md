@@ -123,18 +123,24 @@ today's plate, C had a failed base" — and it will edit `PRINTS.md` and rebuild
 
 ## Serving it on the home server
 
-The dashboard references thumbnails by relative path, so the images only appear
-when the page is served from the repository root. nginx already runs on this
-box with `root /var/www/html` and an `index index.html` directive, so one symlink
-is enough — no nginx config change, no restart:
+**The dashboard is live at <http://elite/minis/dashboard.html>.**
+
+That is the URL to open from a phone or any other machine on the network —
+thumbnails only render when the page is served from the repository root, so a
+copy of the file on its own will show empty cards. <http://elite/minis/> also
+works, via the `index.html` symlink.
+
+The setup, for reference: nginx runs on this box with `root /var/www/html` and
+an `index index.html` directive, so a single symlink was enough — no nginx
+config change and no restart.
 
 ```bash
 sudo ln -s /pool/Work/paizo-minis /var/www/html/minis
 ```
 
-Then <http://elite/minis/> serves the dashboard, images and all. `index.html` in
-the repository is a symlink to `dashboard.html`, which is what makes the bare
-directory URL work.
+`index.html` in the repository is a symlink to `dashboard.html`, which is what
+makes the bare directory URL work. If `elite` ever stops resolving, the server
+is at `192.168.1.201`.
 
 This exposes the whole repository over the LAN. Directory listing is off
 (`try_files $uri $uri/ =404`), so nobody can browse it, but the STLs are

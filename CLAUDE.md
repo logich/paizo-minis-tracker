@@ -185,11 +185,18 @@ open the result to confirm.
 
 ## Serving the dashboard
 
-nginx serves `/var/www/html` on port 80. `/var/www/html/minis` is a symlink to
-this repository, and `index.html` here is a symlink to `dashboard.html`, so
-<http://elite/minis/> serves the current dashboard with its thumbnails. Creating
-the `/var/www/html` symlink needs root; everything else does not, and the repo is
-already world-readable so `www-data` needs no permission changes.
+**Live at <http://elite/minis/dashboard.html>** (`http://elite/minis/` also
+works). Point the user there rather than sending the file when they are on a
+phone — thumbnails are relative paths and only resolve when the page is served
+from the repository root.
+
+`build` writes to the served location directly, so the URL is current the moment
+`build` finishes. Nothing needs deploying or copying.
+
+The setup: nginx serves `/var/www/html` on port 80; `/var/www/html/minis` is a
+root-owned symlink to this repository, and `index.html` here is a symlink to
+`dashboard.html`. The repo is world-readable, so `www-data` needs no permission
+changes. The server is `192.168.1.201` if the hostname stops resolving.
 
 Thumbnail `src` attributes are percent-encoded — release directories contain
 spaces, which are fine over `file://` but not valid in an HTTP path. Keep the
