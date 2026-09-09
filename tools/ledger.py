@@ -518,11 +518,13 @@ def cmd_status():
     report = bases_outstanding(sections, stock)
     if report:
         print("\nBases to print")
-        print(f"  {'size':<6} {'minis':>6} {'backlog':>8} {'on hand':>8} {'to print':>9}")
+        print(f"  {'size':<6} {'minis':>6} {'backlog':>8} {'on hand':>8} {'to print':>15}")
         for size in sorted(report):
             r = report[size]
             hand = str(r["on_hand"]) if r["known"] else "?"
-            print(f"  {size:<6} {r['need']:>6} {r['backlog']:>8} {hand:>8} {r['to_print']:>9}")
+            gap = r["to_print"]
+            verdict = str(gap) if gap > 0 else ("none" if gap == 0 else f"none ({-gap} spare)")
+            print(f"  {size:<6} {r['need']:>6} {r['backlog']:>8} {hand:>8} {verdict:>15}")
         if any(not r["known"] for r in report.values()):
             print("  ? = on-hand not recorded; nothing subtracted for that size")
     for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
