@@ -119,6 +119,11 @@ the miniature needs running again.
 `status` lists both queues — what is sitting with Brian, and what he has sent
 back, with his notes.
 
+**A long review queue is normal.** Minis reach Brian in a delivery roughly once
+a week, and sometimes a fortnight passes between them, so parts sit in `review`
+for a while by design. Do not treat the size of that queue as a problem, and do
+not suggest chasing him for a verdict.
+
     python3 tools/ledger.py assign - review P0094_Athamaru_S2P3   # handed over
     python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3  # rejected
 
