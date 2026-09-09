@@ -124,6 +124,13 @@ a week, and sometimes a fortnight passes between them, so parts sit in `review`
 for a while by design. Do not treat the size of that queue as a problem, and do
 not suggest chasing him for a verdict.
 
+**Reprints are not urgent either.** Failures fall into two kinds: the obvious
+ones the user spots himself straight off the plate, and one-off failures that
+Brian catches, which just need running again whenever it suits. The Signifer
+went through several attempts on that basis. So a `reprint` entry is a to-do,
+not an incident — do not frame delayed feedback as blocking, or push for a
+settings decision that can simply wait for the next attempt.
+
     python3 tools/ledger.py assign - review P0094_Athamaru_S2P3   # handed over
     python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3  # rejected
 
