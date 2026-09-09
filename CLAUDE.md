@@ -61,6 +61,24 @@ Releases sort newest-first everywhere, by the `YYYYMM` prefix on the directory
 name; anything without one sorts last. Applied in `write_ledger`, so every write
 normalises it.
 
+## Bases: requirement vs stock
+
+Two different numbers, and conflating them is easy:
+
+- **What the remaining minis need** — `bases_needed()`, per release, shown in
+  the `status` table. A requirement, derived from unprinted parts.
+- **What is still to print** — that requirement minus the bases already made,
+  from the `Bases` column on plates. This is the number that matters, and the
+  only one the dashboard tiles show.
+
+Bases are fungible across releases, so stock is pooled rather than counted per
+release. `bases_printed()` reads only the `Bases` column of plates in this
+ledger, so anything printed before tracking began is invisible — the "spare"
+figure is a floor, not an inventory.
+
+Record bases in the plate's `Bases` column as `12x 25mm`, not in `Notes`, or
+they will not be counted.
+
 ## How "bases still needed" is counted
 
 One base per assembled **miniature**, not per part. `bases_needed()` groups a

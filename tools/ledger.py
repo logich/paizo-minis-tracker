@@ -42,7 +42,7 @@ REPRINT_STAGE = "reprint"  # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Stage", "Plate", "Result", "Notes"]
 PLATE_COLUMNS = ["ID", "Date", "Slicer file", "Resin", "Layer", "Exposure",
-                 "Bottom exp", "Bottom layers", "Lift", "Result", "Notes"]
+                 "Bottom exp", "Bottom layers", "Lift", "Bases", "Result", "Notes"]
 # Filled in from the sliced file by `plate`; the rest are yours to fill in.
 PLATE_AUTO = ("Date", "Slicer file", "Layer", "Exposure", "Bottom exp", "Bottom layers")
 
@@ -409,6 +409,36 @@ def bases_needed(rows):
     return out
 
 
+BASES_ON_PLATE = re.compile(r"(\d+)\s*x\s*(\d+\s*mm)", re.I)
+
+
+def bases_printed(plates):
+    """Bases actually produced, from the Bases column of recorded plates.
+
+    Only counts plates in this ledger, so anything printed before tracking
+    started is invisible here.
+    """
+    out = Counter()
+    for p in plates:
+        for count, size in BASES_ON_PLATE.findall(p.get("Bases", "") or ""):
+            out[size.replace(" ", "").lower()] += int(count)
+    return out
+
+
+def bases_outstanding(sections, plates):
+    """What still has to be printed: requirement minus what is already made.
+
+    Bases are fungible across releases, so stock is pooled rather than counted
+    per release.
+    """
+    need = Counter()
+    for rows in sections.values():
+        need.update(bases_needed(rows))
+    have = bases_printed(plates)
+    return Counter({size: n - have.get(size, 0)
+                    for size, n in need.items() if n - have.get(size, 0) > 0}), need, have
+
+
 def stage_rank(stage):
     try:
         return STAGES.index(stage)
@@ -423,7 +453,7 @@ def cmd_status():
     ref = load_reference()
     disk = scan_disk(ref)
     grand = Counter()
-    print(f"{'Release':<32} {'done':>5} {'/':^1} {'all':<5}  bases still to print")
+    print(f"{'Release':<32} {'done':>5} {'/':^1} {'all':<5}  bases the remaining minis need")
     print("-" * 78)
     for release, rows in sections.items():
         done = sum(1 for r in rows.values() if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
@@ -434,6 +464,16 @@ def cmd_status():
         print(f"{release:<32} {done:>5} / {len(rows):<5}  {base_txt}")
     print("-" * 78)
     print(f"{'TOTAL':<32} {grand['done']:>5} / {grand['all']:<5}")
+
+    short, need, have = bases_outstanding(sections, plates)
+    if need:
+        print("\nBases")
+        for size in sorted(set(need) | set(have)):
+            n, h = need.get(size, 0), have.get(size, 0)
+            gap = n - h
+            verdict = f"{gap} to print" if gap > 0 else f"{-gap} spare" if gap else "exactly enough"
+            print(f"  {size:<6} remaining minis need {n:>3}, printed {h:>3}  ->  {verdict}")
+        print("  (printed counts only bases recorded on plates in this ledger)")
     for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
                          ("Needs reprint", REPRINT_STAGE)):
         queued = [r for rows in sections.values() for r in rows.values()
@@ -533,9 +573,7 @@ def cmd_build():
                     if r["Stage"] == REVIEW_STAGE)
     to_reprint = sum(1 for rows in sections.values() for r in rows.values()
                      if r["Stage"] == REPRINT_STAGE)
-    remaining_bases = Counter()
-    for rows in sections.values():
-        remaining_bases.update(bases_needed(rows))
+    remaining_bases, _, _ = bases_outstanding(sections, plates)
 
     e = html.escape
     # A standalone file, not an embedded fragment: it needs a real document
@@ -556,7 +594,7 @@ def cmd_build():
            f'<div class="stat"><b>{to_reprint}</b><span>to reprint</span></div>',
            f'<div class="stat"><b>{fails}</b><span>failures</span></div>']
     for base, n in sorted(remaining_bases.items()):
-        out.append(f'<div class="stat"><b>{n}</b><span>{e(base)} bases left</span></div>')
+        out.append(f'<div class="stat"><b>{n}</b><span>{e(base)} bases to print</span></div>')
     out.append("</div>")
 
     for release, rows in sections.items():
