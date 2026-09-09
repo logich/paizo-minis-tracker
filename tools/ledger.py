@@ -241,8 +241,9 @@ def split_row(line):
 def parse_ledger():
     """Return (preamble_lines, plates, sections) from PRINTS.md."""
     preamble, plates, sections = [], [], OrderedDict()
+    base_stock = []
     if not LEDGER.exists():
-        return preamble, plates, sections
+        return preamble, plates, sections, base_stock
 
     section = None
     in_preamble = True
@@ -250,7 +251,7 @@ def parse_ledger():
         if line.startswith("## "):
             in_preamble = False
             section = line[3:].strip()
-            if section != "Plates":
+            if section not in ("Plates", "Bases"):
                 sections.setdefault(section, OrderedDict())
             continue
         if in_preamble:
@@ -261,9 +262,12 @@ def parse_ledger():
         if not line.strip().startswith("|"):
             continue
         cells = split_row(line)
-        if not cells or cells[0] in ("Model", "ID") or set("".join(cells)) <= set("-: "):
+        if not cells or cells[0] in ("Model", "ID", "Size") or set("".join(cells)) <= set("-: "):
             continue
-        if section == "Plates":
+        if section == "Bases":
+            cells += [""] * (len(BASE_COLUMNS) - len(cells))
+            base_stock.append(dict(zip(cells and BASE_COLUMNS, cells[:len(BASE_COLUMNS)])))
+        elif section == "Plates":
             cells += [""] * (len(PLATE_COLUMNS) - len(cells))
             plates.append(dict(zip(PLATE_COLUMNS, cells[:len(PLATE_COLUMNS)])))
         elif section:
@@ -274,8 +278,14 @@ def parse_ledger():
         preamble.pop(0)
     while preamble and not preamble[-1].strip():
         preamble.pop()
-    return preamble, plates, sections
+    return preamble, plates, sections, base_stock
 
+
+DEFAULT_BASE_STOCK = [
+    {"Size": "25mm", "On hand": "", "Backlog": "0", "Notes": ""},
+    {"Size": "50mm", "On hand": "", "Backlog": "0", "Notes": ""},
+    {"Size": "75mm", "On hand": "", "Backlog": "0", "Notes": ""},
+]
 
 DEFAULT_PREAMBLE = """
 Print tracker for the Paizo Printables miniature subscription. This file is the
@@ -313,11 +323,13 @@ def render_table(columns, rows):
     return out
 
 
-def write_ledger(preamble, plates, sections):
+def write_ledger(preamble, plates, sections, base_stock):
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
     lines = ["# Paizo Minis — Print Tracker", ""]
     lines += preamble or DEFAULT_PREAMBLE
+    lines += ["", "## Bases", ""]
+    lines += render_table(BASE_COLUMNS, base_stock or DEFAULT_BASE_STOCK)
     lines += ["", "## Plates", ""]
     lines += render_table(PLATE_COLUMNS,
                           sorted(plates, key=lambda p: (p.get("Date", ""), p.get("ID", ""))))
@@ -330,7 +342,7 @@ def write_ledger(preamble, plates, sections):
 def cmd_scan(seed_printed_before=None):
     ref = load_reference()
     disk = scan_disk(ref)
-    preamble, plates, sections = parse_ledger()
+    preamble, plates, sections, base_stock = parse_ledger()
 
     added = 0
     missing = []
@@ -360,7 +372,7 @@ def cmd_scan(seed_printed_before=None):
             if key not in disk.get(release, {}):
                 missing.append(f"{release}/{key[0]} [{key[1]}]")
 
-    write_ledger(preamble, plates, sections)
+    write_ledger(preamble, plates, sections, base_stock)
 
     total = sum(len(v) for v in sections.values())
     print(f"scan: {total} parts tracked across {len(sections)} releases ({added} new)")
@@ -410,6 +422,7 @@ def bases_needed(rows):
 
 
 BASES_ON_PLATE = re.compile(r"(\d+)\s*x\s*(\d+\s*mm)", re.I)
+BASE_COLUMNS = ["Size", "On hand", "Backlog", "Notes"]
 
 
 def bases_printed(plates):
@@ -425,18 +438,54 @@ def bases_printed(plates):
     return out
 
 
-def bases_outstanding(sections, plates):
-    """What still has to be printed: requirement minus what is already made.
+def parse_base_stock(base_stock):
+    """Turn the "## Bases" rows into {size: {on_hand, backlog}}.
 
-    Bases are fungible across releases, so stock is pooled rather than counted
-    per release.
+    A blank "On hand" means unknown, which is different from zero: unknown
+    subtracts nothing and is reported as such.
+    """
+    out = {}
+    for row in base_stock:
+        size = (row.get("Size") or "").strip().lower().replace(" ", "")
+        if not size:
+            continue
+        def num(key):
+            raw = (row.get(key) or "").strip()
+            return int(raw) if raw.isdigit() else None
+        out[size] = {"on_hand": num("On hand"), "backlog": num("Backlog") or 0,
+                     "notes": (row.get("Notes") or "").strip()}
+    return out
+
+
+def bases_outstanding(sections, stock):
+    """What still has to be printed, by base size.
+
+        to print = what the unprinted minis need + backlog - on hand
+
+    Stock is NOT inferred from what plates produced. Most bases were printed
+    before this tracker existed, and a batch that looks spare is usually
+    already allocated to older models — the six 50mm from P2609-07 were.
+    On hand and backlog are stated by the user in the "## Bases" section.
     """
     need = Counter()
     for rows in sections.values():
         need.update(bases_needed(rows))
-    have = bases_printed(plates)
-    return Counter({size: n - have.get(size, 0)
-                    for size, n in need.items() if n - have.get(size, 0) > 0}), need, have
+
+    sizes = set(need) | set(stock)
+    rows = {}
+    for size in sizes:
+        entry = stock.get(size, {})
+        backlog = entry.get("backlog", 0)
+        on_hand = entry.get("on_hand")
+        total = need.get(size, 0) + backlog
+        rows[size] = {
+            "need": need.get(size, 0),
+            "backlog": backlog,
+            "on_hand": on_hand,
+            "to_print": total - (on_hand or 0),
+            "known": on_hand is not None,
+        }
+    return rows
 
 
 def stage_rank(stage):
@@ -447,7 +496,7 @@ def stage_rank(stage):
 
 
 def cmd_status():
-    _, plates, sections = parse_ledger()
+    _, plates, sections, base_stock = parse_ledger()
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
     ref = load_reference()
@@ -465,15 +514,17 @@ def cmd_status():
     print("-" * 78)
     print(f"{'TOTAL':<32} {grand['done']:>5} / {grand['all']:<5}")
 
-    short, need, have = bases_outstanding(sections, plates)
-    if need:
-        print("\nBases")
-        for size in sorted(set(need) | set(have)):
-            n, h = need.get(size, 0), have.get(size, 0)
-            gap = n - h
-            verdict = f"{gap} to print" if gap > 0 else f"{-gap} spare" if gap else "exactly enough"
-            print(f"  {size:<6} remaining minis need {n:>3}, printed {h:>3}  ->  {verdict}")
-        print("  (printed counts only bases recorded on plates in this ledger)")
+    stock = parse_base_stock(base_stock)
+    report = bases_outstanding(sections, stock)
+    if report:
+        print("\nBases to print")
+        print(f"  {'size':<6} {'minis':>6} {'backlog':>8} {'on hand':>8} {'to print':>9}")
+        for size in sorted(report):
+            r = report[size]
+            hand = str(r["on_hand"]) if r["known"] else "?"
+            print(f"  {size:<6} {r['need']:>6} {r['backlog']:>8} {hand:>8} {r['to_print']:>9}")
+        if any(not r["known"] for r in report.values()):
+            print("  ? = on-hand not recorded; nothing subtracted for that size")
     for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
                          ("Needs reprint", REPRINT_STAGE)):
         queued = [r for rows in sections.values() for r in rows.values()
@@ -560,7 +611,7 @@ padding-top:14px}
 def cmd_build():
     ref = load_reference()
     disk = scan_disk(ref)
-    _, plates, sections = parse_ledger()
+    _, plates, sections, base_stock = parse_ledger()
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
 
@@ -573,7 +624,9 @@ def cmd_build():
                     if r["Stage"] == REVIEW_STAGE)
     to_reprint = sum(1 for rows in sections.values() for r in rows.values()
                      if r["Stage"] == REPRINT_STAGE)
-    remaining_bases, _, _ = bases_outstanding(sections, plates)
+    report = bases_outstanding(sections, parse_base_stock(base_stock))
+    remaining_bases = Counter({size: r["to_print"] for size, r in report.items()
+                               if r["to_print"] > 0})
 
     e = html.escape
     # A standalone file, not an embedded fragment: it needs a real document
@@ -820,7 +873,7 @@ def cmd_plate(source, plate_id=None, resin=None, notes=None):
         print(f"could not read {name}: {info['error']}")
         return
 
-    preamble, plates, sections = parse_ledger()
+    preamble, plates, sections, base_stock = parse_ledger()
     date = (info.get("sliced") or "")[:10]
     if not date:
         date = mtime_date(source, name)
@@ -850,7 +903,7 @@ def cmd_plate(source, plate_id=None, resin=None, notes=None):
     plates.append(row)
     if ensure_plate_preview(row):
         print(f"cached the build-plate preview to plates/{row['ID']}.png")
-    write_ledger(preamble, plates, sections)
+    write_ledger(preamble, plates, sections, base_stock)
     print(f"added plate {row['ID']}: {row['Layer']} / {row['Exposure']} "
           f"(bottom {row['Bottom exp']} x{row['Bottom layers']}) from {row['Slicer file']}")
     print("Fill in Resin, Lift and Result, set the Plate column on the parts it "
@@ -874,7 +927,7 @@ def cmd_assign(plate, stage, targets):
     if stage not in STAGES:
         print(f"unknown stage {stage!r}; expected one of: {', '.join(STAGES)}")
         return
-    preamble, plates, sections = parse_ledger()
+    preamble, plates, sections, base_stock = parse_ledger()
     if plate != "-" and not any(p["ID"] == plate for p in plates):
         print(f"no plate {plate!r} in the Plates table")
         return
@@ -893,7 +946,7 @@ def cmd_assign(plate, stage, targets):
     if not changed:
         print(f"nothing matched {targets}")
         return
-    write_ledger(preamble, plates, sections)
+    write_ledger(preamble, plates, sections, base_stock)
     print(f"set {len(changed)} part(s) to stage {stage}"
           + (f" on plate {plate}" if plate != "-" else ""))
     for c in changed[:6]:

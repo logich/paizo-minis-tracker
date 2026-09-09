@@ -61,23 +61,22 @@ Releases sort newest-first everywhere, by the `YYYYMM` prefix on the directory
 name; anything without one sorts last. Applied in `write_ledger`, so every write
 normalises it.
 
-## Bases: requirement vs stock
+## Bases: what to print
 
-Two different numbers, and conflating them is easy:
+    to print = what the unprinted minis need + backlog - on hand
 
-- **What the remaining minis need** — `bases_needed()`, per release, shown in
-  the `status` table. A requirement, derived from unprinted parts.
-- **What is still to print** — that requirement minus the bases already made,
-  from the `Bases` column on plates. This is the number that matters, and the
-  only one the dashboard tiles show.
+- **minis** — derived by `bases_needed()` from parts not yet at `printed`.
+- **backlog** and **on hand** — stated by the user in the `## Bases` section of
+  `PRINTS.md`. They are *not* inferred.
 
-Bases are fungible across releases, so stock is pooled rather than counted per
-release. `bases_printed()` reads only the `Bases` column of plates in this
-ledger, so anything printed before tracking began is invisible — the "spare"
-figure is a floor, not an inventory.
+**Never infer base stock from what plates produced.** Most bases were printed
+before this tracker existed, and a batch that looks spare is usually already
+allocated to older models — the six 50 mm on P2609-07 were exactly that, which
+is why an earlier version wrongly reported "5 spare" when one more was needed.
+The `Bases` column on a plate is a record of what that plate made, nothing more.
 
-Record bases in the plate's `Bases` column as `12x 25mm`, not in `Notes`, or
-they will not be counted.
+A blank `On hand` means unknown, which is not zero: nothing is subtracted and
+`status` prints `?` so the gap is visible rather than silently assumed.
 
 ## How "bases still needed" is counted
 

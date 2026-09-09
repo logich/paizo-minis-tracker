@@ -17,6 +17,14 @@ Regenerate the dashboard after any change:
 
     python3 tools/ledger.py build
 
+## Bases
+
+| Size | On hand | Backlog | Notes |
+| --- | --- | --- | --- |
+| 25mm |  | 0 |  |
+| 50mm |  | 1 | backlog from older models; the 6 on P2609-07 are already allocated, not spare |
+| 75mm |  | 5 | backlog from older models |
+
 ## Plates
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
