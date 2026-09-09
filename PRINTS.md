@@ -21,9 +21,9 @@ Regenerate the dashboard after any change:
 
 | Size | On hand | Backlog | Notes |
 | --- | --- | --- | --- |
-| 25mm |  | 0 |  |
-| 50mm |  | 1 | backlog from older models; the 6 on P2609-07 are already allocated, not spare |
-| 75mm |  | 5 | backlog from older models |
+| 25mm | 7 | 0 | 15 made on P2609-03 and P2609-06, less 8 consumed by minis already printed — check this figure |
+| 50mm | 0 | 1 | the 6 on P2609-07 are already allocated to older models, not spare |
+| 75mm | 0 | 5 | backlog from older models |
 
 ## Plates
 
