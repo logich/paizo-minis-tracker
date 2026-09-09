@@ -674,10 +674,10 @@ def printer_files(base=PRINTER_URL):
     return list(printer_index(base))
 
 
-def describe(source, name):
+def describe(source, name, allow_download=True):
     import sliced
     try:
-        return sliced.read(source, name=name)
+        return sliced.read(source, name=name, allow_download=allow_download)
     except Exception as exc:
         return {"format": "?", "error": str(exc)}
 
@@ -713,7 +713,9 @@ def cmd_printer():
         return
     rows = []
     for name in names:
-        info = describe(PRINTER_URL + urllib.parse.quote(name), name)
+        # Listing only: never pull whole ctb files just to tabulate them.
+        info = describe(PRINTER_URL + urllib.parse.quote(name), name,
+                        allow_download=False)
         rows.append((info.get("sliced", ""), name, info))
     rows.sort(reverse=True)
 

@@ -214,10 +214,16 @@ def read_ctb(source, name=None, allow_download=True):
     return out
 
 
-def read(source, name=None):
+def read(source, name=None, allow_download=True):
+    """Read a sliced file's settings.
+
+    allow_download=False keeps this cheap: .goo is always a range request, but
+    decrypting a .ctb means pulling the whole 25-110 MB file, which is far too
+    slow to do while merely listing what the printer holds.
+    """
     label = (name or str(source)).lower()
     if label.endswith(".goo"):
         return read_goo(source, name)
     if label.endswith(".ctb"):
-        return read_ctb(source, name)
+        return read_ctb(source, name, allow_download=allow_download)
     raise ValueError(f"unsupported file type: {name or source}")

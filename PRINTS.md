@@ -27,6 +27,7 @@ Regenerate the dashboard after any change:
 | P2609-01 | 2026-09-07 | 32mm_P0028_Hellknight_Signifer_S1P1_STL.stl_0.030_2.800_2026_09_07_21_29.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | reprint of P0028 after Brian rejected the original |
 | P2609-02 | 2026-09-08 | 32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 | 0.03mm @ 0.05 |  | encrypted ctb, decrypted with UVtools |
 | P2609-03 | 2026-09-08 | 32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | Rigger + Subaquatic Marauder + 12x 25mm bases; 1824 layers |
+| P2609-06 | 2026-09-09 | 32mm_P0097_Draugr_ABC_S2P3_SUP.stl_0.030_2.800_2026_09_09_09_33.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | Draugr A/B/C + 3x 25mm bases; in progress |
 
 ## 202609 September Release
 
@@ -37,9 +38,9 @@ Regenerate the dashboard after any change:
 | P0094_Athamaru_S2P3 | Athamaru | 25mm | C | printed | P2609-02 |  |  |
 | P0095_Rigger_S2P3 | Rigger | 25mm | main | review | P2609-03 |  |  |
 | P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | review | P2609-03 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | A | todo |  |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | B | todo |  |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | C | todo |  |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | A | sliced | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | B | sliced | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | C | sliced | P2609-06 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | todo |  |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | todo |  |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | todo |  |  |  |
