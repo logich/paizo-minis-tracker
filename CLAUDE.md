@@ -93,8 +93,9 @@ Plate IDs are `P<yy><mm>-<nn>` — `P2609-02` is the second plate of September 2
 `plate` allocates the next free ID automatically.
 
 Releases sort newest-first everywhere, by the `YYYYMM` prefix on the directory
-name; anything without one sorts last. Applied in `write_ledger`, so every write
-normalises it.
+name; anything without one sorts last. Plates sort newest-first too, by `Date`,
+with an unknown date (`?`) sorting to the bottom rather than the top. Both are
+applied in `write_ledger`, so every write normalises them.
 
 ## Bases: what to print
 

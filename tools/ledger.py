@@ -334,6 +334,17 @@ Regenerate the dashboard after any change:
 """.strip().splitlines()
 
 
+def plate_sort_key(plate):
+    """Newest plate first, matching the release order.
+
+    A plate whose date could not be determined sorts to the bottom rather than
+    the top: an unknown date is "?", which would otherwise outrank every real
+    one under a reversed string sort.
+    """
+    date = plate.get("Date", "")
+    return ("" if date == "?" else date, plate.get("ID", ""))
+
+
 def release_sort_key(name):
     """Newest release first; undated directories (Dragons/) sink to the bottom."""
     m = re.match(r"(\d{4})(\d{2})", name)
@@ -359,7 +370,7 @@ def write_ledger(preamble, plates, sections, base_stock):
     lines += render_table(BASE_COLUMNS, base_stock or DEFAULT_BASE_STOCK)
     lines += ["", "## Plates", ""]
     lines += render_table(PLATE_COLUMNS,
-                          sorted(plates, key=lambda p: (p.get("Date", ""), p.get("ID", ""))))
+                          sorted(plates, key=plate_sort_key, reverse=True))
     for name, rows in sections.items():
         lines += ["", f"## {name}", ""]
         lines += render_table(COLUMNS, rows.values())
@@ -749,7 +760,7 @@ def cmd_build():
         out.append('<div class="tablewrap"><table><thead><tr><th>Plate</th>'
                    + "".join(f"<th>{e(c)}</th>" for c in PLATE_COLUMNS)
                    + "</tr></thead><tbody>")
-        for p in sorted(plates, key=lambda r: (r.get("Date", ""), r.get("ID", ""))):
+        for p in sorted(plates, key=plate_sort_key, reverse=True):
             img = ensure_plate_preview(p)
             if img:
                 src = urllib.parse.quote(img.relative_to(ROOT).as_posix())
