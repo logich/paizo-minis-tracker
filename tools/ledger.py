@@ -705,13 +705,15 @@ def cmd_build():
             base = parts[0].get("Base", "")
             thumb = ""
             if info:
-                # Prefer <Model>_Logo.avif: 46 KB against the jpg's ~122 KB, and
-                # the only image the vendor ships for every release, so it is
-                # what gets committed and what GitHub Pages can serve. The
-                # Release_*.jpg fallback exists only for September, which is the
-                # one pack that shipped them.
-                art = (sorted(Path(ROOT / info["dir"]).glob("*_Logo.avif"))
-                       or sorted(Path(ROOT / info["dir"]).glob("Release_*.jpg")))
+                # webp first: 1000x1000 at ~11 KB, against avif's 720x720 at
+                # ~40 KB and the jpg's ~122 KB. Higher resolution and a quarter
+                # the size, and it is the easiest one to grab each month.
+                # Filenames vary ("1000X1000-P0094_..._Logo.webp",
+                # "1000X1000-P0100_Scylla_S2PB.webp"), so glob by extension.
+                model_dir = Path(ROOT / info["dir"])
+                art = (sorted(model_dir.glob("*.webp"))
+                       or sorted(model_dir.glob("*.avif"))
+                       or sorted(model_dir.glob("Release_*.jpg")))
                 if art:
                     # Percent-encode: these paths contain spaces, which are fine
                     # over file:// but not valid in an HTTP request path.

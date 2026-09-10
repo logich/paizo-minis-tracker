@@ -141,19 +141,20 @@ today's plate, C had a failed base" — and it will edit `PRINTS.md` and rebuild
 
 ## Mini artwork on the dashboard
 
-Cards use `<Model>_Logo.avif` from the model directory when it exists, falling
-back to `Release_*.jpg`. Only the avif is committed:
+Cards use the vendor's logo render from the model directory: `*.webp` first,
+then `*.avif`, then `Release_*.jpg`. **Save the webp** — it is 1000x1000 at
+~11 KB, against avif's 720x720 at ~40 KB and the jpg's ~122 KB, so it is both
+the sharpest and the smallest.
 
-- ~46 KB against the jpg's ~122 KB, at 720x720.
-- The name is derivable from the directory name, so no lookup table is needed.
-- It is the image the vendor publishes for every release; `Release_*.jpg` only
-  shipped with September, so the jpgs would leave seven of eight releases blank.
-- GitHub Pages can only show what is in the repo, and the STLs and jpgs stay
-  ignored.
+Filenames vary (`1000X1000-P0094_Athamaru_S2P3_Logo.webp`,
+`1000X1000-P0100_Scylla_S2PB.webp`), so the lookup globs by extension rather
+than matching a name.
 
-Get one by downloading the model's image from its MyMiniFactory page and saving
-it into the model directory as `<Model>_Logo.avif` — the same bytes the CDN
-serves. Commit it; `.gitignore` has an exception for `*_Logo.avif`.
+Save one per model directory each month, straight from the model's
+MyMiniFactory page. These are not gitignored: GitHub Pages can only show images
+that are in the repo, while the STLs and `Release_*.jpg` stay out.
+`ledger.py artwork <url>...` will download and file them by P-number if you
+have the links instead.
 
 ## Serving it on the home server
 
