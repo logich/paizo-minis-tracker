@@ -117,6 +117,15 @@ that number before moving on.
 Matching on a substring is deliberate: `P0094`, `Athamaru`, `Draugr` and
 `202609` are all valid targets, so you can act on one model or a whole release.
 
+To move a single part rather than a whole model, use `Model:Part` — useful when
+a multi-part model goes on the plate in pieces:
+
+```bash
+python3 tools/ledger.py assign P2609-09 sliced "P0099_Gutaki_S2P3:Body"
+```
+
+`python3 tools/ledger.py --help` lists every command.
+
 See what the printer is holding:
 
 ```bash

@@ -44,17 +44,17 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | printed | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | printed | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | printed | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | review | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | review | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | review | P2609-02 |  |  |
 | P0095_Rigger_S2P3 | Rigger | 25mm | main | review | P2609-03 |  |  |
 | P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | review | P2609-03 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | A | printed | P2609-06 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | B | printed | P2609-06 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | C | printed | P2609-06 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | printed | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | printed | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | printed | P2609-08 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | A | review | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | B | review | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | C | review | P2609-06 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | review | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | review | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | review | P2609-08 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | sliced | P2609-09 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | todo |  |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | todo |  |  |  |

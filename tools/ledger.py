@@ -1,15 +1,40 @@
 #!/usr/bin/env python3
 """Print tracker for the Paizo minis collection.
 
-PRINTS.md is the source of truth and is meant to be read and edited by hand
-(or by Claude in chat). This tool only ever does two things to it:
+PRINTS.md is the source of truth, meant to be read and edited by hand (or by
+Claude in chat). dashboard.html is generated from it and should never be edited.
 
-  scan   discover printable parts on disk and add rows for anything new,
-         never touching the Stage/Plate/Result/Notes you have recorded
-  build  render dashboard.html from PRINTS.md
+Usage: python3 tools/ledger.py <command> [args]
+       with no command, runs status.
 
-Model/Mini/Base columns are derived from reference/models.tsv and are
-refreshed on every scan, so don't hand-edit those.
+  status                       progress per release, Brian's review and reprint
+                               queues, and the bases still to print
+  scan                         find printable parts on disk and add rows for
+                               anything new, never touching a Stage, Plate,
+                               Result or Note already recorded
+  build                        render dashboard.html from PRINTS.md, caching
+                               each plate's preview to plates/<ID>.png
+  printer                      list the sliced files the printer is holding,
+                               newest first, with their settings
+  plate <file> [id]            record a sliced file as a plate, reading its
+                               settings from the file itself
+  assign <plate|-> <stage> <target>...
+                               set Stage, and Plate unless given "-"
+  preview <file> [out] [small|big]
+                               write a plate's build-plate preview to a PNG
+
+Targets for assign are matched against release and model names, or narrowed to
+one part with "Model:Part". Quote anything containing spaces.
+
+Stages: todo, reprint, sliced, printed, cleaned, cured, review, primed,
+painted, delivered. A part counts as printed from "printed" onward, and only
+Brian's approval earns a Result of "pass".
+
+Model, Mini and Base columns are derived from reference/models.tsv and refreshed
+on every scan, so don't hand-edit those. Base stock lives in the "## Bases"
+section and is never inferred.
+
+See README.md for the full guide, CLAUDE.md for the operating rules.
 """
 
 import datetime
@@ -1015,6 +1040,9 @@ if __name__ == "__main__":
             print("usage: ledger.py plate <file|url|printer-filename> [plate-id]")
             sys.exit(2)
         cmd_plate(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    elif cmd in ("-h", "--help", "help"):
+        print(__doc__)
     else:
+        print(f"unknown command: {cmd}\n")
         print(__doc__)
         sys.exit(2)
