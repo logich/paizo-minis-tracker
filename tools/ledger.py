@@ -462,9 +462,11 @@ def bases_needed(rows):
             # It printed once, so its base already exists; only the mini needs
             # running again.
             continue
-        pending.setdefault((model, r.get("Base", "?")), set()).add(variant_of(part))
+        # Scale is part of the key: the same model at two scales is two
+        # miniatures needing two bases, not one.
+        pending.setdefault((model, r.get("Base", "?"), scale), set()).add(variant_of(part))
     out = Counter()
-    for (model, base), variants in pending.items():
+    for (model, base, scale), variants in pending.items():
         named = {v for v in variants if v}
         out[base] += len(named) if named else 1
     return out

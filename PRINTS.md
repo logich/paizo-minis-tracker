@@ -78,7 +78,7 @@ Regenerate the dashboard after any change:
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Body | 32mm | printed |  | pass |  |
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Full | 32mm | printed |  | pass |  |
 | P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 32mm | printed |  | pass |  |
-| P0093_Living_Waterfall_S2P2 | Living Waterfall |  | main | 50mm | todo |  |  | scaled up in Chitubox; base size to confirm |
+| P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 50mm | todo |  |  | scaled up in Chitubox |
 
 ## 202608 August extras sale
 
@@ -190,9 +190,9 @@ Regenerate the dashboard after any change:
 | 1-P0036_Phistophilus_S1P2 | Phistophilus (Contract Devil) | 25mm | Horn L | 32mm | printed |  | pass |  |
 | 1-P0036_Phistophilus_S1P2 | Phistophilus (Contract Devil) | 25mm | Horn R | 32mm | printed |  | pass |  |
 | 2-P0037_Talmandor_S1P2 | Talmandor | 50mm | Wing | 32mm | printed |  | pass |  |
-| 2-P0037_Talmandor_S1P2 | Talmandor |  | Wing | 50mm | todo |  |  | scaled up in Chitubox; base size to confirm |
+| 2-P0037_Talmandor_S1P2 | Talmandor | 50mm | Wing | 50mm | todo |  |  | scaled up in Chitubox |
 | 2-P0037_Talmandor_S1P2 | Talmandor | 50mm | body | 32mm | printed |  | pass |  |
-| 2-P0037_Talmandor_S1P2 | Talmandor |  | body | 50mm | todo |  |  | scaled up in Chitubox; base size to confirm |
+| 2-P0037_Talmandor_S1P2 | Talmandor | 50mm | body | 50mm | todo |  |  | scaled up in Chitubox |
 | 2-P0038_Balisse_Angel_WP2 | Balisse Angel | 25mm | main | 32mm | printed |  | pass |  |
 | 2-P0039_Hellbreaker_S1P2 | Hellbreaker | 25mm | main | 32mm | printed |  | pass |  |
 | 2-P0040_Leukodaemon_WP2 | Leukodaemon | 50mm | main | 32mm | printed |  | pass |  |
