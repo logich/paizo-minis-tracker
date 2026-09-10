@@ -29,6 +29,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2609-10 | 2026-09-10 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.9s | 27.0s | 5 |  |  |  | Gutaki Body reprint. Exposure set to 2.9s on the printer, so the file still says 2.8s; 2.9s confirmed from the printer log. New FEP release film; in progress |
 | P2609-09 | 2026-09-09 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | fail | Gutaki Body; large body separated from the supports in the final layers. FEP release film replaced and exposure raised 0.1s to 2.9s before the next attempt |
 | P2609-08 | 2026-09-09 | 32mm_P0098_Reefclaw_A_S2P3_SUP.stl_0.030_2.800_2026_09_09_18_41.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | pass | Reefclaw A/B/C |
 | P2609-06 | 2026-09-09 | 32mm_P0097_Draugr_ABC_S2P3_SUP.stl_0.030_2.800_2026_09_09_09_33.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  | 3x 25mm | pass | Draugr A/B/C |
@@ -55,7 +56,7 @@ Regenerate the dashboard after any change:
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm | review | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm | review | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm | review | P2609-08 |  |  |
-| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm | reprint | P2609-09 | fail | body separated from the supports in the final layers |
+| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm | sliced | P2609-10 | fail | body separated from the supports in the final layers |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm | todo |  |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm | todo |  |  |  |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm | todo |  |  |  |

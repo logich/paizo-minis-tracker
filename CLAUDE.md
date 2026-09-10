@@ -409,6 +409,24 @@ it and everything else still works.
     python3 tools/ledger.py printer
     python3 tools/ledger.py plate "<file|url|printer-filename>" [plate-id]
 
+## Settings changed on the printer itself
+
+A setting changed on the machine never reaches the sliced file: the filename and
+header still say whatever Chitubox wrote. The printer's own rolling log records
+what actually executed, so it is the authority for a run:
+
+    python3 tools/ledger.py runlog
+
+It reads the `execute:` lines from `/media/mmcblk0p2/log` and reports exposure,
+lift and rest times — the Gutaki reprint shows `exposure 2.90s` while its file
+says 2.8s. The log has no filenames in it and rolls over, so treat it as "the
+run happening now", not as history.
+
+**Record what ran, not what was sliced.** Put the real value in the plate's
+`Exposure` and say in `Notes` that it was set on the printer and where the value
+came from. Otherwise the ledger quietly disagrees with the machine, and a later
+comparison of exposures across plates is wrong.
+
 ### What is and isn't readable
 
 - **`.goo`** — ELEGOO's own format and what the printer runs natively.
