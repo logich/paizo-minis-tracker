@@ -150,9 +150,10 @@ Two stages carry this:
   reason in `Notes` and set `Result` to `fail`.
 
 `reprint` deliberately ranks *below* `printed` in `STAGES`, so a rejected part
-drops out of the done count and reappears in the print queue. It is also skipped
-by `bases_needed()`: the part printed once, so its base already exists and only
-the miniature needs running again.
+drops out of the done count and reappears in the print queue. It **counts
+toward bases** like anything else unprinted: a first print can fail outright, as
+the Gutaki body did, in which case no base was ever made. Bases you already hold
+belong in `On hand`, not in an assumption made here.
 
 `status` lists both queues — what is sitting with Brian, and what he has sent
 back, with his notes.

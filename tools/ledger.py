@@ -458,10 +458,6 @@ def bases_needed(rows):
             continue          # unknown base size cannot be counted
         if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE):
             continue
-        if r["Stage"] == REPRINT_STAGE:
-            # It printed once, so its base already exists; only the mini needs
-            # running again.
-            continue
         # Scale is part of the key: the same model at two scales is two
         # miniatures needing two bases, not one.
         pending.setdefault((model, r.get("Base", "?"), scale), set()).add(variant_of(part))
@@ -512,6 +508,12 @@ def bases_outstanding(sections, stock):
     """What still has to be printed, by base size.
 
         to print = what the unprinted minis need + backlog - on hand
+
+    A part awaiting a reprint still counts. An earlier version skipped them,
+    assuming a reprint follows a successful print whose base already exists —
+    but a first print can fail outright, as the Gutaki body did, and then no
+    base was ever made. Bases already in hand belong in "On hand", not in a
+    guess made here.
 
     Stock is NOT inferred from what plates produced. Most bases were printed
     before this tracker existed, and a batch that looks spare is usually
