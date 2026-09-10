@@ -703,11 +703,17 @@ def cmd_build():
             base = parts[0].get("Base", "")
             thumb = ""
             if info:
-                jpgs = sorted(Path(ROOT / info["dir"]).glob("Release_*.jpg"))
-                if jpgs:
+                # Prefer <Model>_Logo.avif: 46 KB against the jpg's ~122 KB, and
+                # the only image the vendor ships for every release, so it is
+                # what gets committed and what GitHub Pages can serve. The
+                # Release_*.jpg fallback exists only for September, which is the
+                # one pack that shipped them.
+                art = (sorted(Path(ROOT / info["dir"]).glob("*_Logo.avif"))
+                       or sorted(Path(ROOT / info["dir"]).glob("Release_*.jpg")))
+                if art:
                     # Percent-encode: these paths contain spaces, which are fine
                     # over file:// but not valid in an HTTP request path.
-                    src = urllib.parse.quote(jpgs[0].relative_to(ROOT).as_posix())
+                    src = urllib.parse.quote(art[0].relative_to(ROOT).as_posix())
                     thumb = f'<img src="{e(src)}" alt="" loading="lazy">'
             chips = []
             for p in sorted(parts, key=lambda r: r["Part"]):

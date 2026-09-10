@@ -6,6 +6,11 @@
 *.chitubox
 *.pdf
 *.jpg
+# ...but do commit the vendor's 720x720 logo renders. At ~46 KB they are
+# smaller than the Release_*.jpg photos, they exist for every release rather
+# than just September, and GitHub Pages needs them in the repo to show the
+# dashboard to Brian.
+!*_Logo.avif
 *.png
 # ...but keep the cached build-plate previews: the .goo they come from is
 # eventually deleted off the printer, so these become the only record of

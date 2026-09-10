@@ -312,6 +312,22 @@ If the printer is unreachable when a new plate is recorded, the thumbnail is
 just missing and the build still succeeds; a later `build` backfills it while
 the file is still on the printer. `.ctb` plates get one via UVtools, at the cost of downloading the whole file.
 
+## Mini artwork on the dashboard
+
+Cards use `<Model>_Logo.avif` from the model directory when it exists, falling
+back to `Release_*.jpg`. Only the avif is committed:
+
+- ~46 KB against the jpg's ~122 KB, at 720x720.
+- The name is derivable from the directory name, so no lookup table is needed.
+- It is the image the vendor publishes for every release; `Release_*.jpg` only
+  shipped with September, so the jpgs would leave seven of eight releases blank.
+- GitHub Pages can only show what is in the repo, and the STLs and jpgs stay
+  ignored.
+
+Get one by downloading the model's image from its MyMiniFactory page and saving
+it into the model directory as `<Model>_Logo.avif` — the same bytes the CDN
+serves. Commit it; `.gitignore` has an exception for `*_Logo.avif`.
+
 ## Serving the dashboard
 
 **Live at <http://elite.internal/minis/dashboard.html>**
