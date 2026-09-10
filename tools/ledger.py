@@ -22,6 +22,8 @@ Usage: python3 tools/ledger.py <command> [args]
                                set Stage, and Plate unless given "-"
   preview <file> [out] [small|big]
                                write a plate's build-plate preview to a PNG
+  artwork <url>...             download MyMiniFactory logo renders and file
+                               them into the right model directory
 
 Targets for assign are matched against release and model names, or narrowed to
 one part with "Model:Part". Quote anything containing spaces.
@@ -1018,6 +1020,45 @@ def cmd_preview(source, out_path=None, which="big"):
         print(f"could not extract a preview from {name}: {exc}")
 
 
+def cmd_artwork(urls):
+    """Download MyMiniFactory logo renders and file them by P-number.
+
+    The URL ends in the vendor's own filename (P0097_Draugr_S2P3_Logo.png), and
+    the P-number in it is the same key reference/models.tsv joins on — which
+    matters because directory names drift from the vendor's ("3-P0028_Hellknight
+    Signifer_S1P1" against "P0028_Hellknight_Signifer_S1P1").
+
+    Saved as <stem>.avif, which is what the CDN actually serves.
+    """
+    import sliced
+    ref = load_reference()
+    disk = scan_disk(ref)
+    by_pnum = {}
+    for parts in disk.values():
+        for info in parts.values():
+            m = PNUM.search(info["model"])
+            if m:
+                by_pnum.setdefault("P" + m.group(1), info["dir"])
+
+    for url in urls:
+        stem = urllib.parse.unquote(url.rsplit("/", 1)[-1]).rsplit(".", 1)[0]
+        m = PNUM.search(stem)
+        if not m:
+            print(f"no P-number in {stem} — skipped")
+            continue
+        code = "P" + m.group(1)
+        target_dir = by_pnum.get(code)
+        if not target_dir:
+            print(f"{code}: no model directory on disk — skipped")
+            continue
+        out = ROOT / target_dir / f"{stem}.avif"
+        try:
+            sliced.download(url, out)
+            print(f"{code}  {out.stat().st_size // 1024:>4} KB  {out.relative_to(ROOT)}")
+        except Exception as exc:
+            print(f"{code}: download failed — {exc}")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "scan":
@@ -1039,6 +1080,11 @@ if __name__ == "__main__":
         cmd_preview(sys.argv[2],
                     sys.argv[3] if len(sys.argv) > 3 else None,
                     sys.argv[4] if len(sys.argv) > 4 else "big")
+    elif cmd == "artwork":
+        if len(sys.argv) < 3:
+            print("usage: ledger.py artwork <url>...")
+            sys.exit(2)
+        cmd_artwork(sys.argv[2:])
     elif cmd == "printer":
         cmd_printer()
     elif cmd == "plate":

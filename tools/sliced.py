@@ -137,9 +137,15 @@ def uvtools_thumbnail(local_path, out_path, index=0):
         return out_path
 
 
+# Some CDNs reject urllib's default User-Agent with a 403.
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) paizo-minis-tracker"
+
+
 def download(url, dest):
-    """Fetch a whole sliced file; UVtools cannot work from a range request."""
-    with urllib.request.urlopen(url, timeout=600) as r, open(dest, "wb") as fh:
+    """Fetch a whole file — UVtools cannot work from a range request, and
+    artwork downloads want the entire image."""
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=600) as r, open(dest, "wb") as fh:
         shutil.copyfileobj(r, fh)
     return dest
 
