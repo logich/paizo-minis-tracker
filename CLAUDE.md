@@ -71,12 +71,14 @@ something is wrong.
 
 Each release is a `## <release name>` section holding one table:
 
-    | Model | Mini | Base | Part | Stage | Plate | Result | Notes |
+    | Model | Mini | Base | Part | Scale | Stage | Plate | Result | Notes |
 
 - `Model` — the directory name, e.g. `P0094_Athamaru_S2P3`
 - `Mini`, `Base` — **derived; never hand-edit.** `scan` rewrites them from
   `reference/models.tsv` on every run.
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
+- `Scale` — `32mm` for everything on disk. Other values are prints made by
+  scaling up in Chitubox; see below.
 - `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `review` →
   `primed` → `painted` → `delivered`, plus `reprint`. Counts as printed from
   `printed` onward.
@@ -172,6 +174,31 @@ settings decision that can simply wait for the next attempt.
 
 When he approves, move the part on to `primed` (or wherever it goes next) and
 set `Result` to `pass`.
+
+## Scaled-up prints
+
+Rows are keyed by **Model + Part + Scale**. Everything the library ships is
+`32mm`, so:
+
+- `scan` only ever creates and refreshes `32mm` rows. It never invents a row at
+  another scale, and never reports a non-32mm row as missing from disk — there
+  is no file to find, because the scaling happens in Chitubox.
+- `Mini` and `Base` are refreshed only on `32mm` rows. A scaled-up print's base
+  size is left blank for the user to state, and `bases_needed()` skips any row
+  whose base is blank or `?` rather than guessing.
+- A scaled-up print is a separate print: its own stage, plate, result and place
+  in Brian's queue. `status` lists them under "Scaled-up prints".
+
+Target one with `@scale`, which combines with `Model:Part`:
+
+    python3 tools/ledger.py assign P2610-01 sliced "2-P0037_Talmandor_S1P2@50mm"
+    python3 tools/ledger.py assign - printed "2-P0037_Talmandor_S1P2:body@50mm"
+
+A bare target matches `32mm` only, so existing commands never touch a scaled
+row by accident.
+
+**Adding a scaled row** means editing `PRINTS.md` by hand: copy the `32mm` row,
+set `Scale`, clear `Base`, `Stage` to `todo`, and blank the result.
 
 ## Updating the tracker when the user reports results
 

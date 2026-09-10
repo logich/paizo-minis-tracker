@@ -67,7 +67,11 @@ DONE_STAGE = "printed"     # counts as "off the printer"
 REVIEW_STAGE = "review"    # cleaned and cured, waiting on Brian
 REPRINT_STAGE = "reprint"  # Brian rejected it
 
-COLUMNS = ["Model", "Mini", "Base", "Part", "Stage", "Plate", "Result", "Notes"]
+COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Stage", "Plate", "Result", "Notes"]
+# Everything on disk is the 32mm mesh. Other scales are prints the user makes by
+# scaling up in Chitubox, so they exist only as rows here — scan must never
+# invent them, and must never delete them for having no matching file.
+NATIVE_SCALE = "32mm"
 PLATE_COLUMNS = ["ID", "Date", "Slicer file", "Resin", "Layer", "Exposure",
                  "Bottom exp", "Bottom layers", "Lift", "Bases", "Result", "Notes"]
 # Filled in from the sliced file by `plate`; the rest are yours to fill in.
@@ -300,7 +304,8 @@ def parse_ledger():
         elif section:
             cells += [""] * (len(COLUMNS) - len(cells))
             row = dict(zip(COLUMNS, cells[:len(COLUMNS)]))
-            sections[section][(row["Model"], row["Part"])] = row
+            row["Scale"] = row.get("Scale") or NATIVE_SCALE
+            sections[section][(row["Model"], row["Part"], row["Scale"])] = row
     while preamble and not preamble[0].strip():
         preamble.pop(0)
     while preamble and not preamble[-1].strip():
@@ -386,29 +391,33 @@ def cmd_scan(seed_printed_before=None):
     missing = []
     for release, parts in disk.items():
         section = sections.setdefault(release, OrderedDict())
-        for key, info in parts.items():
+        for (model, part), info in parts.items():
+            key = (model, part, NATIVE_SCALE)
             if key in section:
                 row = section[key]
             else:
                 stage = "todo"
                 if seed_printed_before and release < seed_printed_before:
                     stage = DONE_STAGE
-                row = {"Model": info["model"], "Part": info["part"], "Stage": stage,
-                       "Plate": "", "Result": "pass" if stage != "todo" else "", "Notes": ""}
+                row = {"Model": info["model"], "Part": info["part"],
+                       "Scale": NATIVE_SCALE, "Stage": stage, "Plate": "",
+                       "Result": "pass" if stage != "todo" else "", "Notes": ""}
                 section[key] = row
                 added += 1
-            # derived columns, always refreshed
+            # derived columns, always refreshed — but only for the native scale;
+            # a scaled-up print's base is the user's to state.
             row["Mini"] = info["mini"]
             row["Base"] = info["base"]
-        # keep sections ordered the way disk order presents them
         sections[release] = OrderedDict(
-            sorted(section.items(), key=lambda kv: (kv[0][0], kv[0][1]))
+            sorted(section.items(), key=lambda kv: (kv[0][0], kv[0][1], kv[0][2]))
         )
 
     for release, rows in sections.items():
-        for key in rows:
-            if key not in disk.get(release, {}):
-                missing.append(f"{release}/{key[0]} [{key[1]}]")
+        for (model, part, scale) in rows:
+            if scale != NATIVE_SCALE:
+                continue          # scaled-up prints have no file to match
+            if (model, part) not in disk.get(release, {}):
+                missing.append(f"{release}/{model} [{part}]")
 
     write_ledger(preamble, plates, sections, base_stock)
 
@@ -444,7 +453,9 @@ def bases_needed(rows):
     needing three 25mm bases.
     """
     pending = {}
-    for (model, part), r in rows.items():
+    for (model, part, scale), r in rows.items():
+        if not r.get("Base") or r["Base"] == "?":
+            continue          # unknown base size cannot be counted
         if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE):
             continue
         if r["Stage"] == REPRINT_STAGE:
@@ -565,6 +576,13 @@ def cmd_status():
             print(f"  {size:<6} {r['need']:>6} {r['backlog']:>8} {hand:>8} {verdict:>15}")
         if any(not r["known"] for r in report.values()):
             print("  ? = on-hand not recorded; nothing subtracted for that size")
+    scaled = [(rel, r) for rel, rows in sections.items() for (m, p, sc), r in rows.items()
+              if sc != NATIVE_SCALE]
+    if scaled:
+        print(f"\nScaled-up prints: {len(scaled)} part(s)")
+        for rel, r in scaled:
+            print(f"  {r['Model']} [{r['Part']}] @{r['Scale']} — {r['Stage']}")
+
     for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
                          ("Needs reprint", REPRINT_STAGE)):
         queued = [r for rows in sections.values() for r in rows.values()
@@ -705,7 +723,7 @@ def cmd_build():
 
         # group parts by model
         models = OrderedDict()
-        for (model, part), row in rows.items():
+        for (model, part, scale), row in rows.items():
             models.setdefault(model, []).append(row)
 
         out.append('<div class="grid">')
@@ -742,9 +760,13 @@ def cmd_build():
                 elif stage_rank(p["Stage"]) >= stage_rank(DONE_STAGE):
                     cls += " done"
                 d = disk.get(release, {}).get((model, p["Part"]))
+                if p.get("Scale", NATIVE_SCALE) != NATIVE_SCALE:
+                    d = None          # no file on disk for a scaled-up print
                 # No pre-supported file means supports have to be added in the slicer.
                 warn = "" if (d is None or d["presupported"]) else " ⚠"
-                label = f'{e(p["Part"])} · {e(p["Stage"])}{warn}'
+                scale = p.get("Scale", NATIVE_SCALE)
+                suffix = "" if scale == NATIVE_SCALE else f' @{e(scale)}'
+                label = f'{e(p["Part"])}{suffix} · {e(p["Stage"])}{warn}'
                 title = " ".join(x for x in [p.get("Plate", ""), p.get("Notes", ""),
                                              "needs supports" if warn else ""] if x)
                 chips.append(f'<span class="{cls}" title="{e(title)}">{label}</span>')
@@ -981,8 +1003,15 @@ def cmd_assign(plate, stage, targets):
         print(f"no plate {plate!r} in the Plates table")
         return
 
-    def matches(target, release, model, part):
-        # "Model:Part" narrows to one part; a bare target takes whole models.
+    def matches(target, release, model, part, scale):
+        # "Model:Part" narrows to one part, "@50mm" to one scale; a bare target
+        # takes whole models at the native scale.
+        want_scale = NATIVE_SCALE
+        if "@" in target:
+            target, want_scale = target.rsplit("@", 1)
+            want_scale = want_scale.strip()
+        if scale.lower() != want_scale.lower():
+            return False
         if ":" in target:
             want_model, want_part = target.rsplit(":", 1)
             return (want_model.lower() in model.lower()
@@ -991,14 +1020,15 @@ def cmd_assign(plate, stage, targets):
 
     changed = []
     for release, rows in sections.items():
-        for (model, part), row in rows.items():
-            hit = any(matches(t, release, model, part) for t in targets)
+        for (model, part, scale), row in rows.items():
+            hit = any(matches(t, release, model, part, scale) for t in targets)
             if not hit:
                 continue
             row["Stage"] = stage
             if plate != "-":
                 row["Plate"] = plate
-            changed.append(f"{model} [{part}]")
+            label = f"{model} [{part}]"
+            changed.append(label if scale == NATIVE_SCALE else f"{label} @{scale}")
     if not changed:
         print(f"nothing matched {targets}")
         return
