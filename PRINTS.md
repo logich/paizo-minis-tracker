@@ -37,7 +37,8 @@ Regenerate the dashboard after any change:
 | P2609-02 | 2026-09-08 | 32mm_P0094_Athamaru_A_S2P3_PRE.stl_0.030_2.800_2026_09_08_09_53.ctb | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 | 0.03mm @ 0.05 |  | encrypted ctb, decrypted with UVtools |  |
 | P2609-03 | 2026-09-08 | 32mm_P0095_Rigger_S2P3_SUP.stl_0.030_2.800_2026_09_08_15_54.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  | 12x 25mm | Rigger + Subaquatic Marauder; 1824 layers |  |
 | P2609-06 | 2026-09-09 | 32mm_P0097_Draugr_ABC_S2P3_SUP.stl_0.030_2.800_2026_09_09_09_33.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  | 3x 25mm | pass | Draugr A/B/C |
-| P2609-08 | 2026-09-09 | 32mm_P0098_Reefclaw_A_S2P3_SUP.stl_0.030_2.800_2026_09_09_18_41.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Reefclaw A/B/C; in progress |
+| P2609-08 | 2026-09-09 | 32mm_P0098_Reefclaw_A_S2P3_SUP.stl_0.030_2.800_2026_09_09_18_41.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | pass | Reefclaw A/B/C |
+| P2609-09 | 2026-09-09 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Gutaki Body; in progress |
 
 ## 202609 September Release
 
@@ -51,10 +52,10 @@ Regenerate the dashboard after any change:
 | P0097_Draugr_S2P3 | Draugr | 25mm | A | printed | P2609-06 |  |  |
 | P0097_Draugr_S2P3 | Draugr | 25mm | B | printed | P2609-06 |  |  |
 | P0097_Draugr_S2P3 | Draugr | 25mm | C | printed | P2609-06 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | sliced | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | sliced | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | sliced | P2609-08 |  |  |
-| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | todo |  |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | printed | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | printed | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | printed | P2609-08 |  |  |
+| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | sliced | P2609-09 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | todo |  |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | todo |  |  |  |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | todo |  |  |  |

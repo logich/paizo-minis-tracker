@@ -11,6 +11,41 @@ manual for you.
 Python 3 standard library only — nothing to install. Run everything from the
 repository root.
 
+## Quick reference — recording a print
+
+Most sessions are only this. Everything below is detail for when it is not.
+
+**A job has started or is printing**
+
+    python3 tools/ledger.py printer                    # newest file is at the top
+    python3 tools/ledger.py plate "<filename>"         # allocates the next plate ID
+    python3 tools/ledger.py assign <plate-id> sliced <target>
+    python3 tools/ledger.py build
+
+**A job finished**
+
+    python3 tools/ledger.py assign <plate-id> printed <target>
+    python3 tools/ledger.py build
+
+**Brian: handed over, approved, rejected**
+
+    python3 tools/ledger.py assign - review <target>
+    python3 tools/ledger.py assign - primed <target>    # and set Result = pass by hand
+    python3 tools/ledger.py assign - reprint <target>   # and Result = fail, reason in Notes
+
+**Targets** — a model (`P0099_Gutaki_S2P3`), a single part
+(`P0099_Gutaki_S2P3:Body`), or a whole release (`"202609 September Release"`,
+quoted). `assign` prints how many parts it changed; check that number.
+
+**Five rules that bite**
+
+1. `printed` is not `pass`. Only Brian's approval earns `pass` — otherwise
+   leave `Result` blank.
+2. A plate holds more than its filename says. Check `plates/<ID>.png`.
+3. Never infer base stock from plates. It is stated in the `## Bases` section.
+4. Quote release names containing spaces, or each word becomes its own target.
+5. Run `build` at the end. Commit only if the user asks.
+
 ## Layout
 
 - `PRINTS.md` — **the tracker, and the source of truth.** Plain Markdown tables.

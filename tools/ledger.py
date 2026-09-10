@@ -924,6 +924,7 @@ def cmd_assign(plate, stage, targets):
     model name, so "Dragons", "202604 Dragons" and "P0009" all work.
 
         ledger.py assign P2609-02 sliced P0094_Athamaru_S2P3
+        ledger.py assign P2609-09 sliced P0099_Gutaki_S2P3:Body
         ledger.py assign - printed Dragons
     """
     if stage not in STAGES:
@@ -934,11 +935,18 @@ def cmd_assign(plate, stage, targets):
         print(f"no plate {plate!r} in the Plates table")
         return
 
+    def matches(target, release, model, part):
+        # "Model:Part" narrows to one part; a bare target takes whole models.
+        if ":" in target:
+            want_model, want_part = target.rsplit(":", 1)
+            return (want_model.lower() in model.lower()
+                    and want_part.strip().lower() == part.lower())
+        return target.lower() in release.lower() or target.lower() in model.lower()
+
     changed = []
     for release, rows in sections.items():
         for (model, part), row in rows.items():
-            hit = any(t.lower() in release.lower() or t.lower() in model.lower()
-                      for t in targets)
+            hit = any(matches(t, release, model, part) for t in targets)
             if not hit:
                 continue
             row["Stage"] = stage
