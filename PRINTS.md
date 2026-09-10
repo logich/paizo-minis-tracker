@@ -92,9 +92,9 @@ Regenerate the dashboard after any change:
 | PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030D | printed |  | pass |  |
 | PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | ? | Zombie | printed |  | pass |  |
 | PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | ? | Zombie (32mm) | printed |  | pass |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | A | printed |  | pass |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | B | printed |  | pass |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | C | printed |  | pass |  |
+| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | A | reprint |  |  |  |
+| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | B | reprint |  |  |  |
+| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | ? | C | reprint |  |  |  |
 | Paizo_Grave_Knight_Supported | Paizo_Grave_Knight_Supported | ? | main | printed |  | pass |  |
 | Paizo_Hellknight_Sharpshooters_Supported | Paizo_Hellknight_Sharpshooters_Supported | ? | SharpshootersA3 | printed |  | pass |  |
 | Paizo_Hellknight_Sharpshooters_Supported | Paizo_Hellknight_Sharpshooters_Supported | ? | SharpshootersB3 | printed |  | pass |  |
@@ -108,9 +108,9 @@ Regenerate the dashboard after any change:
 | Paizo_Signifers_Supported | Paizo_Signifers_Supported | ? | A | printed |  | pass |  |
 | Paizo_Signifers_Supported | Paizo_Signifers_Supported | ? | B | printed |  | pass |  |
 | Paizo_Signifers_Supported | Paizo_Signifers_Supported | ? | C | printed |  | pass |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | A supp | printed |  | pass |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | B | printed |  | pass |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | C | printed |  | pass |  |
+| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | A supp | reprint |  |  |  |
+| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | B | reprint |  |  |  |
+| Paizo_bastions_Supported | Paizo_bastions_Supported | ? | C | reprint |  |  |  |
 | Paizo_cave_bear_Supported | Paizo_cave_bear_Supported | ? | main | printed |  | pass |  |
 | Paizo_elk_Supported | Paizo_elk_Supported | ? | main | printed |  | pass |  |
 | Paizo_fire_serpent__Supported | Paizo_fire_serpent__Supported | ? | main | printed |  | pass |  |
@@ -153,7 +153,7 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | printed |  | pass |  |
+| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | reprint |  |  |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Arm | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Body | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Cape | printed |  | pass |  |
