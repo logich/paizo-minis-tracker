@@ -94,13 +94,13 @@ Paizo_fire_serpent__Supported	Fire Serpent	50		extras	https://www.myminifactory.
 # blank: MyMiniFactory states none, so DEFAULT_BASE_MM (25mm) applies until
 # corrected. The Hellknight Chargers, cave bear, elk and fire serpent are
 # recorded above with their real 50mm.
-Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)			extras	https://www.myminifactory.com/object/3d-print-orc-melee-pathfinder-quest-768516
-Paizo_bastions_Supported	Hellknight Bastions			extras	https://www.myminifactory.com/object/3d-print-hellknight-bastions-768553
-Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars			extras	https://www.myminifactory.com/object/3d-print-augustana-irregulars-768550
-Paizo_Grave_Knight_Supported	Graveknight			extras	https://www.myminifactory.com/object/3d-print-graveknight-768537
-Paizo_Signifers_Supported	Hellknight Signifers			extras	https://www.myminifactory.com/object/3d-print-hellknight-signifers-768556
-Paizo_Ironkettles_wall_Supported	Ironkettle's Wall			extras	https://www.myminifactory.com/object/3d-print-ironkettle-s-wall-768558
-Paizo_Hellknight_Sharpshooters_Supported	Hellknight Sharpshooters			extras	https://www.myminifactory.com/object/3d-print-hellknight-sharpshooters-768555
-Paizo_Merandals_Hawks_Supported	Merandal's Hawks			extras	https://www.myminifactory.com/object/3d-print-merandal-s-hawks-768560
-Paizo_goblin_spellcaster_Supported	Goblin Spellcaster (Pathfinder Quest)			extras	https://www.myminifactory.com/object/3d-print-goblin-spellcaster-pathfinder-quest-768509
-PQ0041_Dread_Zombie	Dread Zombie			extras	https://www.myminifactory.com/object/3d-print-dread-zombie-768527
+Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)	25		extras	https://www.myminifactory.com/object/3d-print-orc-melee-pathfinder-quest-768516
+Paizo_bastions_Supported	Hellknight Bastions	25		extras	https://www.myminifactory.com/object/3d-print-hellknight-bastions-768553
+Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars	25		extras	https://www.myminifactory.com/object/3d-print-augustana-irregulars-768550
+Paizo_Grave_Knight_Supported	Graveknight	25		extras	https://www.myminifactory.com/object/3d-print-graveknight-768537
+Paizo_Signifers_Supported	Hellknight Signifers	25		extras	https://www.myminifactory.com/object/3d-print-hellknight-signifers-768556
+Paizo_Ironkettles_wall_Supported	Ironkettle's Wall	25		extras	https://www.myminifactory.com/object/3d-print-ironkettle-s-wall-768558
+Paizo_Hellknight_Sharpshooters_Supported	Hellknight Sharpshooters	25		extras	https://www.myminifactory.com/object/3d-print-hellknight-sharpshooters-768555
+Paizo_Merandals_Hawks_Supported	Merandal's Hawks	25		extras	https://www.myminifactory.com/object/3d-print-merandal-s-hawks-768560
+Paizo_goblin_spellcaster_Supported	Goblin Spellcaster (Pathfinder Quest)	25		extras	https://www.myminifactory.com/object/3d-print-goblin-spellcaster-pathfinder-quest-768509
+PQ0041_Dread_Zombie	Dread Zombie	25		extras	https://www.myminifactory.com/object/3d-print-dread-zombie-768527
