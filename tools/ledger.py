@@ -68,7 +68,13 @@ SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools
 # purpose: Brian rejected it, so it has to go back on a plate and should show up
 # in the print queue again.
 STAGES = ["todo", "reprint", "sliced", "printed", "cleaned", "cured",
-          "ready", "review", "approved", "primed", "painted", "delivered"]
+          "ready", "review", "approved", "primed", "painted", "delivered",
+          # Not a progression step. Some models ship alternative decompositions
+          # — Scylla has Body + Tentacles *and* a combined Full — and only one
+          # route gets printed. The other is "skipped": excluded from progress
+          # totals and from base needs, not counted as done.
+          "skipped"]
+SKIPPED_STAGE = "skipped"
 DONE_STAGE = "printed"      # counts as "off the printer"
 READY_STAGE = "ready"       # finished here, waiting for the next delivery
 REVIEW_STAGE = "review"     # with Brian
@@ -460,6 +466,12 @@ def cmd_scan(seed_printed_before=None):
 # status
 
 
+def live_rows(rows):
+    """Rows that count toward progress: everything not deliberately skipped."""
+    return OrderedDict((k, r) for k, r in rows.items()
+                       if r.get("Stage") != SKIPPED_STAGE)
+
+
 def variant_of(part):
     """The miniature a part belongs to, when a model ships several sculpts.
 
@@ -480,7 +492,7 @@ def bases_needed(rows):
     needing three 25mm bases.
     """
     pending = {}
-    for (model, part, scale), r in rows.items():
+    for (model, part, scale), r in live_rows(rows).items():
         if not r.get("Base") or r["Base"] == "?":
             continue          # unknown base size cannot be counted
         if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE):
@@ -585,12 +597,14 @@ def cmd_status():
     print(f"{'Release':<32} {'done':>5} {'/':^1} {'all':<5}  bases the remaining minis need")
     print("-" * 78)
     for release, rows in sections.items():
-        done = sum(1 for r in rows.values() if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
+        counted = live_rows(rows)
+        done = sum(1 for r in counted.values()
+                   if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
         bases = bases_needed(rows)
         grand["done"] += done
-        grand["all"] += len(rows)
+        grand["all"] += len(counted)
         base_txt = ", ".join(f"{n}x {b}" for b, n in sorted(bases.items())) or "-"
-        print(f"{release:<32} {done:>5} / {len(rows):<5}  {base_txt}")
+        print(f"{release:<32} {done:>5} / {len(counted):<5}  {base_txt}")
     print("-" * 78)
     print(f"{'TOTAL':<32} {grand['done']:>5} / {grand['all']:<5}")
 
@@ -613,6 +627,14 @@ def cmd_status():
         print(f"\nScaled-up prints: {len(scaled)} part(s)")
         for rel, r in scaled:
             print(f"  {r['Model']} [{r['Part']}] @{r['Scale']} — {r['Stage']}")
+
+    skipped = [r for rows in sections.values() for r in rows.values()
+               if r["Stage"] == SKIPPED_STAGE]
+    if skipped:
+        print(f"\nNot being printed: {len(skipped)} part(s)")
+        for r in skipped:
+            note = f" — {r['Notes']}" if r.get("Notes") else ""
+            print(f"  {r['Model']} [{r['Part']}]{note}")
 
     for label, stage in (("Ready, awaiting the next delivery", READY_STAGE),
                          ("Awaiting Brian's review", REVIEW_STAGE),
@@ -683,6 +705,7 @@ border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
 .part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
 border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.part.skipped{opacity:.45;text-decoration:line-through}
 .part.ready{background:color-mix(in srgb,var(--accent) 16%,transparent);
 border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
 .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
@@ -709,8 +732,8 @@ def cmd_build():
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
 
-    total = sum(len(r) for r in sections.values())
-    done = sum(1 for rows in sections.values() for r in rows.values()
+    total = sum(len(live_rows(r)) for r in sections.values())
+    done = sum(1 for rows in sections.values() for r in live_rows(rows).values()
                if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
     fails = sum(1 for rows in sections.values() for r in rows.values()
                 if r.get("Result") == "fail")
@@ -748,13 +771,14 @@ def cmd_build():
     out.append("</div>")
 
     for release, rows in sections.items():
-        r_done = sum(1 for r in rows.values()
+        counted = live_rows(rows)
+        r_done = sum(1 for r in counted.values()
                      if stage_rank(r["Stage"]) >= stage_rank(DONE_STAGE))
-        pct = round(100 * r_done / len(rows)) if rows else 0
+        pct = round(100 * r_done / len(counted)) if counted else 0
         bases = bases_needed(rows)
         out.append("<section>")
         out.append(f'<div class="rel"><h2>{e(release)}</h2>'
-                   f'<span class="count">{r_done} of {len(rows)} parts · {pct}%</span></div>')
+                   f'<span class="count">{r_done} of {len(counted)} parts · {pct}%</span></div>')
         out.append(f'<div class="bar"><i style="width:{pct}%"></i></div>')
         if bases:
             txt = " · ".join(f"<b>{n}</b>&times; {e(b)}" for b, n in sorted(bases.items()))
@@ -796,6 +820,8 @@ def cmd_build():
                     cls += " review"
                 elif p["Stage"] == READY_STAGE:
                     cls += " ready"
+                elif p["Stage"] == SKIPPED_STAGE:
+                    cls += " skipped"
                 elif p.get("Result") == "fail":
                     cls += " fail"
                 elif stage_rank(p["Stage"]) >= stage_rank(DONE_STAGE):

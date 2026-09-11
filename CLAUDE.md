@@ -212,6 +212,47 @@ settings decision that can simply wait for the next attempt.
 When he approves, `assign - approved <target>` records it and the verdict
 together; move on to `primed` only when priming actually happens.
 
+## Alternative part decompositions
+
+Some models ship two ways to build the same miniature. Scylla has `Body` +
+`Tentacles` **and** a combined `Full`; so do the Sea Hag and the Flotsam
+Terror. Only one route gets printed, so **not every part needs to reach
+`printed` for the model to be complete.**
+
+Mark the route not taken as **`skipped`**:
+
+    python3 tools/ledger.py assign - skipped "P0100_Scylla_S2PB:Full"
+    python3 tools/ledger.py assign - skipped "P0100_Scylla_S2PB:Body" "P0100_Scylla_S2PB:Tentacles"
+
+`skipped` is in `STAGES` so `assign` accepts it, but it is **not a progression
+step**. `live_rows()` filters it out of progress totals and `bases_needed()`,
+so a skipped part is neither "done" nor outstanding — September reads 12/16 or
+12/15 depending on the route, not 12/17. `status` lists them under "Not being
+printed" so they stay visible rather than silently vanishing, and the dashboard
+strikes the chip through.
+
+### Which route fits the plate
+
+The plate is 153.36 x 77.76 x 165 mm. Measured footprints of Scylla's 32mm
+meshes:
+
+    part        mesh      X      Y      Z    footprint fits
+    Body        STL    38.7   31.3   29.8    yes
+    Body        SUP    44.1   35.5   31.5    yes
+    Full        STL   106.0   71.7   84.9    yes
+    Full        SUP   109.5   88.4   81.8    NO
+    Tentacles   STL   106.0   58.4   84.9    yes
+    Tentacles   SUP   113.0   88.6   78.0    NO
+
+**The vendor's pre-supported layouts for `Full` and `Tentacles` overflow the Y
+axis** — that is the support raft, not the model. Both routes therefore need
+re-supporting from the raw `_STL`, exactly as the Horned Dragon body did. The
+raw `Full` fits at 71.7 mm against the 77.76 mm limit, so one-piece is viable
+with your own supports; only `Body` prints as shipped.
+
+Measure with a binary-STL bounding box: 80-byte header, `<I` triangle count at
+offset 80, then `<12fH` per triangle with the vertices in floats 3-11.
+
 ## Scaled-up prints
 
 Rows are keyed by **Model + Part + Scale**. Everything the library ships is
@@ -411,6 +452,10 @@ Then:
 `merge-reference` updates matched rows in `reference/models.tsv` in place,
 reports any code it does not recognise rather than inventing a row, and
 downloads anything in an `artwork` column into the right model directory.
+
+The browser agent also leaves free-text notes for this session in
+`reference/HANDOFF-NOTES.md` — read it before merging, and delete entries once
+they are dealt with.
 
 **URLs are enough — files are not needed.** The image CDN serves fine from here
 once a User-Agent is set, so the agent need only report links. Pasting them into
