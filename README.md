@@ -45,7 +45,7 @@ Each row records:
 | `Mini` | Readable name, filled in automatically |
 | `Base` | Base size needed, filled in automatically |
 | `Part` | Which sculpt or component — `A`, `Body`, `Tentacles L`, `main` |
-| `Stage` | `todo` → `sliced` → `printed` → `cleaned` → `cured` → `review` → `primed` → `painted` → `delivered`, plus `reprint` |
+| `Stage` | `todo` → `sliced` → `printed` → `cleaned` → `cured` → `ready` → `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint` |
 | `Plate` | Which plate it printed on — see below |
 | `Result` | Blank, `pass`, or `fail`. `pass` means Brian approved it |
 | `Notes` | Whatever's worth remembering |

@@ -29,8 +29,9 @@ Most sessions are only this. Everything below is detail for when it is not.
 
 **Brian: handed over, approved, rejected**
 
-    python3 tools/ledger.py assign - review <target>
-    python3 tools/ledger.py assign - primed <target>    # and set Result = pass by hand
+    python3 tools/ledger.py assign - ready <target>     # done, waiting for the delivery
+    python3 tools/ledger.py assign - review <target>    # handed to Brian
+    python3 tools/ledger.py assign - approved <target>  # he passed it; Result set for you
     python3 tools/ledger.py assign - reprint <target>   # and Result = fail, reason in Notes
 
 **Targets** — a model (`P0099_Gutaki_S2P3`), a single part
@@ -79,8 +80,8 @@ Each release is a `## <release name>` section holding one table:
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
 - `Scale` — `32mm` for everything on disk. Other values are prints made by
   scaling up in Chitubox; see below.
-- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `review` →
-  `primed` → `painted` → `delivered`, plus `reprint`. Counts as printed from
+- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `ready` →
+  `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint`. Counts as printed from
   `printed` onward.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
   `pass` means *Brian approved it* — see below.
@@ -159,13 +160,19 @@ detail than the user does, so **nothing is complete until he has approved it.**
 Never set `Result` to `pass` on the user's say-so that a print finished — that
 tells you the stage, not the verdict.
 
-Two stages carry this:
+Four stages carry this:
 
-- **`review`** — cleaned and cured, and now with Brian. Sits between `cured` and
-  `primed`, because he looks at them once they are washed, de-supported and
-  cured and the detail is actually visible.
-- **`reprint`** — Brian rejected it; it has to go back on a plate. Put his
-  reason in `Notes` and set `Result` to `fail`.
+- **`ready`** — finished here, cleaned and cured, but not yet handed over.
+  Deliveries go out roughly weekly, so this is where a mini waits in between.
+  It is the difference between "off the printer" and "with Brian", which
+  `printed` alone could not express.
+- **`review`** — delivered and now with Brian. He looks at them once washed,
+  de-supported and cured, when the detail is actually visible.
+- **`approved`** — Brian passed it. `assign` sets `Result` to `pass` for you,
+  since the stage means exactly one thing; no hand-editing needed.
+- **`reprint`** — Brian rejected it, or it failed on the plate; it has to go
+  back on. Put the reason in `Notes` and set `Result` to `fail`. Not
+  auto-filled: a reprint is not always a rejection.
 
 `reprint` deliberately ranks *below* `printed` in `STAGES`, so a rejected part
 drops out of the done count and reappears in the print queue. It **counts
@@ -197,11 +204,13 @@ went through several attempts on that basis. So a `reprint` entry is a to-do,
 not an incident — do not frame delayed feedback as blocking, or push for a
 settings decision that can simply wait for the next attempt.
 
-    python3 tools/ledger.py assign - review P0094_Athamaru_S2P3   # handed over
-    python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3  # rejected
+    python3 tools/ledger.py assign - ready P0094_Athamaru_S2P3     # done, awaiting delivery
+    python3 tools/ledger.py assign - review P0094_Athamaru_S2P3    # handed over
+    python3 tools/ledger.py assign - approved P0094_Athamaru_S2P3  # he passed it
+    python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3   # he rejected it
 
-When he approves, move the part on to `primed` (or wherever it goes next) and
-set `Result` to `pass`.
+When he approves, `assign - approved <target>` records it and the verdict
+together; move on to `primed` only when priming actually happens.
 
 ## Scaled-up prints
 

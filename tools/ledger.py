@@ -33,9 +33,10 @@ Usage: python3 tools/ledger.py <command> [args]
 Targets for assign are matched against release and model names, or narrowed to
 one part with "Model:Part". Quote anything containing spaces.
 
-Stages: todo, reprint, sliced, printed, cleaned, cured, review, primed,
-painted, delivered. A part counts as printed from "printed" onward, and only
-Brian's approval earns a Result of "pass".
+Stages: todo, reprint, sliced, printed, cleaned, cured, ready, review,
+approved, primed, painted, delivered. A part counts as printed from "printed"
+onward. "ready" means finished here and waiting for the next delivery;
+"approved" means Brian has passed it, and sets Result to pass for you.
 
 Model, Mini and Base columns are derived from reference/models.tsv and refreshed
 on every scan, so don't hand-edit those. Base stock lives in the "## Bases"
@@ -67,10 +68,12 @@ SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools
 # purpose: Brian rejected it, so it has to go back on a plate and should show up
 # in the print queue again.
 STAGES = ["todo", "reprint", "sliced", "printed", "cleaned", "cured",
-          "review", "primed", "painted", "delivered"]
-DONE_STAGE = "printed"     # counts as "off the printer"
-REVIEW_STAGE = "review"    # cleaned and cured, waiting on Brian
-REPRINT_STAGE = "reprint"  # Brian rejected it
+          "ready", "review", "approved", "primed", "painted", "delivered"]
+DONE_STAGE = "printed"      # counts as "off the printer"
+READY_STAGE = "ready"       # finished here, waiting for the next delivery
+REVIEW_STAGE = "review"     # with Brian
+APPROVED_STAGE = "approved"  # Brian approved it
+REPRINT_STAGE = "reprint"   # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Stage", "Plate", "Result", "Notes"]
 # Everything on disk is the 32mm mesh. Other scales are prints the user makes by
@@ -611,7 +614,8 @@ def cmd_status():
         for rel, r in scaled:
             print(f"  {r['Model']} [{r['Part']}] @{r['Scale']} — {r['Stage']}")
 
-    for label, stage in (("Awaiting Brian's review", REVIEW_STAGE),
+    for label, stage in (("Ready, awaiting the next delivery", READY_STAGE),
+                         ("Awaiting Brian's review", REVIEW_STAGE),
                          ("Needs reprint", REPRINT_STAGE)):
         queued = [r for rows in sections.values() for r in rows.values()
                   if r["Stage"] == stage]
@@ -679,6 +683,8 @@ border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
 .part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
 border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.part.ready{background:color-mix(in srgb,var(--accent) 16%,transparent);
+border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
 .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
 background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--muted)}
 .tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
@@ -710,6 +716,8 @@ def cmd_build():
                 if r.get("Result") == "fail")
     in_review = sum(1 for rows in sections.values() for r in rows.values()
                     if r["Stage"] == REVIEW_STAGE)
+    ready = sum(1 for rows in sections.values() for r in rows.values()
+                if r["Stage"] == READY_STAGE)
     to_reprint = sum(1 for rows in sections.values() for r in rows.values()
                      if r["Stage"] == REPRINT_STAGE)
     report = bases_outstanding(sections, parse_base_stock(base_stock))
@@ -731,6 +739,7 @@ def cmd_build():
            '<div class="totals">',
            f'<div class="stat"><b>{done}/{total}</b><span>parts printed</span></div>',
            f'<div class="stat"><b>{total - done}</b><span>remaining</span></div>',
+           f'<div class="stat"><b>{ready}</b><span>ready to deliver</span></div>',
            f'<div class="stat"><b>{in_review}</b><span>awaiting Brian</span></div>',
            f'<div class="stat"><b>{to_reprint}</b><span>to reprint</span></div>',
            f'<div class="stat"><b>{fails}</b><span>failures</span></div>']
@@ -785,6 +794,8 @@ def cmd_build():
                     cls += " reprint"
                 elif p["Stage"] == REVIEW_STAGE:
                     cls += " review"
+                elif p["Stage"] == READY_STAGE:
+                    cls += " ready"
                 elif p.get("Result") == "fail":
                     cls += " fail"
                 elif stage_rank(p["Stage"]) >= stage_rank(DONE_STAGE):
@@ -1058,6 +1069,9 @@ def cmd_assign(plate, stage, targets):
             if not hit:
                 continue
             row["Stage"] = stage
+            if stage == APPROVED_STAGE and not row.get("Result"):
+                # "approved" means exactly one thing; no need to hand-edit it.
+                row["Result"] = "pass"
             if plate != "-":
                 row["Plate"] = plate
             label = f"{model} [{part}]"
