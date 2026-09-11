@@ -1098,6 +1098,9 @@ def cmd_assign(plate, stage, targets):
             if stage == APPROVED_STAGE and not row.get("Result"):
                 # "approved" means exactly one thing; no need to hand-edit it.
                 row["Result"] = "pass"
+            if stage == SKIPPED_STAGE:
+                # A route not taken was never printed, so it cannot have passed.
+                row["Result"] = ""
             if plate != "-":
                 row["Plate"] = plate
             label = f"{model} [{part}]"

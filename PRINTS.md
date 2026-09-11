@@ -77,8 +77,8 @@ Regenerate the dashboard after any change:
 | P0091_Deep_One_S2P2 | Deep One | 25mm | A | 32mm | printed |  | pass |  |
 | P0091_Deep_One_S2P2 | Deep One | 25mm | B | 32mm | printed |  | pass |  |
 | P0091_Deep_One_S2P2 | Deep One | 25mm | C | 32mm | printed |  | pass |  |
-| P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Arms | 32mm | printed |  | pass |  |
-| P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Body | 32mm | printed |  | pass |  |
+| P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Arms | 32mm | skipped |  |  | printed as the combined Full instead |
+| P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Body | 32mm | skipped |  |  | printed as the combined Full instead |
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Full | 32mm | printed |  | pass |  |
 | P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 32mm | printed |  | pass |  |
 | P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 50mm | todo |  |  | scaled up in Chitubox |
@@ -149,7 +149,7 @@ Regenerate the dashboard after any change:
 | P0085_Grindylow_S2P1 | Grindylow | 25mm | B | 32mm | printed |  | pass |  |
 | P0085_Grindylow_S2P1 | Grindylow | 25mm | C | 32mm | printed |  | pass |  |
 | P0086_Sea_Hag_S2P1 | Sea Hag | 25mm | Body | 32mm | printed |  | pass |  |
-| P0086_Sea_Hag_S2P1 | Sea Hag | 25mm | Full | 32mm | printed |  | pass |  |
+| P0086_Sea_Hag_S2P1 | Sea Hag | 25mm | Full | 32mm | skipped |  |  | printed as Body + Tentacles instead |
 | P0086_Sea_Hag_S2P1 | Sea Hag | 25mm | Tentacles | 32mm | printed |  | pass |  |
 | P0087_Sargassum_Heap_S2P1 | Sargassum Heap | 50mm | main | 32mm | printed |  | pass |  |
 
