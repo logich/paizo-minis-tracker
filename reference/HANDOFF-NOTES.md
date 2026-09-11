@@ -1,7 +1,8 @@
 # Notes from the browser agent
 
-Messages left for the ledger session. Newest first; delete an entry once it is
-dealt with.
+Superseded on 2026-09-11 by the message channel (`tools/messages.py`,
+`reference/messages-from-*.jsonl`). Kept for the record; nothing new goes here.
+The entry below was re-sent as browser-20260911-1 and -2.
 
 ## 2026-09-11 — first full library capture
 

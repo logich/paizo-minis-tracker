@@ -45,8 +45,9 @@ quoted). `assign` prints how many parts it changed; check that number.
 2. A plate holds more than its filename says. Check `plates/<ID>.png`.
 3. Never infer base stock from plates. It is stated in the `## Bases` section.
 4. Quote release names containing spaces, or each word becomes its own target.
-5. Run `build` at the end, then commit what you changed (see *Commits are
-   how agents talk*). Never `git add -A`.
+5. Run `build` at the end. Check `python3 tools/messages.py pending <you>`
+   at the start of a session and send a message when the other side has to
+   act (see *Talking to the other agent*). Commit your own files, by path.
 
 ## Layout
 
@@ -56,6 +57,8 @@ quoted). `assign` prints how many parts it changed; check that number.
   `assign`. With no argument it runs `status`.
 - `tools/sliced.py` — reads settings out of `.goo` / `.ctb` files. Field offsets
   live here.
+- `tools/messages.py` — the message channel between the agents: `send`,
+  `pending`, `list`, `show`. Writes `reference/messages-from-*.jsonl`.
 - `reference/models.tsv` — base size and creature size per model, captured from
   the Paizo base-size sheet. Joined to model directories on the P-number.
 - `README.md`, `CLAUDE.md`, `.gitignore`
@@ -455,86 +458,108 @@ Then:
 reports any code it does not recognise rather than inventing a row, and
 downloads anything in an `artwork` column into the right model directory.
 
-Longer prose for the other side goes in `reference/HANDOFF-NOTES.md`; the
-commit that lands it points there. Mark an entry done rather than deleting it.
+Tell the other side the file is ready, and anything it needs to know before
+merging, with `tools/messages.py send` (see *Talking to the other agent*).
+`reference/HANDOFF-NOTES.md` is the pre-channel version of the same thing;
+it stays for the record but nothing new goes there.
 
 **URLs are enough — files are not needed.** The image CDN serves fine from here
 once a User-Agent is set, so the agent need only report links. Pasting them into
 chat works just as well as a file; `ledger.py artwork <url>...` takes them
 directly.
 
-## Commits are how agents talk
+## Talking to the other agent
 
-Two agents and the user share this repository and never share a session, so
-the git log is the coordination channel. Every session that changes a tracked
-file ends with a commit, and every commit says what changed, who did it, and
-whether anyone else has to act.
+Two agents and the user share this repository and never share a session. The
+browser agent's side of the folder can create and append to files but cannot
+delete them, which rules out anything that needs a lock file or an unlink: git
+commits fail there (`index.lock` cannot be cleared), and so do SQLite's default
+and WAL journal modes. Appending to a file needs neither, so the channel is two
+append-only files with one writer each:
 
-### At the start of a session
+    reference/messages-from-browser.jsonl    written only by the browser agent
+    reference/messages-from-ledger.jsonl     written only by the ledger session
 
-    git status --short                      # someone else's uncommitted work?
-    git log --oneline -15                   # what happened since you were here
-    git log -20 --grep='Follow-up(ledger)'  # or (browser) / (user): anything for you?
+One JSON object per line, never edited or reordered; `tools/messages.py` is the
+only thing that should write them. A record:
 
-Leave another party's uncommitted files alone — they are mid-task. If `status`
-shows files you do not own, do not stage them, and mention it in your own
-commit body ("PRINTS.md was dirty at start; not touched").
+    {"id": "browser-20260911-2", "ts": "2026-09-11T14:04:31-04:00",
+     "from": "browser", "to": "ledger", "type": "request",
+     "subject": "Fix cmd_artwork keying before merge-reference",
+     "body": "...", "refs": ["tools/ledger.py"], "re": null}
 
-A follow-up is pending until a later commit carries `Closes: <sha>` naming it.
-Deal with the ones addressed to you before starting new work, or say in your
-commit why they are still open.
+- `to` — `ledger`, `browser` or `user`.
+- `type` — `request` (recipient must act; open until a `done` names it),
+  `question` (open until an `answer` names it), `done`, `answer`, `info`
+  (nothing to do). A `done` or `answer` carries the id it closes in `re`.
+- `refs` — repository paths the reader should look at.
+- The user speaks as `from: user` and picks a file with `--via`.
 
-### At the end of a session
+### Every session
 
-Stage only the files you changed, by path, and write the message as:
+Start by reading what is addressed to you, and end by saying what the other
+side now has to do:
+
+    python3 tools/messages.py pending ledger        # or browser, or user
+    python3 tools/messages.py list 20               # recent traffic, both files
+    python3 tools/messages.py show <id>
+
+    python3 tools/messages.py send ledger browser request "Grab October's links" \
+        "Release lands 1 Oct; incoming.tsv format as before." --ref reference/incoming.tsv
+    python3 tools/messages.py send ledger browser done "Merged 93 rows, artwork filed" --re browser-20260911-2
+
+Rules that keep it honest:
+
+- **Close what you finish.** A `request` stays in the other side's `pending`
+  until a `done` names it. If you only did part of it, say which part in the
+  `done` and send a fresh `request` for the rest.
+- **A message to the user is not a conversation with the user.** He does not
+  read the files routinely. Send `to: user` for the record, and also say it
+  to him in chat.
+- **Put facts in the body, not just in the subject**, and put the paths in
+  `refs`. The reader may be a fresh session with none of your context.
+- **Never write the other side's file.** Not to fix a typo, not to mark
+  something done — send a message instead.
+- **Both files are committed** whenever the ledger session commits, so the
+  history is in git even though the browser agent cannot commit.
+
+### Commits
+
+The git log is the durable record; the channel is how the two sides find
+each other's work. Whoever can commit does so at the end of every session that
+changed tracked files, staging only their own files by path (never `git add
+-A`; the tree usually carries mode-only noise from the mount). Message form:
 
     <agent>: <what changed, one line>
 
-    <why, and anything the reader needs to judge it — counts, caveats,
-    files to look at>
+    <why, counts, caveats — written for whoever reads the log a month on>
 
-    Follow-up(ledger): <action the ledger session must take>
-    Follow-up(browser): <action the browser agent must take>
-    Follow-up(user): <decision or information only Logan can supply>
-    Closes: <sha>
+**The browser agent must not run git at all beyond `git log` and
+`git --no-optional-locks status`.** Even a plain `git status` refreshes the
+index by writing a new one and renaming it into place; on the browser side's
+mount that rename cannot complete and it corrupted `.git/index` once
+(2026-09-11). `--no-optional-locks` stops `status` from writing. Anything
+that stages, commits, resets or checks out is the ledger session's job.
 
-`<agent>` is `ledger` or `browser`. The `Follow-up(...)` and `Closes:` lines are
-optional and repeatable; omit a party that owes nothing. Set the author so the
-log reads honestly:
+The browser agent cannot commit from its side. It leaves its files in place,
+writes the intended message to `reference/COMMIT-MSG-browser.txt`, and sends
+the ledger session a `request` to land it:
 
-    git commit --author="Ledger agent <ledger@paizo-minis>"   -F msg.txt
-    git commit --author="Browser agent <browser@paizo-minis>" -F msg.txt
+    git add <paths> && git commit --author="Browser agent <browser@paizo-minis>" -F reference/COMMIT-MSG-browser.txt
 
-The user's own commits keep his normal identity. Worked example:
+Stay on the current branch: no new branches, rebases, amends of commits you
+did not make, force of any kind, or pushing unless asked.
 
-    browser: capture MyMiniFactory links and artwork for all 93 models
+### Who owns what
 
-    reference/incoming.tsv is ready for merge-reference: 83 numbered models
-    plus the 10 August extras, each with mmf and a 1000x1000 webp URL, all
-    load-tested. Details in reference/HANDOFF-NOTES.md (2026-09-11 entry).
-
-    Follow-up(ledger): cmd_artwork keys on a P-number in the URL filename and
-    will skip 45 rows; key on the incoming `code` column, then merge.
-    Follow-up(user): the extras packs have no stated base size anywhere on
-    MyMiniFactory; confirm or correct the 25 mm default.
-
-### Rules
-
-- **One commit per session, at the end**, once `build` has run and the tree is
-  consistent. Do not commit half-edited state, and do not commit `.goo`/`.stl`
-  or anything else `.gitignore` excludes.
-- **Stay on the current branch.** No new branches, no rebases, no amends of
-  commits you did not make, no force of any kind, no pushing unless asked.
-- **Each file has one writer.** The ledger session owns `PRINTS.md`,
-  `models.tsv`, `tools/`, `plates/`, `dashboard.html`, `README.md`. The browser
-  agent owns `reference/incoming.tsv`, `reference/mmf-links.tsv` and
-  `reference/HANDOFF-NOTES.md`. `CLAUDE.md` is shared: edit only the section
-  that concerns you, and say so in the commit.
-- **A commit is not a request to the user.** If something needs Logan's
-  decision, put it in `Follow-up(user)` *and* tell him in chat — he does not
-  read the log routinely.
-- **Do not narrate the mechanism.** The commit message is for the reader who
-  finds it in `git log` a month later; write it for them.
+Each file has one writer. Ledger session: `PRINTS.md`, `reference/models.tsv`,
+`tools/ledger.py`, `tools/sliced.py`, `tools/preview.py`, `plates/`,
+`dashboard.html`, `README.md`, `reference/messages-from-ledger.jsonl`. Browser
+agent: `reference/incoming.tsv`, `reference/mmf-links.tsv`,
+`reference/HANDOFF-NOTES.md`, `reference/COMMIT-MSG-browser.txt`,
+`reference/messages-from-browser.jsonl`. `tools/messages.py` and `CLAUDE.md`
+are shared: change them only for the part that concerns you, and say so in a
+message. Leave the other side's uncommitted files alone — they are mid-task.
 
 ## Linking a model to its MyMiniFactory page
 
