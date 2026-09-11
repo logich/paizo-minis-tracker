@@ -359,6 +359,23 @@ If the printer is unreachable when a new plate is recorded, the thumbnail is
 just missing and the build still succeeds; a later `build` backfills it while
 the file is still on the printer. `.ctb` plates get one via UVtools, at the cost of downloading the whole file.
 
+## Linking a model to its MyMiniFactory page
+
+Nothing in the downloaded packs references MyMiniFactory — no id, no URL, no
+metadata file — and the object pages return 403 to scripted requests, so the
+link cannot be derived or scraped. It has to be recorded by hand.
+
+`reference/models.tsv` takes an optional sixth column, `mmf`, holding either the
+full object URL or just the numeric object id from the end of it
+(`.../3d-print-scylla-837920` -> `837920`). When present, the dashboard turns
+the mini's name into a link to it.
+
+    P0100	Scylla	75	Huge	S2PB	https://www.myminifactory.com/object/3d-print-scylla-837920
+
+The slug differs from anything we hold (`3d-print-scylla`, not `P0100_Scylla_S2PB`),
+so a bare id only reconstructs correctly when the slug happens to match the
+code — prefer pasting the whole URL.
+
 ## Mini artwork on the dashboard
 
 Cards use the vendor's logo render from the model directory: `*.webp` first,

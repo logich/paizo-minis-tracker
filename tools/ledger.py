@@ -117,7 +117,11 @@ def load_reference():
         if len(parts) < 5:
             continue
         code, name, base_mm, size, pack = (p.strip() for p in parts[:5])
-        ref[code] = {"name": name, "base_mm": base_mm, "size": size, "pack": pack}
+        mmf = parts[5].strip() if len(parts) > 5 else ""
+        if mmf.isdigit():                      # a bare object id is enough
+            mmf = f"https://www.myminifactory.com/object/3d-print-{code.lower()}-{mmf}"
+        ref[code] = {"name": name, "base_mm": base_mm, "size": size,
+                     "pack": pack, "mmf": mmf}
     return ref
 
 
@@ -269,6 +273,7 @@ def scan_disk(ref):
                 "file": entry["file"],
                 "presupported": entry["presupported"],
                 "disk_base": on_disk_base,
+                "mmf": (meta or {}).get("mmf", ""),
             }
     return found
 
@@ -659,6 +664,8 @@ padding:12px 14px;display:flex;gap:12px}
 background:var(--chip)}
 .card .body{min-width:0;flex:1}
 .name{font-weight:600;font-size:14px;margin-bottom:1px}
+.name a.mmf{color:inherit;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.name a.mmf:hover{border-bottom-color:var(--accent)}
 .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
 color:var(--muted);margin-bottom:7px;word-break:break-all}
 .parts{display:flex;flex-wrap:wrap;gap:4px}
@@ -791,9 +798,12 @@ def cmd_build():
                 title = " ".join(x for x in [p.get("Plate", ""), p.get("Notes", ""),
                                              "needs supports" if warn else ""] if x)
                 chips.append(f'<span class="{cls}" title="{e(title)}">{label}</span>')
+            link = info["mmf"] if info else ""
+            name_html = (f'<a class="mmf" href="{e(link)}" target="_blank" '
+                         f'rel="noreferrer">{e(mini)}</a>' if link else e(mini))
             out.append(
                 f'<div class="card">{thumb}<div class="body">'
-                f'<div class="name">{e(mini)}<span class="badge">{e(base)}</span></div>'
+                f'<div class="name">{name_html}<span class="badge">{e(base)}</span></div>'
                 f'<div class="code">{e(model)}</div>'
                 f'<div class="parts">{"".join(chips)}</div></div></div>')
         out.append("</div></section>")

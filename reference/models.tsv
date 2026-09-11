@@ -1,7 +1,7 @@
 # Base/size reference captured from the Paizo Printables Google Sheet
 # https://docs.google.com/spreadsheets/d/136R7lDaQ5BK42xDqrfJR8dN6XYIWq2PyM0_lwJQH2jU/edit?gid=0
 # Joined to model directories on the P-number. Re-capture when a new release lands.
-code	name	base_mm	size	pack
+code	name	base_mm	size	pack	mmf
 P0001	Ezren, Iconic Wizard	25	Medium	WP1
 P0002	Kyra, Iconic Cleric	25	Medium	WP1
 P0003	Merisiel, Iconic Rogue	25	Medium	WP1
@@ -80,7 +80,7 @@ P0096	Subaquatic Marauder	25	Medium	S2P3
 P0097	Draugr	25	Medium	S2P3
 P0098	Reefclaw	25	Small	S2P3
 P0099	Gutaki	50	Large	S2P3
-P0100	Scylla	75	Huge	S2PB
+P0100	Scylla	75	Huge	S2PB	https://www.myminifactory.com/object/3d-print-scylla-837920
 # Extras-sale packs have no P-number, so they are keyed by directory name.
 # Only those whose base size is known are listed; anything absent falls back to
 # DEFAULT_BASE_MM (25mm). The Ironkettles wall is three minis in an army
