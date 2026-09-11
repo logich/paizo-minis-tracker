@@ -75,6 +75,12 @@ COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Stage", "Plate", "Result",
 # scaling up in Chitubox, so they exist only as rows here — scan must never
 # invent them, and must never delete them for having no matching file.
 NATIVE_SCALE = "32mm"
+# The August extras packs are absent from the base-size sheet and ship no base
+# STL, so nothing on disk or in reference/ says what they sit on. They are
+# printed at 32mm heroic (114% of the 28mm mesh they ship) on 25mm bases, so
+# assume that rather than leaving them uncounted. Override by hand in the row
+# where it is wrong — a wall or a bear is not a 25mm mini.
+DEFAULT_BASE_MM = "25"
 PLATE_COLUMNS = ["ID", "Date", "Slicer file", "Resin", "Layer", "Exposure",
                  "Bottom exp", "Bottom layers", "Lift", "Bases", "Result", "Notes"]
 # Filled in from the sliced file by `plate`; the rest are yours to fill in.
@@ -253,7 +259,7 @@ def scan_disk(ref):
                 "model": model,
                 "part": entry["part"],
                 "mini": mini,
-                "base": f"{base_mm}mm" if base_mm else "?",
+                "base": f"{base_mm}mm" if base_mm else f"{DEFAULT_BASE_MM}mm",
                 "size": (meta or {}).get("size", ""),
                 "dir": str(dirpath),
                 "file": entry["file"],
