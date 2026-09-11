@@ -173,6 +173,15 @@ toward bases** like anything else unprinted: a first print can fail outright, as
 the Gutaki body did, in which case no base was ever made. Bases you already hold
 belong in `On hand`, not in an assumption made here.
 
+This over-counts on purpose. Reprinting one component of an otherwise finished
+mini — Sarglagon's Arm R, where the body, tail and other arm are all printed —
+asks for a base that mini already has. **Leave it.** The user has accepted
+printing a spare over the alternatives, which are all worse: "needs a base only
+if no part has printed yet" stops counting Gutaki, whose body is printed while
+its arms are not and whose 50mm base does not exist; and inferring that a base
+must exist because a part printed is the reasoning that produced a wrong
+"5 spare" earlier. A spare base costs pennies; a base short stops an assembly.
+
 `status` lists both queues — what is sitting with Brian, and what he has sent
 back, with his notes.
 
