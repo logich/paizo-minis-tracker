@@ -61,9 +61,9 @@ Regenerate the dashboard after any change:
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm | cleaned | P2609-10 |  | reprinted on P2609-10 at 2.9s with new FEP after the first attempt failed |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm | sliced | P2609-11 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm | reprint | P2609-10.1 | fail | bottom parts did not connect to the supports; queued for reprint at 3.0s once Tentacles L is done |
-| P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm | todo |  |  |  |
-| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm | todo |  |  |  |
-| P0100_Scylla_S2PB | Scylla | 75mm | Tentacles | 32mm | todo |  |  |  |
+| P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm | skipped |  |  | printing the combined Full instead |
+| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm | todo |  |  | one-piece route; needs re-supporting from the raw STL |
+| P0100_Scylla_S2PB | Scylla | 75mm | Tentacles | 32mm | skipped |  |  | printing the combined Full instead |
 
 ## 202608 August Release
 
