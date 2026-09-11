@@ -24,6 +24,8 @@ Usage: python3 tools/ledger.py <command> [args]
                                write a plate's build-plate preview to a PNG
   artwork <url>...             download MyMiniFactory logo renders and file
                                them into the right model directory
+  merge-reference [file]       merge a browser agent's TSV of MyMiniFactory
+                               links, names and artwork into reference/
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -1186,6 +1188,74 @@ def cmd_runlog(tail_bytes=400_000):
               f"/{float(d.get('rest_time_after_drop', 0))/1000:.1f}s")
 
 
+INCOMING = ROOT / "reference" / "incoming.tsv"
+
+
+def cmd_merge_reference(path=None):
+    """Merge a browser agent's findings into reference/models.tsv.
+
+    Expects a TSV with a header naming its columns; `code` is required, and any
+    of `mmf`, `name`, `base_mm`, `size` may accompany it. Artwork URLs under an
+    `artwork` column are downloaded into the model directory.
+
+    Written for handoff from an agent that has a logged-in browser: this session
+    cannot reach MyMiniFactory (object pages 403 scripted requests), and that
+    agent cannot reach this filesystem or the printer.
+    """
+    src = Path(path) if path else INCOMING
+    if not src.exists():
+        print(f"nothing to merge: {src} does not exist")
+        return
+
+    rows, header = [], None
+    for line in src.read_text(encoding="utf-8").splitlines():
+        if not line.strip() or line.startswith("#"):
+            continue
+        cells = [c.strip() for c in line.split("\t")]
+        if header is None:
+            header = cells
+            continue
+        rows.append(dict(zip(header, cells)))
+    if not rows or "code" not in (header or []):
+        print("expected a tab-separated file with a 'code' column")
+        return
+
+    # rewrite models.tsv, updating matched codes in place
+    ref_path = ROOT / "reference" / "models.tsv"
+    lines = ref_path.read_text(encoding="utf-8").splitlines()
+    by_code = {r["code"]: r for r in rows}
+    updated, artwork = 0, []
+    out = []
+    for line in lines:
+        if line.startswith("#") or not line.strip() or line.startswith("code\t"):
+            out.append(line)
+            continue
+        cells = line.split("\t")
+        incoming = by_code.get(cells[0].strip())
+        if not incoming:
+            out.append(line)
+            continue
+        cells += [""] * (6 - len(cells))
+        for idx, key in ((1, "name"), (2, "base_mm"), (3, "size"), (5, "mmf")):
+            if incoming.get(key):
+                cells[idx] = incoming[key]
+        out.append("\t".join(cells[:6]).rstrip("\t"))
+        updated += 1
+        if incoming.get("artwork"):
+            artwork.append(incoming["artwork"])
+
+    unknown = [c for c in by_code if c not in
+               {l.split("\t")[0].strip() for l in lines if l and not l.startswith("#")}]
+    ref_path.write_text("\n".join(out) + "\n", encoding="utf-8")
+    print(f"merged {updated} row(s) into reference/models.tsv")
+    if unknown:
+        print(f"  {len(unknown)} code(s) not in models.tsv, skipped: {', '.join(unknown[:5])}")
+    if artwork:
+        print(f"  downloading {len(artwork)} artwork file(s)")
+        cmd_artwork(artwork)
+    print("now run: python3 tools/ledger.py scan && python3 tools/ledger.py build")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "scan":
@@ -1207,6 +1277,8 @@ if __name__ == "__main__":
         cmd_preview(sys.argv[2],
                     sys.argv[3] if len(sys.argv) > 3 else None,
                     sys.argv[4] if len(sys.argv) > 4 else "big")
+    elif cmd == "merge-reference":
+        cmd_merge_reference(sys.argv[2] if len(sys.argv) > 2 else None)
     elif cmd == "artwork":
         if len(sys.argv) < 3:
             print("usage: ledger.py artwork <url>...")

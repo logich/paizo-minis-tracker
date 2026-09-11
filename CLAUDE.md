@@ -359,6 +359,46 @@ If the printer is unreachable when a new plate is recorded, the thumbnail is
 just missing and the build still succeeds; a later `build` backfills it while
 the file is still on the printer. `.ctb` plates get one via UVtools, at the cost of downloading the whole file.
 
+## Division of labour with the browser agent
+
+A separate Claude Cowork agent has a logged-in browser and computer access. The
+split follows from what each side can actually reach, and neither can do the
+other's half:
+
+**The browser agent does** — anything needing MyMiniFactory or a logged-in
+session: collecting object page URLs, finding artwork URLs, reading the
+base-size sheet, gathering names and sizes for packs absent from it. This
+session **cannot**: object pages return 403 to scripted requests, from both
+curl and WebFetch, and there is no browser here.
+
+**This session does** — anything needing the machine: the repository and git,
+the ledger tooling, the printer at `192.168.1.151` (LAN-only), plate previews,
+UVtools, nginx and the dashboard. The browser agent cannot reach any of these
+unless it is running on this host.
+
+### The handoff
+
+The agent produces a tab-separated file with a header row. `code` is required —
+a P-number or an extras directory name — and any of `mmf`, `name`, `base_mm`,
+`size`, `artwork` may accompany it:
+
+    code	mmf	artwork
+    P0100	https://www.myminifactory.com/object/3d-print-scylla-837920	https://images2.myminifactory.com/...
+
+Then:
+
+    python3 tools/ledger.py merge-reference reference/incoming.tsv
+    python3 tools/ledger.py scan && python3 tools/ledger.py build
+
+`merge-reference` updates matched rows in `reference/models.tsv` in place,
+reports any code it does not recognise rather than inventing a row, and
+downloads anything in an `artwork` column into the right model directory.
+
+**URLs are enough — files are not needed.** The image CDN serves fine from here
+once a User-Agent is set, so the agent need only report links. Pasting them into
+chat works just as well as a file; `ledger.py artwork <url>...` takes them
+directly.
+
 ## Linking a model to its MyMiniFactory page
 
 Nothing in the downloaded packs references MyMiniFactory — no id, no URL, no
