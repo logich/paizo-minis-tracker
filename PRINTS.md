@@ -94,33 +94,33 @@ Regenerate the dashboard after any change:
 | PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030C1 | 32mm | printed |  | pass |  |
 | PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030C2 | 32mm | printed |  | pass |  |
 | PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030D | 32mm | printed |  | pass |  |
-| PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | 25mm | Zombie | 32mm | printed |  | pass |  |
-| PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | 25mm | Zombie (32mm) | 32mm | printed |  | pass |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | 25mm | A | 32mm | reprint |  |  |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | 25mm | B | 32mm | reprint |  |  |  |
-| Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | 25mm | C | 32mm | reprint |  |  |  |
-| Paizo_Grave_Knight_Supported | Paizo_Grave_Knight_Supported | 25mm | main | 32mm | printed |  | pass |  |
-| Paizo_Hellknight_Sharpshooters_Supported | Paizo_Hellknight_Sharpshooters_Supported | 25mm | SharpshootersA3 | 32mm | printed |  | pass |  |
-| Paizo_Hellknight_Sharpshooters_Supported | Paizo_Hellknight_Sharpshooters_Supported | 25mm | SharpshootersB3 | 32mm | printed |  | pass |  |
-| Paizo_Hellknight_Sharpshooters_Supported | Paizo_Hellknight_Sharpshooters_Supported | 25mm | SharpshootersC3 | 32mm | printed |  | pass |  |
-| Paizo_Ironkettles_wall_Supported | Paizo_Ironkettles_wall_Supported | 25mm | wallA | 32mm | printed |  | pass |  |
-| Paizo_Ironkettles_wall_Supported | Paizo_Ironkettles_wall_Supported | 25mm | wallB | 32mm | printed |  | pass |  |
-| Paizo_Ironkettles_wall_Supported | Paizo_Ironkettles_wall_Supported | 25mm | wallC | 32mm | printed |  | pass |  |
-| Paizo_Merandals_Hawks_Supported | Paizo_Merandals_Hawks_Supported | 25mm | A | 32mm | printed |  | pass |  |
-| Paizo_Merandals_Hawks_Supported | Paizo_Merandals_Hawks_Supported | 25mm | B | 32mm | printed |  | pass |  |
-| Paizo_Merandals_Hawks_Supported | Paizo_Merandals_Hawks_Supported | 25mm | C | 32mm | printed |  | pass |  |
-| Paizo_Signifers_Supported | Paizo_Signifers_Supported | 25mm | A | 32mm | printed |  | pass |  |
-| Paizo_Signifers_Supported | Paizo_Signifers_Supported | 25mm | B | 32mm | printed |  | pass |  |
-| Paizo_Signifers_Supported | Paizo_Signifers_Supported | 25mm | C | 32mm | printed |  | pass |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | A supp | 32mm | reprint |  |  |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | B | 32mm | reprint |  |  |  |
-| Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | C | 32mm | reprint |  |  |  |
+| PQ0041_Dread_Zombie | Dread Zombie | 25mm | Zombie | 32mm | printed |  | pass |  |
+| PQ0041_Dread_Zombie | Dread Zombie | 25mm | Zombie (32mm) | 32mm | printed |  | pass |  |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | A | 32mm | reprint |  |  |  |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | B | 32mm | reprint |  |  |  |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | C | 32mm | reprint |  |  |  |
+| Paizo_Grave_Knight_Supported | Graveknight | 25mm | main | 32mm | printed |  | pass |  |
+| Paizo_Hellknight_Sharpshooters_Supported | Hellknight Sharpshooters | 25mm | SharpshootersA3 | 32mm | printed |  | pass |  |
+| Paizo_Hellknight_Sharpshooters_Supported | Hellknight Sharpshooters | 25mm | SharpshootersB3 | 32mm | printed |  | pass |  |
+| Paizo_Hellknight_Sharpshooters_Supported | Hellknight Sharpshooters | 25mm | SharpshootersC3 | 32mm | printed |  | pass |  |
+| Paizo_Ironkettles_wall_Supported | Ironkettle's Wall | 25mm | wallA | 32mm | printed |  | pass |  |
+| Paizo_Ironkettles_wall_Supported | Ironkettle's Wall | 25mm | wallB | 32mm | printed |  | pass |  |
+| Paizo_Ironkettles_wall_Supported | Ironkettle's Wall | 25mm | wallC | 32mm | printed |  | pass |  |
+| Paizo_Merandals_Hawks_Supported | Merandal's Hawks | 25mm | A | 32mm | printed |  | pass |  |
+| Paizo_Merandals_Hawks_Supported | Merandal's Hawks | 25mm | B | 32mm | printed |  | pass |  |
+| Paizo_Merandals_Hawks_Supported | Merandal's Hawks | 25mm | C | 32mm | printed |  | pass |  |
+| Paizo_Signifers_Supported | Hellknight Signifers | 25mm | A | 32mm | printed |  | pass |  |
+| Paizo_Signifers_Supported | Hellknight Signifers | 25mm | B | 32mm | printed |  | pass |  |
+| Paizo_Signifers_Supported | Hellknight Signifers | 25mm | C | 32mm | printed |  | pass |  |
+| Paizo_bastions_Supported | Hellknight Bastions | 25mm | A supp | 32mm | reprint |  |  |  |
+| Paizo_bastions_Supported | Hellknight Bastions | 25mm | B | 32mm | reprint |  |  |  |
+| Paizo_bastions_Supported | Hellknight Bastions | 25mm | C | 32mm | reprint |  |  |  |
 | Paizo_cave_bear_Supported | Cave Bear | 50mm | main | 32mm | printed |  | pass |  |
 | Paizo_elk_Supported | Elk | 50mm | main | 32mm | printed |  | pass |  |
 | Paizo_fire_serpent__Supported | Fire Serpent | 50mm | main | 32mm | printed |  | pass |  |
-| Paizo_goblin_spellcaster_Supported | Paizo_goblin_spellcaster_Supported | 25mm | main | 32mm | printed |  | pass |  |
-| Paizo_orc_malee_Supported | Paizo_orc_malee_Supported | 25mm | 32mm Paizo PFQ orc malee | 32mm | printed |  | pass |  |
-| Paizo_orc_malee_Supported | Paizo_orc_malee_Supported | 25mm | Paizo PFQ orc malee Supported | 32mm | printed |  | pass |  |
+| Paizo_goblin_spellcaster_Supported | Goblin Spellcaster (Pathfinder Quest) | 25mm | main | 32mm | printed |  | pass |  |
+| Paizo_orc_malee_Supported | Orc Melee (Pathfinder Quest) | 25mm | 32mm Paizo PFQ orc malee | 32mm | printed |  | pass |  |
+| Paizo_orc_malee_Supported | Orc Melee (Pathfinder Quest) | 25mm | Paizo PFQ orc malee Supported | 32mm | printed |  | pass |  |
 
 ## 202607 July release
 

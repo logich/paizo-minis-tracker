@@ -1151,87 +1151,83 @@ def cmd_preview(source, out_path=None, which="big"):
         print(f"could not extract a preview from {name}: {exc}")
 
 
-def cmd_artwork(urls):
-    """Download MyMiniFactory logo renders and file them by P-number.
+def model_dirs_by_code():
+    """Map both a P-number and a directory name to that model's directory.
 
-    The URL ends in the vendor's own filename (P0097_Draugr_S2P3_Logo.png), and
-    the P-number in it is the same key reference/models.tsv joins on — which
-    matters because directory names drift from the vendor's ("3-P0028_Hellknight
-    Signifer_S1P1" against "P0028_Hellknight_Signifer_S1P1").
-
-    Saved as <stem>.avif, which is what the CDN actually serves.
+    Extras packs have no P-number and are keyed by directory name, the same way
+    reference/models.tsv keys them.
     """
-    import sliced
     ref = load_reference()
-    disk = scan_disk(ref)
-    by_pnum = {}
-    for parts in disk.values():
+    out = {}
+    for parts in scan_disk(ref).values():
         for info in parts.values():
+            out[info["model"]] = info["dir"]
             m = PNUM.search(info["model"])
             if m:
-                by_pnum.setdefault("P" + m.group(1), info["dir"])
-
-    for url in urls:
-        stem = urllib.parse.unquote(url.rsplit("/", 1)[-1]).rsplit(".", 1)[0]
-        m = PNUM.search(stem)
-        if not m:
-            print(f"no P-number in {stem} — skipped")
-            continue
-        code = "P" + m.group(1)
-        target_dir = by_pnum.get(code)
-        if not target_dir:
-            print(f"{code}: no model directory on disk — skipped")
-            continue
-        out = ROOT / target_dir / f"{stem}.avif"
-        try:
-            sliced.download(url, out)
-            print(f"{code}  {out.stat().st_size // 1024:>4} KB  {out.relative_to(ROOT)}")
-        except Exception as exc:
-            print(f"{code}: download failed — {exc}")
+                out.setdefault("P" + m.group(1), info["dir"])
+    return out
 
 
-EXECUTE_LINE = re.compile(r"execute: (.*)")
+def artwork_filename(url):
+    """Local filename for an artwork URL.
 
-
-def cmd_runlog(tail_bytes=400_000):
-    """Report the settings the printer actually ran with, from its own log.
-
-    A setting changed on the printer never reaches the sliced file, so this is
-    the authority for what a run really used. The log is a rolling buffer with
-    no filenames in it, so treat this as "the most recent run", not as history.
+    The CDN serves through imgproxy, so URLs end in the *source* extension plus
+    the delivered format: "..._Ezren.png@webp" is a webp. Save it as what it
+    actually is, or browsers and the dashboard's glob both get it wrong.
     """
+    stem = urllib.parse.unquote(url.rsplit("/", 1)[-1]).split("?")[0]
+    fmt = "webp"
+    if "@" in stem:
+        stem, fmt = stem.rsplit("@", 1)
+    stem = re.sub(r"\.(png|jpe?g|webp|avif)$", "", stem, flags=re.I)
+    if fmt.lower() not in ("webp", "avif", "png", "jpg", "jpeg"):
+        fmt = "webp"
+    return f"{stem}.{fmt.lower()}"
+
+
+def save_artwork(code, url, dirs):
+    """Download one artwork file into the directory for `code`."""
     import sliced
+    target_dir = dirs.get(code)
+    if not target_dir:
+        return None, f"{code}: no model directory on disk"
+    out = ROOT / target_dir / artwork_filename(url)
     try:
-        raw = sliced.fetch_head(PRINTER_LOG, tail_bytes).decode("utf-8", "replace")
+        sliced.download(url, out)
+        return out, None
     except Exception as exc:
-        print(f"could not read the printer log: {exc}")
-        return
-
-    seen = OrderedDict()
-    for line in raw.splitlines():
-        m = EXECUTE_LINE.search(line)
-        if not m:
-            continue
-        fields = re.findall(r"(\w+) (-?[\d.]+)", m.group(1))
-        # lift_position/drop_position change every layer; the rest is the recipe
-        recipe = tuple((k, v) for k, v in fields
-                       if k not in ("lift_position", "drop_position"))
-        seen[recipe] = seen.get(recipe, 0) + 1
-
-    if not seen:
-        print("no execute lines in the log tail — is a print running?")
-        return
-    print(f"{len(seen)} distinct parameter set(s) in the last {tail_bytes // 1024} KB:\n")
-    for recipe, layers in seen.items():
-        d = dict(recipe)
-        exposure = float(d.get("exposure_time", 0)) / 1000
-        print(f"  {layers:>5} layers   exposure {exposure:.2f}s"
-              f"   lift {d.get('lift_distance', '?')}mm @ {d.get('lift_speed', '?')}"
-              f"   rest before/after {float(d.get('rest_time_before_lift', 0))/1000:.1f}s"
-              f"/{float(d.get('rest_time_after_drop', 0))/1000:.1f}s")
+        return None, f"{code}: download failed — {exc}"
 
 
-INCOMING = ROOT / "reference" / "incoming.tsv"
+def cmd_artwork(urls, codes=None):
+    """Download artwork and file it by model.
+
+    `codes` pairs one code per URL — that is how merge-reference calls it, and
+    it is the reliable path: the vendor's image filenames do not all carry a
+    P-number (April's are "1000X1000-april2026__0036_Ezren.png@webp"), so
+    deriving the model from the URL alone silently skips about half the library.
+    Bare URLs pasted into chat still fall back to that derivation.
+    """
+    dirs = model_dirs_by_code()
+    saved, failed = 0, []
+    for i, url in enumerate(urls):
+        if codes:
+            code = codes[i]
+        else:
+            m = PNUM.search(urllib.parse.unquote(url.rsplit("/", 1)[-1]))
+            if not m:
+                failed.append(f"no P-number in {url.rsplit('/', 1)[-1]} — pass a code")
+                continue
+            code = "P" + m.group(1)
+        out, err = save_artwork(code, url, dirs)
+        if err:
+            failed.append(err)
+        else:
+            saved += 1
+            print(f"  {code:<40} {out.stat().st_size // 1024:>4} KB  {out.name}")
+    print(f"artwork: saved {saved}, {len(failed)} problem(s)")
+    for f in failed[:10]:
+        print(f"  {f}")
 
 
 def cmd_merge_reference(path=None):
@@ -1285,7 +1281,7 @@ def cmd_merge_reference(path=None):
         out.append("\t".join(cells[:6]).rstrip("\t"))
         updated += 1
         if incoming.get("artwork"):
-            artwork.append(incoming["artwork"])
+            artwork.append((cells[0].strip(), incoming["artwork"]))
 
     unknown = [c for c in by_code if c not in
                {l.split("\t")[0].strip() for l in lines if l and not l.startswith("#")}]
@@ -1295,7 +1291,7 @@ def cmd_merge_reference(path=None):
         print(f"  {len(unknown)} code(s) not in models.tsv, skipped: {', '.join(unknown[:5])}")
     if artwork:
         print(f"  downloading {len(artwork)} artwork file(s)")
-        cmd_artwork(artwork)
+        cmd_artwork([u for _, u in artwork], codes=[c for c, _ in artwork])
     print("now run: python3 tools/ledger.py scan && python3 tools/ledger.py build")
 
 

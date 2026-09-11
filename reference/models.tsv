@@ -2,90 +2,105 @@
 # https://docs.google.com/spreadsheets/d/136R7lDaQ5BK42xDqrfJR8dN6XYIWq2PyM0_lwJQH2jU/edit?gid=0
 # Joined to model directories on the P-number. Re-capture when a new release lands.
 code	name	base_mm	size	pack	mmf
-P0001	Ezren, Iconic Wizard	25	Medium	WP1
-P0002	Kyra, Iconic Cleric	25	Medium	WP1
-P0003	Merisiel, Iconic Rogue	25	Medium	WP1
-P0004	Valeros, Iconic Fighter	25	Medium	WP1
-P0005	Lem, Iconic Bard	25	Small	WP1
-P0006	Lini, Iconic Druid (with Droogami)	25	Small	WP1
-P0007	Harsk, Iconic Ranger	25	Medium	WP1
-P0008	Feiya, Iconic Witch (with Daji)	25	Medium	WP1
-P0009	Mirage Dragon	75	Huge	WP1
-P0010	Diabolic Dragon	75	Huge	WP1
-P0011	Empyreal Dragon	50	Large	WP1
-P0012	Boggard Warrior	25	Medium	WP1
-P0013	Boggard Swampseer	25	Medium	WP1
-P0014	Boggard Scout	25	Medium	WP1
-P0015	Rain in Cloudy Day	25	Small	WP1
-P0016	Giant Rat	25	Small	WP1
-P0017	Giant Spider	25	Medium	WP1
-P0018	Skeleton Guard	25	Medium	WP1
-P0019	Kobold Warrior	25	Small	WP1
-P0020	Kobold Trapmaster	25	Small	WP1
-P0021	Kobold Scout	25	Small	WP1
-P0022	Cinder Rat	25	Small	WP1
-P0023	Xulgath Warrior	25	Medium	WP1
-P0024	Zolgran, Kobold Boss	25	Small	WP1
-P0025	Horned Dragon	25	Medium	WP1
-P0026	Andoran Golden Legionnaire	25	Medium	S1P1
-P0027	Andoran Steel Falcon	25	Medium	S1P1
-P0028	Hellknight Signifer	25	Medium	S1P1
-P0029	Ort (Druge Devil)	25	Medium	S1P1
-P0030	Vordine (Infantry Devil)	25	Medium	S1P1
-P0031	Sarglagon (Drowning Devil)	50	Large	S1P1
-P0032	Arboreal Warden	50	Large	WP2
-P0033	Andoran Soldier	25	Medium	S1P2
-P0034	Chelaxian Soldier	25	Medium	S1P2
-P0035	Gylou (Handmaiden Devil)	25	Medium	S1P2
-P0036	Phistophilus (Contract Devil)	25	Medium	S1P2
-P0037	Talmandor	50	Large	S1P2
-P0038	Balisse Angel	25	Medium	WP2
-P0039	Hellbreaker	25	Medium	S1P2
-P0040	Leukodaemon	50	Large	WP2
-P0041	Rekhep Archon	50	Large	WP2
-P0042	Vidileth Alghollthu	50	Large	WP2
-P0043	Brastlewark Snarecrafter	25	Small	S1P3
-P0044	Order of the Gate Hellknight	25	Medium	S1P3
-P0045	Twilight Talon	25	Medium	S1P3
-P0046	Skeletal Hellknight Bonesinger	25	Medium	S1P3
-P0047	Strix	25	Medium	S1P3
-P0048	Nessari (Tyrant Devil)	50	Large	S1P3
-P0049	Abrogail Adamant	75	Huge	S1PB
-P0050	Abrogail Thrune	25	Medium	S1PB
-P0055	Fumbus, Iconic Alchemist	25	Small	WP4
-P0056	Amiri, Iconic Barbarian	25	Medium	WP4
-P0057	Seelah, Iconic Paladin	25	Medium	WP4
-P0058	Quinn, Iconic Investigator	25	Medium	WP4
-P0059	Horned Dragon	50	Large	WP4
-P0060	Vrolikai Demon	50	Large	WP4
-P0061	Goblin Pyro	25	Small	WP4
-P0062	Goblin Warrior	25	Small	WP4
-P0063	Goblin Commando	25	Small	WP4
-P0064	Goblin Chanter	25	Small	WP4
-P0082	Bosun	25	Medium	S2P1
-P0083	Marine Marauder	25	Small	S2P1
-P0084	Ocean Nomad	25	Medium	S2P1
-P0085	Grindylow	25	Small	S2P1
-P0086	Sea Hag	25	Medium	S2P1
-P0087	Sargassum Heap	50	Large	S2P1
-P0088	Cheliax Marine	25	Medium	S2P2
-P0089	Cheliax Naval Officer	25	Medium	S2P2
-P0090	Cheliax Naval Captain	25	Medium	S2P2
-P0091	Deep One	25	Medium	S2P2
-P0092	Flotsam Terror	25	Small	S2P2
-P0093	Living Waterfall	50	Large	S2P2
-P0094	Athamaru	25	Medium	S2P3
-P0095	Rigger	25	Medium	S2P3
-P0096	Subaquatic Marauder	25	Medium	S2P3
-P0097	Draugr	25	Medium	S2P3
-P0098	Reefclaw	25	Small	S2P3
-P0099	Gutaki	50	Large	S2P3
+P0001	Ezren, Iconic Wizard	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-ezren-iconic-wizard-779497
+P0002	Kyra, Iconic Cleric	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-kyra-iconic-cleric-779502
+P0003	Merisiel, Iconic Rogue	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-merisiel-iconic-rogue-779505
+P0004	Valeros, Iconic Fighter	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-valeros-iconic-fighter-779509
+P0005	Lem, Iconic Bard	25	Small	WP1	https://www.myminifactory.com/object/3d-print-lem-iconic-bard-779516
+P0006	Lini, Iconic Druid (with Droogami)	25	Small	WP1	https://www.myminifactory.com/object/3d-print-lini-iconic-druid-with-droogami-779517
+P0007	Harsk, Iconic Ranger	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-harsk-iconic-ranger-779518
+P0008	Feiya, Iconic Witch (with Daji)	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-feiya-iconic-witch-with-daji-779519
+P0009	Mirage Dragon	75	Huge	WP1	https://www.myminifactory.com/object/3d-print-mirage-dragon-779520
+P0010	Diabolic Dragon	75	Huge	WP1	https://www.myminifactory.com/object/3d-print-diabolic-dragon-779521
+P0011	Empyreal Dragon	50	Large	WP1	https://www.myminifactory.com/object/3d-print-empyreal-dragon-779522
+P0012	Boggard Warrior	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-boggard-warrior-779523
+P0013	Boggard Swampseer	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-boggard-swampseer-779524
+P0014	Boggard Scout	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-boggard-scout-779525
+P0015	Rain in Cloudy Day	25	Small	WP1	https://www.myminifactory.com/object/3d-print-rain-in-cloudy-day-779527
+P0016	Giant Rat	25	Small	WP1	https://www.myminifactory.com/object/3d-print-giant-rat-779528
+P0017	Giant Spider	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-giant-spider-779529
+P0018	Skeleton Guard	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-skeleton-guard-779530
+P0019	Kobold Warrior	25	Small	WP1	https://www.myminifactory.com/object/3d-print-kobold-warrior-779531
+P0020	Kobold Trapmaster	25	Small	WP1	https://www.myminifactory.com/object/3d-print-kobold-trapmaster-779532
+P0021	Kobold Scout	25	Small	WP1	https://www.myminifactory.com/object/3d-print-kobold-scout-779533
+P0022	Cinder Rat	25	Small	WP1	https://www.myminifactory.com/object/3d-print-cinder-rat-779535
+P0023	Xulgath Warrior	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-xulgath-warrior-779536
+P0024	Zolgran, Kobold Boss	25	Small	WP1	https://www.myminifactory.com/object/3d-print-zolgran-kobold-boss-779537
+P0025	Horned Dragon	25	Medium	WP1	https://www.myminifactory.com/object/3d-print-horned-dragon-779538
+P0026	Andoran Golden Legionnaire	25	Medium	S1P1	https://www.myminifactory.com/object/3d-print-andoren-golden-legionnaire-779545
+P0027	Andoran Steel Falcon	25	Medium	S1P1	https://www.myminifactory.com/object/3d-print-andoren-steel-falcon-779546
+P0028	Hellknight Signifer	25	Medium	S1P1	https://www.myminifactory.com/object/3d-print-hellknight-signifer-779547
+P0029	Ort (Druge Devil)	25	Medium	S1P1	https://www.myminifactory.com/object/3d-print-ort-druge-devil-779548
+P0030	Vordine (Infantry Devil)	25	Medium	S1P1	https://www.myminifactory.com/object/3d-print-vordine-infantry-devil-779550
+P0031	Sarglagon (Drowning Devil)	50	Large	S1P1	https://www.myminifactory.com/object/3d-print-sarglagon-drowning-devil-779847
+P0032	Arboreal Warden	50	Large	WP2	https://www.myminifactory.com/object/3d-print-arboreal-warden-795094
+P0033	Andoran Soldier	25	Medium	S1P2	https://www.myminifactory.com/object/3d-print-andoran-soldiers-795098
+P0034	Chelaxian Soldier	25	Medium	S1P2	https://www.myminifactory.com/object/3d-print-chelaxian-soldiers-795099
+P0035	Gylou (Handmaiden Devil)	25	Medium	S1P2	https://www.myminifactory.com/object/3d-print-gylou-handmaiden-devil-795102
+P0036	Phistophilus (Contract Devil)	25	Medium	S1P2	https://www.myminifactory.com/object/3d-print-phistophilus-contract-devil-795103
+P0037	Talmandor	50	Large	S1P2	https://www.myminifactory.com/object/3d-print-talmandor-795104
+P0038	Balisse Angel	25	Medium	WP2	https://www.myminifactory.com/object/3d-print-balisse-angel-795093
+P0039	Hellbreaker	25	Medium	S1P2	https://www.myminifactory.com/object/3d-print-hellbreaker-795100
+P0040	Leukodaemon	50	Large	WP2	https://www.myminifactory.com/object/3d-print-leukodaemon-795097
+P0041	Rekhep Archon	50	Large	WP2	https://www.myminifactory.com/object/3d-print-rekhep-archon-795095
+P0042	Vidileth Alghollthu	50	Large	WP2	https://www.myminifactory.com/object/3d-print-vidileth-alghollthu-795092
+P0043	Brastlewark Snarecrafter	25	Small	S1P3	https://www.myminifactory.com/object/3d-print-brastlewark-snarecrafter-807525
+P0044	Order of the Gate Hellknight	25	Medium	S1P3	https://www.myminifactory.com/object/3d-print-order-of-the-gate-hellknight-807527
+P0045	Twilight Talon	25	Medium	S1P3	https://www.myminifactory.com/object/3d-print-twilight-talon-807529
+P0046	Skeletal Hellknight Bonesinger	25	Medium	S1P3	https://www.myminifactory.com/object/3d-print-skeletal-hellknight-bonesinger-807530
+P0047	Strix	25	Medium	S1P3	https://www.myminifactory.com/object/3d-print-strix-807532
+P0048	Nessari (Tyrant Devil)	50	Large	S1P3	https://www.myminifactory.com/object/3d-print-nessari-tyrant-devil-807533
+P0049	Abrogail Adamant	75	Huge	S1PB	https://www.myminifactory.com/object/3d-print-abrogail-adamant-807534
+P0050	Abrogail Thrune	25	Medium	S1PB	https://www.myminifactory.com/object/3d-print-abrogail-thrune-807536
+P0055	Fumbus, Iconic Alchemist	25	Small	WP4	https://www.myminifactory.com/object/3d-print-fumbus-iconic-alchemist-816622
+P0056	Amiri, Iconic Barbarian	25	Medium	WP4	https://www.myminifactory.com/object/3d-print-amiri-iconic-barbarian-816623
+P0057	Seelah, Iconic Paladin	25	Medium	WP4	https://www.myminifactory.com/object/3d-print-seelah-iconic-paladin-816625
+P0058	Quinn, Iconic Investigator	25	Medium	WP4	https://www.myminifactory.com/object/3d-print-quinn-iconic-investigator-816626
+P0059	Horned Dragon	50	Large	WP4	https://www.myminifactory.com/object/3d-print-horned-dragon-816627
+P0060	Vrolikai Demon	50	Large	WP4	https://www.myminifactory.com/object/3d-print-vrolikai-demon-816628
+P0061	Goblin Pyro	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-pyro-816629
+P0062	Goblin Warrior	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-warrior-816630
+P0063	Goblin Commando	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-commando-816631
+P0064	Goblin Chanter	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-chanter-816632
+P0082	Bosun	25	Medium	S2P1	https://www.myminifactory.com/object/3d-print-bosun-816616
+P0083	Marine Marauder	25	Small	S2P1	https://www.myminifactory.com/object/3d-print-marine-marauder-816617
+P0084	Ocean Nomad	25	Medium	S2P1	https://www.myminifactory.com/object/3d-print-ocean-nomad-816618
+P0085	Grindylow	25	Small	S2P1	https://www.myminifactory.com/object/3d-print-grindylow-816619
+P0086	Sea Hag	25	Medium	S2P1	https://www.myminifactory.com/object/3d-print-sea-hag-816620
+P0087	Sargassum Heap	50	Large	S2P1	https://www.myminifactory.com/object/3d-print-sargassum-heap-816621
+P0088	Cheliax Marine	25	Medium	S2P2	https://www.myminifactory.com/object/3d-print-cheliax-marine-824641
+P0089	Cheliax Naval Officer	25	Medium	S2P2	https://www.myminifactory.com/object/3d-print-cheliax-naval-officer-824642
+P0090	Cheliax Naval Captain	25	Medium	S2P2	https://www.myminifactory.com/object/3d-print-cheliax-naval-captain-824644
+P0091	Deep One	25	Medium	S2P2	https://www.myminifactory.com/object/3d-print-deep-one-824645
+P0092	Flotsam Terror	25	Small	S2P2	https://www.myminifactory.com/object/3d-print-flotsam-terror-824646
+P0093	Living Waterfall	50	Large	S2P2	https://www.myminifactory.com/object/3d-print-living-waterfall-824649
+P0094	Athamaru	25	Medium	S2P3	https://www.myminifactory.com/object/3d-print-athamaru-837904
+P0095	Rigger	25	Medium	S2P3	https://www.myminifactory.com/object/3d-print-rigger-837905
+P0096	Subaquatic Marauder	25	Medium	S2P3	https://www.myminifactory.com/object/3d-print-subaquatic-marauder-837912
+P0097	Draugr	25	Medium	S2P3	https://www.myminifactory.com/object/3d-print-draugr-837913
+P0098	Reefclaw	25	Small	S2P3	https://www.myminifactory.com/object/3d-print-reefclaw-837915
+P0099	Gutaki	50	Large	S2P3	https://www.myminifactory.com/object/3d-print-gutaki-837916
 P0100	Scylla	75	Huge	S2PB	https://www.myminifactory.com/object/3d-print-scylla-837920
 # Extras-sale packs have no P-number, so they are keyed by directory name.
 # Only those whose base size is known are listed; anything absent falls back to
 # DEFAULT_BASE_MM (25mm). The Ironkettles wall is three minis in an army
 # defence unit, not terrain, so it takes the 25mm default.
-PQ0030_Hellknight_Chargers	Hellknight Chargers	50		extras
-Paizo_cave_bear_Supported	Cave Bear	50		extras
-Paizo_elk_Supported	Elk	50		extras
-Paizo_fire_serpent__Supported	Fire Serpent	50		extras
+PQ0030_Hellknight_Chargers	Hellknight Chargers	50		extras	https://www.myminifactory.com/object/3d-print-hellknight-chargers-768554
+Paizo_cave_bear_Supported	Cave Bear	50		extras	https://www.myminifactory.com/object/3d-print-cave-bear-768525
+Paizo_elk_Supported	Elk	50		extras	https://www.myminifactory.com/object/3d-print-elk-768529
+Paizo_fire_serpent__Supported	Fire Serpent	50		extras	https://www.myminifactory.com/object/3d-print-fire-serpent-768531
+
+# Extras packs named by the browser agent (2026-09-11). Base size is left
+# blank: MyMiniFactory states none, so DEFAULT_BASE_MM (25mm) applies until
+# corrected. The Hellknight Chargers, cave bear, elk and fire serpent are
+# recorded above with their real 50mm.
+Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)			extras	https://www.myminifactory.com/object/3d-print-orc-melee-pathfinder-quest-768516
+Paizo_bastions_Supported	Hellknight Bastions			extras	https://www.myminifactory.com/object/3d-print-hellknight-bastions-768553
+Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars			extras	https://www.myminifactory.com/object/3d-print-augustana-irregulars-768550
+Paizo_Grave_Knight_Supported	Graveknight			extras	https://www.myminifactory.com/object/3d-print-graveknight-768537
+Paizo_Signifers_Supported	Hellknight Signifers			extras	https://www.myminifactory.com/object/3d-print-hellknight-signifers-768556
+Paizo_Ironkettles_wall_Supported	Ironkettle's Wall			extras	https://www.myminifactory.com/object/3d-print-ironkettle-s-wall-768558
+Paizo_Hellknight_Sharpshooters_Supported	Hellknight Sharpshooters			extras	https://www.myminifactory.com/object/3d-print-hellknight-sharpshooters-768555
+Paizo_Merandals_Hawks_Supported	Merandal's Hawks			extras	https://www.myminifactory.com/object/3d-print-merandal-s-hawks-768560
+Paizo_goblin_spellcaster_Supported	Goblin Spellcaster (Pathfinder Quest)			extras	https://www.myminifactory.com/object/3d-print-goblin-spellcaster-pathfinder-quest-768509
+PQ0041_Dread_Zombie	Dread Zombie			extras	https://www.myminifactory.com/object/3d-print-dread-zombie-768527
