@@ -129,6 +129,11 @@ STL, so nothing on disk or in `reference/` says what they sit on. They default
 to **25mm** (`DEFAULT_BASE_MM` in `tools/ledger.py`) rather than staying `?` and
 being silently excluded from the totals.
 
+**Logan's rule (2026-09-11):** where no size is stated, use **25 mm** unless the
+model is obviously Large (**50 mm**) or Huge (**75 mm**) — judged from the
+render or the creature itself, not inferred from anything subtler. Record the
+choice in `reference/models.tsv` so it is stated, not defaulted.
+
 It is an assumption, so correct it where the real size is known. Extras packs
 have no P-number, so `reference/models.tsv` keys them **by directory name**
 instead — `Paizo_cave_bear_Supported` rather than a `P` code. The Hellknight
@@ -434,6 +439,20 @@ session: collecting object page URLs, finding artwork URLs, reading the
 base-size sheet, gathering names and sizes for packs absent from it. This
 session **cannot**: object pages return 403 to scripted requests, from both
 curl and WebFetch, and there is no browser here.
+
+The browser agent can also **see and drive CHITUBOX on the Mac mini** (with
+Logan's per-session approval): screenshot the window in the background, read
+the slice-parameter panel — resin profile, layer height, exposure, bottom
+exposure and layers, transition layers, rest times, the volume/weight/time
+estimate — and, if asked, go back to Model Prepare to read which files are on
+the plate. That is a last resort, not a routine: what reached the printer is
+already readable here from the `.goo`/`.ctb` header (`printer`, `plate`) and
+the printer's own log (`runlog`), which is the authority for what actually
+ran. Ask for a slicer check only when the file on the printer and the ledger
+disagree in a way those cannot settle — a plate that was sliced but never
+saved or sent, or a setting visible in the slicer that the file format does
+not carry. Send it as a `request` saying what to read and why; the answer
+comes back as a `done` with the values, never as an edit to the ledger.
 
 **This session does** — anything needing the machine: the repository and git,
 the ledger tooling, the printer at `192.168.1.151` (LAN-only), plate previews,
