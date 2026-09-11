@@ -214,7 +214,7 @@ Regenerate the dashboard after any change:
 | 5-P0029_Ort Druge Devil_S1P1 | Ort (Druge Devil) | 25mm | B | 32mm | printed |  | pass |  |
 | 5-P0029_Ort Druge Devil_S1P1 | Ort (Druge Devil) | 25mm | C | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm L | 32mm | printed |  | pass |  |
-| 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm R | 32mm | printed |  | pass |  |
+| 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm R | 32mm | reprint |  |  |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Body | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Tail | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Tail with Base | 32mm | printed |  | pass |  |
