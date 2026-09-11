@@ -250,6 +250,10 @@ def scan_disk(ref):
 
         pnum = PNUM.search(model)
         meta = ref.get(f"P{pnum.group(1)}") if pnum else None
+        if meta is None:
+            # Extras packs have no P-number, so they are keyed in
+            # reference/models.tsv by their directory name instead.
+            meta = ref.get(model)
         base_mm = (meta or {}).get("base_mm") or on_disk_base
         mini = (meta or {}).get("name") or model
 

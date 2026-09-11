@@ -123,11 +123,12 @@ STL, so nothing on disk or in `reference/` says what they sit on. They default
 to **25mm** (`DEFAULT_BASE_MM` in `tools/ledger.py`) rather than staying `?` and
 being silently excluded from the totals.
 
-It is an assumption, and it is wrong for some of them — the Ironkettles wall,
-cave bear, elk, fire serpent and Hellknight Chargers are not 25mm infantry.
-Correct those in the row when their real size is known; `scan` only fills the
-column when nothing better exists, so a hand-set value in `reference/models.tsv`
-wins.
+It is an assumption, so correct it where the real size is known. Extras packs
+have no P-number, so `reference/models.tsv` keys them **by directory name**
+instead — `Paizo_cave_bear_Supported` rather than a `P` code. The Hellknight
+Chargers, cave bear, elk and fire serpent are recorded as 50mm that way. The
+Ironkettles wall is *three minis in an army defence unit*, not terrain, so it
+correctly takes the 25mm default.
 
 These packs also ship a single 28mm mesh with no `32mm_` version, so they are
 printed at 32mm heroic by scaling to **114%** in Chitubox (32 ÷ 28). The main

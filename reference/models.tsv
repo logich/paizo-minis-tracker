@@ -81,3 +81,11 @@ P0097	Draugr	25	Medium	S2P3
 P0098	Reefclaw	25	Small	S2P3
 P0099	Gutaki	50	Large	S2P3
 P0100	Scylla	75	Huge	S2PB
+# Extras-sale packs have no P-number, so they are keyed by directory name.
+# Only those whose base size is known are listed; anything absent falls back to
+# DEFAULT_BASE_MM (25mm). The Ironkettles wall is three minis in an army
+# defence unit, not terrain, so it takes the 25mm default.
+PQ0030_Hellknight_Chargers	Hellknight Chargers	50		extras
+Paizo_cave_bear_Supported	Cave Bear	50		extras
+Paizo_elk_Supported	Elk	50		extras
+Paizo_fire_serpent__Supported	Fire Serpent	50		extras

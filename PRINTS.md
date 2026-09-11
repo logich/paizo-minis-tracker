@@ -87,13 +87,13 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030A1 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030A2 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030B1 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030B2 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030C1 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030C2 | 32mm | printed |  | pass |  |
-| PQ0030_Hellknight_Chargers | PQ0030_Hellknight_Chargers | 50mm | PQ0030D | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030A1 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030A2 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030B1 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030B2 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030C1 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030C2 | 32mm | printed |  | pass |  |
+| PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030D | 32mm | printed |  | pass |  |
 | PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | 25mm | Zombie | 32mm | printed |  | pass |  |
 | PQ0041_Dread_Zombie | PQ0041_Dread_Zombie | 25mm | Zombie (32mm) | 32mm | printed |  | pass |  |
 | Paizo_Augustana_irregulars_A_Supported | Paizo_Augustana_irregulars_A_Supported | 25mm | A | 32mm | reprint |  |  |  |
@@ -115,9 +115,9 @@ Regenerate the dashboard after any change:
 | Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | A supp | 32mm | reprint |  |  |  |
 | Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | B | 32mm | reprint |  |  |  |
 | Paizo_bastions_Supported | Paizo_bastions_Supported | 25mm | C | 32mm | reprint |  |  |  |
-| Paizo_cave_bear_Supported | Paizo_cave_bear_Supported | 25mm | main | 32mm | printed |  | pass |  |
-| Paizo_elk_Supported | Paizo_elk_Supported | 25mm | main | 32mm | printed |  | pass |  |
-| Paizo_fire_serpent__Supported | Paizo_fire_serpent__Supported | 25mm | main | 32mm | printed |  | pass |  |
+| Paizo_cave_bear_Supported | Cave Bear | 50mm | main | 32mm | printed |  | pass |  |
+| Paizo_elk_Supported | Elk | 50mm | main | 32mm | printed |  | pass |  |
+| Paizo_fire_serpent__Supported | Fire Serpent | 50mm | main | 32mm | printed |  | pass |  |
 | Paizo_goblin_spellcaster_Supported | Paizo_goblin_spellcaster_Supported | 25mm | main | 32mm | printed |  | pass |  |
 | Paizo_orc_malee_Supported | Paizo_orc_malee_Supported | 25mm | 32mm Paizo PFQ orc malee | 32mm | printed |  | pass |  |
 | Paizo_orc_malee_Supported | Paizo_orc_malee_Supported | 25mm | Paizo PFQ orc malee Supported | 32mm | printed |  | pass |  |
