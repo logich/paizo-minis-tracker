@@ -45,7 +45,8 @@ quoted). `assign` prints how many parts it changed; check that number.
 2. A plate holds more than its filename says. Check `plates/<ID>.png`.
 3. Never infer base stock from plates. It is stated in the `## Bases` section.
 4. Quote release names containing spaces, or each word becomes its own target.
-5. Run `build` at the end. Commit only if the user asks.
+5. Run `build` at the end, then commit what you changed (see *Commits are
+   how agents talk*). Never `git add -A`.
 
 ## Layout
 
@@ -61,7 +62,8 @@ quoted). `assign` prints how many parts it changed; check that number.
 - `YYYYMM <name>/` — one directory per release, one subdirectory per model.
 
 Only those tracker files are in git. The models themselves (~18 GB of STLs and
-slicer projects) are gitignored. Do not commit unless the user asks.
+slicer projects) are gitignored. Commit your own changes at the end of every
+session — the log is the shared record between the two agents and the user.
 
 ## The data model
 
@@ -453,14 +455,86 @@ Then:
 reports any code it does not recognise rather than inventing a row, and
 downloads anything in an `artwork` column into the right model directory.
 
-The browser agent also leaves free-text notes for this session in
-`reference/HANDOFF-NOTES.md` — read it before merging, and delete entries once
-they are dealt with.
+Longer prose for the other side goes in `reference/HANDOFF-NOTES.md`; the
+commit that lands it points there. Mark an entry done rather than deleting it.
 
 **URLs are enough — files are not needed.** The image CDN serves fine from here
 once a User-Agent is set, so the agent need only report links. Pasting them into
 chat works just as well as a file; `ledger.py artwork <url>...` takes them
 directly.
+
+## Commits are how agents talk
+
+Two agents and the user share this repository and never share a session, so
+the git log is the coordination channel. Every session that changes a tracked
+file ends with a commit, and every commit says what changed, who did it, and
+whether anyone else has to act.
+
+### At the start of a session
+
+    git status --short                      # someone else's uncommitted work?
+    git log --oneline -15                   # what happened since you were here
+    git log -20 --grep='Follow-up(ledger)'  # or (browser) / (user): anything for you?
+
+Leave another party's uncommitted files alone — they are mid-task. If `status`
+shows files you do not own, do not stage them, and mention it in your own
+commit body ("PRINTS.md was dirty at start; not touched").
+
+A follow-up is pending until a later commit carries `Closes: <sha>` naming it.
+Deal with the ones addressed to you before starting new work, or say in your
+commit why they are still open.
+
+### At the end of a session
+
+Stage only the files you changed, by path, and write the message as:
+
+    <agent>: <what changed, one line>
+
+    <why, and anything the reader needs to judge it — counts, caveats,
+    files to look at>
+
+    Follow-up(ledger): <action the ledger session must take>
+    Follow-up(browser): <action the browser agent must take>
+    Follow-up(user): <decision or information only Logan can supply>
+    Closes: <sha>
+
+`<agent>` is `ledger` or `browser`. The `Follow-up(...)` and `Closes:` lines are
+optional and repeatable; omit a party that owes nothing. Set the author so the
+log reads honestly:
+
+    git commit --author="Ledger agent <ledger@paizo-minis>"   -F msg.txt
+    git commit --author="Browser agent <browser@paizo-minis>" -F msg.txt
+
+The user's own commits keep his normal identity. Worked example:
+
+    browser: capture MyMiniFactory links and artwork for all 93 models
+
+    reference/incoming.tsv is ready for merge-reference: 83 numbered models
+    plus the 10 August extras, each with mmf and a 1000x1000 webp URL, all
+    load-tested. Details in reference/HANDOFF-NOTES.md (2026-09-11 entry).
+
+    Follow-up(ledger): cmd_artwork keys on a P-number in the URL filename and
+    will skip 45 rows; key on the incoming `code` column, then merge.
+    Follow-up(user): the extras packs have no stated base size anywhere on
+    MyMiniFactory; confirm or correct the 25 mm default.
+
+### Rules
+
+- **One commit per session, at the end**, once `build` has run and the tree is
+  consistent. Do not commit half-edited state, and do not commit `.goo`/`.stl`
+  or anything else `.gitignore` excludes.
+- **Stay on the current branch.** No new branches, no rebases, no amends of
+  commits you did not make, no force of any kind, no pushing unless asked.
+- **Each file has one writer.** The ledger session owns `PRINTS.md`,
+  `models.tsv`, `tools/`, `plates/`, `dashboard.html`, `README.md`. The browser
+  agent owns `reference/incoming.tsv`, `reference/mmf-links.tsv` and
+  `reference/HANDOFF-NOTES.md`. `CLAUDE.md` is shared: edit only the section
+  that concerns you, and say so in the commit.
+- **A commit is not a request to the user.** If something needs Logan's
+  decision, put it in `Follow-up(user)` *and* tell him in chat — he does not
+  read the log routinely.
+- **Do not narrate the mechanism.** The commit message is for the reader who
+  finds it in `git log` a month later; write it for them.
 
 ## Linking a model to its MyMiniFactory page
 

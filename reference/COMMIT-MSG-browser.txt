@@ -1,0 +1,22 @@
+browser: capture MyMiniFactory links and artwork for all 93 models; adopt commits as the agent channel
+
+reference/incoming.tsv is ready for merge-reference: the 83 numbered models
+in models.tsv plus the 10 August extras directories, each with its object
+page (mmf) and a 1000x1000 webp URL (artwork); all 93 image URLs were
+load-tested in the browser. reference/mmf-links.tsv is the full 113-object
+dump of the Paizo Printables library, PDFs and discount posts included.
+Details and caveats in reference/HANDOFF-NOTES.md (2026-09-11 entry).
+
+CLAUDE.md: replaced "commit only if asked" with a "Commits are how agents
+talk" section — one commit per session, Follow-up(ledger|browser|user) and
+Closes: trailers, per-file ownership, author set per agent. Only the
+handoff and commit sections were touched. The tree showed mode-only changes
+on the ledger's files at start (mount artefact); none were staged.
+
+Follow-up(ledger): cmd_artwork keys the download on a P-number in the URL
+filename and will skip 45 of the 93 rows (all of April, and every extras
+pack); key on the incoming `code` column, and let the saved extension
+follow the URL (@webp) rather than fixing .avif. Then merge-reference,
+scan, build.
+Follow-up(user): the extras packs have no stated base size anywhere on
+MyMiniFactory; the 25 mm default stands until you say otherwise.
