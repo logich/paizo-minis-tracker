@@ -1063,13 +1063,25 @@ def cmd_preview(source, out_path=None, which="big"):
     if not source.startswith("http") and not Path(source).exists():
         source = PRINTER_URL + urllib.parse.quote(name)
     import sliced
-    if not name.lower().endswith(".goo") and not sliced.uvtools_available():
+    is_goo = name.lower().endswith(".goo")
+    if not is_goo and not sliced.uvtools_available():
         print("ctb previews need UVtools in ./uvtools; only .goo works without it")
         return
     out_path = out_path or re.sub(r"[^\w.-]", "_", name)[:60] + ".png"
     try:
-        head = __import__("sliced").fetch_head(source, __import__("sliced").GOO_HEADER_BYTES)
-        print("wrote", preview_mod.extract(head, out_path, which))
+        if is_goo:
+            head = sliced.fetch_head(source, sliced.GOO_HEADER_BYTES)
+            print("wrote", preview_mod.extract(head, out_path, which))
+            return
+        # Encrypted ctb: the GOO offsets would decode ciphertext into noise, so
+        # hand it to UVtools, which needs the whole file.
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".ctb") as tmp:
+            sliced.download(source, tmp.name)
+            if sliced.uvtools_thumbnail(tmp.name, out_path):
+                print("wrote", out_path)
+            else:
+                print(f"UVtools could not extract a thumbnail from {name}")
     except Exception as exc:
         print(f"could not extract a preview from {name}: {exc}")
 
