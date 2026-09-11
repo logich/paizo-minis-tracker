@@ -47,17 +47,17 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | 32mm | review | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | 32mm | review | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | 32mm | review | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | 32mm | cleaned | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | 32mm | cleaned | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | C | 32mm | cleaned | P2609-02 |  |  |
 | P0095_Rigger_S2P3 | Rigger | 25mm | main | 32mm | review | P2609-03 |  |  |
 | P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | 32mm | review | P2609-03 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | A | 32mm | review | P2609-06 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | B | 32mm | review | P2609-06 |  |  |
-| P0097_Draugr_S2P3 | Draugr | 25mm | C | 32mm | review | P2609-06 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm | review | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm | review | P2609-08 |  |  |
-| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm | review | P2609-08 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | A | 32mm | cleaned | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | B | 32mm | cleaned | P2609-06 |  |  |
+| P0097_Draugr_S2P3 | Draugr | 25mm | C | 32mm | cleaned | P2609-06 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm | cleaned | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm | cleaned | P2609-08 |  |  |
+| P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm | cleaned | P2609-08 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm | printed | P2609-10 |  | reprinted on P2609-10 at 2.9s with new FEP after the first attempt failed |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm | sliced | P2609-11 |  |  |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm | reprint | P2609-10.1 | fail | bottom parts did not connect to the supports; queued for reprint at 3.0s once Tentacles L is done |
