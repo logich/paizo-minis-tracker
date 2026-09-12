@@ -29,6 +29,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2609-13 | 2026-09-12 | P0100_Scylla_Full_S2PB_STL.stl_0.030_2.800_2026_09_12_11_10.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Scylla reprint: manual supports on the raw STL, moved to the right side of the plate. 2125 layers = 63.8mm, so a flatter orientation than P2609-12's 70.1mm. Back at 2.8s from P2609-12's 3.0s; in progress |
 | P2609-12 | 2026-09-11 | P0100_Scylla_Full_S2PB_SUP.stl_0.030_3.000_2026_09_11_20_54.goo | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 |  |  | fail | Scylla one-piece at true scale on vendor supports, as a whole-model test. Layer defects at 17.03mm and 32.6mm, only on the back left third. Confined to one region of the plate rather than spanning the layer, so suspect the plate area - FEP tension, levelling or the tilt geometry - as much as the supports |
 | P2609-11 | 2026-09-11 | 32mm_P0099_Gutaki_Tentacles_L_S2P3_SUP.stl_#4_0.030_3.000_2026_09_11_08_36.ctb | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 | 0.03mm @ 0.05 |  | fail | Gutaki Tentacles L only; failed to adhere to the build plate |
 | P2609-10.1 | 2026-09-10 | 32mm_P0099_Gutaki_Tentacles_R_S2P3_SUP.stl_#2_0.030_2.800_2026_09_10_21_22.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | fail | Gutaki Tentacles R; bottom parts did not connect to the supports |
@@ -63,7 +64,7 @@ Regenerate the dashboard after any change:
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm |  | reprint | P2609-11 | fail | failed to adhere to the build plate at 3.0s; to be manually supported |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm |  | reprint | P2609-10.1 | fail | failed to adhere to the build plate; to be manually supported |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm |  | skipped |  |  | printing the combined Full instead |
-| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm |  | reprint | P2609-12 | fail | layer defects at 17.03mm and 32.6mm (layers ~568 and ~1087 of 2337), confined to the back left third of the model. Next attempt: manual supports, moved to the RIGHT side of the plate. If the defect stays in the same place on the plate it is the machine; if it follows the model it is the supports or the geometry. Rotating 180 degrees is the attempt after that |
+| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm |  | sliced | P2609-13 | fail | layer defects at 17.03mm and 32.6mm (layers ~568 and ~1087 of 2337), confined to the back left third of the model. Next attempt: manual supports, moved to the RIGHT side of the plate. If the defect stays in the same place on the plate it is the machine; if it follows the model it is the supports or the geometry. Rotating 180 degrees is the attempt after that |
 | P0100_Scylla_S2PB | Scylla | 75mm | Tentacles | 32mm |  | skipped |  |  | printing the combined Full instead |
 
 ## 202608 August Release
