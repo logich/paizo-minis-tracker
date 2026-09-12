@@ -392,11 +392,14 @@ re-adds the parts as `todo`.
   raw `_STL`. A slicer filename ending `_STL` generally means exactly that.
 - `32mm_<code>_PRE.stl` — the same thing under a different name; only P0094
   Athamaru A uses it. Treated as pre-supported too.
-- Files without the `32mm_` prefix are the **smaller** 28 mm-scale versions, not
-  larger ones — about 0.89x the `32mm_` mesh. Slicing one by mistake gives an
-  undersized mini: that is why the Brastlewark Snarecrafter had to be reprinted.
-  Scaling one up ~112% reaches 32 mm scale, which is the same correction the
-  extras packs need at ~114%.
+- Files without the `32mm_` prefix are the **full-size** meshes — full size
+  meaning true scale, not physically larger. The `32mm_` ones are **heroic
+  scale**, which is both the chunkier tabletop proportion and physically bigger:
+  about 1.12x, measured on the Brastlewark Snarecrafter at 33.6 mm against
+  29.9 mm. Slicing a full-size mesh by mistake gives a mini that reads
+  undersized next to the rest of the collection, which is why the Brastlewark
+  had to be reprinted. Scaling one up ~112% reaches heroic scale — the same
+  correction the extras packs need at ~114%.
 - `pathfinder_base_NN.stl` / `Round NN.stl` — the base for that model.
 - A trailing descriptor (`..._STL Fixed Hand.stl`) marks a re-cut and becomes
   part of the part name.

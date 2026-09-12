@@ -158,7 +158,7 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | 32mm |  | reprint |  | fail | printed too small: sliced from the unprefixed 28mm mesh instead of the 32mm one. Reprint from 32mm_P0043_Brastlewark_Snarecrafter_S1P3_SUP.stl |
+| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | 32mm |  | reprint |  | fail | printed too small: sliced from the full-size (true scale) mesh instead of the 32mm heroic one. Reprint from 32mm_P0043_Brastlewark_Snarecrafter_S1P3_SUP.stl |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Arm | 32mm |  | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Body | 32mm |  | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Cape | 32mm |  | printed |  | pass |  |
