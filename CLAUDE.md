@@ -683,6 +683,13 @@ run happening now", not as history.
 came from. Otherwise the ledger quietly disagrees with the machine, and a later
 comparison of exposures across plates is wrong.
 
+**`runlog` reports settings, not outcomes.** The printer has no sensor for bed
+adhesion or print failure, so nothing in the log distinguishes a good run from a
+detached one — the `execute:` lines are identical either way. Never suggest
+watching it to catch a failure early. A failure to adhere only becomes visible
+when the build plate rises clear of the resin, at roughly 25-30% of the run, and
+only by looking at it.
+
 ### What is and isn't readable
 
 - **`.goo`** — ELEGOO's own format and what the printer runs natively.
