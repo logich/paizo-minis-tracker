@@ -32,7 +32,7 @@ Regenerate the dashboard after any change:
 | P2609-12 | 2026-09-11 | P0100_Scylla_Full_S2PB_SUP.stl_0.030_3.000_2026_09_11_20_54.goo | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 |  |  |  | Scylla one-piece, deliberate test: the unprefixed vendor-supported mesh at 1:1 (2337 layers = 70.1mm, 0.85x the 32mm scale), to see whether she comes out well as a whole model. The 32mm SUP will not fit the plate; in progress |
 | P2609-11 | 2026-09-11 | 32mm_P0099_Gutaki_Tentacles_L_S2P3_SUP.stl_#4_0.030_3.000_2026_09_11_08_36.ctb | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 | 0.03mm @ 0.05 |  | fail | Gutaki Tentacles L only; failed to adhere to the build plate |
 | P2609-10.1 | 2026-09-10 | 32mm_P0099_Gutaki_Tentacles_R_S2P3_SUP.stl_#2_0.030_2.800_2026_09_10_21_22.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | fail | Gutaki Tentacles R; bottom parts did not connect to the supports |
-| P2609-10 | 2026-09-10 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.9s | 27.0s | 5 |  |  | fail | Gutaki Body reprint at 2.9s set on the printer (file says 2.8s, confirmed from the runlog), new FEP. Printed, but warping found after cleaning |
+| P2609-10 | 2026-09-10 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.9s | 27.0s | 5 |  |  | fail | Gutaki Body reprint at 2.9s set on the printer (file says 2.8s, confirmed from the runlog), new FEP. Printed, but warped during printing |
 | P2609-09 | 2026-09-09 | 32mm_P0099_Gutaki_Body_S2P3_SUP.stl_#1_0.030_2.800_2026_09_09_22_45.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | fail | Gutaki Body; large body separated from the supports in the final layers. FEP release film replaced and exposure raised 0.1s to 2.9s before the next attempt |
 | P2609-08 | 2026-09-09 | 32mm_P0098_Reefclaw_A_S2P3_SUP.stl_0.030_2.800_2026_09_09_18_41.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | pass | Reefclaw A/B/C |
 | P2609-06 | 2026-09-09 | 32mm_P0097_Draugr_ABC_S2P3_SUP.stl_0.030_2.800_2026_09_09_09_33.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  | 3x 25mm | pass | Draugr A/B/C |
@@ -59,7 +59,7 @@ Regenerate the dashboard after any change:
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm |  | cleaned | P2609-08 |  |  |
-| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | reprint | P2609-10 | fail | warping found after cleaning; to be manually supported and reprinted |
+| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | reprint | P2609-10 | fail | warped during printing; to be manually supported and reprinted |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm |  | reprint | P2609-11 | fail | failed to adhere to the build plate at 3.0s; to be manually supported |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm |  | reprint | P2609-10.1 | fail | failed to adhere to the build plate; to be manually supported |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm |  | skipped |  |  | printing the combined Full instead |
