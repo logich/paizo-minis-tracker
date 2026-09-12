@@ -63,7 +63,7 @@ Regenerate the dashboard after any change:
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm |  | reprint | P2609-11 | fail | failed to adhere to the build plate at 3.0s; to be manually supported |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm |  | reprint | P2609-10.1 | fail | failed to adhere to the build plate; to be manually supported |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm |  | skipped |  |  | printing the combined Full instead |
-| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm |  | reprint | P2609-12 | fail | layer defects at 17.03mm and 32.6mm (layers ~568 and ~1087 of 2337), confined to the back left third of the model - a fixed region of the plate, not the whole layer. To be manually supported and reprinted, repositioned on the plate |
+| P0100_Scylla_S2PB | Scylla | 75mm | Full | 32mm |  | reprint | P2609-12 | fail | layer defects at 17.03mm and 32.6mm (layers ~568 and ~1087 of 2337), confined to the back left third of the model. Next attempt: manual supports, moved to the RIGHT side of the plate. If the defect stays in the same place on the plate it is the machine; if it follows the model it is the supports or the geometry. Rotating 180 degrees is the attempt after that |
 | P0100_Scylla_S2PB | Scylla | 75mm | Tentacles | 32mm |  | skipped |  |  | printing the combined Full instead |
 
 ## 202608 August Release
