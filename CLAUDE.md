@@ -473,17 +473,32 @@ degrees of horizontal — "flat-down area", a proxy for island area — in under
 second, against a slice plus five minutes for `screen`. Use it to pick two or
 three candidates, then confirm the winner with `screen` on the real slice.
 
-On Scylla's 32 mm mesh it found:
+**The two axes are not equivalent, and island area is not the only objective.**
+The vat hinges at the rear, so the peel line runs left-right along X and sweeps
+front-to-rear along Y. Peel force at any instant is proportional to how much
+cross-section sits at the Y the peel line has just reached — its width in X. A
+sloped face contributes one strip per layer, perpendicular to its in-plane
+gradient:
 
-    as modelled           flat-down 1,246 mm2   all-down 16,173 mm2   84.7 mm tall
-    rotX 30               flat-down 1,052 mm2   all-down 16,363 mm2
-    rotX 45 (best tried)  flat-down   921 mm2   all-down 16,230 mm2   78.4 mm tall
+- gradient along **Y** (i.e. rotated about X) -> the strip spans X -> the whole
+  width releases the moment the peel line arrives. Worst case.
+- gradient along **X** (i.e. rotated about Y) -> the strip runs along Y -> the
+  peel line crosses it gradually. Best case.
 
-A 26% cut in island risk, and it happens to print shorter too. Note that
-all-down area barely moves: tilting converts flat overhangs into sloped ones
-rather than removing them, so the support burden stays about the same. That is
-the trade — same amount of support, far less of it holding up something that
-arrived all at once.
+So `orient` reports both `flat-down` (island risk) and `peel-exposed` (how much
+separates simultaneously). On Scylla's 32 mm mesh:
+
+    as modelled   flat-down 1,246   peel-exposed 10,224
+    rotX 45       flat-down   921   peel-exposed 10,653   island  74%, peel 104%
+    rotY 45       flat-down 1,097   peel-exposed 10,063   island  88%, peel  98%
+
+**Rotating about Y improves both. Rotating about X buys island area by paying
+in peel stress.** Prefer Y; reach for X only when island area is the binding
+constraint and you accept the trade.
+
+All-down area barely moves under either: tilting converts flat overhangs into
+sloped ones rather than removing them, so the support burden stays about the
+same. The gain is in *when* the load arrives, not how much of it there is.
 
 **Limits.** It is a proxy from surface normals: it does not detect islands, does
 not model supports (which can bridge a small island harmlessly), and cannot see
