@@ -58,6 +58,10 @@ quoted). `assign` prints how many parts it changed; check that number.
 - `tools/sliced.py` — reads settings out of `.goo` / `.ctb` files. Field offsets
   live here.
 - `tools/orient.py` — scores a mesh's orientation for island risk before slicing.
+- `tools/base_sheet.py` — snapshots the Google base sheet and diffs it against
+  `reference/models.tsv`. Read-only on models.tsv.
+- `tools/aon_sizes.py` — cross-checks base sizes against the Archives of Nethys
+  export. Runs on the mini, not here: the database is not on this host.
 - `tools/messages.py` — the message channel between the agents: `send`,
   `pending`, `list`, `show`. Writes `reference/messages-from-*.jsonl`.
 - `reference/models.tsv` — base size and creature size per model, captured from
@@ -160,10 +164,26 @@ within each model:
   miniature. Gutaki's body and two tentacle arms assemble into a single mini on
   a single 50 mm base.
 
-`variant_of()` implements the rule. It was validated against the source sheet,
-which annotates multi-sculpt models as "(3 Models)": it agrees on all 79 models
-that appear there. If a future release breaks that pattern, fix `variant_of` and
-re-run the check rather than adjusting counts by hand.
+`variant_of()` implements the rule. `reference/base-sheet.csv` carries the
+sheet's "(3 Models)" annotations in a `variants` column, so the check is now
+mechanical rather than a hand-kept list — cross-checked 2026-09-12, **72 agree,
+0 disagree**. Re-run it after a new release rather than adjusting counts by
+hand:
+
+    python3 - <<\'EOF\'
+    import csv, sys, collections; sys.path.insert(0,"tools"); import ledger
+    sheet = {r["code"]: int(r["variants"] or 1)
+             for r in csv.DictReader(open("reference/base-sheet.csv")) if r.get("code")}
+    parts = collections.defaultdict(list)
+    for ps in ledger.scan_disk(ledger.load_reference()).values():
+        for (m, pt), _ in ps.items():
+            mm = ledger.PNUM.search(m)
+            if mm: parts["P" + mm.group(1)].append(pt)
+    for code, n in sheet.items():
+        if code in parts:
+            mine = len({ledger.variant_of(p) for p in parts[code]} - {""}) or 1
+            if mine != n: print(code, "variant_of", mine, "sheet", n)
+    EOF
 
 ## Brian's approval gates completion
 
@@ -371,9 +391,17 @@ plate's settings — say what's missing and ask for it.
    (<https://docs.google.com/spreadsheets/d/136R7lDaQ5BK42xDqrfJR8dN6XYIWq2PyM0_lwJQH2jU>),
    keyed by P-number. Columns: `code`, `name`, `base_mm`, `size`, `pack`.
    Without this the models still track, but with no readable name and no base size.
-3. `python3 tools/ledger.py scan` — adds new parts as `todo` and leaves
+3. `python3 tools/base_sheet.py diff` — compares the sheet snapshot against
+   `models.tsv` and writes new or changed rows to `reference/incoming.tsv`.
+   **Read what it wrote before merging.** It reports differences, not
+   corrections: the P0039 Hellbreaker "pack S1P2 -> S1P1" row is a typo on the
+   sheet, and applying it would corrupt `models.tsv`.
+4. `python3 tools/aon_sizes.py --release <YYYYMM>` on the mini, to cross-check
+   base sizes against Archives of Nethys. Apply its "unstated" suggestions via
+   `merge-reference`; hand anything it FLAGS to Logan rather than deciding.
+5. `python3 tools/ledger.py scan` — adds new parts as `todo` and leaves
    everything already recorded untouched.
-4. `python3 tools/ledger.py build`
+6. `python3 tools/ledger.py build`
 
 `scan` is safe to run at any time: it is idempotent and never overwrites a
 Stage, Plate, Result or Note. It warns about ledger rows whose files have
