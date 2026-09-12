@@ -388,6 +388,29 @@ Rename the `## ` heading in `PRINTS.md` in the same step. `scan` keys rows on
 the release name, so renaming only one side orphans every recorded result and
 re-adds the parts as `todo`.
 
+### Finding islands before printing
+
+UVtools detects the defects that matter before a print rather than after:
+
+    ./uvtools/UVtoolsCmd --no-progress print-issues <file.goo>
+
+On the failed Scylla (P2609-12) it found 318 islands, 330 suction cups and 1175
+resin traps, and the print's **two largest islands sat at exactly the two
+heights that failed** — 17.13 mm (1196 px2) and 31.71 mm (8520 px2) against
+defects reported at 17.03 mm and 32.6 mm. Island *area* is what predicts a
+failure, not island count: islands cluster most thickly at 36-48 mm, where
+nothing went wrong.
+
+It is slow — about five minutes on a 363 MB file, and the whole file must be
+downloaded first — so it is worth running on a large model before committing
+hours to the plate, not on everything.
+
+**A defect on part of the *model* is not a defect on part of the *plate*.** The
+first travels with the geometry and implicates supports; the second stays put
+and implicates the machine. Establish which before theorising: getting this
+backwards on the Scylla produced a plate-region hypothesis the island data then
+contradicted.
+
 ### Vendor supports are Lychee, ours are Chitubox
 
 The vendor supports in Lychee Slicer, not Chitubox — the library ships **125
