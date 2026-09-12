@@ -21,7 +21,7 @@ Regenerate the dashboard after any change:
 
 | Size | On hand | Backlog | Notes |
 | --- | --- | --- | --- |
-| 25mm | 7 | 0 | 15 made on P2609-03 and P2609-06, less 8 consumed by minis already printed — check this figure |
+| 25mm | 7 | 52 | Brian counted 52+ needed to glue and primer existing minis (2026-09-12), not counting anything printed this week. A floor, not an exact figure |
 | 50mm | 0 | 1 | the 6 on P2609-07 are already allocated to older models, not spare |
 | 75mm | 0 | 5 | backlog from older models |
 
