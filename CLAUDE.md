@@ -549,6 +549,34 @@ not model supports (which can bridge a small island harmlessly), and cannot see
 suction cups, which are topology rather than orientation. `screen` remains the
 measurement; `orient` is only a way to pick what to slice.
 
+### Scale depends on creature size
+
+Small and Medium creatures print from the `32mm_` **heroic** mesh. Large and
+Huge ones print from the unprefixed **default/true-scale** mesh — Gutaki (Large)
+and Scylla (Huge) are both default size on purpose. That is why the Brastlewark
+Snarecrafter, a Small creature, was a reprint when it came out at default size,
+while Scylla at default size is not.
+
+**All parts of one model must use the same mesh family.** The Horned Dragon's
+rocks and wings do not fit its reprinted body because the body came from the
+32 mm mesh and they did not — a 1.14x mismatch. Gutaki's earlier attempts
+(P2609-09, -10, -10.1, -11) all used `32mm_` meshes while P2609-14 uses the
+default, so its tentacle arms must be reprinted at default size too or they will
+not fit.
+
+### Hollowing trades islands for suction
+
+Measured on the same tooling, one model each:
+
+    P2609-13  manual Chitubox, solid       311 islands   4 cups   largest    2 mm3
+    P2609-14  Blueprint supports, hollow    54 islands  47 cups   largest 3,443 mm3
+
+Hollowing cuts cross-section, which is the right lever against peel force, and
+the island count fell sixfold. But a hollow shell traps resin: the largest cup
+went up more than a thousandfold. **Hollow only with drain holes sized and
+placed so the trapped volume can escape**, and screen afterwards — `screen`
+reports cup volume, so the check is cheap.
+
 ### Screening a print before running it
 
     python3 tools/ledger.py screen "<sliced file>"
