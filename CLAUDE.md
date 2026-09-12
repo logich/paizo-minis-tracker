@@ -85,8 +85,9 @@ Each release is a `## <release name>` section holding one table:
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
 - `Scale` — `32mm` for everything on disk. Other values are prints made by
   scaling up in Chitubox; see below.
-- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `ready` →
-  `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint`. Counts as printed from
+- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `ready` → `review` →
+  `approved` → `cured` → `primed` → `painted` → `delivered`, plus `reprint`
+  and `skipped`. Counts as printed from
   `printed` onward.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
   `pass` means *Brian approved it* — see below.
@@ -172,14 +173,18 @@ tells you the stage, not the verdict.
 
 Four stages carry this:
 
-- **`ready`** — finished here, cleaned and cured, but not yet handed over.
-  Deliveries go out roughly weekly, so this is where a mini waits in between.
-  It is the difference between "off the printer" and "with Brian", which
-  `printed` alone could not express.
-- **`review`** — delivered and now with Brian. He looks at them once washed,
-  de-supported and cured, when the detail is actually visible.
+- **`ready`** — washed here and waiting for the next delivery, **still
+  supported and uncured**. Deliveries go out roughly weekly, so this is where a
+  mini waits in between. It is the difference between "off the printer" and
+  "with Brian", which `printed` alone could not express.
+- **`review`** — delivered. Brian de-supports it, reviews it, then cures it, in
+  that order. So a part is at its softest when he handles it, and a localised
+  flat spot or pressure mark is as likely to come from de-supporting green
+  resin as from the print itself. Weigh that before blaming a print.
 - **`approved`** — Brian passed it. `assign` sets `Result` to `pass` for you,
   since the stage means exactly one thing; no hand-editing needed.
+- **`cured`** — comes *after* approval, because Brian cures. It is not a step
+  on this side.
 - **`reprint`** — Brian rejected it, or it failed on the plate; it has to go
   back on. Put the reason in `Notes` and set `Result` to `fail`. Not
   auto-filled: a reprint is not always a rejection.

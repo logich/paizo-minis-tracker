@@ -72,8 +72,12 @@ SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools
 # Ordered by how far along a part is. "reprint" ranks below "printed" on
 # purpose: Brian rejected it, so it has to go back on a plate and should show up
 # in the print queue again.
-STAGES = ["todo", "reprint", "sliced", "printed", "cleaned", "cured",
-          "ready", "review", "approved", "primed", "painted", "delivered",
+# Brian de-supports, reviews, then cures — so curing happens on his side after
+# approval, not here before delivery. Parts reach him washed but still
+# supported and green, which is why a pressure mark from de-supporting is a
+# live explanation for a localised defect.
+STAGES = ["todo", "reprint", "sliced", "printed", "cleaned",
+          "ready", "review", "approved", "cured", "primed", "painted", "delivered",
           # Not a progression step. Some models ship alternative decompositions
           # — Scylla has Body + Tentacles *and* a combined Full — and only one
           # route gets printed. The other is "skipped": excluded from progress
