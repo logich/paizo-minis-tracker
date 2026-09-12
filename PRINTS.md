@@ -29,6 +29,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2609-14 | 2026-09-12 | P0099_Gutaki_Body_S2P3_Blueprint-Supports.stl_0.030_2.800_2026_09_12_19_37.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Gutaki Body, new approach: hollowed, supports generated in HeyGears Blueprint Studio rather than the vendor's Lychee or Chitubox. 1931 layers = 57.9mm; in progress |
 | P2609-13 | 2026-09-12 | P0100_Scylla_Full_S2PB_STL.stl_0.030_2.800_2026_09_12_11_10.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Scylla reprint: manual supports on the raw STL, moved right, 2125 layers = 63.8mm, 2.8s. Screened after starting: suction cups down from 330 to 5, but one island of 11992px2 at 22.92mm - larger than the 8520px2 that failed on P2609-12. Watch that height; in progress |
 | P2609-12 | 2026-09-11 | P0100_Scylla_Full_S2PB_SUP.stl_0.030_3.000_2026_09_11_20_54.goo | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 |  |  | fail | Scylla one-piece at true scale on vendor Lychee supports, as a whole-model test. Failed: layer defects at 17.03mm and 32.6mm. UVtools finds 318 islands, 330 suction cups and 1175 resin traps; the two largest islands are at 17.13mm and 31.71mm, matching the defects. 92% of island area is in the centre third of the plate |
 | P2609-11 | 2026-09-11 | 32mm_P0099_Gutaki_Tentacles_L_S2P3_SUP.stl_#4_0.030_3.000_2026_09_11_08_36.ctb | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 | 0.03mm @ 0.05 |  | fail | Gutaki Tentacles L only; failed to adhere to the build plate |
@@ -60,7 +61,7 @@ Regenerate the dashboard after any change:
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm |  | cleaned | P2609-08 |  |  |
-| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | reprint | P2609-10 | fail | warped during printing: ridges parallel to X along the rear of the integrated base, at approx rotX 20 - the peel signature of an X-tilted flat base. Reprint tilted about Y instead, with manual supports |
+| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | sliced | P2609-14 | fail | warped during printing: ridges parallel to X along the rear of the integrated base, at approx rotX 20 - the peel signature of an X-tilted flat base. Reprint tilted about Y instead, with manual supports |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm |  | reprint | P2609-11 | fail | failed to adhere to the build plate at 3.0s; to be manually supported |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm |  | reprint | P2609-10.1 | fail | failed to adhere to the build plate; to be manually supported |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm |  | skipped |  |  | printing the combined Full instead |
