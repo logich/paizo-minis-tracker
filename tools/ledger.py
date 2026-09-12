@@ -28,9 +28,10 @@ Usage: python3 tools/ledger.py <command> [args]
                                them into the right model directory
   merge-reference [file]       merge a browser agent's TSV of MyMiniFactory
                                links, names and artwork into reference/
-  screen <file>                UVtools island check on a sliced file, with a
+  screen <file> [plate-id]     UVtools island check on a sliced file, with a
                                verdict — run it on 50mm/75mm models before
-                               committing hours to the plate
+                               committing hours to the plate. Give a plate id to
+                               archive the analysis under forensics/
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -66,6 +67,7 @@ PLATE_IMAGES = ROOT / "plates"
 BACKLOG = ROOT / "backlog.html"
 GALLERY_DIR = ROOT / "gallery"
 GALLERY = ROOT / "gallery.html"
+FORENSICS = ROOT / "forensics"
 REFERENCE = ROOT / "reference" / "models.tsv"
 
 # Directories that hold no miniatures.
@@ -1595,7 +1597,50 @@ ISSUE_LINE = re.compile(
     r"(\w+), ([\d-]+)(?:\s+\(\d+\))?, (\d+)px[\u00b2\u00b3], \{X=(\d+),Y=(\d+)")
 
 
-def cmd_screen(source, layer_height=0.03):
+def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.03):
+    """Keep the analysis of a print, not the print file.
+
+    A .goo is 100-360 MB and gets deleted off the printer; the analysis is about
+    125 KB and is what forensics actually needs. Archiving it at slice time means
+    a failure can still be investigated months later, which is not true today —
+    the Sarglagon Arm R flat spot cannot be diagnosed because its file is gone.
+    """
+    out = FORENSICS / plate_id
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "slicer-file.txt").write_text(name + "\n", encoding="utf-8")
+    (out / "issues.txt").write_text(
+        "\n".join(f"{k},{lay},{a},{x},{y}" for k, lay, a, x, y in rows) + "\n",
+        encoding="ascii")
+    if props:
+        (out / "properties.txt").write_text(props, encoding="utf-8", errors="replace")
+    if preview_src and Path(preview_src).exists():
+        import shutil
+        shutil.copyfile(preview_src, out / "preview.png")
+
+    islands = sorted([r for r in rows if r[0] == "Island"], key=lambda r: -r[2])
+    body = [r for r in islands if r[1] >= BASE_LAYERS]
+    cups = sorted([r for r in rows if r[0] == "SuctionCup"], key=lambda r: -r[2])
+    lines = [f"# {plate_id}", "", f"file: {name}", "",
+             f"islands: {len(islands)} ({len(body)} above layer {BASE_LAYERS})",
+             f"suction cups: {len(cups)}",
+             f"resin traps: {sum(1 for r in rows if r[0] == 'ResinTrap')}", ""]
+    if body:
+        lines.append("largest islands above the base region:")
+        for r in body[:10]:
+            lines.append(f"  layer {r[1]:>5} = {r[1]*layer_height:6.2f} mm  {r[2]:>8} px2  "
+                         f"X={r[3]} Y={r[4]}")
+    if cups:
+        lines.append("")
+        lines.append("largest suction cups:")
+        for r in cups[:6]:
+            lines.append(f"  from layer {r[1]:>5} = {r[1]*layer_height:6.2f} mm  {r[2]:>10} px3  "
+                         f"X={r[3]} Y={r[4]}")
+    (out / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    size = sum(f.stat().st_size for f in out.iterdir())
+    print(f"\narchived to forensics/{plate_id}/ ({size // 1024} KB)")
+
+
+def cmd_screen(source, plate_id=None, layer_height=0.03):
     """Run UVtools island detection on a sliced file and give a verdict.
 
     Worth doing on 50mm and 75mm models before starting a long print: every
@@ -1619,12 +1664,30 @@ def cmd_screen(source, layer_height=0.03):
     print("detecting issues (several minutes) ...")
     proc = subprocess.run([str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
                           capture_output=True, text=True, timeout=3600)
+    props = ""
+    preview_tmp = None
+    if plate_id:
+        props = subprocess.run(
+            [str(sliced.UVTOOLS), "--no-progress", "print-properties", str(local),
+             "--partial-mode"], capture_output=True, text=True, timeout=600).stdout
+        preview_tmp = str(Path(tempfile.gettempdir()) / f"{plate_id}-preview.png")
+        try:
+            if name.lower().endswith(".goo"):
+                import preview as preview_mod
+                preview_mod.extract(local.read_bytes()[:sliced.GOO_HEADER_BYTES],
+                                    preview_tmp, "big")
+            else:
+                sliced.uvtools_thumbnail(str(local), preview_tmp)
+        except Exception:
+            preview_tmp = None
     rows = []
     for line in proc.stdout.splitlines():
         m = ISSUE_LINE.match(line.strip())
         if m:
             kind, lay, area, x, y = m.groups()
             rows.append((kind, int(lay.split("-")[0]), int(area), int(x), int(y)))
+    if plate_id and rows:
+        archive_forensics(plate_id, name, rows, props, preview_tmp, layer_height)
     if tmp:
         Path(tmp.name).unlink(missing_ok=True)
     if not rows:
@@ -1704,7 +1767,7 @@ if __name__ == "__main__":
         if len(sys.argv) < 3:
             print("usage: ledger.py screen <file|printer-filename>")
             sys.exit(2)
-        cmd_screen(sys.argv[2])
+        cmd_screen(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
     elif cmd == "runlog":
         cmd_runlog()
     elif cmd == "printer":

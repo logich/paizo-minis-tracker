@@ -4,6 +4,12 @@
 *.lys
 *.ctp
 *.chitubox
+# Sliced output. These never used to appear in the repo — they lived on the
+# printer — so nothing caught that they were unignored until the rotY sweep
+# dropped 62 MB files into sweeps/. The analysis under forensics/ is what we
+# keep, not the slice.
+*.goo
+*.ctb
 *.pdf
 *.jpg
 # The vendor's .webp/.avif logo renders are deliberately NOT ignored: GitHub
@@ -19,6 +25,10 @@
 # them, so they are committed too.
 !gallery/
 !gallery/*
+# Forensic analyses: ~125 KB per print, and the whole point is that they
+# outlive the 100-360 MB slicer file they came from.
+!forensics/
+!forensics/**
 *_autosave/
 Thumbs.db
 .DS_Store

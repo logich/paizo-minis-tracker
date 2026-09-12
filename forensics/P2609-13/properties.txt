@@ -1,0 +1,282 @@
+Opening file tmp6q__cfok.goo: Done in 0.25s
+-------------------------
+FileType: Binary
+FileFormatEndianness: Big
+ConvertMenuGroup: Elegoo
+FileExtensions: UVtools.Core.FileFormats.FileExtension[]
+ThumbnailsOriginalSize: System.Drawing.Size[]
+Header: Version: V3.0, Magic: System.Byte[], SoftwareName: 0.0.20, SoftwareVersion: 0.0.20, FileCreateTime: 0, MachineName: ELEGOO Mars 5 Ultra, MachineType: ELEGOO Mars 5 Ultra, ProfileName: Dragon Resin Durable Grey, AntiAliasingLevel: 4, GreyLevel: 3, BlurLevel: 2, SmallPreview565: System.Byte[], SmallPreviewDelimiter: System.Byte[], BigPreview565: System.Byte[], BigPreviewDelimiter: System.Byte[], LayerCount: 2125, ResolutionX: 8520, ResolutionY: 4320, MirrorX: True, MirrorY: False, DisplayWidth: 153.36, DisplayHeight: 77.76, MachineZ: 165, LayerHeight: 0.03, ExposureTime: 2.8, DelayMode: WaitTime, LightOffDelay: 0, BottomWaitTimeAfterCure: 0.1, BottomWaitTimeAfterLift: 0, BottomWaitTimeBeforeCure: 1, WaitTimeAfterCure: 0.1, WaitTimeAfterLift: 0, WaitTimeBeforeCure: 1, BottomExposureTime: 27, BottomLayerCount: 5, BottomLiftHeight: 0.03, BottomLiftSpeed: 0.05, LiftHeight: 0.03, LiftSpeed: 0.05, BottomRetractHeight: 0.03, BottomRetractSpeed: 0.05, RetractHeight: 0.03, RetractSpeed: 0.05, BottomLiftHeight2: 0, BottomLiftSpeed2: 0, LiftHeight2: 0, LiftSpeed2: 0, BottomRetractHeight2: 0, BottomRetractSpeed2: 0, RetractHeight2: 0, RetractSpeed2: 0, BottomLightPWM: 255, LightPWM: 255, PerLayerSettings: False, PrintTime: 13930, Volume: 47704.426, MaterialGrams: 52.951912, MaterialCost: 1.1114606, PriceCurrencySymbol: $/L, LayerDefAddress: 195477, GrayScaleLevel: 1, TransitionLayerCount: 8
+LayersDefinition: UVtools.Core.FileFormats.GooFile+LayerDef[]
+Footer: Padding1: 0, Padding2: 0, Padding3: 0, Magic: System.Byte[]
+PrintParameterModifiers: UVtools.Core.FileFormats.FileFormat+PrintParameterModifier[]
+PrintParameterPerLayerModifiers: UVtools.Core.FileFormats.FileFormat+PrintParameterModifier[]
+HaveTiltingVat: True
+AvailableVersions: System.UInt32[]
+Version: 30
+ResolutionX: 8520
+ResolutionY: 4320
+LayerHeight: 0.03
+DisplayWidth: 153.36
+DisplayHeight: 77.76
+MachineZ: 165
+DisplayMirror: Horizontally
+AntiAliasing: 4
+LayerCount: 2125
+BottomLayerCount: 5
+TransitionLayerType: Software
+TransitionLayerCount: 8
+BottomLightOffDelay: 0
+LightOffDelay: 0
+BottomWaitTimeBeforeCure: 1
+WaitTimeBeforeCure: 1
+BottomExposureTime: 27
+BottomWaitTimeAfterCure: 0.1
+WaitTimeAfterCure: 0.1
+ExposureTime: 2.8
+BottomLiftHeight: 0.03
+BottomLiftSpeed: 0.05
+LiftHeight: 0.03
+LiftSpeed: 0.05
+BottomLiftHeight2: 0
+BottomLiftSpeed2: 0
+LiftHeight2: 0
+LiftSpeed2: 0
+BottomWaitTimeAfterLift: 0
+WaitTimeAfterLift: 0
+BottomRetractSpeed: 0.05
+RetractSpeed: 0.05
+BottomRetractHeight2: 0
+BottomRetractSpeed2: 0
+RetractHeight2: 0
+RetractSpeed2: 0
+BottomLightPWM: 255
+LightPWM: 255
+PrintTime: 17305.68
+MachineName: ELEGOO Mars 5 Ultra
+MaterialGrams: 52.951912
+MaterialCost: 1.111
+Configs: System.Object[]
+DecodeType: Partial
+ManufacturingProcess: mSLA
+LayerImageFormat: Rle
+FormatSpeedUnit: MillimetersPerMinute
+FileFilter: Elegoo GOO (*.goo)|*.goo|Phrozen Sonic Mini 8K S (PRZ) (*.prz)|*.prz
+FileFilterAvalonia: System.Linq.Enumerable+ArraySelectIterator`2[UVtools.Core.FileFormats.FileExtension,System.Collections.Generic.KeyValuePair`2[System.String,System.Collections.Generic.List`1[System.String]]]
+FileFilterExtensionsOnly: *.goo; *.prz
+SuppressRebuildProperties: False
+TemporaryOutputFileFullPath: /tmp/tmp6q__cfok.goo.tmp
+FileInfo: /tmp/tmp6q__cfok.goo
+FileFullPath: /tmp/tmp6q__cfok.goo
+FileFullPathNoExt: /tmp/tmp6q__cfok
+DirectoryPath: /tmp
+Filename: tmp6q__cfok.goo
+FilenameNoExt: tmp6q__cfok
+FilenameStripExtensions: tmp6q__cfok
+FileExtension: .goo
+FileAbsoluteExtension: goo
+AvailableVersionsCount: 1
+DefaultVersion: 30
+ThumbnailCountFileShouldHave: 2
+ThumbnailEncodeCount: 2
+ThumbnailsCount: 2
+HaveThumbnails: True
+Thumbnails: System.Collections.Generic.List`1[Emgu.CV.Mat]
+IssueManager: UVtools.Core.Managers.IssueManager
+Layers: UVtools.Core.Layers.Layer[]
+LayersCacheSize: 0
+LayersCacheSizeString: 0.00 bytes
+LastLayerIndex: 2124
+FirstLayer: Index: 0, Filename: layer0000.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: True, IsNormalLayer: False, LayerHeight: 0.03mm, PositionZ: 0.03mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 27s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+LastBottomLayer: Index: 4, Filename: layer0004.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: True, IsNormalLayer: False, LayerHeight: 0.03mm, PositionZ: 0.15mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 27s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+FirstTransitionLayer: Index: 5, Filename: layer0005.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: False, IsNormalLayer: True, LayerHeight: 0.03mm, PositionZ: 0.18mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 24.31s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+LastTransitionLayer: Index: 12, Filename: layer0012.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: False, IsNormalLayer: True, LayerHeight: 0.03mm, PositionZ: 0.39mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 5.49s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+FirstNormalLayer: Index: 5, Filename: layer0005.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: False, IsNormalLayer: True, LayerHeight: 0.03mm, PositionZ: 0.18mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 24.31s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+LastLayer: Index: 2124, Filename: layer2124.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: False, IsNormalLayer: True, LayerHeight: 0.03mm, PositionZ: 63.75mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 2.8s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+SmallestBottomLayer: 
+LargestBottomLayer: 
+SmallestNormalLayer: 
+LargestNormalLayer: 
+SmallestLayer: 
+LargestLayer: Index: 0, Filename: layer0000.png, NonZeroPixelCount: 0, BoundingRectangle: {X=0,Y=0,Width=0,Height=0}, FirstPixelPosition: {X=0,Y=0}, LastPixelPosition: {X=0,Y=0}, IsBottomLayer: True, IsNormalLayer: False, LayerHeight: 0.03mm, PositionZ: 0.03mm, LightOffDelay: 0s, WaitTimeBeforeCure: 1s, ExposureTime: 27s, WaitTimeAfterCure: 0.1s, LiftHeight: 0.03mm, LiftSpeed: 0.05mm/mim, LiftAcceleration: 0mm/s², LiftHeight2: 0mm, LiftSpeed2: 0mm/mim, LiftAcceleration2: 0mm/s², WaitTimeAfterLift: 0s, RetractHeight: 0.03mm, RetractSpeed: 0.05mm/mim, RetractAcceleration: 0mm/s², RetractHeight2: 0mm, RetractSpeed2: 0mm/mim, RetractAcceleration2: 0mm/s², LightPWM: 255, Pause: False, ChangeResin: False, IsModified: False, IsUsingGlobalParameters: True
+BottomLayers: System.Linq.Enumerable+IEnumerableWhereIterator`1[UVtools.Core.Layers.Layer]
+NormalLayers: System.Linq.Enumerable+IEnumerableWhereIterator`1[UVtools.Core.Layers.Layer]
+TransitionLayers: System.Linq.Enumerable+IEnumerableWhereIterator`1[UVtools.Core.Layers.Layer]
+TsmcLayers: System.Linq.Enumerable+IEnumerableWhereIterator`1[UVtools.Core.Layers.Layer]
+SamePositionedLayers: UVtools.Core.FileFormats.FileFormat+<get_SamePositionedLayers>d__292
+AllLayersAreUsingGlobalParameters: True
+UsingPerLayerSettings: False
+AnyLayerIsUsingTSMC: False
+IsUsingTSMC: False
+IsModified: False
+BoundingRectangle: {X=0,Y=0,Width=0,Height=0}
+BoundingRectangleMillimeters: {X=0,Y=0,Width=0,Height=0}
+RequireFullEncode: False
+Resolution: {Width=8520, Height=4320}
+ResolutionRectangle: {X=0,Y=0,Width=8520,Height=4320}
+DisplayPixelCount: 36806400
+Display: {Width=153.36, Height=77.76}
+DisplayDiagonal: 171.95
+DisplayDiagonalInches: 6.77
+DisplayAspectRatio: {Width=71, Height=36}
+DisplayAspectRatioStr: 71:36
+IsDisplayPortrait: False
+IsDisplayLandscape: True
+Xppmm: 55.555553
+Yppmm: 55.555553
+Ppmm: {Width=55.555553, Height=55.555553}
+PpmmMax: 55.555553
+PixelWidth: 0.018
+PixelHeight: 0.018
+PixelSize: {Width=0.018, Height=0.018}
+PixelSizeMax: 0.018
+PixelArea: 0.00032399996
+PixelWidthMicrons: 18
+PixelHeightMicrons: 18
+PixelSizeMicrons: {Width=18, Height=18}
+PixelSizeMicronsMax: 18
+PixelAreaMicrons: 324
+UsingSquarePixels: True
+PixelScaleNormalizeXRelativeToY: 1
+PixelScaleNormalizeYRelativeToX: 1
+PixelScaleNormalized: {Width=1, Height=1}
+Volume: 0
+SupportAntiAliasing: True
+IsAntiAliasingEmulated: False
+IsUsingAntiAliasing: True
+LayerHeightUm: 30
+PrintHeight: 63.75
+SupportGlobalPrintParameters: True
+SupportPerLayerSettings: False
+IsPerLayerSettingsAllowed: False
+IsReadOnly: False
+HaveLayers: True
+Count: 2125
+LayerDigits: 4
+BottomLayersHeight: 0.15
+HaveTransitionLayers: True
+MaximumPossibleTransitionLayerCount: 2119
+NormalLayerCount: 2120
+BottomLiftHeightTotal: 0.03
+LiftHeightTotal: 0.03
+BottomLiftAcceleration: 0
+LiftAcceleration: 0
+BottomLiftAcceleration2: 0
+LiftAcceleration2: 0
+BottomRetractHeightTotal: 0.03
+RetractHeightTotal: 0.03
+BottomRetractHeight: 0.03
+BottomRetractAcceleration: 0
+RetractHeight: 0.03
+RetractAcceleration: 0
+BottomRetractAcceleration2: 0
+RetractAcceleration2: 0
+MinimumBottomSpeed: 0.05
+MinimumNormalSpeed: 0.05
+MinimumSpeed: 0.05
+MaximumBottomSpeed: 0.05
+MaximumNormalSpeed: 0.05
+MaximumSpeed: 0.05
+CanUseBottomLayerCount: True
+CanUseTransitionLayerCount: True
+CanUseBottomLightOffDelay: False
+CanUseLightOffDelay: True
+CanUseAnyLightOffDelay: True
+CanUseBottomWaitTimeBeforeCure: True
+CanUseWaitTimeBeforeCure: True
+CanUseAnyWaitTimeBeforeCure: True
+CanUseBottomExposureTime: True
+CanUseExposureTime: True
+CanUseAnyExposureTime: True
+CanUseBottomWaitTimeAfterCure: True
+CanUseWaitTimeAfterCure: True
+CanUseAnyWaitTimeAfterCure: True
+CanUseBottomLiftHeight: False
+CanUseLiftHeight: False
+CanUseAnyLiftHeight: False
+CanUseBottomLiftSpeed: False
+CanUseLiftSpeed: False
+CanUseAnyLiftSpeed: False
+CanUseBottomLiftAcceleration: False
+CanUseLiftAcceleration: False
+CanUseAnyLiftAcceleration: False
+CanUseBottomLiftHeight2: False
+CanUseLiftHeight2: False
+CanUseAnyLiftHeight2: False
+CanUseBottomLiftSpeed2: False
+CanUseLiftSpeed2: False
+CanUseAnyLiftSpeed2: False
+CanUseBottomLiftAcceleration2: False
+CanUseLiftAcceleration2: False
+CanUseAnyLiftAcceleration2: False
+CanUseBottomWaitTimeAfterLift: True
+CanUseWaitTimeAfterLift: True
+CanUseAnyWaitTimeAfterLift: True
+CanUseBottomRetractSpeed: False
+CanUseRetractSpeed: False
+CanUseAnyRetractSpeed: False
+CanUseBottomRetractAcceleration: False
+CanUseRetractAcceleration: False
+CanUseAnyRetractAcceleration: False
+CanUseBottomRetractHeight2: False
+CanUseRetractHeight2: False
+CanUseAnyRetractHeight2: False
+CanUseBottomRetractSpeed2: False
+CanUseRetractSpeed2: False
+CanUseAnyRetractSpeed2: False
+CanUseBottomRetractAcceleration2: False
+CanUseRetractAcceleration2: False
+CanUseAnyRetractAcceleration2: False
+CanUseAnyWaitTime: True
+CanUseBottomLightPWM: True
+CanUseLightPWM: True
+CanUseAnyLightPWM: True
+CanUseSameLayerPositionZ: False
+CanUseLayerPositionZ: False
+CanUseLayerWaitTimeBeforeCure: False
+CanUseLayerExposureTime: False
+CanUseLayerWaitTimeAfterCure: False
+CanUseLayerLiftHeight: False
+CanUseLayerLiftSpeed: False
+CanUseLayerLiftAcceleration: False
+CanUseLayerLiftHeight2: False
+CanUseLayerLiftSpeed2: False
+CanUseLayerLiftAcceleration2: False
+CanUseLayerWaitTimeAfterLift: False
+CanUseLayerRetractSpeed: False
+CanUseLayerRetractAcceleration: False
+CanUseLayerRetractHeight2: False
+CanUseLayerRetractSpeed2: False
+CanUseLayerRetractAcceleration2: False
+CanUseLayerLightOffDelay: False
+CanUseLayerAnyWaitTimeBeforeCure: False
+CanUseLayerLightPWM: False
+CanUseLayerPause: False
+CanUseLayerChangeResin: False
+TransitionLayersRepresentation: 8/-2.69s
+ExposureRepresentation: 27/2.8s
+LiftRepresentation: 
+RetractRepresentation: 
+LightOffDelayRepresentation: 0s
+WaitTimeRepresentation: 1/0.1/0s|1/0.1/0s
+PrintTimeComputed: 17305.68
+PrintTimeHours: 4.81
+PrintTimeString: 04h48m
+DisplayTotalOnTime: 6167.71
+DisplayTotalOnTimeString: 01h42m47s
+DisplayTotalOffTime: 11137.97
+DisplayTotalOffTimeString: 03h05m37s
+StartingMaterialMilliliters: 0
+MaterialMilliliters: 0
+MaterialMillilitersInteger: 0
+StartingMaterialCost: 1.111
+MaterialMilliliterCost: 0
+MaterialName: 
+GCode: 
+GCodeStr: 
+SupportGCode: False
+HaveGCode: False
+SuppressRebuildGCode: False
+CanDecode: True
+CanEncode: True
+-------------------------
+Total properties: 278
