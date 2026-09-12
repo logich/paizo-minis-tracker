@@ -388,6 +388,30 @@ Rename the `## ` heading in `PRINTS.md` in the same step. `scan` keys rows on
 the release name, so renaming only one side orphans every recorded result and
 re-adds the parts as `todo`.
 
+### Vendor supports are Lychee, ours are Chitubox
+
+The vendor supports in Lychee Slicer, not Chitubox — the library ships **125
+`.lys` project files**, 104 of them named `*_PRE.lys`, which is what the `_PRE`
+suffix means: pre-supported, Lychee's own project alongside the baked mesh.
+
+The two generators differ in tip diameter, contact depth, branching and raft
+style, and the vendor tuned theirs for an unknown machine. The Mars 5 Ultra has
+a **tilting vat**, whose peel mechanics differ from a straight-lift printer, so
+supports adequate elsewhere may be under-specified here.
+
+The record so far is consistent with that, but **confounded**: every
+vendor-supported failure is also a large model, so support origin and footprint
+co-vary and neither is yet isolated.
+
+- Vendor `_SUP` (Lychee): Gutaki body warped on the plate, both tentacle arms
+  failed to adhere, across 2.8s, 2.9s and 3.0s and a new FEP.
+- Manual Chitubox supports: the Horned Dragon body printed only after being
+  re-supported from the raw `_STL`, having failed on the vendor mesh.
+
+Treat it as an open variable rather than a settled cause. It is also not the
+only one — Scylla's defects are confined to one region of the plate, which
+points at the machine rather than at either support style.
+
 ## File naming inside a model directory
 
 - `32mm_<code>_STL.stl` — the 32 mm mesh; **this is what gets printed**.
@@ -395,8 +419,9 @@ re-adds the parts as `todo`.
   one to print, but not always: the Horned Dragon body detached under peel
   force on the `_SUP` mesh and only printed once it was re-supported from the
   raw `_STL`. A slicer filename ending `_STL` generally means exactly that.
-- `32mm_<code>_PRE.stl` — the same thing under a different name; only P0094
-  Athamaru A uses it. Treated as pre-supported too.
+- `32mm_<code>_PRE.stl` — pre-supported too; `PRE` is the vendor's own label
+  for it, matching the `*_PRE.lys` Lychee projects they ship. Only P0094
+  Athamaru A has one at 32 mm.
 - Files without the `32mm_` prefix are the **full-size** meshes — full size
   meaning true scale, not physically larger. The `32mm_` ones are **heroic
   scale**, which is both the chunkier tabletop proportion and physically bigger:
