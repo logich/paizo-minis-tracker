@@ -81,7 +81,7 @@ Regenerate the dashboard after any change:
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Arms | 32mm | skipped |  |  | printed as the combined Full instead |
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Body | 32mm | skipped |  |  | printed as the combined Full instead |
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Full | 32mm | printed |  | pass |  |
-| P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 32mm | printed |  | pass |  |
+| P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 32mm | reprint |  | fail | printed too small; the 50mm scaled-up row is the replacement |
 | P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 50mm | todo |  |  | scaled up in Chitubox |
 
 ## 202608 August extras sale
@@ -158,7 +158,7 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | 32mm | reprint |  |  |  |
+| P0043_Brastlewark_Snarecrafter_S1P3 | Brastlewark Snarecrafter | 25mm | main | 32mm | reprint |  | fail | printed too small |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Arm | 32mm | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Body | 32mm | printed |  | pass |  |
 | P0044_Order_of_the_Gate_Hellknight_S1P3 | Order of the Gate Hellknight | 25mm | A Cape | 32mm | printed |  | pass |  |
@@ -215,7 +215,7 @@ Regenerate the dashboard after any change:
 | 5-P0029_Ort Druge Devil_S1P1 | Ort (Druge Devil) | 25mm | B | 32mm | printed |  | pass |  |
 | 5-P0029_Ort Druge Devil_S1P1 | Ort (Druge Devil) | 25mm | C | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm L | 32mm | printed |  | pass |  |
-| 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm R | 32mm | reprint |  |  |  |
+| 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Arm R | 32mm | reprint |  | fail | flat spot on one tentacle |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Body | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Tail | 32mm | printed |  | pass |  |
 | 6-P0031_Sarglagon Drowning Devil_S1P1 | Sarglagon (Drowning Devil) | 50mm | Tail with Base | 32mm | printed |  | pass |  |

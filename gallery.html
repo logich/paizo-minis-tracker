@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paizo Minis Gallery</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f5f3;--card:#fff;--ink:#1b1a18;--muted:#6c6862;
+--line:#e2ded8;--accent:#7a4f9e;--ok:#2f7d4f;--fail:#b3403a;--warn:#b1770f;--todo:#c9c4bc;--chip:#efece7}
+@media(prefers-color-scheme:dark){:root{--bg:#16151a;--card:#1f1e25;--ink:#eceaf0;
+--muted:#9d98a6;--line:#332f3b;--accent:#b48ede;--ok:#67c48d;--fail:#e8837c;--warn:#e0a83c;--todo:#3d3947;--chip:#2a2833}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
+.sub{color:var(--muted);margin:0 0 28px;font-size:14px}
+.totals{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 16px;min-width:112px}
+.stat b{display:block;font-size:24px;letter-spacing:-.02em}
+.stat span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+section{margin-bottom:38px}
+.rel{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.rel h2{font-size:17px;margin:0;letter-spacing:-.01em}
+.rel .count{color:var(--muted);font-size:13px}
+.bar{height:6px;border-radius:3px;background:var(--todo);overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.bases{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.bases b{color:var(--ink);font-weight:600}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(268px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 14px;display:flex;gap:12px}
+.card img{width:60px;height:60px;object-fit:cover;border-radius:7px;flex:0 0 60px;
+background:var(--chip)}
+.card .body{min-width:0;flex:1}
+.name{font-weight:600;font-size:14px;margin-bottom:1px}
+.name a.mmf{color:inherit;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.name a.mmf:hover{border-bottom-color:var(--accent)}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+color:var(--muted);margin-bottom:7px;word-break:break-all}
+.parts{display:flex;flex-wrap:wrap;gap:4px}
+.part{font-size:11.5px;padding:2px 7px;border-radius:999px;background:var(--chip);
+border:1px solid var(--line);white-space:nowrap}
+.part.done{background:color-mix(in srgb,var(--ok) 18%,transparent);
+border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.part.fail,.part.reprint{background:color-mix(in srgb,var(--fail) 18%,transparent);
+border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
+.part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
+border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.part.skipped{opacity:.45;text-decoration:line-through}
+.part.ready{background:color-mix(in srgb,var(--accent) 16%,transparent);
+border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
+background:var(--chip);border:1px solid var(--line);margin-left:6px;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);
+border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.plateimg{width:64px;height:64px;object-fit:cover;border-radius:6px;background:#000;
+display:block}
+.noimg{color:var(--muted)}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+font-weight:600}
+tr:last-child td{border-bottom:0}
+footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);
+padding-top:14px}
+.nav{margin:-18px 0 22px;font-size:13px}
+.nav a{color:var(--accent)}
+
+.gal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.gcard h3{font-size:14px;margin:0 0 2px}
+.gcard h3 a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.gcard .code{margin-bottom:9px}
+.shots{display:flex;gap:8px;flex-wrap:wrap}
+.shot{flex:1 1 92px;min-width:92px}
+.shot img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px;
+background:var(--chip);display:block}
+.shot span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);margin-top:4px;text-align:center}
+.shot.paint span{color:var(--ok)}
+.missing{border:1px dashed var(--line);border-radius:7px;aspect-ratio:1;display:flex;
+align-items:center;justify-content:center;color:var(--muted);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Gallery</h1>
+<p class="sub">Finished prints, and Brian's paint jobs.</p>
+<div class="nav"><a href="dashboard.html">&larr; full dashboard</a> &middot; <a href="backlog.html">print backlog &rarr;</a></div>
+<div class="totals">
+<div class="stat"><b>0</b><span>minis pictured</span></div>
+<div class="stat"><b>0</b><span>print photos</span></div>
+<div class="stat"><b>0</b><span>painted by Brian</span></div>
+</div>
+<p class="sub">Nothing here yet. Add photographs with <code>tools/ledger.py photo &lt;code&gt; printed|painted &lt;file&gt;</code> &mdash; see <code>gallery/README.md</code>.</p>
+<footer>Photographs live in <code>gallery/</code>, named <code>&lt;code&gt;_printed</code> or <code>&lt;code&gt;_painted</code>. Generated by <code>tools/ledger.py build</code>.</footer>
+</div></body></html>

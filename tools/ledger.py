@@ -22,6 +22,8 @@ Usage: python3 tools/ledger.py <command> [args]
                                set Stage, and Plate unless given "-"
   preview <file> [out] [small|big]
                                write a plate's build-plate preview to a PNG
+  photo <code> printed|painted <file>
+                               file a photograph into gallery/
   artwork <url>...             download MyMiniFactory logo renders and file
                                them into the right model directory
   merge-reference [file]       merge a browser agent's TSV of MyMiniFactory
@@ -59,6 +61,8 @@ LEDGER = ROOT / "PRINTS.md"
 DASHBOARD = ROOT / "dashboard.html"
 PLATE_IMAGES = ROOT / "plates"
 BACKLOG = ROOT / "backlog.html"
+GALLERY_DIR = ROOT / "gallery"
+GALLERY = ROOT / "gallery.html"
 REFERENCE = ROOT / "reference" / "models.tsv"
 
 # Directories that hold no miniatures.
@@ -753,6 +757,138 @@ margin:18px 0 8px}
 """
 
 
+GALLERY_CSS = """
+.gal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.gcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.gcard h3{font-size:14px;margin:0 0 2px}
+.gcard h3 a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.gcard .code{margin-bottom:9px}
+.shots{display:flex;gap:8px;flex-wrap:wrap}
+.shot{flex:1 1 92px;min-width:92px}
+.shot img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px;
+background:var(--chip);display:block}
+.shot span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+color:var(--muted);margin-top:4px;text-align:center}
+.shot.paint span{color:var(--ok)}
+.missing{border:1px dashed var(--line);border-radius:7px;aspect-ratio:1;display:flex;
+align-items:center;justify-content:center;color:var(--muted);font-size:11px}
+"""
+
+GALLERY_KINDS = ("printed", "painted")
+GALLERY_FILE = re.compile(r"^(?P<code>.+?)_(?P<kind>printed|painted)(?:-\d+)?\.(jpe?g|png|webp)$",
+                          re.I)
+
+
+def gallery_shots():
+    """Map code -> {"printed": [paths], "painted": [paths]} from gallery/."""
+    out = {}
+    if not GALLERY_DIR.exists():
+        return out
+    for f in sorted(GALLERY_DIR.iterdir()):
+        m = GALLERY_FILE.match(f.name)
+        if m:
+            out.setdefault(m.group("code"), {}).setdefault(m.group("kind").lower(), []).append(f)
+    return out
+
+
+def cmd_photo(code, kind, path):
+    """File a photograph into gallery/ under the naming convention."""
+    import shutil
+    kind = kind.lower()
+    if kind not in GALLERY_KINDS:
+        print(f"kind must be one of: {', '.join(GALLERY_KINDS)}")
+        return
+    src = Path(path).expanduser()
+    if not src.exists():
+        print(f"no such file: {src}")
+        return
+    if code not in model_dirs_by_code():
+        print(f"warning: {code} matches no model directory — filing it anyway")
+    GALLERY_DIR.mkdir(exist_ok=True)
+    ext = src.suffix.lower() or ".jpg"
+    existing = len(gallery_shots().get(code, {}).get(kind, []))
+    name = f"{code}_{kind}{'' if not existing else f'-{existing + 1}'}{ext}"
+    shutil.copyfile(src, GALLERY_DIR / name)
+    print(f"filed gallery/{name} ({(GALLERY_DIR / name).stat().st_size // 1024} KB)")
+    print("now run: python3 tools/ledger.py build")
+
+
+def cmd_gallery(sections, disk, ref, e):
+    """Write gallery.html: vendor render, your print, Brian's paint job."""
+    shots = gallery_shots()
+    dirs = model_dirs_by_code()
+
+    # code -> (display name, mmf link), from whichever row mentions the model
+    meta = {}
+    for release, rows in sections.items():
+        for (model, part, scale), r in rows.items():
+            m = PNUM.search(model)
+            code = ("P" + m.group(1)) if m and ("P" + m.group(1)) in ref else model
+            info = next((disk[release][k] for k in disk.get(release, {}) if k[0] == model), None)
+            art = ""
+            if info:
+                found = (sorted(Path(ROOT / info["dir"]).glob("*.webp"))
+                         or sorted(Path(ROOT / info["dir"]).glob("*.avif")))
+                if found:
+                    art = urllib.parse.quote(found[0].relative_to(ROOT).as_posix())
+            meta.setdefault(code, (r.get("Mini") or model, ref.get(code, {}).get("mmf", ""), art))
+
+    out = ["<!doctype html>", '<html lang="en">', "<head>", '<meta charset="utf-8">',
+           '<meta name="viewport" content="width=device-width,initial-scale=1">',
+           "<title>Paizo Minis Gallery</title>",
+           f"<style>{CSS}{GALLERY_CSS}</style>", "</head>", "<body>",
+           '<div class="wrap">', "<h1>Gallery</h1>",
+           '<p class="sub">Finished prints, and Brian\'s paint jobs.</p>',
+           '<div class="nav"><a href="dashboard.html">&larr; full dashboard</a> '
+           '&middot; <a href="backlog.html">print backlog &rarr;</a></div>']
+
+    painted = sum(len(v.get("painted", [])) for v in shots.values())
+    printed = sum(len(v.get("printed", [])) for v in shots.values())
+    out += ['<div class="totals">',
+            f'<div class="stat"><b>{len(shots)}</b><span>minis pictured</span></div>',
+            f'<div class="stat"><b>{printed}</b><span>print photos</span></div>',
+            f'<div class="stat"><b>{painted}</b><span>painted by Brian</span></div>',
+            "</div>"]
+
+    if not shots:
+        out.append('<p class="sub">Nothing here yet. Add photographs with '
+                   '<code>tools/ledger.py photo &lt;code&gt; printed|painted &lt;file&gt;</code> '
+                   '&mdash; see <code>gallery/README.md</code>.</p>')
+    else:
+        out.append('<div class="gal">')
+        for code in sorted(shots):
+            name, mmf, art = meta.get(code, (code, "", ""))
+            title = (f'<a href="{e(mmf)}" target="_blank" rel="noreferrer">{e(name)}</a>'
+                     if mmf else e(name))
+            cells = []
+            if art:
+                cells.append(f'<div class="shot"><img src="{e(art)}" alt="" loading="lazy">'
+                             f'<span>render</span></div>')
+            for kind in GALLERY_KINDS:
+                files = shots[code].get(kind, [])
+                if not files:
+                    cells.append(f'<div class="shot"><div class="missing">no {e(kind)}</div>'
+                                 f'<span>{e(kind)}</span></div>')
+                for f in files:
+                    src = urllib.parse.quote(f.relative_to(ROOT).as_posix())
+                    cls = "shot paint" if kind == "painted" else "shot"
+                    cells.append(f'<div class="{cls}"><a href="{e(src)}" target="_blank">'
+                                 f'<img src="{e(src)}" alt="" loading="lazy"></a>'
+                                 f'<span>{e(kind)}</span></div>')
+            out.append(f'<div class="gcard"><h3>{title}</h3>'
+                       f'<div class="code">{e(code)}</div>'
+                       f'<div class="shots">{"".join(cells)}</div></div>')
+        out.append("</div>")
+
+    out.append('<footer>Photographs live in <code>gallery/</code>, named '
+               '<code>&lt;code&gt;_printed</code> or <code>&lt;code&gt;_painted</code>. '
+               'Generated by <code>tools/ledger.py build</code>.</footer>')
+    out.append("</div></body></html>")
+    page = "\n".join(out) + "\n"
+    GALLERY.write_text(page.encode("ascii", "xmlcharrefreplace").decode("ascii"), encoding="ascii")
+    return len(shots), printed, painted
+
+
 def cmd_backlog(sections, base_stock, disk, e):
     """Write backlog.html: everything still to print, and why.
 
@@ -882,7 +1018,7 @@ def cmd_build():
            '<div class="wrap">', "<h1>Paizo Minis — Print Tracker</h1>",
            f'<p class="sub">32&nbsp;mm prints for the Pathfinder game · '
            f'Elegoo Mars 5 Ultra · generated from PRINTS.md</p>',
-           '<div class="nav"><a href="backlog.html">print backlog &rarr;</a></div>',
+           '<div class="nav"><a href="backlog.html">print backlog &rarr;</a> &middot; <a href="gallery.html">gallery &rarr;</a></div>',
            '<div class="totals">',
            f'<div class="stat"><b>{done}/{total}</b><span>parts printed</span></div>',
            f'<div class="stat"><b>{total - done}</b><span>remaining</span></div>',
@@ -1004,6 +1140,9 @@ def cmd_build():
     nr, nt = cmd_backlog(sections, base_stock, disk, e)
     print(f"build: wrote {BACKLOG.relative_to(ROOT)} "
           f"({nr} to reprint, {nt} never printed)")
+    ng, np_, na = cmd_gallery(sections, disk, ref, e)
+    print(f"build: wrote {GALLERY.relative_to(ROOT)} "
+          f"({ng} minis, {np_} print photos, {na} painted)")
 
 
 
@@ -1445,6 +1584,11 @@ if __name__ == "__main__":
                     sys.argv[4] if len(sys.argv) > 4 else "big")
     elif cmd == "merge-reference":
         cmd_merge_reference(sys.argv[2] if len(sys.argv) > 2 else None)
+    elif cmd == "photo":
+        if len(sys.argv) < 5:
+            print("usage: ledger.py photo <code> printed|painted <file>")
+            sys.exit(2)
+        cmd_photo(sys.argv[2], sys.argv[3], sys.argv[4])
     elif cmd == "artwork":
         if len(sys.argv) < 3:
             print("usage: ledger.py artwork <url>...")

@@ -18,6 +18,7 @@ service to run, and nothing to back up beyond the repository itself.
 | `PRINTS.md` | **The tracker. Source of truth.** Plain Markdown tables — edit by hand or ask Claude. |
 | `dashboard.html` | Generated from `PRINTS.md`. Open it in a browser or serve the repo root. Never edit. |
 | `backlog.html` | Also generated: what still has to be printed and why. Linked from the dashboard. |
+| `gallery.html` | Also generated: finished prints and Brian's paint jobs, from photos in `gallery/`. |
 | `tools/ledger.py` | The tool. Six subcommands, described below. |
 | `tools/sliced.py` | Reads print settings out of `.goo` / `.ctb` files. |
 | `reference/models.tsv` | Base size and creature size per model, from the Paizo base-size sheet. |

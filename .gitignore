@@ -15,6 +15,10 @@
 # what a plate held.
 !plates/
 !plates/*.png
+# Gallery photographs are the record of finished work and Pages must serve
+# them, so they are committed too.
+!gallery/
+!gallery/*
 *_autosave/
 Thumbs.db
 .DS_Store

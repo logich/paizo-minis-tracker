@@ -426,6 +426,23 @@ link to each other.
 shows a bare row, which is why recording why something failed matters — six
 extras parts currently show nothing because no reason was ever given for them.
 
+### The gallery page
+
+`build` also writes `gallery.html` from photographs in `gallery/`: the vendor
+render, the user's print, and Brian's paint job side by side.
+
+    gallery/<code>_printed.jpg     the print, cleaned and cured
+    gallery/<code>_painted.jpg     Brian's paint job
+
+`<code>` is the usual key — a P-number or an extras directory name. Add `-2`,
+`-3` for more than one of a kind. File them with the `photo` command rather
+than copying by hand, so the naming stays right:
+
+    python3 tools/ledger.py photo P0094 printed ~/Downloads/athamaru.jpg
+
+The photographs are committed, since GitHub Pages can only serve what is in the
+repo; `.gitignore` has an exception for `gallery/`. Keep them a sensible size.
+
 ### Plate previews on the dashboard
 
 `build` caches each plate's preview to `plates/<ID>.png` and shows it as a
