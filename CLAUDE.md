@@ -263,6 +263,20 @@ with your own supports; only `Body` prints as shipped.
 Measure with a binary-STL bounding box: 80-byte header, `<I` triangle count at
 offset 80, then `<12fH` per triangle with the vertices in floats 3-11.
 
+### Additional prints vs reprints
+
+`Kind` distinguishes them. Blank is the normal print of a model; **`extra`**
+marks an additional print kept *alongside* an existing good one — the 50 mm
+Talmandor and Living Waterfall, scaled up in Chitubox for use as monsters.
+
+**An extra is never a reprint.** A reprint says the previous print was wrong;
+an extra says nothing about it. Marking a wanted second copy as `reprint` both
+libels the first print and puts it in the wrong queue. `status` lists extras
+under "Additional prints", and `backlog.html` gives them their own block rather
+than filing them with parts never printed.
+
+Set it by hand in `PRINTS.md`; `scan` preserves the column and never sets it.
+
 ## Scaled-up prints
 
 Rows are keyed by **Model + Part + Scale**. Everything the library ships is

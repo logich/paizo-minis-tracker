@@ -86,7 +86,13 @@ REVIEW_STAGE = "review"     # with Brian
 APPROVED_STAGE = "approved"  # Brian approved it
 REPRINT_STAGE = "reprint"   # Brian rejected it
 
-COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Stage", "Plate", "Result", "Notes"]
+COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Kind", "Stage", "Plate",
+           "Result", "Notes"]
+# Kind: blank for the normal print of a model. "extra" marks an additional
+# print kept alongside an existing good one rather than replacing it — the
+# 50mm Talmandor and Living Waterfall, printed large for use as monsters.
+# An extra is never a reprint: nothing about it says the first print was wrong.
+EXTRA_KIND = "extra"
 # Everything on disk is the 32mm mesh. Other scales are prints the user makes by
 # scaling up in Chitubox, so they exist only as rows here — scan must never
 # invent them, and must never delete them for having no matching file.
@@ -438,7 +444,7 @@ def cmd_scan(seed_printed_before=None):
                 if seed_printed_before and release < seed_printed_before:
                     stage = DONE_STAGE
                 row = {"Model": info["model"], "Part": info["part"],
-                       "Scale": NATIVE_SCALE, "Stage": stage, "Plate": "",
+                       "Scale": NATIVE_SCALE, "Kind": "", "Stage": stage, "Plate": "",
                        "Result": "pass" if stage != "todo" else "", "Notes": ""}
                 section[key] = row
                 added += 1
@@ -626,12 +632,14 @@ def cmd_status():
             print(f"  {size:<6} {r['need']:>6} {r['backlog']:>8} {hand:>8} {verdict:>15}")
         if any(not r["known"] for r in report.values()):
             print("  ? = on-hand not recorded; nothing subtracted for that size")
-    scaled = [(rel, r) for rel, rows in sections.items() for (m, p, sc), r in rows.items()
-              if sc != NATIVE_SCALE]
-    if scaled:
-        print(f"\nScaled-up prints: {len(scaled)} part(s)")
-        for rel, r in scaled:
-            print(f"  {r['Model']} [{r['Part']}] @{r['Scale']} — {r['Stage']}")
+    extras = [r for rows in sections.values() for r in rows.values()
+              if r.get("Kind") == EXTRA_KIND]
+    if extras:
+        print(f"\nAdditional prints: {len(extras)} part(s)")
+        for r in extras:
+            scale = "" if r["Scale"] == NATIVE_SCALE else f" @{r['Scale']}"
+            note = f" — {r['Notes']}" if r.get("Notes") else ""
+            print(f"  {r['Model']} [{r['Part']}]{scale} — {r['Stage']}{note}")
 
     skipped = [r for rows in sections.values() for r in rows.values()
                if r["Stage"] == SKIPPED_STAGE]
@@ -907,13 +915,16 @@ def cmd_backlog(sections, base_stock, disk, e):
         src = urllib.parse.quote(found[0].relative_to(ROOT).as_posix())
         return f'<img src="{e(src)}" alt="" loading="lazy">'
 
-    reprints, todo = [], []
+    reprints, todo, extras = [], [], []
     for release, rows in sections.items():
         for (model, part, scale), r in rows.items():
             if r["Stage"] == REPRINT_STAGE:
                 reprints.append((release, model, part, scale, r))
             elif r["Stage"] in ("todo", "sliced"):
-                todo.append((release, model, part, scale, r))
+                # An additional print is wanted work, not outstanding work, so
+                # it is listed apart from things never printed at all.
+                (extras if r.get("Kind") == EXTRA_KIND else todo).append(
+                    (release, model, part, scale, r))
 
     report = bases_outstanding(sections, parse_base_stock(base_stock))
     to_print = {k: v for k, v in report.items() if v["to_print"] > 0}
@@ -964,6 +975,7 @@ def cmd_backlog(sections, base_stock, disk, e):
 
     block("Needs reprinting", reprints, "rp", True)
     block("Never printed", todo, "td", False)
+    block("Additional prints", extras, "td", True)
 
     if to_print:
         out.append("<h2>Bases to print</h2><div class=\"tablewrap\"><table><thead><tr>"
