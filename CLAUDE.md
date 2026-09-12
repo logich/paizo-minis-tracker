@@ -420,6 +420,32 @@ Whether Chitubox's support *generator* accounts for tilt is unknown — but sinc
 the format carries nothing tilt-specific, nothing tilt-aware is reaching the
 printer either way.
 
+### The tilt geometry, and what follows from it
+
+**The vat hinges at the rear and tilts down toward the front.** So separation
+begins at the front, where the displacement per degree of tilt is greatest, and
+the peel line sweeps rearward. The rear separates last and with the least
+mechanical advantage, which makes the rear of the plate the high-stress zone.
+
+Two things follow, as *reasoning from the geometry*, not as anything measured
+here:
+
+- A wide flat face lying parallel to the hinge — spanning left to right —
+  releases along its whole width at once as the peel line reaches it. The same
+  face turned to run front-to-back peels progressively. Prefer the latter for
+  anything broad and flat.
+- Large cross-sections and delicate features are better placed toward the
+  **front**, where separation starts and leverage is greatest, leaving the rear
+  for small or well-supported geometry.
+
+**This did not cause the failures on record.** Checked against P2609-12's island
+data on the front-back axis: both islands that matched the defects sit in the
+middle band (Y=1838 and Y=1551 of 4320), not at the rear, and 87% of island area
+is mid-plate. Suction-cup volume is likewise spread across all three bands. The
+Scylla failures are explained by island size, i.e. support adequacy, on both
+axes. Treat the orientation guidance above as a way to avoid *future* trouble,
+not as an account of past trouble.
+
 ### Screening a print before running it
 
     python3 tools/ledger.py screen "<sliced file>"
