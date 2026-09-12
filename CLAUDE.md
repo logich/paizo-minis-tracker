@@ -415,6 +415,17 @@ nothing else.
 Always run `python3 tools/ledger.py build` after changing the generator, and
 open the result to confirm.
 
+### The backlog page
+
+`build` also writes `backlog.html` — a working queue rather than a progress
+view. Reprints lead, each with the reason from its `Notes` and the plate it
+failed on; then parts never printed; then bases still to make. The two pages
+link to each other.
+
+**The reason comes from the part's `Notes`.** A reprint with an empty Notes
+shows a bare row, which is why recording why something failed matters — six
+extras parts currently show nothing because no reason was ever given for them.
+
 ### Plate previews on the dashboard
 
 `build` caches each plate's preview to `plates/<ID>.png` and shows it as a

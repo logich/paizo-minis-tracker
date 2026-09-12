@@ -58,6 +58,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LEDGER = ROOT / "PRINTS.md"
 DASHBOARD = ROOT / "dashboard.html"
 PLATE_IMAGES = ROOT / "plates"
+BACKLOG = ROOT / "backlog.html"
 REFERENCE = ROOT / "reference" / "models.tsv"
 
 # Directories that hold no miniatures.
@@ -722,7 +723,129 @@ font-weight:600}
 tr:last-child td{border-bottom:0}
 footer{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);
 padding-top:14px}
+.nav{margin:-18px 0 22px;font-size:13px}
+.nav a{color:var(--accent)}
 """
+
+
+BACKLOG_CSS = """
+.q{display:grid;gap:10px;margin-bottom:26px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.item img{width:52px;height:52px;object-fit:cover;border-radius:7px;flex:0 0 52px;
+background:var(--chip)}
+.item .b{min-width:0;flex:1}
+.item .t{font-weight:600;font-size:14px}
+.item .t .pt{font-weight:400;color:var(--muted)}
+.why{font-size:13px;margin-top:3px}
+.meta{font-size:11.5px;color:var(--muted);margin-top:4px;
+font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;
+border:1px solid var(--line);background:var(--chip);margin-right:5px}
+.tag.rp{background:color-mix(in srgb,var(--fail) 18%,transparent);
+border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
+.tag.td{background:color-mix(in srgb,var(--accent) 14%,transparent);
+border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.rel2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+margin:18px 0 8px}
+.nav{margin-bottom:22px;font-size:13px}
+.nav a{color:var(--accent)}
+"""
+
+
+def cmd_backlog(sections, base_stock, disk, e):
+    """Write backlog.html: everything still to print, and why.
+
+    A working queue rather than a progress view — the dashboard already covers
+    progress. Reprints lead, because their Notes carry the reason and that is
+    what decides how to approach the next attempt.
+    """
+    def art(model, release):
+        info = next((disk[release][k] for k in disk.get(release, {}) if k[0] == model), None)
+        if not info:
+            return ""
+        found = (sorted(Path(ROOT / info["dir"]).glob("*.webp"))
+                 or sorted(Path(ROOT / info["dir"]).glob("*.avif")))
+        if not found:
+            return ""
+        src = urllib.parse.quote(found[0].relative_to(ROOT).as_posix())
+        return f'<img src="{e(src)}" alt="" loading="lazy">'
+
+    reprints, todo = [], []
+    for release, rows in sections.items():
+        for (model, part, scale), r in rows.items():
+            if r["Stage"] == REPRINT_STAGE:
+                reprints.append((release, model, part, scale, r))
+            elif r["Stage"] in ("todo", "sliced"):
+                todo.append((release, model, part, scale, r))
+
+    report = bases_outstanding(sections, parse_base_stock(base_stock))
+    to_print = {k: v for k, v in report.items() if v["to_print"] > 0}
+
+    out = ["<!doctype html>", '<html lang="en">', "<head>", '<meta charset="utf-8">',
+           '<meta name="viewport" content="width=device-width,initial-scale=1">',
+           "<title>Paizo Minis Print Backlog</title>",
+           f"<style>{CSS}{BACKLOG_CSS}</style>", "</head>", "<body>",
+           '<div class="wrap">', "<h1>Print Backlog</h1>",
+           '<p class="sub">What still has to go on the plate, and why.</p>',
+           '<div class="nav"><a href="dashboard.html">&larr; full dashboard</a></div>',
+           '<div class="totals">',
+           f'<div class="stat"><b>{len(reprints)}</b><span>to reprint</span></div>',
+           f'<div class="stat"><b>{len(todo)}</b><span>never printed</span></div>']
+    for size, r in sorted(to_print.items()):
+        out.append(f'<div class="stat"><b>{r["to_print"]}</b><span>{e(size)} bases</span></div>')
+    out.append("</div>")
+
+    def block(title, items, cls, show_reason):
+        if not items:
+            return
+        out.append(f"<h2>{e(title)}</h2>")
+        seen_rel = None
+        out.append('<div class="q">')
+        for release, model, part, scale, r in items:
+            if release != seen_rel:
+                out.append(f'</div><div class="rel2">{e(release)}</div><div class="q">')
+                seen_rel = release
+            mini = r.get("Mini") or model
+            pt = "" if part == "main" else f' <span class="pt">{e(part)}</span>'
+            sc = "" if scale == NATIVE_SCALE else f'<span class="tag">@{e(scale)}</span>'
+            why = (f'<div class="why">{e(r["Notes"])}</div>'
+                   if show_reason and r.get("Notes") else "")
+            meta = [f'{e(model)}']
+            if r.get("Base"):
+                meta.append(f'{e(r["Base"])} base')
+            if r.get("Plate"):
+                meta.append(f'failed on {e(r["Plate"])}' if show_reason
+                            else f'plate {e(r["Plate"])}')
+            if r["Stage"] == "sliced":
+                meta.append("sliced, on the printer")
+            out.append(
+                f'<div class="item">{art(model, release)}<div class="b">'
+                f'<div class="t"><span class="tag {cls}">{e(r["Stage"])}</span>'
+                f'{sc}{e(mini)}{pt}</div>{why}'
+                f'<div class="meta">{" &middot; ".join(meta)}</div></div></div>')
+        out.append("</div>")
+
+    block("Needs reprinting", reprints, "rp", True)
+    block("Never printed", todo, "td", False)
+
+    if to_print:
+        out.append("<h2>Bases to print</h2><div class=\"tablewrap\"><table><thead><tr>"
+                   "<th>Size</th><th>Remaining minis</th><th>Backlog</th>"
+                   "<th>On hand</th><th>To print</th></tr></thead><tbody>")
+        for size, r in sorted(to_print.items()):
+            hand = str(r["on_hand"]) if r["known"] else "?"
+            out.append(f"<tr><td>{e(size)}</td><td>{r['need']}</td><td>{r['backlog']}</td>"
+                       f"<td>{e(hand)}</td><td><b>{r['to_print']}</b></td></tr>")
+        out.append("</tbody></table></div>")
+
+    out.append('<footer>Generated by <code>tools/ledger.py build</code> from '
+               '<code>PRINTS.md</code>. Reprint reasons come from each part\'s Notes.</footer>')
+    out.append("</div></body></html>")
+    page = "\n".join(out) + "\n"
+    BACKLOG.write_text(page.encode("ascii", "xmlcharrefreplace").decode("ascii"),
+                       encoding="ascii")
+    return len(reprints), len(todo)
 
 
 def cmd_build():
@@ -759,6 +882,7 @@ def cmd_build():
            '<div class="wrap">', "<h1>Paizo Minis — Print Tracker</h1>",
            f'<p class="sub">32&nbsp;mm prints for the Pathfinder game · '
            f'Elegoo Mars 5 Ultra · generated from PRINTS.md</p>',
+           '<div class="nav"><a href="backlog.html">print backlog &rarr;</a></div>',
            '<div class="totals">',
            f'<div class="stat"><b>{done}/{total}</b><span>parts printed</span></div>',
            f'<div class="stat"><b>{total - done}</b><span>remaining</span></div>',
@@ -877,6 +1001,9 @@ def cmd_build():
     DASHBOARD.write_text(page.encode("ascii", "xmlcharrefreplace").decode("ascii"),
                          encoding="ascii")
     print(f"build: wrote {DASHBOARD.relative_to(ROOT)} ({done}/{total} parts printed)")
+    nr, nt = cmd_backlog(sections, base_stock, disk, e)
+    print(f"build: wrote {BACKLOG.relative_to(ROOT)} "
+          f"({nr} to reprint, {nt} never printed)")
 
 
 
