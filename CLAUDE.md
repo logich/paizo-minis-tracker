@@ -388,28 +388,36 @@ Rename the `## ` heading in `PRINTS.md` in the same step. `scan` keys rows on
 the release name, so renaming only one side orphans every recorded result and
 re-adds the parts as `todo`.
 
-### Finding islands before printing
+### Screening a print before running it
 
-UVtools detects the defects that matter before a print rather than after:
+    python3 tools/ledger.py screen "<sliced file>"
 
-    ./uvtools/UVtoolsCmd --no-progress print-issues <file.goo>
+Downloads the file, runs UVtools island detection and gives a verdict against
+thresholds taken from the Scylla failure: the two islands that failed were
+**8520 and 1196 px2**, while hundreds under ~300 px2 printed fine. So islands at
+or above **1000 px2** predict a defect at that height; 300-1000 is worth a look;
+below that, nothing.
 
-On the failed Scylla (P2609-12) it found 318 islands, 330 suction cups and 1175
-resin traps, and the print's **two largest islands sat at exactly the two
-heights that failed** — 17.13 mm (1196 px2) and 31.71 mm (8520 px2) against
-defects reported at 17.03 mm and 32.6 mm. Island *area* is what predicts a
-failure, not island count: islands cluster most thickly at 36-48 mm, where
-nothing went wrong.
+**Which models are worth screening.** Every print failure so far has been on a
+**50 mm or 75 mm** model — Sarglagon, Gutaki, Scylla, and the Horned Dragon
+before them. None of the 73 models on a 25 mm base has failed a print. There are
+21 on 50/75 mm; screen those, skip the rest.
 
-It is slow — about five minutes on a 363 MB file, and the whole file must be
-downloaded first — so it is worth running on a large model before committing
-hours to the plate, not on everything.
+It costs a full download plus about five minutes, against four to eight hours on
+the plate, so it only pays on the large ones.
 
-**A defect on part of the *model* is not a defect on part of the *plate*.** The
-first travels with the geometry and implicates supports; the second stays put
-and implicates the machine. Establish which before theorising: getting this
-backwards on the Scylla produced a plate-region hypothesis the island data then
-contradicted.
+### Proactive measures, in order of evidence
+
+1. **Screen 50/75 mm models after slicing, before printing.** The one measure
+   with a direct hit rate: it named both Scylla defect heights in advance.
+2. **Prefer your own Chitubox supports on 50/75 mm models.** Vendor Lychee
+   supports have failed on the Gutaki body and both arms, the Horned Dragon body
+   and Scylla; manual supports are what finally printed the Horned Dragon.
+3. **Fix the islands `screen` names** rather than raising exposure. Scylla's
+   defects survived 2.8s, 2.9s and 3.0s and a new FEP, because exposure was never
+   the problem.
+4. **Watch the suction cups it reports.** Scylla carried 330, one of 6.3M px3 at
+   the raft. They pull on adhesion independently of islands.
 
 ### Vendor supports are Lychee, ours are Chitubox
 

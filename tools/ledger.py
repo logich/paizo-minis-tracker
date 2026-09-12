@@ -28,6 +28,9 @@ Usage: python3 tools/ledger.py <command> [args]
                                them into the right model directory
   merge-reference [file]       merge a browser agent's TSV of MyMiniFactory
                                links, names and artwork into reference/
+  screen <file>                UVtools island check on a sliced file, with a
+                               verdict — run it on 50mm/75mm models before
+                               committing hours to the plate
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -1577,6 +1580,81 @@ def cmd_merge_reference(path=None):
     print("now run: python3 tools/ledger.py scan && python3 tools/ledger.py build")
 
 
+# Thresholds from the Scylla failure (P2609-12): the two islands that failed
+# were 8520 and 1196 px2, while hundreds under ~300 px2 printed fine. Island
+# AREA predicts failure; island count does not.
+ISLAND_FAIL = 1000
+ISLAND_WATCH = 300
+ISSUE_LINE = re.compile(
+    r"(\w+), ([\d-]+)(?:\s+\(\d+\))?, (\d+)px[\u00b2\u00b3], \{X=(\d+),Y=(\d+)")
+
+
+def cmd_screen(source, layer_height=0.03):
+    """Run UVtools island detection on a sliced file and give a verdict.
+
+    Worth doing on 50mm and 75mm models before starting a long print: every
+    print failure so far has been on one, and none on a 25mm model. Costs a
+    full download plus about five minutes, against hours on the plate.
+    """
+    import sliced, subprocess, tempfile
+    if not sliced.uvtools_available():
+        print("needs UVtools in ./uvtools")
+        return
+    name = source.rsplit("/", 1)[-1]
+    local = Path(source)
+    tmp = None
+    if source.startswith("http") or not local.exists():
+        url = source if source.startswith("http") else PRINTER_URL + urllib.parse.quote(name)
+        tmp = tempfile.NamedTemporaryFile(suffix=Path(name).suffix, delete=False)
+        print(f"downloading {name} ...")
+        sliced.download(url, tmp.name)
+        local = Path(tmp.name)
+
+    print("detecting issues (several minutes) ...")
+    proc = subprocess.run([str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
+                          capture_output=True, text=True, timeout=3600)
+    rows = []
+    for line in proc.stdout.splitlines():
+        m = ISSUE_LINE.match(line.strip())
+        if m:
+            kind, lay, area, x, y = m.groups()
+            rows.append((kind, int(lay.split("-")[0]), int(area), int(x), int(y)))
+    if tmp:
+        Path(tmp.name).unlink(missing_ok=True)
+    if not rows:
+        print("no issues parsed — UVtools may have failed; check the file")
+        return
+
+    islands = sorted([r for r in rows if r[0] == "Island"], key=lambda r: -r[2])
+    cups = sorted([r for r in rows if r[0] == "SuctionCup"], key=lambda r: -r[2])
+    traps = [r for r in rows if r[0] == "ResinTrap"]
+    print(f"\n{len(islands)} islands, {len(cups)} suction cups, {len(traps)} resin traps\n")
+
+    bad = [r for r in islands if r[2] >= ISLAND_FAIL]
+    watch = [r for r in islands if ISLAND_WATCH <= r[2] < ISLAND_FAIL]
+    if islands:
+        print("  largest islands:")
+        for r in islands[:8]:
+            flag = ("  <-- FIX" if r[2] >= ISLAND_FAIL
+                    else "  <-- watch" if r[2] >= ISLAND_WATCH else "")
+            print(f"    layer {r[1]:>5} = {r[1]*layer_height:>6.2f} mm  {r[2]:>7} px2{flag}")
+    if cups:
+        print("\n  largest suction cups:")
+        for r in cups[:4]:
+            print(f"    from layer {r[1]:>5} = {r[1]*layer_height:>6.2f} mm  {r[2]:>9} px3")
+
+    print()
+    if bad:
+        print(f"VERDICT: {len(bad)} island(s) at or above {ISLAND_FAIL}px2 — expect defects at "
+              f"{', '.join(f'{r[1]*layer_height:.2f}mm' for r in bad)}.")
+        print("         Add supports there before printing.")
+    elif watch:
+        print(f"VERDICT: nothing above {ISLAND_FAIL}px2, but {len(watch)} island(s) over "
+              f"{ISLAND_WATCH}px2 worth a look.")
+    else:
+        print(f"VERDICT: no island above {ISLAND_WATCH}px2. Nothing here predicts a failure.")
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "status"
     if cmd == "scan":
@@ -1610,6 +1688,11 @@ if __name__ == "__main__":
             print("usage: ledger.py artwork <url>...")
             sys.exit(2)
         cmd_artwork(sys.argv[2:])
+    elif cmd == "screen":
+        if len(sys.argv) < 3:
+            print("usage: ledger.py screen <file|printer-filename>")
+            sys.exit(2)
+        cmd_screen(sys.argv[2])
     elif cmd == "runlog":
         cmd_runlog()
     elif cmd == "printer":
