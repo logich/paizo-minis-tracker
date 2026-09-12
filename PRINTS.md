@@ -60,7 +60,7 @@ Regenerate the dashboard after any change:
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | A | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | B | 32mm |  | cleaned | P2609-08 |  |  |
 | P0098_Reefclaw_S2P3 | Reefclaw | 25mm | C | 32mm |  | cleaned | P2609-08 |  |  |
-| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | reprint | P2609-10 | fail | warped during printing; to be manually supported and reprinted |
+| P0099_Gutaki_S2P3 | Gutaki | 50mm | Body | 32mm |  | reprint | P2609-10 | fail | warped during printing: ridges parallel to X along the rear of the integrated base, at approx rotX 20 - the peel signature of an X-tilted flat base. Reprint tilted about Y instead, with manual supports |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles L | 32mm |  | reprint | P2609-11 | fail | failed to adhere to the build plate at 3.0s; to be manually supported |
 | P0099_Gutaki_S2P3 | Gutaki | 50mm | Tentacles R | 32mm |  | reprint | P2609-10.1 | fail | failed to adhere to the build plate; to be manually supported |
 | P0100_Scylla_S2PB | Scylla | 75mm | Body | 32mm |  | skipped |  |  | printing the combined Full instead |

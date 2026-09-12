@@ -473,6 +473,22 @@ degrees of horizontal — "flat-down area", a proxy for island area — in under
 second, against a slice plus five minutes for `screen`. Use it to pick two or
 three candidates, then confirm the winner with `screen` on the real slice.
 
+**Observed, on two models: ridges parallel to X on the rear of an integrated
+base, at roughly rotX 20.** Seen on the Gutaki body and on the first Sarglagon
+body. This is the peel model's exact signature and the best physical evidence
+for it:
+
+- A large flat *integrated base* tilted about X presents, at every layer, a
+  strip spanning the full width in X.
+- Each strip releases in one go as the peel line — which runs along X — reaches
+  its Y. Layer after layer of that leaves a periodic ridge **parallel to X**.
+- It shows at the **rear** because the rear separates last and with the least
+  mechanical advantage, the hinge being there.
+
+So an integrated base is the highest-risk feature on any of these models, and
+rotating it about X is the worst thing to do with it. Flat (rotX 0) is no better
+— then the entire base releases at once. **Tilt integrated bases about Y.**
+
 **The two axes are not equivalent, and island area is not the only objective.**
 The vat hinges at the rear, so the peel line runs left-right along X and sweeps
 front-to-rear along Y. Peel force at any instant is proportional to how much
