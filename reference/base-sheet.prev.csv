@@ -1,0 +1,41 @@
+code,name,base_mm,size,pack,release,file_name
+P0001,"Ezren, Iconic Wizard",25,Medium,WP1,April 2026,P0001_Ezren_Iconic_Wizard_WP1
+P0002,"Kyra, Iconic Cleric",25,Medium,WP1,April 2026,P0002_Kyra_Iconic_Cleric_WP1
+P0003,"Merisiel, Iconic Rogue",25,Medium,WP1,April 2026,P0003_Merisiel_Iconic_Rogue_WP1
+P0004,"Valeros, Iconic Fighter",25,Medium,WP1,April 2026,P0004_Valeros_Iconic_Fighter_WP1
+P0005,"Lem, Iconic Bard",25,Small,WP1,April 2026,P0005_Lem_Iconic_Bard_WP1
+P0006,"Lini, Iconic Druid (with Droogami)",25,Small,WP1,April 2026,P0006_Lini_Iconic_Druid_with_Droogami_WP1
+P0007,"Harsk, Iconic Ranger",25,Medium,WP1,April 2026,P0007_Harsk_Iconic_Ranger_WP1
+P0008,"Feiya, Iconic Witch (with Daji)",25,Medium,WP1,April 2026,P0008_Feiya_Iconic_Witch_with_Daji_WP1
+P0009,Mirage Dragon,75,Huge,WP1,April 2026,P0009_Mirage_Dragon_WP1
+P0010,Diabolic Dragon,75,Huge,WP1,April 2026,P0010_Diabolic_Dragon_WP1
+P0011,Empyreal Dragon,50,Large,WP1,April 2026,P0011_Empyreal_Dragon_WP1
+P0012,Boggard Warrior,25,Medium,WP1,April 2026,P0012_Boggard_Warrior_WP1
+P0013,Boggard Swampseer,25,Medium,WP1,April 2026,P0013_Boggard_Swampseer_WP1
+P0014,Boggard Scout,25,Medium,WP1,April 2026,P0014_Boggard_Scout_WP1
+P0015,Rain in Cloudy Day,25,Small,WP1,April 2026,P0015_Rain_in_Cloudy_Day_WP1
+P0016,Giant Rat,25,Small,WP1,April 2026,P0016_Giant_Rat_WP1
+P0017,Giant Spider,25,Medium,WP1,April 2026,P0017_Giant_Spider_WP1
+P0018,Skeleton Guard,25,Medium,WP1,April 2026,P0018_Skeleton_Guard_WP1
+P0019,Kobold Warrior,25,Small,WP1,April 2026,P0019_Kobold_Warrior_WP1
+P0020,Kobold Trapmaster,25,Small,WP1,April 2026,P0020_Kobold_Trapmaster_WP1
+P0021,Kobold Scout,25,Small,WP1,April 2026,P0021_Kobold_Scout_WP1
+P0022,Cinder Rat,25,Small,WP1,April 2026,P0022_Cinder_Rat_WP1
+P0023,Xulgath Warrior,25,Medium,WP1,April 2026,P0023_Xulgath_Warrior_WP1
+P0024,"Zolgran, Kobold Boss",25,Small,WP1,April 2026,P0024_Zolgran_Kobold_Boss_WP1
+P0025,Horned Dragon,25,Medium,WP1,April 2026,P0025_Horned_Dragon_WP1
+P0032,Arboreal Warden,50,Large,WP2,May 2026,P0032_Arboreal_Warden_WP2
+P0038,Balisse Angel,25,Medium,WP2,May 2026,P0038_Balisse_Angel_WP2
+P0040,Leukodaemon,50,Large,WP2,May 2026,P0040_Leukodaemon_WP2
+P0041,Rekhep Archon,50,Large,WP2,May 2026,P0041_Rekhep_Archon_WP2
+P0042,Vidileth Alghollthu,50,Large,WP2,May 2026,P0042_Vidileth_WP2
+P0055,"Fumbus, Iconic Alchemist",25,Small,WP4,July2026,P0055_Alchemist_Fumbus_WP4
+P0056,"Amiri, Iconic Barbarian",25,Medium,WP4,July2026,P0056_Barbarian_Amiri_WP4
+P0057,"Seelah, Iconic Paladin",25,Medium,WP4,July2026,P0057_Champion_Seelah_WP4
+P0058,"Quinn, Iconic Investigator",25,Medium,WP4,July2026,P0058_Investigator_Quinn_WP4
+P0059,Horned Dragon,50,Large,WP4,July2026,P0059_Horned_Dragon_WP4
+P0060,Vrolikai Demon,50,Large,WP4,July2026,P0060_Vrolikai_Demon_WP4
+P0061,Goblin Pyro,25,Small,WP4,July2026,P0061_Goblin_Pyro_WP4
+P0062,Goblin Warrior,25,Small,WP4,July2026,P0062_Goblin_Warrior_WP4
+P0063,Goblin Commando,25,Small,WP4,July2026,P0063_Goblin_Commando_WP4
+P0064,Goblin Chanter,25,Small,WP4,July2026,P0064_Goblin_Chanter_WP4
