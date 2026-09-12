@@ -388,6 +388,38 @@ Rename the `## ` heading in `PRINTS.md` in the same step. `scan` keys rows on
 the release name, so renaming only one side orphans every recorded result and
 re-adds the parts as `todo`.
 
+### Tilting vat: what can and cannot be tuned
+
+UVtools reports `HaveTiltingVat: True`, and the file carries **no tilt
+parameters whatsoever**. Every motion value is vestigial:
+
+    LiftHeight 0.03mm   LiftSpeed 0.05     RetractHeight 0.03  RetractSpeed 0.05
+    LiftHeight2 0       LiftSpeed2 0       LiftAcceleration 0
+    WaitTimeAfterLift 0 WaitTimeAfterCure 0
+
+A 0.03 mm lift at 0.05 mm/min is not a real motion; the peel is done by the vat
+tilting, under firmware control, and nothing about it is exposed to the slicer.
+
+**So there is no lift tuning to do here.** The standard straight-lift advice —
+raise the lift height, slow the lift speed, add a two-stage lift — has nothing
+to act on. Three prints were spent raising exposure 2.8s to 3.0s on the Gutaki
+and Scylla for the same reason: the knob being turned was not attached to the
+problem.
+
+What is actually available:
+
+- **`WaitTimeBeforeCure`** (1.5 s here, `DelayMode: WaitTime`). With a near-zero
+  lift, this rest is what lets resin flow back under the part before the next
+  exposure. It is the one timing lever that matters on a large cross-section.
+- **Orientation**, to reduce the largest cross-sectional area per layer. The
+  failures land on the biggest new areas, which is what `screen` measures.
+- **Support density where new area appears**, again per `screen`.
+- `TransitionLayerCount` (5) ramps exposure between bottom and normal layers.
+
+Whether Chitubox's support *generator* accounts for tilt is unknown — but since
+the format carries nothing tilt-specific, nothing tilt-aware is reaching the
+printer either way.
+
 ### Screening a print before running it
 
     python3 tools/ledger.py screen "<sliced file>"
