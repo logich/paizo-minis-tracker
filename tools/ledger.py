@@ -1585,6 +1585,12 @@ def cmd_merge_reference(path=None):
 # AREA predicts failure; island count does not.
 ISLAND_FAIL = 1000
 ISLAND_WATCH = 300
+# Islands in the raft and support-transition region are reported separately.
+# Everything sitting on the raft reads as unconnected there, so the thresholds
+# above — derived from mid-print islands — produce false alarms: the Scylla
+# reprint showed seven islands over 29,000px2 at layer 100 and none of them is
+# comparable to the 8,520px2 mid-print island that actually failed.
+BASE_LAYERS = 150
 ISSUE_LINE = re.compile(
     r"(\w+), ([\d-]+)(?:\s+\(\d+\))?, (\d+)px[\u00b2\u00b3], \{X=(\d+),Y=(\d+)")
 
@@ -1630,11 +1636,17 @@ def cmd_screen(source, layer_height=0.03):
     traps = [r for r in rows if r[0] == "ResinTrap"]
     print(f"\n{len(islands)} islands, {len(cups)} suction cups, {len(traps)} resin traps\n")
 
-    bad = [r for r in islands if r[2] >= ISLAND_FAIL]
-    watch = [r for r in islands if ISLAND_WATCH <= r[2] < ISLAND_FAIL]
-    if islands:
-        print("  largest islands:")
-        for r in islands[:8]:
+    base = [r for r in islands if r[1] < BASE_LAYERS]
+    body = [r for r in islands if r[1] >= BASE_LAYERS]
+    bad = [r for r in body if r[2] >= ISLAND_FAIL]
+    watch = [r for r in body if ISLAND_WATCH <= r[2] < ISLAND_FAIL]
+    if base:
+        big = max(r[2] for r in base)
+        print(f"  {len(base)} island(s) below layer {BASE_LAYERS} (raft and support transition), "
+              f"largest {big:,} px2 — not counted in the verdict; check these by eye in the slicer")
+    if body:
+        print("  largest islands above the base region:")
+        for r in body[:8]:
             flag = ("  <-- FIX" if r[2] >= ISLAND_FAIL
                     else "  <-- watch" if r[2] >= ISLAND_WATCH else "")
             print(f"    layer {r[1]:>5} = {r[1]*layer_height:>6.2f} mm  {r[2]:>7} px2{flag}")

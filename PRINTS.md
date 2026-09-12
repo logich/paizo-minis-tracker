@@ -29,7 +29,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P2609-13 | 2026-09-12 | P0100_Scylla_Full_S2PB_STL.stl_0.030_2.800_2026_09_12_11_10.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Scylla reprint: manual supports on the raw STL, moved to the right side of the plate. 2125 layers = 63.8mm, flatter than P2609-12's 70.1mm. Back at 2.8s from P2609-12's 3.0s. The 11:08 slice of the same name is a centred variant that was not run; in progress |
+| P2609-13 | 2026-09-12 | P0100_Scylla_Full_S2PB_STL.stl_0.030_2.800_2026_09_12_11_10.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Scylla reprint: manual supports on the raw STL, moved right, 2125 layers = 63.8mm, 2.8s. Screened after starting: suction cups down from 330 to 5, but one island of 11992px2 at 22.92mm - larger than the 8520px2 that failed on P2609-12. Watch that height; in progress |
 | P2609-12 | 2026-09-11 | P0100_Scylla_Full_S2PB_SUP.stl_0.030_3.000_2026_09_11_20_54.goo | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 |  |  | fail | Scylla one-piece at true scale on vendor Lychee supports, as a whole-model test. Failed: layer defects at 17.03mm and 32.6mm. UVtools finds 318 islands, 330 suction cups and 1175 resin traps; the two largest islands are at 17.13mm and 31.71mm, matching the defects. 92% of island area is in the centre third of the plate |
 | P2609-11 | 2026-09-11 | 32mm_P0099_Gutaki_Tentacles_L_S2P3_SUP.stl_#4_0.030_3.000_2026_09_11_08_36.ctb | Dragon Resin Durable Grey | 0.03mm | 3.0s | 27.0s | 5 | 0.03mm @ 0.05 |  | fail | Gutaki Tentacles L only; failed to adhere to the build plate |
 | P2609-10.1 | 2026-09-10 | 32mm_P0099_Gutaki_Tentacles_R_S2P3_SUP.stl_#2_0.030_2.800_2026_09_10_21_22.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  | fail | Gutaki Tentacles R; bottom parts did not connect to the supports |
@@ -132,10 +132,10 @@ Regenerate the dashboard after any change:
 | P0056_Barbarian_Amiri_WP4 | Amiri, Iconic Barbarian | 25mm | main | 32mm |  | printed |  | pass |  |
 | P0057_Champion_Seelah_WP4 | Seelah, Iconic Paladin | 25mm | main | 32mm |  | printed |  | pass |  |
 | P0058_Investigator_Quinn_WP4 | Quinn, Iconic Investigator | 25mm | main | 32mm |  | printed |  | pass |  |
-| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Body | 32mm |  | review | P2609-04 |  | vendor pre-supported mesh detached under peel force; re-supported the raw STL and reprinted 2026-09-01 at 1.5s |
-| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Rocks | 32mm |  | printed |  | pass |  |
-| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingL | 32mm |  | printed |  | pass |  |
-| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingR | 32mm |  | printed |  | pass |  |
+| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Body | 32mm |  | reprint | P2609-04 | fail | reprinted 2026-09-01 at 1.5s from the 32mm heroic mesh; Brian reports the rocks and wings do not fit it. Whole set being reprinted with manual supports |
+| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | Rocks | 32mm |  | reprint |  | fail | does not fit the reprinted 32mm heroic body - the 32mm meshes are 1.14x the full-size ones, so this was likely printed full size. Reprint from the 32mm mesh |
+| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingL | 32mm |  | reprint |  | fail | does not fit the reprinted 32mm heroic body; likely printed full size (1.14x mismatch). Reprint from the 32mm mesh |
+| P0059_Horned_Dragon_WP4 | Horned Dragon | 50mm | WingR | 32mm |  | reprint |  | fail | does not fit the reprinted 32mm heroic body; likely printed full size (1.14x mismatch). Reprint from the 32mm mesh |
 | P0060_Vrolikai_Demon_WP4 | Vrolikai Demon | 50mm | main | 32mm |  | printed |  | pass |  |
 | P0061_Goblin_Pyro_WP4 | Goblin Pyro | 25mm | main | 32mm |  | printed |  | pass |  |
 | P0062_Goblin_Warrior_WP4 | Goblin Warrior | 25mm | main | 32mm |  | printed |  | pass |  |
