@@ -57,6 +57,7 @@ quoted). `assign` prints how many parts it changed; check that number.
   `assign`. With no argument it runs `status`.
 - `tools/sliced.py` — reads settings out of `.goo` / `.ctb` files. Field offsets
   live here.
+- `tools/orient.py` — scores a mesh's orientation for island risk before slicing.
 - `tools/messages.py` — the message channel between the agents: `send`,
   `pending`, `list`, `show`. Writes `reference/messages-from-*.jsonl`.
 - `reference/models.tsv` — base size and creature size per model, captured from
@@ -445,6 +446,49 @@ is mid-plate. Suction-cup volume is likewise spread across all three bands. The
 Scylla failures are explained by island size, i.e. support adequacy, on both
 axes. Treat the orientation guidance above as a way to avoid *future* trouble,
 not as an account of past trouble.
+
+### Choosing an orientation
+
+**The mechanism.** A large island comes from a surface that is nearly parallel
+to the plate and facing down: the whole face enters in a single layer, attached
+to nothing. Tilt that face and it enters as a sliver that grows layer by layer,
+so the island is small and the supports have somewhere to stand. This is why
+island *area* tracks failure — area is set by how much new surface arrives at
+once.
+
+A suction cup is a downward-facing concavity that traps resin, which must be
+pulled through as the layer separates. Tilting changes which concavities face
+down and gives the trapped resin an escape path; a drain hole does the same
+thing directly.
+
+So the rule is simply: **no significant surface parallel to the plate.** A tilt
+of roughly 20-45 degrees in both axes is the usual way there.
+
+**Measuring it cheaply.**
+
+    python3 tools/orient.py <file.stl> [step] [limit]
+
+Scores candidate rotations by the area of downward-facing triangles within 20
+degrees of horizontal — "flat-down area", a proxy for island area — in under a
+second, against a slice plus five minutes for `screen`. Use it to pick two or
+three candidates, then confirm the winner with `screen` on the real slice.
+
+On Scylla's 32 mm mesh it found:
+
+    as modelled           flat-down 1,246 mm2   all-down 16,173 mm2   84.7 mm tall
+    rotX 30               flat-down 1,052 mm2   all-down 16,363 mm2
+    rotX 45 (best tried)  flat-down   921 mm2   all-down 16,230 mm2   78.4 mm tall
+
+A 26% cut in island risk, and it happens to print shorter too. Note that
+all-down area barely moves: tilting converts flat overhangs into sloped ones
+rather than removing them, so the support burden stays about the same. That is
+the trade — same amount of support, far less of it holding up something that
+arrived all at once.
+
+**Limits.** It is a proxy from surface normals: it does not detect islands, does
+not model supports (which can bridge a small island harmlessly), and cannot see
+suction cups, which are topology rather than orientation. `screen` remains the
+measurement; `orient` is only a way to pick what to slice.
 
 ### Screening a print before running it
 
