@@ -564,6 +564,29 @@ rocks and wings do not fit its reprinted body because the body came from the
 default, so its tentacle arms must be reprinted at default size too or they will
 not fit.
 
+### Support elevation, and why it matters more on this machine
+
+Blueprint's auto supports lifted the Gutaki body about **1 mm** off the plate
+(1931 layers = 57.9 mm against a 56.9 mm bare mesh). Screening P2609-15 found
+**34 suction cups all starting at layer 0**, each 11.2 mm3 and within 40 px3 of
+each other — 380 mm3 in total. That near-identical size is the tell: they are
+the raft cells, sealed from above by the model sitting too close to them.
+
+Raising the elevation is the fix, and the reason it matters here more than on a
+straight-lift printer is the tilting vat. A straight-lift machine raises the
+plate several millimetres each layer and resin floods in from every direction.
+Here the lift is 0.03 mm, so **the only escape route for trapped resin is
+sideways**, through the gap between raft and model. At 1 mm that gap is a thin
+slot with high flow resistance; at 5 mm the same volume drains freely.
+
+It also matters at exactly the wrong layer. Layer 0 is where adhesion is won or
+lost, and both Gutaki tentacle arms failed *to adhere to the build plate*. A
+print fighting 380 mm3 of vacuum across 34 cells on its first peels is in the
+condition that produces that failure.
+
+**Measure rather than assume**: slice the same model at two elevations and
+`screen` both. The layer-0 cup count and total volume is the number to compare.
+
 ### Hollowing trades islands for suction
 
 Measured on the same tooling, one model each:
