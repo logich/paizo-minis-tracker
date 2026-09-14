@@ -1289,6 +1289,47 @@ def ensure_plate_preview(plate):
         return None
 
 
+EXECUTE_LINE = re.compile(r"execute: (.*)")
+
+
+def cmd_runlog(tail_bytes=400_000):
+    """Report the settings the printer actually ran with, from its own log.
+
+    A setting changed on the printer never reaches the sliced file, so this is
+    the authority for what a run really used. The log is a rolling buffer with
+    no filenames in it, so treat this as "the most recent run", not as history.
+    """
+    import sliced
+    try:
+        raw = sliced.fetch_head(PRINTER_LOG, tail_bytes).decode("utf-8", "replace")
+    except Exception as exc:
+        print(f"could not read the printer log: {exc}")
+        return
+
+    seen = OrderedDict()
+    for line in raw.splitlines():
+        m = EXECUTE_LINE.search(line)
+        if not m:
+            continue
+        fields = re.findall(r"(\w+) (-?[\d.]+)", m.group(1))
+        # lift_position/drop_position change every layer; the rest is the recipe
+        recipe = tuple((k, v) for k, v in fields
+                       if k not in ("lift_position", "drop_position"))
+        seen[recipe] = seen.get(recipe, 0) + 1
+
+    if not seen:
+        print("no execute lines in the log tail — is a print running?")
+        return
+    print(f"{len(seen)} distinct parameter set(s) in the last {tail_bytes // 1024} KB:\n")
+    for recipe, layers in seen.items():
+        d = dict(recipe)
+        exposure = float(d.get("exposure_time", 0)) / 1000
+        print(f"  {layers:>5} layers   exposure {exposure:.2f}s"
+              f"   lift {d.get('lift_distance', '?')}mm @ {d.get('lift_speed', '?')}"
+              f"   rest before/after {float(d.get('rest_time_before_lift', 0))/1000:.1f}s"
+              f"/{float(d.get('rest_time_after_drop', 0))/1000:.1f}s")
+
+
 def cmd_plate(source, plate_id=None, resin=None, notes=None):
     """Record a plate in PRINTS.md from a sliced file (local path or URL)."""
     name = source.rsplit("/", 1)[-1]

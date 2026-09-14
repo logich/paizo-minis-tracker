@@ -61,7 +61,7 @@ quoted). `assign` prints how many parts it changed; check that number.
 - `tools/base_sheet.py` — snapshots the Google base sheet and diffs it against
   `reference/models.tsv`. Read-only on models.tsv.
 - `tools/aon_sizes.py` — cross-checks base sizes against the Archives of Nethys
-  export. Runs on the mini, not here: the database is not on this host.
+  export. Runs on the Mac mini only: the database is not on the Linux server.
 - `tools/messages.py` — the message channel between the agents: `send`,
   `pending`, `list`, `show`. Writes `reference/messages-from-*.jsonl`.
 - `reference/models.tsv` — base size and creature size per model, captured from
@@ -580,12 +580,27 @@ sideways**, through the gap between raft and model. At 1 mm that gap is a thin
 slot with high flow resistance; at 5 mm the same volume drains freely.
 
 It also matters at exactly the wrong layer. Layer 0 is where adhesion is won or
-lost, and both Gutaki tentacle arms failed *to adhere to the build plate*. A
-print fighting 380 mm3 of vacuum across 34 cells on its first peels is in the
-condition that produces that failure.
+lost, and both Gutaki tentacle arms failed *to adhere to the build plate*. That
+was the argument that 380 mm3 of vacuum across 34 cells on the first peels
+produces that failure. **The next two prints contradict it.**
 
-**Measure rather than assume**: slice the same model at two elevations and
-`screen` both. The layer-0 cup count and total volume is the number to compare.
+Both were sliced in ELEGOO SatelLite, and both printed:
+
+    plate      part          layer-0 cups   each      total      outcome
+    P2609-15   Body          34             11.2 mm3    380 mm3  (outcome not recorded)
+    P2609-16   Body          220             2.6 mm3    563 mm3  printed successfully
+    P2609-17   Tentacles R   418             2.6 mm3  1,071 mm3  printed and adhered
+
+Tentacles R carried almost three times P2609-15's raft vacuum, on the very part
+that had twice failed to adhere on Lychee supports, and it held. So **total
+layer-0 cup volume does not predict adhesion failure.** The weaker claim that
+survives is about cell size: fine cells of about 2.6 mm3 printed, while nothing
+with 11.2 mm3 cells has been run to completion and recorded. SatelLite's
+support elevation is not recorded, so none of this separates elevation from
+raft pattern.
+
+**Measure rather than assume.** Report layer-0 cups by *size per cell* as well
+as by count and total; the total alone has already misled once.
 
 ### Hollowing trades islands for suction
 
@@ -960,11 +975,22 @@ spaces, which are fine over `file://` but not valid in an HTTP path. Keep the
 
 ## UVtools
 
-`./uvtools/UVtoolsCmd` (UVtools 6.2.0, linux-x64) decrypts Chitubox `.ctb`
-files and extracts plate thumbnails from any format it understands. It is
-**gitignored** — a 267 MB bundle is a tool we run, not something this repo
-carries — so a fresh clone will not have it, and everything degrades to the
-`.goo`-only path without it.
+UVtools 6.2.0 decrypts Chitubox `.ctb` files, extracts plate thumbnails from
+any format it understands, and does the island detection behind `screen`.
+Both hosts share this directory, so each keeps its own build, and
+`sliced.UVTOOLS` picks by platform:
+
+    Linux server   ./uvtools/UVtoolsCmd                                    linux-x64
+    Mac mini       ./uvtools-macos/UVtools.app/Contents/MacOS/UVtoolsCmd   osx-arm64
+
+The ledger session moved to the Mac mini on 2026-09-13; the macOS build was
+installed then from the v6.2.0 GitHub release. Both are **gitignored**, since
+a 100-270 MB bundle is a tool we run, not something this repo carries. A fresh
+clone will not have one, and everything degrades to the `.goo`-only path
+without it.
+
+Don't point it at the UVtools bundled inside ELEGOO SatelLite: that one is
+x86-64 and crashes with SIGBUS when SatelLite runs it.
 
 Two quirks worth knowing:
 
@@ -986,6 +1012,15 @@ it and everything else still works.
 
     python3 tools/ledger.py printer
     python3 tools/ledger.py plate "<file|url|printer-filename>" [plate-id]
+
+Two slicers now name files differently, and `from_filename` reads both:
+
+    Chitubox    <mesh>.stl_0.030_2.800_2026_09_12_19_58.goo   layer, exposure, time
+    SatelLite   <mesh>_STL_3_202609122351.goo                 time only
+
+ELEGOO SatelLite came into use on 2026-09-12 for the Gutaki reprints
+(P2609-16, P2609-17). Its names carry no layer height or exposure, so for a
+`.goo` those come from the header, as they always did.
 
 ## Settings changed on the printer itself
 

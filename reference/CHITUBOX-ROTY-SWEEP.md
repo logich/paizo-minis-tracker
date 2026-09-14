@@ -1,5 +1,12 @@
 # Producing a rotY sweep in CHITUBOX
 
+> **NOT IN USE — kept as a record of the method only. Do not act on it.**
+> Logan called the sweep off on 2026-09-12 (ledger-20260912-3): driving
+> CHITUBOX cost too much for the value. It stopped at rotY 0 and 15 for the
+> Gutaki body, and the body has since printed from HeyGears Blueprint and
+> ELEGOO SatelLite slices instead. Run no sweep from this document unless a
+> fresh `request` asks for one.
+
 **For the browser agent.** The ledger session cannot drive CHITUBOX; you can.
 The goal is three or four sliced `.goo` files of one model, identical in every
 respect except rotation about **Y**, so the ledger can screen them and pick the

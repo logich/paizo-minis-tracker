@@ -26,6 +26,7 @@ import re
 import shutil
 import struct
 import subprocess
+import sys
 import tempfile
 import urllib.request
 from pathlib import Path
@@ -66,9 +67,18 @@ FROM_NAME = re.compile(
     r"(?P<y>\d{4})_(?P<mo>\d{2})_(?P<d>\d{2})_(?P<h>\d{2})_(?P<mi>\d{2})\.(goo|ctb)$",
     re.IGNORECASE)
 
+# ELEGOO SatelLite names only the time, packed, and no layer or exposure:
+# e.g. P0099_Gutaki_Body_S2P3_STL_3_202609122351.goo
+FROM_SATELLITE_NAME = re.compile(
+    r"_(?P<y>20\d{2})(?P<mo>\d{2})(?P<d>\d{2})(?P<h>\d{2})(?P<mi>\d{2})\.(goo|ctb)$",
+    re.IGNORECASE)
 
 
-UVTOOLS = Path(__file__).resolve().parent.parent / "uvtools" / "UVtoolsCmd"
+# Both hosts share this directory, so each keeps its own build: the Linux bundle
+# in uvtools/, the macOS app bundle in uvtools-macos/.
+_REPO = Path(__file__).resolve().parent.parent
+UVTOOLS = (_REPO / "uvtools-macos" / "UVtools.app" / "Contents" / "MacOS" / "UVtoolsCmd"
+           if sys.platform == "darwin" else _REPO / "uvtools" / "UVtoolsCmd")
 
 # UVtools property name -> the name this module uses.
 UVTOOLS_FIELDS = {
@@ -163,14 +173,17 @@ def fetch_head(source, nbytes):
 
 def from_filename(name):
     m = FROM_NAME.search(name)
-    if not m:
-        return {}
-    return {
-        "layer_height_mm": float(m.group("layer")),
-        "exposure_s": float(m.group("exposure")),
-        "sliced": f'{m.group("y")}-{m.group("mo")}-{m.group("d")} '
-                  f'{m.group("h")}:{m.group("mi")}',
-    }
+    out = {}
+    if m:
+        out = {"layer_height_mm": float(m.group("layer")),
+               "exposure_s": float(m.group("exposure"))}
+    else:
+        m = FROM_SATELLITE_NAME.search(name)
+        if not m:
+            return {}
+    out["sliced"] = (f'{m.group("y")}-{m.group("mo")}-{m.group("d")} '
+                     f'{m.group("h")}:{m.group("mi")}')
+    return out
 
 
 def read_goo(source, name=None):

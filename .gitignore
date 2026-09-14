@@ -39,3 +39,8 @@ __pycache__/
 # something this repo should carry.
 uvtools/
 _to_delete/
+# The macOS build, for when the ledger session runs on the Mac mini. Both
+# hosts share this directory, so each keeps its own bundle.
+uvtools-macos/
+# Sweep output and anything else dropped there for transfer between hosts.
+sweeps/
