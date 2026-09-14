@@ -122,7 +122,7 @@ Regenerate the dashboard after any change:
 | Paizo_bastions_Supported | Hellknight Bastions | 25mm | B | 32mm |  | reprint |  |  |  |
 | Paizo_bastions_Supported | Hellknight Bastions | 25mm | C | 32mm |  | reprint |  |  |  |
 | Paizo_cave_bear_Supported | Cave Bear | 50mm | main | 32mm |  | printed |  | pass |  |
-| Paizo_elk_Supported | Elk | 50mm | main | 32mm |  | printed |  | pass |  |
+| Paizo_elk_Supported | Elk | 25mm | main | 32mm |  | printed |  | pass |  |
 | Paizo_fire_serpent__Supported | Fire Serpent | 50mm | main | 32mm |  | printed |  | pass |  |
 | Paizo_goblin_spellcaster_Supported | Goblin Spellcaster (Pathfinder Quest) | 25mm | main | 32mm |  | printed |  | pass |  |
 | Paizo_orc_malee_Supported | Orc Melee (Pathfinder Quest) | 25mm | 32mm Paizo PFQ orc malee | 32mm |  | printed |  | pass |  |

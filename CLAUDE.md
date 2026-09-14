@@ -143,7 +143,10 @@ choice in `reference/models.tsv` so it is stated, not defaulted.
 It is an assumption, so correct it where the real size is known. Extras packs
 have no P-number, so `reference/models.tsv` keys them **by directory name**
 instead — `Paizo_cave_bear_Supported` rather than a `P` code. The Hellknight
-Chargers, cave bear, elk and fire serpent are recorded as 50mm that way. The
+Chargers, cave bear and fire serpent are recorded as 50mm that way. The elk is
+25mm by Logan's ruling (2026-09-13): it rears on its hind legs, so it fits the
+smaller base. The P0025 Horned Dragon stays at the sheet's 25mm until Logan
+measures a successful print, though he thinks it is probably 50mm. The
 Ironkettles wall is *three minis in an army defence unit*, not terrain, so it
 correctly takes the 25mm default.
 

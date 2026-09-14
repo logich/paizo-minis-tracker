@@ -87,13 +87,15 @@ P0100	Scylla	75	Huge	S2PB	https://www.myminifactory.com/object/3d-print-scylla-8
 # defence unit, not terrain, so it takes the 25mm default.
 PQ0030_Hellknight_Chargers	Hellknight Chargers	50		extras	https://www.myminifactory.com/object/3d-print-hellknight-chargers-768554
 Paizo_cave_bear_Supported	Cave Bear	50		extras	https://www.myminifactory.com/object/3d-print-cave-bear-768525
-Paizo_elk_Supported	Elk	50		extras	https://www.myminifactory.com/object/3d-print-elk-768529
+Paizo_elk_Supported	Elk	25		extras	https://www.myminifactory.com/object/3d-print-elk-768529
 Paizo_fire_serpent__Supported	Fire Serpent	50		extras	https://www.myminifactory.com/object/3d-print-fire-serpent-768531
 
 # Extras packs named by the browser agent (2026-09-11). Base size is left
 # blank: MyMiniFactory states none, so DEFAULT_BASE_MM (25mm) applies until
-# corrected. The Hellknight Chargers, cave bear, elk and fire serpent are
-# recorded above with their real 50mm.
+# corrected. The Hellknight Chargers, cave bear and fire serpent are recorded
+# above with their real 50mm; Logan confirmed the Chargers' 50mm on 2026-09-13.
+# The elk is 25mm, not 50: Logan ruled on 2026-09-13 that it fits on 25mm
+# because it rears up on its hind legs.
 Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)	25		extras	https://www.myminifactory.com/object/3d-print-orc-melee-pathfinder-quest-768516
 Paizo_bastions_Supported	Hellknight Bastions	25		extras	https://www.myminifactory.com/object/3d-print-hellknight-bastions-768553
 Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars	25		extras	https://www.myminifactory.com/object/3d-print-augustana-irregulars-768550
