@@ -807,19 +807,12 @@ base-size sheet, gathering names and sizes for packs absent from it. This
 session **cannot**: object pages return 403 to scripted requests, from both
 curl and WebFetch, and there is no browser here.
 
-The browser agent can also **see and drive CHITUBOX on the Mac mini** (with
-Logan's per-session approval): screenshot the window in the background, read
-the slice-parameter panel — resin profile, layer height, exposure, bottom
-exposure and layers, transition layers, rest times, the volume/weight/time
-estimate — and, if asked, go back to Model Prepare to read which files are on
-the plate. That is a last resort, not a routine: what reached the printer is
-already readable here from the `.goo`/`.ctb` header (`printer`, `plate`) and
-the printer's own log (`runlog`), which is the authority for what actually
-ran. Ask for a slicer check only when the file on the printer and the ledger
-disagree in a way those cannot settle — a plate that was sliced but never
-saved or sent, or a setting visible in the slicer that the file format does
-not carry. Send it as a `request` saying what to read and why; the answer
-comes back as a `done` with the values, never as an edit to the ledger.
+Driving the slicer is **not part of this split at present.** The browser agent
+can see and control applications on the Mac mini, so reading CHITUBOX or ELEGOO
+SatelLite back is technically possible, but it is not in use and should not be
+asked for unless Logan says otherwise. What reached the printer is already
+readable here from the `.goo`/`.ctb` header (`printer`, `plate`) and from the
+printer's own log (`runlog`), which is the authority for what actually ran.
 
 **This session does** — anything needing the machine: the repository and git,
 the ledger tooling, the printer at `192.168.1.151` (LAN-only), plate previews,
