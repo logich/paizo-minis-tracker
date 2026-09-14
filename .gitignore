@@ -44,3 +44,5 @@ _to_delete/
 uvtools-macos/
 # Sweep output and anything else dropped there for transfer between hosts.
 sweeps/
+# ELEGOO SatelLite project files, saved beside the models like .lys/.chitubox.
+*.3mf

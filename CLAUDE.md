@@ -598,6 +598,8 @@ Both were sliced in ELEGOO SatelLite, and both printed:
     P2609-15   Body          34             11.2 mm3    380 mm3  adhered; failed at ~70%
     P2609-16   Body          220             2.6 mm3    563 mm3  printed successfully
     P2609-17   Tentacles R   418             2.6 mm3  1,071 mm3  printed and adhered
+    P2609-18   Tentacles L   363             2.6 mm3    931 mm3  printed and adhered
+    P2609-19   Sarglagon Arm R 87            2.6 mm3    223 mm3  printed successfully
 
 Tentacles R carried almost three times P2609-15's raft vacuum, on the very part
 that had twice failed to adhere on Lychee supports, and it held. So **total
@@ -615,8 +617,8 @@ a part off its supports. Treat it as a candidate, not a finding: one print,
 and the percentage may be by time rather than layer.
 
 That failure is what moved Logan to **ELEGOO SatelLite**, whose support
-generation is designed for tilting-vat printers. Both of its prints so far
-have succeeded.
+generation is designed for tilting-vat printers. All four of its prints so far
+have succeeded: the Gutaki body and both arms, and the Sarglagon Arm R reprint.
 
 **Measure rather than assume.** Report layer-0 cups by *size per cell* as well
 as by count and total; the total alone has already misled once.
@@ -660,8 +662,8 @@ the plate, so it only pays on the large ones.
    Vendor Lychee supports have failed on the Gutaki body and both arms, the
    Horned Dragon body and Scylla; manual Chitubox supports are what finally
    printed the Horned Dragon. Blueprint's auto supports failed on the Gutaki
-   body (P2609-15). SatelLite's tilt-aware supports printed the body and
-   Tentacles R, 2 for 2.
+   body (P2609-15). SatelLite slices have printed 4 for 4: the Gutaki body and
+   both arms, and the Sarglagon Arm R reprint.
 3. **Fix the islands `screen` names** rather than raising exposure. Scylla's
    defects survived 2.8s, 2.9s and 3.0s and a new FEP, because exposure was never
    the problem.
@@ -693,8 +695,11 @@ co-vary and neither is yet isolated.
   its screen; solid (P2609-15) adhered but separated from its supports at
   about 70% under pull force.
 - ELEGOO SatelLite, tilt-aware supports, in use since 2026-09-12: Gutaki body
-  (P2609-16) printed successfully; Tentacles R (P2609-17) printed and adhered.
-  Both are default size, and neither has been reviewed by Brian yet.
+  (P2609-16) printed successfully; Tentacles R (P2609-17) printed and adhered;
+  Tentacles L (P2609-18), which twice failed to adhere on Lychee, printed
+  great. All three Gutaki parts are default size. Sarglagon Arm R (P2609-19),
+  rejected earlier for a flat spot, reprinted successfully. None has been
+  reviewed by Brian yet.
 
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
@@ -816,8 +821,12 @@ printer's own log (`runlog`), which is the authority for what actually ran.
 
 **This session does** — anything needing the machine: the repository and git,
 the ledger tooling, the printer at `192.168.1.151` (LAN-only), plate previews,
-UVtools, nginx and the dashboard. The browser agent cannot reach any of these
-unless it is running on this host.
+UVtools and the dashboard build. Since 2026-09-13 the ledger session runs on
+the **Mac mini**. nginx and the served dashboard stay on the **Linux home
+server** (`elite.internal`), which serves this same shared repository, so a
+`build` on the Mac is live the moment it finishes. None of this is the browser
+agent's to do, whichever machine it runs on, and git in particular is off
+limits to it (see *Commits*).
 
 ### The handoff
 
