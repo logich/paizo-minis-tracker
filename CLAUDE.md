@@ -286,8 +286,15 @@ meshes:
 **The vendor's pre-supported layouts for `Full` and `Tentacles` overflow the Y
 axis** — that is the support raft, not the model. Both routes therefore need
 re-supporting from the raw `_STL`, exactly as the Horned Dragon body did. The
-raw `Full` fits at 71.7 mm against the 77.76 mm limit, so one-piece is viable
+raw `Full` fits at 71.7 mm against the 77.76 mm limit, so one-piece *fits*
 with your own supports; only `Body` prints as shipped.
+
+**Fitting was not enough.** The one-piece `Full` on manual Chitubox supports
+(P2609-13) printed to completion, but removing the supports left lots of surface
+scarring (Logan, 2026-09-14). So Scylla moved to `Body` + `Tentacles` with new
+supports (P2609-20), and `Full` is now the `skipped` route, with its `fail` kept.
+A one-piece model of this size carries far more support contacts on visible
+surfaces than its parts do separately.
 
 Measure with a binary-STL bounding box: 80-byte header, `<I` triangle count at
 offset 80, then `<12fH` per triangle with the vertices in floats 3-11.
@@ -690,7 +697,10 @@ co-vary and neither is yet isolated.
 - Vendor `_SUP` (Lychee): Gutaki body warped on the plate, both tentacle arms
   failed to adhere, across 2.8s, 2.9s and 3.0s and a new FEP.
 - Manual Chitubox supports: the Horned Dragon body printed only after being
-  re-supported from the raw `_STL`, having failed on the vendor mesh.
+  re-supported from the raw `_STL`, having failed on the vendor mesh. The
+  Scylla `Full` (P2609-13) printed to completion but scarred badly when the
+  supports came off. So these supports held, but left marks, which is a
+  different failure from detaching.
 - HeyGears Blueprint auto supports: Gutaki body hollow (P2609-14) cancelled on
   its screen; solid (P2609-15) adhered but separated from its supports at
   about 70% under pull force.
