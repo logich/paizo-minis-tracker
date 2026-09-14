@@ -713,7 +713,10 @@ co-vary and neither is yet isolated.
 - **Open test, SatelLite EVO supports:** Scylla Body + Tentacles (P2609-20).
   Screened before printing with two islands over 1000px2 at about 61 mm on the
   Tentacles, and deliberately run as sliced, not re-supported, to see how EVO
-  supports handle it. Its outcome says whether the 1000px2 threshold, drawn
+  supports handle it. The supports use SatelLite presets chosen per part:
+  **Body on `EVO_0-30mm`, Tentacles on `EVO_60-100mm`**. So the flagged
+  islands sit under the 60-100mm preset. The preset is not in the `.goo`, so
+  record it in plate Notes whenever Logan names one. Its outcome says whether the 1000px2 threshold, drawn
   from a Lychee-supported failure, holds for EVO supports. P2609-16 already
   printed through a 2326px2 island.
 
