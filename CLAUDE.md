@@ -449,6 +449,11 @@ Whether Chitubox's support *generator* accounts for tilt is unknown — but sinc
 the format carries nothing tilt-specific, nothing tilt-aware is reaching the
 printer either way.
 
+That is exactly where tilt awareness *can* live: in the geometry of the
+supports, decided before the file is written. Since 2026-09-12 Logan slices in
+**ELEGOO SatelLite** for that reason: its support generation is designed for
+tilting-vat printers. See *Vendor supports are Lychee* below for the record.
+
 ### The tilt geometry, and what follows from it
 
 **The vat hinges at the rear and tilts down toward the front.** So separation
@@ -587,17 +592,28 @@ produces that failure. **The next two prints contradict it.**
 Both were sliced in ELEGOO SatelLite, and both printed:
 
     plate      part          layer-0 cups   each      total      outcome
-    P2609-15   Body          34             11.2 mm3    380 mm3  (outcome not recorded)
+    P2609-15   Body          34             11.2 mm3    380 mm3  adhered; failed at ~70%
     P2609-16   Body          220             2.6 mm3    563 mm3  printed successfully
     P2609-17   Tentacles R   418             2.6 mm3  1,071 mm3  printed and adhered
 
 Tentacles R carried almost three times P2609-15's raft vacuum, on the very part
 that had twice failed to adhere on Lychee supports, and it held. So **total
-layer-0 cup volume does not predict adhesion failure.** The weaker claim that
-survives is about cell size: fine cells of about 2.6 mm3 printed, while nothing
-with 11.2 mm3 cells has been run to completion and recorded. SatelLite's
-support elevation is not recorded, so none of this separates elevation from
-raft pattern.
+layer-0 cup volume does not predict adhesion failure.** P2609-15, with the
+coarse 11.2 mm3 cells, adhered too. It failed at about 70%, separating from
+its supports under pull force. So neither total volume nor cell size has
+predicted a single adhesion failure, and **the raft-cell argument above is
+refuted.** It stays here as the record of a wrong turn.
+
+P2609-15 does point somewhere else. 70% of its 1931 layers is about layer 1350
+(40.5 mm, if the printer counts progress by layer). That lies between its two
+largest suction cups above the raft: 18.9 mm3 from 38.88 mm and 17.2 mm3 from
+43.44 mm. A cup pulling on the part at each peel is a mechanism that would tear
+a part off its supports. Treat it as a candidate, not a finding: one print,
+and the percentage may be by time rather than layer.
+
+That failure is what moved Logan to **ELEGOO SatelLite**, whose support
+generation is designed for tilting-vat printers. Both of its prints so far
+have succeeded.
 
 **Measure rather than assume.** Report layer-0 cups by *size per cell* as well
 as by count and total; the total alone has already misled once.
@@ -637,14 +653,19 @@ the plate, so it only pays on the large ones.
 
 1. **Screen 50/75 mm models after slicing, before printing.** The one measure
    with a direct hit rate: it named both Scylla defect heights in advance.
-2. **Prefer your own Chitubox supports on 50/75 mm models.** Vendor Lychee
-   supports have failed on the Gutaki body and both arms, the Horned Dragon body
-   and Scylla; manual supports are what finally printed the Horned Dragon.
+2. **Support 50/75 mm models yourself; SatelLite is the current choice.**
+   Vendor Lychee supports have failed on the Gutaki body and both arms, the
+   Horned Dragon body and Scylla; manual Chitubox supports are what finally
+   printed the Horned Dragon. Blueprint's auto supports failed on the Gutaki
+   body (P2609-15). SatelLite's tilt-aware supports printed the body and
+   Tentacles R, 2 for 2.
 3. **Fix the islands `screen` names** rather than raising exposure. Scylla's
    defects survived 2.8s, 2.9s and 3.0s and a new FEP, because exposure was never
    the problem.
-4. **Watch the suction cups it reports.** Scylla carried 330, one of 6.3M px3 at
-   the raft. They pull on adhesion independently of islands.
+4. **Watch the suction cups it reports, above the raft.** Scylla carried 330.
+   Layer-0 raft cells have not predicted a failure (see *Support elevation*).
+   A large cup mid-model may: P2609-15 tore off its supports at about the height
+   of its two largest.
 
 ### Vendor supports are Lychee, ours are Chitubox
 
@@ -665,6 +686,12 @@ co-vary and neither is yet isolated.
   failed to adhere, across 2.8s, 2.9s and 3.0s and a new FEP.
 - Manual Chitubox supports: the Horned Dragon body printed only after being
   re-supported from the raw `_STL`, having failed on the vendor mesh.
+- HeyGears Blueprint auto supports: Gutaki body hollow (P2609-14) cancelled on
+  its screen; solid (P2609-15) adhered but separated from its supports at
+  about 70% under pull force.
+- ELEGOO SatelLite, tilt-aware supports, in use since 2026-09-12: Gutaki body
+  (P2609-16) printed successfully; Tentacles R (P2609-17) printed and adhered.
+  Both are default size, and neither has been reviewed by Brian yet.
 
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
