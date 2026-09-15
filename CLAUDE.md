@@ -786,12 +786,12 @@ failed on; then parts never printed; then bases still to make. The two pages
 link to each other.
 
 **The reason comes from the part's `Notes`.** A reprint with an empty Notes
-shows a bare row, which is why recording why something failed matters — three
-extras parts currently show nothing because no reason was ever given for them:
-the Hellknight Bastions A, B and C. The Augustana Irregulars were probably too
-small (Logan's recollection, 2026-09-14): an extras mesh exported unscaled
-prints at 28mm, so check the scale of anything exported from Lychee before
-slicing.
+shows a bare row, which is why recording why something failed matters. Every
+reprint now carries a reason. The six extras parts that had none, the Augustana
+Irregulars and the Hellknight Bastions, were both probably too small (Logan,
+2026-09-14): most likely printed without the scale-up from the 28mm mesh. So
+**check the scale of any extras mesh before slicing**, including anything
+exported from Lychee: an unscaled one prints at 28mm and reads undersized.
 
 ### The gallery page
 
