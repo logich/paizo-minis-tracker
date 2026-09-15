@@ -105,9 +105,9 @@ Regenerate the dashboard after any change:
 | PQ0030_Hellknight_Chargers | Hellknight Chargers | 50mm | PQ0030D | 32mm |  | printed |  | pass |  |
 | PQ0041_Dread_Zombie | Dread Zombie | 25mm | Zombie | 32mm |  | printed |  | pass |  |
 | PQ0041_Dread_Zombie | Dread Zombie | 25mm | Zombie (32mm) | 32mm |  | printed |  | pass |  |
-| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | A | 32mm |  | reprint |  |  |  |
-| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | B | 32mm |  | reprint |  |  |  |
-| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | C | 32mm |  | reprint |  |  |  |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | A | 32mm |  | reprint |  |  | Reprint reason, from Logan's recollection (not certain): the first print was probably too small. Planned reprint (2026-09-14): vendor mesh exported from Lychee without supports and supported in ELEGOO SatelLite, to compare against the vendor's Lychee supports. The export measured at 100% of the vendor mesh (28mm), where B and C are at 112%; rescale A before slicing |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | B | 32mm |  | reprint |  |  | Reprint reason, from Logan's recollection (not certain): the first print was probably too small. Planned reprint (2026-09-14): vendor mesh exported from Lychee without supports and supported in ELEGOO SatelLite, to compare against the vendor's Lychee supports. The export measured at 112% of the vendor mesh (CLAUDE.md gives 114% for the extras) |
+| Paizo_Augustana_irregulars_A_Supported | Augustana Irregulars | 25mm | C | 32mm |  | reprint |  |  | Reprint reason, from Logan's recollection (not certain): the first print was probably too small. Planned reprint (2026-09-14): vendor mesh exported from Lychee without supports and supported in ELEGOO SatelLite, to compare against the vendor's Lychee supports. The export measured at 112% of the vendor mesh (CLAUDE.md gives 114% for the extras) |
 | Paizo_Grave_Knight_Supported | Graveknight | 25mm | main | 32mm |  | printed |  | pass |  |
 | Paizo_Hellknight_Sharpshooters_Supported | Hellknight Sharpshooters | 25mm | SharpshootersA3 | 32mm |  | printed |  | pass |  |
 | Paizo_Hellknight_Sharpshooters_Supported | Hellknight Sharpshooters | 25mm | SharpshootersB3 | 32mm |  | printed |  | pass |  |
