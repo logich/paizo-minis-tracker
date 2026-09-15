@@ -624,8 +624,9 @@ a part off its supports. Treat it as a candidate, not a finding: one print,
 and the percentage may be by time rather than layer.
 
 That failure is what moved Logan to **ELEGOO SatelLite**, whose support
-generation is designed for tilting-vat printers. All four of its prints so far
-have succeeded: the Gutaki body and both arms, and the Sarglagon Arm R reprint.
+generation is designed for tilting-vat printers. All five of its prints so far
+have succeeded: the Gutaki body and both arms, the Sarglagon Arm R reprint, and
+the Scylla Body + Tentacles, which Logan called one of the best prints so far.
 
 **Measure rather than assume.** Report layer-0 cups by *size per cell* as well
 as by count and total; the total alone has already misled once.
@@ -653,6 +654,18 @@ thresholds taken from the Scylla failure: the two islands that failed were
 or above **1000 px2** predict a defect at that height; 300-1000 is worth a look;
 below that, nothing.
 
+**That threshold was set on vendor Lychee supports, and it does not hold on
+SatelLite EVO supports.** Two EVO prints have come out clean through islands
+the screen marked FIX:
+
+    P2609-16  Gutaki Body       2326 px2 at 22.59 mm              printed successfully
+    P2609-20  Scylla Tentacles  1681 + 1215 px2 at ~61 mm         clean at 61 mm, EVO_60-100mm
+
+So on an EVO-supported slice, read FIX as "look at that height when it comes
+off", not as "re-support before printing". Screening is still worth doing, and
+the verdict text in `cmd_screen` is unchanged. No EVO defect has been recorded
+yet, so there is no EVO threshold to replace it with.
+
 **Which models are worth screening.** Every print failure so far has been on a
 **50 mm or 75 mm** model — Sarglagon, Gutaki, Scylla, and the Horned Dragon
 before them. None of the 73 models on a 25 mm base has failed a print. There are
@@ -663,14 +676,16 @@ the plate, so it only pays on the large ones.
 
 ### Proactive measures, in order of evidence
 
-1. **Screen 50/75 mm models after slicing, before printing.** The one measure
-   with a direct hit rate: it named both Scylla defect heights in advance.
+1. **Screen 50/75 mm models after slicing, before printing.** It named both
+   Scylla defect heights in advance on Lychee supports. On SatelLite EVO
+   supports its FIX verdicts have twice printed clean, so there it points at
+   heights to inspect rather than predicting failure.
 2. **Support 50/75 mm models yourself; SatelLite is the current choice.**
    Vendor Lychee supports have failed on the Gutaki body and both arms, the
    Horned Dragon body and Scylla; manual Chitubox supports are what finally
    printed the Horned Dragon. Blueprint's auto supports failed on the Gutaki
-   body (P2609-15). SatelLite slices have printed 4 for 4: the Gutaki body and
-   both arms, and the Sarglagon Arm R reprint.
+   body (P2609-15). SatelLite slices have printed 5 for 5: the Gutaki body and
+   both arms, the Sarglagon Arm R reprint, and the Scylla Body + Tentacles.
 3. **Fix the islands `screen` names** rather than raising exposure. Scylla's
    defects survived 2.8s, 2.9s and 3.0s and a new FEP, because exposure was never
    the problem.
@@ -710,15 +725,17 @@ co-vary and neither is yet isolated.
   great. All three Gutaki parts are default size. Sarglagon Arm R (P2609-19),
   rejected earlier for a flat spot, reprinted successfully. None has been
   reviewed by Brian yet.
-- **Open test, SatelLite EVO supports:** Scylla Body + Tentacles (P2609-20).
+- **EVO support test, settled:** Scylla Body + Tentacles (P2609-20).
   Screened before printing with two islands over 1000px2 at about 61 mm on the
   Tentacles, and deliberately run as sliced, not re-supported, to see how EVO
   supports handle it. The supports use SatelLite presets chosen per part:
-  **Body on `EVO_0-30mm`, Tentacles on `EVO_60-100mm`**. So the flagged
-  islands sit under the 60-100mm preset. The preset is not in the `.goo`, so
-  record it in plate Notes whenever Logan names one. Its outcome says whether the 1000px2 threshold, drawn
-  from a Lychee-supported failure, holds for EVO supports. P2609-16 already
-  printed through a 2326px2 island.
+  **Body on `EVO_0-30mm`, Tentacles on `EVO_60-100mm`**. The preset is not in
+  the `.goo`, so record it in plate Notes whenever Logan names one. **Result
+  (Logan, 2026-09-15): the Tentacles are clean at 61 mm, and the print is "one
+  of the best prints so far".** With P2609-16 printing through a 2326px2 island,
+  the 1000px2 threshold from the Lychee-supported Scylla failure does not
+  transfer to EVO supports. See *Screening a print before running it*. Neither
+  part has been reviewed by Brian yet.
 
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
