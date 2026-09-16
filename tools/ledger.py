@@ -28,10 +28,12 @@ Usage: python3 tools/ledger.py <command> [args]
                                them into the right model directory
   merge-reference [file]       merge a browser agent's TSV of MyMiniFactory
                                links, names and artwork into reference/
-  screen <file> [plate-id]     UVtools island check on a sliced file, with a
+  screen <file> [plate-id|-]   UVtools island check on a sliced file, with a
                                verdict — run it on 50mm/75mm models before
-                               committing hours to the plate. Give a plate id to
-                               archive the analysis under forensics/
+                               committing hours to the plate. Records a plate
+                               and archives under forensics/ by itself, reusing
+                               the plate already screened from the same bytes;
+                               pass "-" to screen without recording anything
   inspected <plate> ["note"]   acknowledge a screen flag: record what you found
                                and drop the plate off the flagged list
   runlog                       settings the printer actually ran with, from its
@@ -1394,6 +1396,7 @@ def cmd_plate(source, plate_id=None, resin=None, notes=None):
           f"(bottom {row['Bottom exp']} x{row['Bottom layers']}) from {row['Slicer file']}")
     print("Fill in Resin, Lift and Result, set the Plate column on the parts it "
           "printed, then run: python3 tools/ledger.py build")
+    return row["ID"]
 
 
 
@@ -1680,7 +1683,7 @@ def verdict_path(plate_id):
     return FORENSICS / plate_id / "verdict.tsv"
 
 
-def write_verdict(plate_id, name, islands, cups, props, layer_height=0.03):
+def write_verdict(plate_id, name, islands, cups, props, layer_height=0.03, sha256=""):
     """Persist a screen verdict so status and backlog.html can surface it.
 
     The verdict used to live only in the terminal, which meant a flagged plate
@@ -1717,7 +1720,8 @@ def write_verdict(plate_id, name, islands, cups, props, layer_height=0.03):
         for line in path.read_text(encoding="utf-8").splitlines():
             k, _, v = line.partition("\t")
             prior[k.strip()] = v.strip()
-    fields += [("resolved", prior.get("resolved", "")),
+    fields += [("sha256", sha256 or prior.get("sha256", "")),
+               ("resolved", prior.get("resolved", "")),
                ("resolution", prior.get("resolution", ""))]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(f"{k}\t{v}" for k, v in fields) + "\n", encoding="utf-8")
@@ -1809,7 +1813,29 @@ def cmd_inspected(plate_id, note=None):
     print("run: python3 tools/ledger.py build")
 
 
-def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.03):
+def file_sha256(path, chunk=1 << 20):
+    """Content hash of a slice. Cheap next to the download and the detection."""
+    import hashlib
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for block in iter(lambda: fh.read(chunk), b""):
+            h.update(block)
+    return h.hexdigest()
+
+
+def plate_for_hash(digest):
+    """(plate id, the name it was recorded under) already screened from these bytes.
+
+    Matching on content, not filename: re-saving a slice keeps the bytes and
+    changes the name, which is how one Augustana plate nearly became two.
+    """
+    for v in read_verdicts():
+        if digest and v.get("sha256") == digest:
+            return v.get("plate"), v.get("file", "")
+    return None, ""
+
+
+def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.03, sha256=""):
     """Keep the analysis of a print, not the print file.
 
     A .goo is 100-360 MB and gets deleted off the printer; the analysis is about
@@ -1848,7 +1874,7 @@ def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.0
             lines.append(f"  from layer {r[1]:>5} = {r[1]*layer_height:6.2f} mm  {r[2]:>10} px3  "
                          f"X={r[3]} Y={r[4]}")
     (out / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    level = write_verdict(plate_id, name, islands, cups, props, layer_height)
+    level = write_verdict(plate_id, name, islands, cups, props, layer_height, sha256)
     if level != "clear":
         print(f"\nflagged {plate_id} as {level.upper()} — it will stay at the top of `status` until\n  you run: python3 tools/ledger.py inspected {plate_id} \"what you found\"")
     size = sum(f.stat().st_size for f in out.iterdir())
@@ -1876,6 +1902,20 @@ def cmd_screen(source, plate_id=None, layer_height=0.03):
         sliced.download(url, tmp.name)
         local = Path(tmp.name)
 
+    digest = file_sha256(local)
+    if plate_id == "-":
+        plate_id = None
+        print(f"sha256 {digest[:16]}... — no plate, nothing archived")
+    elif not plate_id:
+        plate_id, seen_as = plate_for_hash(digest)
+        if plate_id:
+            alias = f' (recorded as "{seen_as}")' if seen_as and seen_as != name else ""
+            print(f"same bytes as plate {plate_id}{alias} — archiving there")
+        else:
+            plate_id = cmd_plate(source)
+            if not plate_id:
+                print("could not record a plate for this slice; screening without one")
+
     print("detecting issues (several minutes) ...")
     proc = subprocess.run([str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
                           capture_output=True, text=True, timeout=3600)
@@ -1902,7 +1942,7 @@ def cmd_screen(source, plate_id=None, layer_height=0.03):
             kind, lay, area, x, y = m.groups()
             rows.append((kind, int(lay.split("-")[0]), int(area), int(x), int(y)))
     if plate_id and rows:
-        archive_forensics(plate_id, name, rows, props, preview_tmp, layer_height)
+        archive_forensics(plate_id, name, rows, props, preview_tmp, layer_height, digest)
     if tmp:
         Path(tmp.name).unlink(missing_ok=True)
     if not rows:
@@ -1980,7 +2020,7 @@ if __name__ == "__main__":
         cmd_artwork(sys.argv[2:])
     elif cmd == "screen":
         if len(sys.argv) < 3:
-            print("usage: ledger.py screen <file|printer-filename>")
+            print('usage: ledger.py screen <file|printer-filename> [plate-id|-]')
             sys.exit(2)
         cmd_screen(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
     elif cmd == "inspected":

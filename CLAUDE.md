@@ -684,6 +684,32 @@ off", not as "re-support before printing". Screening is still worth doing, and
 the verdict text in `cmd_screen` is unchanged. No EVO defect has been recorded
 yet, so there is no EVO threshold to replace it with.
 
+### screen records its own plate, matched by content hash
+
+`screen` used to write a verdict only when handed a plate id, and no plate
+existed until the file reached the printer — so a screen run *before* upload
+could never raise a flag, and the same detection had to be run twice. Since
+2026-09-16 it does this itself:
+
+    python3 tools/ledger.py screen "<file|printer-filename>"   records a plate
+    python3 tools/ledger.py screen "<file>" P2609-24           forces a plate id
+    python3 tools/ledger.py screen "<file>" -                  no plate, no archive
+
+It hashes the slice (SHA-256, free next to the download and the detection),
+reuses the plate already screened from those exact bytes, and records a new one
+otherwise. **Matching is on content, not filename**: re-saving a slice keeps the
+bytes and changes the name, which is how the Augustana plate nearly became two
+— `..._202609150901.goo` and `..._202609150905.goo` were the same file four
+minutes apart.
+
+Use `-` for throwaway candidates, such as an orientation sweep, so they do not
+each mint a plate row.
+
+The hash lives in `forensics/<plate>/verdict.tsv` as `sha256`, so the Plates
+table is unchanged. Verdicts written before this exist without one; they are
+back-filled only where the slice is still on disk, since a plate whose file was
+deleted off the printer can never be re-screened and so can never collide.
+
 ### A flagged plate stays visible until someone clears it
 
 A screen verdict used to exist only in the terminal and in whatever chat message
