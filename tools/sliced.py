@@ -165,8 +165,18 @@ def fetch_head(source, nbytes):
     if str(source).startswith(("http://", "https://")):
         req = urllib.request.Request(str(source),
                                      headers={"Range": f"bytes=0-{nbytes - 1}"})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return r.read()
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read()
+        except urllib.error.HTTPError as exc:
+            if exc.code != 416:
+                raise
+            # The printer rejects a range longer than the file instead of
+            # clamping it, which broke `runlog` once its log rolled over and
+            # shrank below the 400 KB tail. A 416 means the file is smaller
+            # than the request, so fetching the whole thing is cheap.
+            with urllib.request.urlopen(str(source), timeout=60) as r:
+                return r.read(nbytes)
     with open(source, "rb") as fh:
         return fh.read(nbytes)
 

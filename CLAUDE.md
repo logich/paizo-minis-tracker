@@ -738,6 +738,51 @@ Verdicts were back-filled for every plate screened before this existed, and the
 ten whose outcome was already on record were closed with that outcome. Keep it
 that way: a list where everything is flagged hides the one plate that matters.
 
+### Solidify is the fix for resin traps, not drain holes
+
+UVtools' Solidify fills every enclosed void in a layer, so it removes suction
+cups wholesale without touching the mesh or leaving a visible hole. Logan ran it
+on both Horned Dragon slices (2026-09-16):
+
+    plate            cups          resin traps    islands     largest island
+    wings            23 -> 0       2280 -> 134    510 -> 482  unchanged
+    body + rocks      6 -> 0       2155 ->  199   747 -> 725  unchanged
+
+**The island lists came back identical line for line**, which is the check that
+it only filled interiors: had the outer contours moved, the islands would have
+moved with them. 223 mm3 of trapped resin on the wings went to nothing, so the
+drain-hole and reorientation questions never had to be answered.
+
+The CLI reproduces the GUI **byte for byte** (same SHA-256), so it can be
+scripted. Parameter names come from `OperationSolidify.cs`:
+
+    UVtoolsCmd run <file>.goo Solidify -p LayerIndexStart=300 -o <out>.goo
+
+`LayerIndexStart` skips the raft and support transition, where filling cells
+would be wrong.
+
+**Two traps of its own.**
+
+- **It rewrites the motion values, and you cannot undo it.** Saving through
+  UVtools turns `LiftHeight`, `LiftSpeed`, `RetractHeight`, `RetractSpeed` and
+  the Bottom equivalents from **0 to 0.05**. `set-properties` will not fix it:
+  `RetractHeight` is read-only, and the settable ones clamp back to 0.05 on
+  save — verified per layer (7,959 properties set, all 0.05 on read-back) as
+  well as globally.
+
+  **This is very likely harmless**, and the alarm is mine to own: P2609-02 came
+  out of Chitubox carrying `0.03mm @ 0.05` and printed the Athamaru set
+  normally, P2609-11 carried the same and failed only on plate adhesion, and
+  the runlog reports `lift 0.000000mm @ 0.000000` whatever the file holds —
+  which is what the tilting-vat section above already says. Check `runlog` on
+  the opening layers of the first solidified print, and stop worrying about it
+  after that.
+- **`compare` diffs parameters only.** It reports no pixel, image or area
+  differences at all, so it cannot tell you what a fill changed; screening
+  before and after is what answers that. It also throws `Invalid file`
+  spuriously when several UVtools processes run at once — retry before
+  believing it.
+
 **Which models are worth screening.** Every print failure so far has been on a
 **50 mm or 75 mm** model — Sarglagon, Gutaki, Scylla, and the Horned Dragon
 before them. None of the 73 models on a 25 mm base has failed a print. There are
