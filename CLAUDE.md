@@ -632,9 +632,11 @@ a part off its supports. Treat it as a candidate, not a finding: one print,
 and the percentage may be by time rather than layer.
 
 That failure is what moved Logan to **ELEGOO SatelLite**, whose support
-generation is designed for tilting-vat printers. All five of its prints so far
-have succeeded: the Gutaki body and both arms, the Sarglagon Arm R reprint, and
-the Scylla Body + Tentacles, which Logan called one of the best prints so far.
+generation is designed for tilting-vat printers. All seven of its prints so far
+have succeeded: the Gutaki body and both arms, the Sarglagon Arm R reprint, the
+Scylla Body + Tentacles, which Logan called one of the best prints so far, and
+the Augustana Irregulars and Hellknight Bastions extras reprints. Every one of
+them printed and cleaned; none has been through Brian yet.
 
 **Measure rather than assume.** Report layer-0 cups by *size per cell* as well
 as by count and total; the total alone has already misled once.
@@ -692,8 +694,9 @@ the plate, so it only pays on the large ones.
    Vendor Lychee supports have failed on the Gutaki body and both arms, the
    Horned Dragon body and Scylla; manual Chitubox supports are what finally
    printed the Horned Dragon. Blueprint's auto supports failed on the Gutaki
-   body (P2609-15). SatelLite slices have printed 5 for 5: the Gutaki body and
-   both arms, the Sarglagon Arm R reprint, and the Scylla Body + Tentacles.
+   body (P2609-15). SatelLite slices have printed 7 for 7: the Gutaki body and
+   both arms, the Sarglagon Arm R reprint, the Scylla Body + Tentacles, and the
+   Augustana Irregulars and Hellknight Bastions extras reprints.
 3. **Fix the islands `screen` names** rather than raising exposure. Scylla's
    defects survived 2.8s, 2.9s and 3.0s and a new FEP, because exposure was never
    the problem.
