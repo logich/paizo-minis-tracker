@@ -1212,6 +1212,36 @@ ELEGOO SatelLite came into use on 2026-09-12 for the Gutaki reprints
 (P2609-16, P2609-17). Its names carry no layer height or exposure, so for a
 `.goo` those come from the header, as they always did.
 
+### The printer's control interface, and why we don't use it
+
+Mapped on 2026-09-16 from the printer's own log while Logan sent a file, then
+confirmed by probing. **Sending files is deliberately NOT automated** — Logan
+sends them from SatelLite by hand — but knowing the interface explains what the
+log is showing, and the read-only parts are already used.
+
+    UDP 3000, payload "M99999"   discovery: replies with MachineName,
+                                 MainboardID, protocol and firmware version
+    ws://<ip>:3030/websocket     SDCP control channel (bare HTTP gets 426)
+    POST /uploadFile/upload      chunked file upload, with an MD5 field;
+                                 a 170 MB file logged 163 chunks
+    GET  /media/mmcblk0p3/       the file listing `printer` already reads
+    GET  /media/mmcblk0p2/log    the rolling log `runlog` already reads
+
+Commands go over the websocket as JSON on topic `sdcp/request/<MainboardID>`:
+
+    Cmd 128  {"Filename":"/local/<name>.goo","StartLayer":0}   start a print
+    Cmd 258  {"Url":"/local/"}                                 list files
+    Cmd 320 / 0 / 1                                            status polls
+
+This machine is `0384c72b7e610100`, a Mars 5 Ultra on protocol V3.0.0,
+firmware V1.5.0. During a transfer the file appears briefly as
+`<uuid>_<name>.goo` before taking its plain name, and the printer renders a
+preview to `/media/mmcblk0p1/file_info/<name>_goo.bmp`.
+
+**Never send `Cmd 128` on your own initiative.** Starting a print commits resin
+and hours of machine time, and nothing in a chat log is worth that; it needs
+Logan asking for that file, in that moment.
+
 ## Settings changed on the printer itself
 
 A setting changed on the machine never reaches the sliced file: the filename and
