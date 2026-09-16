@@ -806,13 +806,19 @@ would be wrong.
   save — verified per layer (7,959 properties set, all 0.05 on read-back) as
   well as globally.
 
-  **This is very likely harmless**, and the alarm is mine to own: P2609-02 came
-  out of Chitubox carrying `0.03mm @ 0.05` and printed the Athamaru set
-  normally, P2609-11 carried the same and failed only on plate adhesion, and
-  the runlog reports `lift 0.000000mm @ 0.000000` whatever the file holds —
-  which is what the tilting-vat section above already says. Check `runlog` on
-  the opening layers of the first solidified print, and stop worrying about it
-  after that.
+  **Measured on P2609-24, and it costs nothing.** The machine *does* execute
+  what the file carries — the runlog shows `lift_distance 0.050000` at
+  `lift_speed 0.000833`, not the zeros a SatelLite file produces — but the
+  print ran at **8.45 s per layer**, steady, which extrapolates to 6.2 h for
+  2,653 layers against SatelLite's own 06h37m estimate. So a UVtools re-save is
+  safe to print here.
+
+  Two wrong turns of mine are worth remembering. I first read `0.05 mm at
+  0.05 mm/min` as a minute per layer and warned of a 44-hour print; the speed
+  field is not in those units. I then claimed the runlog reports `0.000000`
+  whatever the file holds — it does not, it reports what is actually executing,
+  and my `0.000000` readings came from a stale window of the log during an
+  older run.
 - **`compare` diffs parameters only.** It reports no pixel, image or area
   differences at all, so it cannot tell you what a fill changed; screening
   before and after is what answers that. It also throws `Invalid file`
@@ -1290,6 +1296,27 @@ It reads the `execute:` lines from `/media/mmcblk0p2/log` and reports exposure,
 lift and rest times — the Gutaki reprint shows `exposure 2.90s` while its file
 says 2.8s. The log has no filenames in it and rolls over, so treat it as "the
 run happening now", not as history.
+
+**It reads the tail, and that took two goes to get right (2026-09-16).** It
+used to fetch `bytes=0-399999` — the *head*. That is fine while the log is
+under 400 KB and silently wrong once it grows past it, which is exactly when
+you want it: for an hour it reported an older run's motion values while a
+different file was printing. It now fetches the whole log (0.7–2 MB, cheap) and
+slices the tail, which cannot be wrong about which end it read.
+
+**The per-recipe count is execute lines in the window, not progress.** Seeing
+"26 layers" unchanged across two samples a minute apart looks like a stalled
+print and is nothing of the sort. For progress, read the line underneath:
+
+      26 layers in this window   exposure 2.80s   lift 0.05mm @ 0.000833 ...
+
+      now at 45.41 mm, layer ~1,513, 8.45s per layer
+
+`lift_position` climbs by the layer height each layer, so height, layer number
+and the true seconds-per-layer all come from the same lines. That rate is the
+honest way to judge whether a setting is costing anything: it is what showed
+the UVtools 0.05 lift to be free, at 8.45 s per layer against SatelLite's own
+06h37m estimate for the whole plate.
 
 **Record what ran, not what was sliced.** Put the real value in the plate's
 `Exposure` and say in `Notes` that it was set on the printer and where the value

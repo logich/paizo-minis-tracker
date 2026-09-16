@@ -1321,7 +1321,15 @@ def cmd_runlog(tail_bytes=400_000):
     """
     import sliced
     try:
-        raw = sliced.fetch_head(PRINTER_LOG, tail_bytes).decode("utf-8", "replace")
+        # The TAIL, not the head. fetch_head asks for bytes 0-N, which on a
+        # rolling log that has grown past N reports the oldest window - it sat
+        # frozen on the same 26 layers across samples a minute apart, and showed
+        # an older run's motion values while a different file was printing. The
+        # log runs 0.7-2 MB, so fetching it whole and slicing is cheap and
+        # cannot be wrong about which end it read.
+        import urllib.request
+        with urllib.request.urlopen(PRINTER_LOG, timeout=30) as r:
+            raw = r.read()[-tail_bytes:].decode("utf-8", "replace")
     except Exception as exc:
         print(f"could not read the printer log: {exc}")
         return
@@ -1344,10 +1352,23 @@ def cmd_runlog(tail_bytes=400_000):
     for recipe, layers in seen.items():
         d = dict(recipe)
         exposure = float(d.get("exposure_time", 0)) / 1000
-        print(f"  {layers:>5} layers   exposure {exposure:.2f}s"
+        print(f"  {layers:>5} layers in this window   exposure {exposure:.2f}s"
               f"   lift {d.get('lift_distance', '?')}mm @ {d.get('lift_speed', '?')}"
               f"   rest before/after {float(d.get('rest_time_before_lift', 0))/1000:.1f}s"
               f"/{float(d.get('rest_time_after_drop', 0))/1000:.1f}s")
+
+    # Where the print has actually reached. The counts above are execute lines
+    # in the fetched window, not progress — reading them as progress is what
+    # made a frozen count look like a stalled print when it was neither.
+    marks = re.findall(r"\[printer\]\[Info\]\[\d+\]\[(\d+)\]:execute: lift_position ([\d.]+)", raw)
+    if len(marks) >= 2:
+        stamps = [int(t) for t, _ in marks]
+        height = float(marks[-1][1])
+        gaps = sorted(b - a for a, b in zip(stamps, stamps[1:]))
+        per_layer = gaps[len(gaps) // 2] / 1000
+        print(f"\n  now at {height:.2f} mm, layer ~{int(height / 0.03):,}, "
+              f"{per_layer:.2f}s per layer")
+        print("  (no filename is logged with the run — check `printer` for what was sent)")
 
 
 def cmd_plate(source, plate_id=None, resin=None, notes=None):
