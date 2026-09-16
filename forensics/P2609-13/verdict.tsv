@@ -1,0 +1,10 @@
+plate	P2609-13
+file	P0100_Scylla_Full_S2PB_STL.stl_0.030_2.800_2026_09_12_11_10.goo
+screened	2026-09-12
+level	fix
+islands_fix	11992px2@22.92mm
+islands_watch	962px2@13.71mm;938px2@30.81mm;690px2@13.95mm;649px2@57.69mm;595px2@52.92mm;593px2@46.08mm
+cups_flagged	
+cups_largest	2.4mm3@17.49mm;0.6mm3@33.93mm;0.2mm3@37.14mm
+resolved	2026-09-14
+resolution	printed to completion, but support removal scarred the surface, so the one-piece Scylla route was abandoned (Logan)

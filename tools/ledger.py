@@ -32,6 +32,8 @@ Usage: python3 tools/ledger.py <command> [args]
                                verdict — run it on 50mm/75mm models before
                                committing hours to the plate. Give a plate id to
                                archive the analysis under forensics/
+  inspected <plate> ["note"]   acknowledge a screen flag: record what you found
+                               and drop the plate off the flagged list
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -609,6 +611,7 @@ def stage_rank(stage):
 
 def cmd_status():
     _, plates, sections, base_stock = parse_ledger()
+    print_flagged()
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
     ref = load_reference()
@@ -980,6 +983,21 @@ def cmd_backlog(sections, base_stock, disk, e):
                 f'<div class="t"><span class="tag {cls}">{e(r["Stage"])}</span>'
                 f'{sc}{e(mini)}{pt}</div>{why}'
                 f'<div class="meta">{" &middot; ".join(meta)}</div></div></div>')
+        out.append("</div>")
+
+    flags = flagged_plates()
+    if flags:
+        out.append("<h2>Plates flagged by screening</h2>")
+        out.append('<p class="sub">Unresolved screen verdicts. Clear one with '
+                   "<code>ledger.py inspected &lt;plate&gt; \"what you found\"</code>.</p>")
+        out.append('<div class="q">')
+        for v in flags:
+            lvl = "FIX" if v.get("level") == "fix" else "look"
+            out.append(
+                f'<div class="item"><div class="b"><div class="t">'
+                f'<span class="tag rp">{e(lvl)}</span>{e(v["plate"])}</div>'
+                f'<div class="why">{e(flag_detail(v))}</div>'
+                f'<div class="meta">{e(v.get("file", ""))}</div></div></div>')
         out.append("</div>")
 
     block("Needs reprinting", reprints, "rp", True)
@@ -1628,6 +1646,14 @@ def cmd_merge_reference(path=None):
 # AREA predicts failure; island count does not.
 ISLAND_FAIL = 1000
 ISLAND_WATCH = 300
+# A suction cup this big above the raft goes on the action list. Grounded in the
+# record: P2609-15 tore off its supports between cups of 18.9 and 17.2mm3, while
+# P2609-22's 8.8mm3 and P2609-23's 9.3mm3 printed and cleaned fine. Raft cells at
+# layer 0 are excluded - they have never predicted a failure.
+CUP_FLAG_MM3 = 15.0
+# 153.36/8520 x 77.76/4320 x 0.03 on the Mars 5 Ultra; used when a plate's own
+# properties are missing.
+DEFAULT_VOXEL_MM3 = 9.72e-6
 # Islands in the raft and support-transition region are reported separately.
 # Everything sitting on the raft reads as unconnected there, so the thresholds
 # above — derived from mid-print islands — produce false alarms: the Scylla
@@ -1636,6 +1662,137 @@ ISLAND_WATCH = 300
 BASE_LAYERS = 150
 ISSUE_LINE = re.compile(
     r"(\w+), ([\d-]+)(?:\s+\(\d+\))?, (\d+)px[\u00b2\u00b3], \{X=(\d+),Y=(\d+)")
+
+
+def voxel_mm3(props, layer_height=0.03):
+    """mm3 per pixel-layer, from the plate's own resolution and display size."""
+    def num(key):
+        m = re.search(rf"^{key}:\s*([\d.]+)", props or "", re.MULTILINE)
+        return float(m.group(1)) if m else None
+    w, h, rx, ry = num("DisplayWidth"), num("DisplayHeight"), num("ResolutionX"), num("ResolutionY")
+    lh = num("LayerHeight") or layer_height
+    if w and h and rx and ry and lh:
+        return (w / rx) * (h / ry) * lh
+    return DEFAULT_VOXEL_MM3
+
+
+def verdict_path(plate_id):
+    return FORENSICS / plate_id / "verdict.tsv"
+
+
+def write_verdict(plate_id, name, islands, cups, props, layer_height=0.03):
+    """Persist a screen verdict so status and backlog.html can surface it.
+
+    The verdict used to live only in the terminal, which meant a flagged plate
+    was only as durable as the message it appeared in.
+    """
+    vox = voxel_mm3(props, layer_height)
+    body = [r for r in islands if r[1] >= BASE_LAYERS]
+    fix = [r for r in body if r[2] >= ISLAND_FAIL]
+    watch = [r for r in body if ISLAND_WATCH <= r[2] < ISLAND_FAIL]
+    big_cups = [r for r in cups if r[1] > 0 and r[2] * vox >= CUP_FLAG_MM3]
+    level = "fix" if (fix or big_cups) else "watch" if watch else "clear"
+
+    def isl(rows):
+        return ";".join(f"{r[2]}px2@{r[1] * layer_height:.2f}mm" for r in rows[:6])
+
+    def cup(rows):
+        return ";".join(f"{r[2] * vox:.1f}mm3@{r[1] * layer_height:.2f}mm" for r in rows[:6])
+
+    fields = [("plate", plate_id), ("file", name),
+              ("screened", datetime.date.today().isoformat()), ("level", level),
+              ("islands_fix", isl(fix)), ("islands_watch", isl(watch)),
+              ("cups_flagged", cup(big_cups)), ("cups_largest", cup(cups[:3])),
+              ("resolved", ""), ("resolution", "")]
+    path = verdict_path(plate_id)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(f"{k}\t{v}" for k, v in fields) + "\n", encoding="utf-8")
+    return level
+
+
+def read_verdicts():
+    """Every archived screen verdict, oldest plate first."""
+    out = []
+    for path in sorted(FORENSICS.glob("*/verdict.tsv")) if FORENSICS.exists() else []:
+        rec = {}
+        for line in path.read_text(encoding="utf-8").splitlines():
+            k, _, v = line.partition("\t")
+            if k.strip():
+                rec[k.strip()] = v.strip()
+        rec.setdefault("plate", path.parent.name)
+        out.append(rec)
+    return out
+
+
+def flagged_plates():
+    """Verdicts that asked for action and have not been acknowledged."""
+    return [v for v in read_verdicts()
+            if v.get("level") in ("fix", "watch") and not v.get("resolved")]
+
+
+def flag_detail(v, limit=3):
+    """The worst few entries, worst first. The full lists stay in verdict.tsv.
+
+    Printing every island turns the queue into a wall of numbers, which is the
+    same way a warning gets lost that this list exists to prevent.
+    """
+    items = []
+    for field in ("islands_fix", "cups_flagged", "islands_watch"):
+        items += [b for b in (v.get(field) or "").split(";") if b]
+    shown = "; ".join(items[:limit])
+    return f"{shown} (+{len(items) - limit} more)" if len(items) > limit else shown
+
+
+def print_flagged():
+    """Lead `status` with anything screening flagged, so it cannot be missed."""
+    flags = flagged_plates()
+    if not flags:
+        return
+    fix = [v for v in flags if v.get("level") == "fix"]
+    watch = [v for v in flags if v.get("level") == "watch"]
+    bar = "!" * 78
+    print(bar)
+    print(f"PLATES FLAGGED BY SCREENING — {len(fix)} to act on, {len(watch)} to look at")
+    for v in fix + watch:
+        mark = "FIX " if v.get("level") == "fix" else "look"
+        print(f"  {mark}  {v['plate']:<11} {flag_detail(v)}")
+        if v.get("file"):
+            print(f"        {v['file']}")
+    print('  clear one with: python3 tools/ledger.py inspected <plate> "what you found"')
+    print(bar)
+
+
+def cmd_inspected(plate_id, note=None):
+    """Acknowledge a screen flag: record what was found and drop it off the list."""
+    path = verdict_path(plate_id)
+    if not path.exists():
+        print(f"no screen verdict archived for {plate_id}")
+        return
+    rec, order = {}, []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        k, _, v = line.partition("\t")
+        if k.strip():
+            rec[k.strip()] = v.strip()
+            order.append(k.strip())
+    if rec.get("resolved"):
+        print(f"{plate_id} was already cleared on {rec['resolved']}: {rec.get('resolution', '')}")
+        return
+    rec["resolved"] = datetime.date.today().isoformat()
+    rec["resolution"] = note or "inspected, nothing to report"
+    path.write_text("\n".join(f"{k}\t{rec.get(k, '')}" for k in order) + "\n",
+                    encoding="utf-8")
+
+    preamble, plates, sections, base_stock = parse_ledger()
+    for p in plates:
+        if p.get("ID") == plate_id:
+            add = f"Screen flag inspected {rec['resolved']}: {rec['resolution']}"
+            p["Notes"] = f"{p['Notes'].rstrip().rstrip('.')}. {add}" if p.get("Notes") else add
+            write_ledger(preamble, plates, sections, base_stock)
+            break
+    else:
+        print(f"note: no plate row {plate_id} in PRINTS.md, verdict cleared anyway")
+    print(f"{plate_id} cleared: {rec['resolution']}")
+    print("run: python3 tools/ledger.py build")
 
 
 def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.03):
@@ -1677,6 +1834,9 @@ def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.0
             lines.append(f"  from layer {r[1]:>5} = {r[1]*layer_height:6.2f} mm  {r[2]:>10} px3  "
                          f"X={r[3]} Y={r[4]}")
     (out / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    level = write_verdict(plate_id, name, islands, cups, props, layer_height)
+    if level != "clear":
+        print(f"\nflagged {plate_id} as {level.upper()} — it will stay at the top of `status` until\n  you run: python3 tools/ledger.py inspected {plate_id} \"what you found\"")
     size = sum(f.stat().st_size for f in out.iterdir())
     print(f"\narchived to forensics/{plate_id}/ ({size // 1024} KB)")
 
@@ -1809,6 +1969,11 @@ if __name__ == "__main__":
             print("usage: ledger.py screen <file|printer-filename>")
             sys.exit(2)
         cmd_screen(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    elif cmd == "inspected":
+        if len(sys.argv) < 3:
+            print('usage: ledger.py inspected <plate-id> ["what you found"]')
+            sys.exit(2)
+        cmd_inspected(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
     elif cmd == "runlog":
         cmd_runlog()
     elif cmd == "printer":

@@ -54,7 +54,7 @@ quoted). `assign` prints how many parts it changed; check that number.
 - `PRINTS.md` — **the tracker, and the source of truth.** Plain Markdown tables.
 - `dashboard.html` — generated from `PRINTS.md`. Never edit it; run `build`.
 - `tools/ledger.py` — the tool: `scan`, `build`, `status`, `printer`, `plate`,
-  `assign`. With no argument it runs `status`.
+  `assign`, `screen`, `inspected`. With no argument it runs `status`.
 - `tools/sliced.py` — reads settings out of `.goo` / `.ctb` files. Field offsets
   live here.
 - `tools/orient.py` — scores a mesh's orientation for island risk before slicing.
@@ -675,6 +675,36 @@ So on an EVO-supported slice, read FIX as "look at that height when it comes
 off", not as "re-support before printing". Screening is still worth doing, and
 the verdict text in `cmd_screen` is unchanged. No EVO defect has been recorded
 yet, so there is no EVO threshold to replace it with.
+
+### A flagged plate stays visible until someone clears it
+
+A screen verdict used to exist only in the terminal and in whatever chat message
+carried it, so a warning was lost as soon as the conversation moved on — which
+is exactly what happened to P2609-16's 2326 px2 island. Now `screen` writes
+`forensics/<plate>/verdict.tsv`, and anything flagged **leads `status`** and gets
+its own block on `backlog.html` until it is acknowledged:
+
+    python3 tools/ledger.py inspected P2609-23 "clean at 17.40mm"
+
+That records what was found in the verdict file, appends it to the plate's
+Notes, and drops the plate off the list. Nothing clears itself: a print
+finishing is not evidence that anyone looked at the flagged height.
+
+What raises a flag:
+
+- **fix** — an island at or above `ISLAND_FAIL` (1000 px2) above the raft, or a
+  suction cup of `CUP_FLAG_MM3` (15 mm3) or more above layer 0.
+- **look** — an island between `ISLAND_WATCH` (300) and 1000 px2.
+- **clear** — anything less. A clear verdict never enters the list.
+
+The cup threshold comes from the record: P2609-15 tore off its supports at a
+height bracketed by cups of 18.9 and 17.2 mm3, while P2609-22's 8.8 mm3 and
+P2609-23's 9.3 mm3 printed and cleaned fine. Raft cells at layer 0 are excluded
+— they have never predicted a failure, as the refuted argument above shows.
+
+Verdicts were back-filled for every plate screened before this existed, and the
+ten whose outcome was already on record were closed with that outcome. Keep it
+that way: a list where everything is flagged hides the one plate that matters.
 
 **Which models are worth screening.** Every print failure so far has been on a
 **50 mm or 75 mm** model — Sarglagon, Gutaki, Scylla, and the Horned Dragon
