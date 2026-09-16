@@ -710,6 +710,30 @@ height bracketed by cups of 18.9 and 17.2 mm3, while P2609-22's 8.8 mm3 and
 P2609-23's 9.3 mm3 printed and cleaned fine. Raft cells at layer 0 are excluded
 — they have never predicted a failure, as the refuted argument above shows.
 
+**Measured across every archived plate (2026-09-16), and the threshold is weak.**
+Excluding raft cells, trapped volume above the raft against outcome:
+
+    P2609-17/18/19/21   0.0-0.4 mm3    printed fine
+    P2609-20            10.6 mm3       printed, clean at 61mm
+    P2609-22            20.7 mm3       printed and cleaned
+    P2609-23            24.7 mm3       printing
+    P2609-15            48.2 mm3       FAILED at ~70%, tore off its supports
+    P2609-16           102.4 mm3       printed successfully
+    P2609-14         5,443.8 mm3       cancelled on its own screen
+
+**The classes overlap**: P2609-16 printed through twice the trapped volume of
+the plate that failed. So a cup flag catches P2609-15 and false-alarms on
+P2609-16 — treat it as "worth a look", never as a prediction. Raw totals are
+useless without excluding the raft: P2609-17 reads 1,071 mm3 in total and
+0.0 mm3 above it.
+
+**Run-to-run variance is real but bounded.** On a model with one large
+interconnected cavity, the segmentation wobbles: the Horned Dragon wings gave
+23 vs 24 cups across runs, and one pocket read 21.7 mm3 in one run and 136.0 mm3
+in another. Totals held to ~1%, and a model with small isolated cavities
+(the body and rocks slice) reproduced exactly. So trust the total, and confirm
+any single-cup figure with a second run before acting on it.
+
 Verdicts were back-filled for every plate screened before this existed, and the
 ten whose outcome was already on record were closed with that outcome. Keep it
 that way: a list where everything is flagged hides the one plate that matters.

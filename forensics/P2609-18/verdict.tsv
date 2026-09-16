@@ -6,5 +6,6 @@ islands_fix
 islands_watch	637px2@15.27mm;514px2@20.46mm;439px2@17.22mm;395px2@17.40mm;389px2@14.76mm;364px2@14.67mm
 cups_flagged	
 cups_largest	2.6mm3@0.00mm;2.6mm3@0.00mm;2.6mm3@0.00mm
+cups_above_raft_mm3	0.2
 resolved	2026-09-14
 resolution	printed great (Logan); no defect reported

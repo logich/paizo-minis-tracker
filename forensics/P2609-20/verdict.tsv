@@ -6,5 +6,6 @@ islands_fix	1681px2@61.17mm;1215px2@61.08mm
 islands_watch	996px2@61.08mm;894px2@30.15mm;829px2@57.78mm;798px2@30.60mm;774px2@17.76mm;762px2@40.38mm
 cups_flagged	
 cups_largest	6.5mm3@55.65mm;2.6mm3@0.00mm;2.6mm3@0.00mm
+cups_above_raft_mm3	10.6
 resolved	2026-09-15
 resolution	Tentacles clean at ~61mm despite the two flagged islands - 'one of the best prints so far' (Logan)

@@ -6,5 +6,6 @@ islands_fix	1544px2@12.45mm
 islands_watch	508px2@25.23mm;461px2@12.90mm;412px2@23.97mm;364px2@11.91mm;348px2@22.17mm;336px2@33.93mm
 cups_flagged	18.9mm3@38.88mm;17.2mm3@43.44mm
 cups_largest	18.9mm3@38.88mm;17.2mm3@43.44mm;11.2mm3@0.00mm
+cups_above_raft_mm3	48.2
 resolved	2026-09-13
 resolution	failed at about 70%, separated from its supports under pull force (Logan); the flagged cups at 38.88 and 43.44mm bracket that height

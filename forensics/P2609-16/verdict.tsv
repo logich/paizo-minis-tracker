@@ -6,5 +6,6 @@ islands_fix	2326px2@22.59mm
 islands_watch	678px2@35.85mm;474px2@34.08mm;458px2@34.32mm;358px2@39.87mm;308px2@22.26mm
 cups_flagged	35.5mm3@49.23mm;26.5mm3@45.66mm
 cups_largest	35.5mm3@49.23mm;26.5mm3@45.66mm;14.4mm3@49.41mm
+cups_above_raft_mm3	102.4
 resolved	2026-09-13
 resolution	printed successfully off the plate (Logan); the 2326px2 island at 22.59mm produced no reported defect

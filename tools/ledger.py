@@ -1703,8 +1703,22 @@ def write_verdict(plate_id, name, islands, cups, props, layer_height=0.03):
               ("screened", datetime.date.today().isoformat()), ("level", level),
               ("islands_fix", isl(fix)), ("islands_watch", isl(watch)),
               ("cups_flagged", cup(big_cups)), ("cups_largest", cup(cups[:3])),
-              ("resolved", ""), ("resolution", "")]
+              # above the raft only: raw totals are dominated by layer-0 raft
+              # cells, which have never predicted a failure (P2609-17 reads
+              # 1,071 mm3 in total and 0.0 above the raft).
+              ("cups_above_raft_mm3", f"{sum(r[2] * vox for r in cups if r[1] > 0):.1f}"),
+              ]
     path = verdict_path(plate_id)
+    # Carry any existing acknowledgement forward. Re-screening a plate must not
+    # silently un-clear it and erase what was found, which would be the same
+    # quiet loss this file exists to prevent.
+    prior = {}
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            k, _, v = line.partition("\t")
+            prior[k.strip()] = v.strip()
+    fields += [("resolved", prior.get("resolved", "")),
+               ("resolution", prior.get("resolution", ""))]
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(f"{k}\t{v}" for k, v in fields) + "\n", encoding="utf-8")
     return level
