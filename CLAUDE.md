@@ -582,7 +582,15 @@ and keep to the family the creature size calls for.
 
 **All parts of one model must use the same mesh family.** The Horned Dragon's
 rocks and wings do not fit its reprinted body because the body came from the
-32 mm mesh and they did not — a 1.14x mismatch. Gutaki's earlier attempts
+32 mm mesh and they did not — measured on all four of its parts, its `32mm_`
+meshes are **1.150x** the standard ones, so a mixed set is out by 15%.
+
+That set is being reprinted **whole, at standard scale** (Logan, 2026-09-16):
+P0059 is Large on a 50 mm base, and the 32 mm body at 84.64 mm tall outgrows
+it. Standard measures Body 73.60, Rocks 54.89, WingL 88.19, WingR 74.81 mm.
+Slice heights are the cheap check that the right family was used: the body and
+rocks slice is 79.59 mm, the 73.60 mm body plus SatelLite's ~6 mm lift, where
+the 32 mm body would have given 90.6 mm. Gutaki's earlier attempts
 (P2609-09, -10, -10.1, -11) all used `32mm_` meshes while P2609-14 uses the
 default, so its tentacle arms must be reprinted at default size too or they will
 not fit.
