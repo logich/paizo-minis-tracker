@@ -706,9 +706,19 @@ Use `-` for throwaway candidates, such as an orientation sweep, so they do not
 each mint a plate row.
 
 The hash lives in `forensics/<plate>/verdict.tsv` as `sha256`, so the Plates
-table is unchanged. Verdicts written before this exist without one; they are
-back-filled only where the slice is still on disk, since a plate whose file was
-deleted off the printer can never be re-screened and so can never collide.
+table is unchanged.
+
+**When no hash matches, the slicer filename is the fallback.** Verdicts written
+before hashing existed carry none — 11 of 12 — and hashing those slices again
+would mean re-downloading them from the printer, the very waste this change
+exists to avoid. So `screen` looks for a plate already recorded under that
+filename, reuses it, and writes the hash into its verdict. The index heals
+itself the first time each is re-screened, and no duplicate plate row is ever
+created. Only when both lookups miss does it record a new plate.
+
+Hash first, name second, and not the other way round: the same bytes under a new
+name are the same plate, while the same name could in principle be a different
+slice.
 
 ### A flagged plate stays visible until someone clears it
 

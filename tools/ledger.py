@@ -1835,6 +1835,22 @@ def plate_for_hash(digest):
     return None, ""
 
 
+def plate_for_name(name):
+    """The plate already recorded under this slicer filename, if any.
+
+    The fallback when no hash matches. Verdicts written before hashing existed
+    carry none, and hashing those slices again would mean re-downloading them
+    from the printer — the waste this whole change exists to avoid. Matching the
+    filename reuses the plate instead, and the screen then writes the hash into
+    its verdict, so the index heals itself the first time each is re-screened.
+    """
+    _, plates, _, _ = parse_ledger()
+    for p in plates:
+        if name and p.get("Slicer file") == name:
+            return p.get("ID")
+    return None
+
+
 def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.03, sha256=""):
     """Keep the analysis of a print, not the print file.
 
@@ -1912,9 +1928,14 @@ def cmd_screen(source, plate_id=None, layer_height=0.03):
             alias = f' (recorded as "{seen_as}")' if seen_as and seen_as != name else ""
             print(f"same bytes as plate {plate_id}{alias} — archiving there")
         else:
-            plate_id = cmd_plate(source)
-            if not plate_id:
-                print("could not record a plate for this slice; screening without one")
+            plate_id = plate_for_name(name)
+            if plate_id:
+                print(f"plate {plate_id} already records this filename — archiving "
+                      "there and adding its hash")
+            else:
+                plate_id = cmd_plate(source)
+                if not plate_id:
+                    print("could not record a plate for this slice; screening without one")
 
     print("detecting issues (several minutes) ...")
     proc = subprocess.run([str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
