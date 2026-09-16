@@ -572,6 +572,14 @@ and Scylla (Huge) are both default size on purpose. That is why the Brastlewark
 Snarecrafter, a Small creature, was a reprint when it came out at default size,
 while Scylla at default size is not.
 
+**The rule cuts both ways, and the `32mm_` mesh is not always the safe choice.**
+P0093 Living Waterfall (Large, 50 mm) printed from its `32mm_` mesh and came out
+too large: that mesh is 57.15 mm tall against the standard mesh's 49.69 mm, a
+scaled-up 50 mm model. It is reprinting from the standard mesh (Logan,
+2026-09-15). So on a Large or Huge model, reaching for `32mm_` is the same
+mistake as slicing a Small one at default size — measure both meshes first,
+and keep to the family the creature size calls for.
+
 **All parts of one model must use the same mesh family.** The Horned Dragon's
 rocks and wings do not fit its reprinted body because the body came from the
 32 mm mesh and they did not — a 1.14x mismatch. Gutaki's earlier attempts
