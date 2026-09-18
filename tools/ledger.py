@@ -36,6 +36,10 @@ Usage: python3 tools/ledger.py <command> [args]
                                pass "-" to screen without recording anything
   inspected <plate> ["note"]   acknowledge a screen flag: record what you found
                                and drop the plate off the flagged list
+  solidify <file> [layer]      fill the enclosed voids in a slice with UVtools,
+                               reporting the cup and trap counts before and
+                               after — the fix for trapped resin, and the only
+                               one measured to work
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -1942,6 +1946,142 @@ def archive_forensics(plate_id, name, rows, props, preview_src, layer_height=0.0
     print(f"\narchived to forensics/{plate_id}/ ({size // 1024} KB)")
 
 
+# Solidify fills every enclosed void from this layer up. Below it sit the raft and
+# the support transition, whose cells are hollow on purpose; filling those would
+# weld the model to its raft.
+SOLIDIFY_LAYER_START = 300
+
+
+def uvtools_issues(local, timeout=3600):
+    """UVtools issue rows for a slice: (kind, layer, area, x, y), unsorted."""
+    import sliced, subprocess
+    proc = subprocess.run(
+        [str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
+        capture_output=True, text=True, timeout=timeout)
+    rows = []
+    for line in proc.stdout.splitlines():
+        m = ISSUE_LINE.match(line.strip())
+        if m:
+            kind, lay, area, x, y = m.groups()
+            rows.append((kind, int(lay.split("-")[0]), int(area), int(x), int(y)))
+    return rows
+
+
+def issue_tally(rows, props="", layer_height=0.03):
+    """The few numbers worth comparing before and after an operation.
+
+    Counts are the signal, volume is only for scale: two detection runs over one
+    unchanged file have reported 9.0 and 24.7 mm3 trapped above the raft while the
+    cup count moved by one (2026-09-18, the Horned Dragon body). Never conclude
+    anything from a single run's volume.
+    """
+    vox = voxel_mm3(props, layer_height)
+    islands = sorted([r for r in rows if r[0] == "Island"], key=lambda r: -r[2])
+    body = [r for r in islands if r[1] >= BASE_LAYERS]
+    cups = [r for r in rows if r[0] == "SuctionCup"]
+    above = [r for r in cups if r[1] > 0]
+    return {
+        "islands": len(islands),
+        "largest": f"{body[0][2]}px2@{body[0][1] * layer_height:.2f}mm" if body else "none",
+        "cups": len(cups),
+        "above": len(above),
+        "trapped": sum(r[2] * vox for r in above),
+        "traps": sum(1 for r in rows if r[0] == "ResinTrap"),
+    }
+
+
+def cmd_solidify(source, layer_start=SOLIDIFY_LAYER_START):
+    """Fill the enclosed voids in a slice with UVtools, and show that it worked.
+
+    The repeatable form of what cleared 223mm3 out of the Horned Dragon wings
+    (2026-09-16). Detection runs twice, before and after, because the fill is
+    invisible otherwise: `compare` diffs parameters only, and a file getting
+    smaller says nothing about which voids closed.
+
+    SatelLite's Cavity Detection tab is not a substitute. Measured 2026-09-18 on
+    two slices of the same body: it cleared two of six cups and left the main
+    6.61mm3 pocket exactly where it was, where this takes every cup to zero.
+    """
+    import sliced, subprocess, tempfile
+    if not sliced.uvtools_available():
+        print("needs UVtools in ./uvtools")
+        return
+    name = source.rsplit("/", 1)[-1]
+    local = Path(source)
+    tmp = None
+    if source.startswith("http") or not local.exists():
+        url = source if source.startswith("http") else PRINTER_URL + urllib.parse.quote(name)
+        tmp = tempfile.NamedTemporaryFile(suffix=Path(name).suffix, delete=False)
+        print(f"downloading {name} ...")
+        sliced.download(url, tmp.name)
+        local = Path(tmp.name)
+        out = Path.cwd() / f"{Path(name).stem}-uvtools-solidify{Path(name).suffix}"
+    else:
+        out = local.with_name(f"{local.stem}-uvtools-solidify{local.suffix}")
+    if out.exists():
+        print(f"{out} exists already — move it aside first")
+        return
+
+    try:
+        props = subprocess.run(
+            [str(sliced.UVTOOLS), "--no-progress", "print-properties", str(local),
+             "--partial-mode"], capture_output=True, text=True, timeout=600).stdout
+        print("detecting issues in the original (several minutes) ...")
+        before = uvtools_issues(local)
+        if not before:
+            print("no issues parsed — UVtools may have failed; check the file")
+            return
+
+        print(f"solidifying from layer {layer_start} ...")
+        subprocess.run(
+            [str(sliced.UVTOOLS), "--no-progress", "run", str(local), "Solidify",
+             "-p", f"LayerIndexStart={layer_start}", "-o", str(out)],
+            capture_output=True, text=True, timeout=3600)
+        # UVtoolsCmd exits 1 even when it worked, so judge it by the file.
+        if not out.exists() or out.stat().st_size < (1 << 20):
+            print("solidify produced no file — check UVtools")
+            return
+
+        print("detecting issues in the result (several minutes) ...")
+        after = uvtools_issues(out)
+    finally:
+        if tmp:
+            Path(tmp.name).unlink(missing_ok=True)
+
+    b = issue_tally(before, props)
+    a = issue_tally(after, props)
+    print(f"\nwrote {out}  ({out.stat().st_size:,} bytes)\n")
+    head = f"{'':8s}{'islands':>9s}{'cups':>7s}{'above raft':>12s}{'trapped':>11s}{'traps':>8s}"
+    print(head)
+    for label, t in (("before", b), ("after", a)):
+        print(f"{label:8s}{t['islands']:>9,}{t['cups']:>7,}{t['above']:>12,}"
+              f"{t['trapped']:>9.1f}mm3{t['traps']:>8,}")
+    print(f"\nlargest island above the raft: {b['largest']} -> {a['largest']}")
+
+    if a["above"] == 0:
+        print("every trapped pocket above the raft is closed.")
+    else:
+        print(f"{a['above']} pocket(s) still trapped above the raft — Solidify fills "
+              "enclosed voids, so\n  what is left is open to the outside somewhere; "
+              "look at it in the slicer.")
+    if b["largest"] != a["largest"]:
+        print("NOTE: the largest island moved. Solidify should touch interiors only, "
+              "so\n  compare the island lists before trusting this file.")
+
+    # The island line is the evidence that only interiors were filled, so it is
+    # worth phrasing for someone reading the plate notes a month later.
+    island_note = (f"largest island unchanged at {a['largest']}" if b["largest"] == a["largest"]
+                   else f"largest island {b['largest']} -> {a['largest']}")
+    print("\nfor the plate notes:")
+    print(f"  UVtools Solidify from layer {layer_start}: cups {b['cups']} -> {a['cups']}, "
+          f"resin traps {b['traps']} -> {a['traps']}, islands {b['islands']} -> "
+          f"{a['islands']}, {island_note}")
+    print("\nUVtools' save rewrites LiftHeight and RetractHeight from 0 to 0.05 and it "
+          "cannot be\n  undone; measured harmless on P2609-24. Send the file by hand, "
+          "then record it:")
+    print(f'  python3 tools/ledger.py screen "{out.name}"')
+
+
 def cmd_screen(source, plate_id=None, layer_height=0.03):
     """Run UVtools island detection on a sliced file and give a verdict.
 
@@ -1983,8 +2123,7 @@ def cmd_screen(source, plate_id=None, layer_height=0.03):
                     print("could not record a plate for this slice; screening without one")
 
     print("detecting issues (several minutes) ...")
-    proc = subprocess.run([str(sliced.UVTOOLS), "--no-progress", "print-issues", str(local)],
-                          capture_output=True, text=True, timeout=3600)
+    rows = uvtools_issues(local)
     props = ""
     preview_tmp = None
     if plate_id:
@@ -2001,12 +2140,6 @@ def cmd_screen(source, plate_id=None, layer_height=0.03):
                 sliced.uvtools_thumbnail(str(local), preview_tmp)
         except Exception:
             preview_tmp = None
-    rows = []
-    for line in proc.stdout.splitlines():
-        m = ISSUE_LINE.match(line.strip())
-        if m:
-            kind, lay, area, x, y = m.groups()
-            rows.append((kind, int(lay.split("-")[0]), int(area), int(x), int(y)))
     if plate_id and rows:
         archive_forensics(plate_id, name, rows, props, preview_tmp, layer_height, digest)
     if tmp:
@@ -2089,6 +2222,12 @@ if __name__ == "__main__":
             print('usage: ledger.py screen <file|printer-filename> [plate-id|-]')
             sys.exit(2)
         cmd_screen(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    elif cmd == "solidify":
+        if len(sys.argv) < 3:
+            print("usage: ledger.py solidify <file|printer-filename> [layer-index-start]")
+            sys.exit(2)
+        cmd_solidify(sys.argv[2],
+                     int(sys.argv[3]) if len(sys.argv) > 3 else SOLIDIFY_LAYER_START)
     elif cmd == "inspected":
         if len(sys.argv) < 3:
             print('usage: ledger.py inspected <plate-id> ["what you found"]')

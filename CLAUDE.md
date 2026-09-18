@@ -831,6 +831,25 @@ scripted. Parameter names come from `OperationSolidify.cs`:
 `LayerIndexStart` skips the raft and support transition, where filling cells
 would be wrong.
 
+**Use the wrapper rather than that line** (2026-09-18):
+
+    python3 tools/ledger.py solidify "<file|printer-filename>" [layer-index-start]
+
+It detects issues before, solidifies from layer 300, detects again, and prints
+the counts side by side with a line ready to paste into the plate notes. Both
+detection passes are the point: the fill is invisible otherwise, since `compare`
+diffs parameters only and a file shrinking says nothing about which voids closed
+— which is exactly how Cavity Detection looked convincing for an afternoon. It
+writes `<name>-uvtools-solidify.goo` beside the input, never overwrites, and
+judges the run by the file because the CLI exits 1 on success. It checks two
+things automatically: that no pocket is still trapped above the raft, and that
+the largest island did not move, which is the evidence only interiors were
+filled.
+
+Verified on the Horned Dragon body (2026-09-18): cups 6 -> 0, resin traps
+1,599 -> 78, islands 899 -> 853, largest island unchanged at 1135px2/74.49mm, and
+the output hashes identical to the same operation run by hand.
+
 **SatelLite does the same fill in the slicer**, which skips the export, the
 UVtools re-save and the hand-upload of a separate file (Logan, 2026-09-18). In
 the slice sidebar:
