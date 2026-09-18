@@ -302,8 +302,15 @@ offset 80, then `<12fH` per triangle with the vertices in floats 3-11.
 ### Additional prints vs reprints
 
 `Kind` distinguishes them. Blank is the normal print of a model; **`extra`**
-marks an additional print kept *alongside* an existing good one — the 50 mm
-Talmandor and Living Waterfall, scaled up in Chitubox for use as monsters.
+marks an additional print kept *alongside* an existing good one.
+
+**There are no `extra` rows at present (2026-09-18).** The three there were — the
+50 mm Talmandor and Living Waterfall, scaled up in Chitubox for use as monsters —
+are gone, because the prints they were to sit beside turned out to be the failure
+they were imitating. Both models are Large, both were printed from a `32mm_` mesh
+that is a scaled-up 50 mm model, and both came out oversized and were reprinted
+from the standard mesh. An extra needs a good print to be additional *to*, and
+the oversized print was already the larger copy.
 
 **An extra is never a reprint.** A reprint says the previous print was wrong;
 an extra says nothing about it. Marking a wanted second copy as `reprint` both
@@ -947,7 +954,19 @@ name, because some directories are misnamed (April's
 A model with a single 32 mm mesh gets the part name `main`.
 
 The extras-sale packs (`Paizo_*`, `PQ*`) ship pre-supported at one scale with no
-`32mm_` prefix, and are handled by a separate branch in `scan_disk`.
+`32mm_` prefix, and are handled by a separate branch in `scan_disk`. That branch
+takes every non-base STL in the directory as a separate mini, so **anything you
+save into a model directory becomes a part.** Meshes we export ourselves are
+therefore skipped by name: `OUR_EXPORT` in `tools/ledger.py` drops anything
+matching `<n>mm-` — the hyphen is the tell, since every vendor mesh uses
+`32mm_` with an underscore, and the extras re-exported from Lychee at 114% are
+saved as `32mm-<name>.stl`.
+
+Without that, `scan` was neither idempotent nor safe: on 2026-09-18 it added 19
+rows, one per export, including an elk row named after a stray Augustana export
+sitting in the elk directory. It also shifts the labels of the *real* parts,
+since part names come from comparing sibling files to each other. Keep new
+working files out of the model directories, or named so this rule catches them.
 
 ## Editing the dashboard generator
 

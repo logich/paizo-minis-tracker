@@ -135,6 +135,17 @@ STL_32MM = re.compile(r"^32mm_(?P<core>.+?)_STL(?P<tag>[ _][^.]*)?\.stl$")
 # Supported meshes ship as _SUP, or occasionally _PRE (P0094 Athamaru A).
 SUP_32MM = re.compile(r"^32mm_(?P<core>.+?)_(SUP|PRE)(?P<tag>[ _][^.]*)?\.stl$")
 STL_PLAIN = re.compile(r"^(?P<core>.+?)_STL(?P<tag>[ _][^.]*)?\.stl$")
+# Meshes we exported ourselves rather than ones the vendor shipped: the extras
+# packs re-exported from Lychee at 114% are saved as "32mm-<name>.stl", with a
+# HYPHEN, where every vendor mesh uses "32mm_". They are working files on the way
+# to a slicer, not parts of a model.
+#
+# Scanning them as parts does two kinds of damage, both seen on 2026-09-18: it
+# invents rows - 19 of them, one per export, including an elk row named after a
+# stray Augustana export sitting in that directory - and it shifts the labels of
+# the real parts, because part names come from comparing sibling files to each
+# other. BASE_STL already excludes "<n>mm-resized" files on the same principle.
+OUR_EXPORT = re.compile(r"^\d+mm-")
 
 
 # --------------------------------------------------------------------------
@@ -225,6 +236,8 @@ def scan_disk(ref):
         rel = path.relative_to(ROOT)
         if rel.parts[0] in SKIP_DIRS:
             continue
+        if OUR_EXPORT.match(rel.name):
+            continue          # our own export, not a mesh the vendor shipped
         stl_files.append((rel, path))
 
     # Group every STL by its containing directory so we can decide per-model

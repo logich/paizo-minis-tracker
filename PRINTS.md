@@ -96,7 +96,6 @@ Regenerate the dashboard after any change:
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Body | 32mm |  | skipped |  |  | printed as the combined Full instead |
 | P0092_Flotsam_Terror_S2P2 | Flotsam Terror | 25mm | Full | 32mm |  | printed |  | pass |  |
 | P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 32mm |  | cleaned | P2609-23 |  | Printed from the 32mm mesh, which for this model is a scaled-up 50mm and comes out too large (Logan, 2026-09-15). Reprinting from the standard true-scale mesh (49.69mm tall), which is the right family for a Large creature. Sliced together on 32mm-Paizo_PFQ_Signifer_Corps_A_1_202609152022.goo (the identical slice, re-saved at 08:30 on 2026-09-16, went to the printer as P2609-23 and is printing): 1697 layers = 50.91mm. Screened before printing: 348 islands, none over 1000px2 (largest 401px2 at 17.40mm); largest suction cups 9.3mm3 from 41.04mm, 5.5mm3 from 14.01mm, 4.6mm3 from 37.98mm. Printed and cleaned successfully (Logan, 2026-09-18); not yet with Brian |
-| P0093_Living_Waterfall_S2P2 | Living Waterfall | 50mm | main | 50mm | extra | todo |  |  | scaled up in Chitubox for use as a monster; kept alongside the 32mm print |
 
 ## 202608 August extras sale
 
