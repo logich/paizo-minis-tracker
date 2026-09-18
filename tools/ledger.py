@@ -1665,11 +1665,22 @@ def cmd_merge_reference(path=None):
     print("now run: python3 tools/ledger.py scan && python3 tools/ledger.py build")
 
 
-# Thresholds from the Scylla failure (P2609-12): the two islands that failed
-# were 8520 and 1196 px2, while hundreds under ~300 px2 printed fine. Island
-# AREA predicts failure; island count does not.
-ISLAND_FAIL = 1000
-ISLAND_WATCH = 300
+# Island AREA predicts failure; island count does not. The sizes below are the
+# 2026-09-18 revision, measured across every archived plate above BASE_LAYERS.
+#
+# The first pair (1000/300) came from the Lychee-supported Scylla failure
+# (P2609-12), whose two defects sat on islands of 8520 and 1196 px2. It does not
+# hold on SatelLite EVO supports: four consecutive FIX verdicts printed clean -
+# 2326 px2 on P2609-16, 1681 and 1215 px2 on P2609-20, 1132 px2 on P2609-24,
+# 1033 px2 on P2609-25. A bar that is wrong four times running is worse than no
+# bar, because it teaches everyone to skim past the banner.
+#
+# So FAIL now sits just above 2326 px2, the largest island on any print that came
+# out clean, and still catches the 8520 px2 Scylla island and P2609-13's 11992.
+# Nothing between 1196 and 8520 px2 has ever been tied to a defect; the 1196 is
+# retired with the Lychee supports it came from.
+ISLAND_FAIL = 2500
+ISLAND_WATCH = 1000
 # A suction cup this big above the raft goes on the action list. Grounded in the
 # record: P2609-15 tore off its supports between cups of 18.9 and 17.2mm3, while
 # P2609-22's 8.8mm3 and P2609-23's 9.3mm3 printed and cleaned fine. Raft cells at

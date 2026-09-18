@@ -666,23 +666,39 @@ reports cup volume, so the check is cheap.
 
     python3 tools/ledger.py screen "<sliced file>"
 
-Downloads the file, runs UVtools island detection and gives a verdict against
-thresholds taken from the Scylla failure: the two islands that failed were
-**8520 and 1196 px2**, while hundreds under ~300 px2 printed fine. So islands at
-or above **1000 px2** predict a defect at that height; 300-1000 is worth a look;
-below that, nothing.
+Downloads the file, runs UVtools island detection and gives a verdict. An island
+at or above **2500 px2** above the raft predicts a defect at that height;
+**1000-2500 px2** is worth a look; below that, nothing.
 
-**That threshold was set on vendor Lychee supports, and it does not hold on
-SatelLite EVO supports.** Two EVO prints have come out clean through islands
-the screen marked FIX:
+**Those numbers were raised on 2026-09-18, and the old pair is the reason.** The
+first thresholds — 1000 px2 to fix, 300 to look — came from the Lychee-supported
+Scylla failure (P2609-12), whose two defects sat on islands of 8520 and 1196 px2.
+They do not hold on SatelLite EVO supports: four consecutive FIX verdicts printed
+clean.
 
-    P2609-16  Gutaki Body       2326 px2 at 22.59 mm              printed successfully
-    P2609-20  Scylla Tentacles  1681 + 1215 px2 at ~61 mm         clean at 61 mm, EVO_60-100mm
+    P2609-16  Gutaki Body          2326 px2 at 22.59 mm       printed successfully
+    P2609-20  Scylla Tentacles     1681 + 1215 px2 at ~61 mm  clean at 61 mm, EVO_60-100mm
+    P2609-24  Horned Dragon Body   1132 px2 at 74.49 mm       printed and cleaned, no defect
+    P2609-25  Horned Dragon Wings  1033 px2 at 68.67 mm       printed and cleaned, no defect
 
-So on an EVO-supported slice, read FIX as "look at that height when it comes
-off", not as "re-support before printing". Screening is still worth doing, and
-the verdict text in `cmd_screen` is unchanged. No EVO defect has been recorded
-yet, so there is no EVO threshold to replace it with.
+A bar that is wrong four times running is worse than no bar, because it teaches
+everyone to skim past the banner — the exact failure the flagged-plate queue
+exists to prevent. So `ISLAND_FAIL` now sits just above **2326 px2**, the largest
+island on any print that came out clean, and still catches the 8520 px2 Scylla
+island and P2609-13's 11992. Nothing between 1196 and 8520 px2 has ever been tied
+to a defect, and the 1196 is retired along with the Lychee supports it came from.
+
+**No EVO defect has been recorded at any island size**, so the new bar is
+"outside everything that has worked", not a measured failure point. On an
+EVO-supported slice, read a flag as "look at that height when it comes off"
+rather than "re-support before printing".
+
+**Moving a threshold does not re-level the verdicts already archived** — each
+keeps the level it was written with. Re-level them from every plate's
+`issues.txt`, rewriting only `level`, `islands_fix` and `islands_watch` and
+preserving the `screened` date, or the queue goes on showing flags the current
+bar would never have raised. Done on 2026-09-18: seven verdicts changed level,
+and P2609-23 left the queue on a largest island of 401 px2.
 
 ### screen records its own plate, matched by content hash
 
@@ -736,9 +752,9 @@ finishing is not evidence that anyone looked at the flagged height.
 
 What raises a flag:
 
-- **fix** — an island at or above `ISLAND_FAIL` (1000 px2) above the raft, or a
+- **fix** — an island at or above `ISLAND_FAIL` (2500 px2) above the raft, or a
   suction cup of `CUP_FLAG_MM3` (15 mm3) or more above layer 0.
-- **look** — an island between `ISLAND_WATCH` (300) and 1000 px2.
+- **look** — an island between `ISLAND_WATCH` (1000) and 2500 px2.
 - **clear** — anything less. A clear verdict never enters the list.
 
 The cup threshold comes from the record: P2609-15 tore off its supports at a
@@ -837,8 +853,9 @@ the plate, so it only pays on the large ones.
 
 1. **Screen 50/75 mm models after slicing, before printing.** It named both
    Scylla defect heights in advance on Lychee supports. On SatelLite EVO
-   supports its FIX verdicts have twice printed clean, so there it points at
-   heights to inspect rather than predicting failure.
+   supports its FIX verdicts printed clean four times running, which is what
+   moved the island thresholds up on 2026-09-18; there a flag points at a height
+   to inspect rather than predicting failure.
 2. **Support 50/75 mm models yourself; SatelLite is the current choice.**
    Vendor Lychee supports have failed on the Gutaki body and both arms, the
    Horned Dragon body and Scylla; manual Chitubox supports are what finally
