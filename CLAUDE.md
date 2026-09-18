@@ -820,6 +820,40 @@ scripted. Parameter names come from `OperationSolidify.cs`:
 `LayerIndexStart` skips the raft and support transition, where filling cells
 would be wrong.
 
+**SatelLite does the same fill in the slicer**, which skips the export, the
+UVtools re-save and the hand-upload of a separate file (Logan, 2026-09-18). In
+the slice sidebar:
+
+1. open the **Cavity Detection** tab
+2. **Start Detection**
+3. read the results — the entries carrying a volume measurement are the trapped
+   pockets, the same ones `screen` reports as suction cups
+4. set **Max Cavities** to **0**
+5. **Clear All Cavities**
+
+That solidifies the model. Slice as normal and send the file by hand.
+
+Logan's reading is that this drives the **UVtools build embedded in SatelLite's
+own app bundle** rather than a reimplementation. Unconfirmed, and the cheap check
+is on the output rather than the process: a file SatelLite wrote itself carries
+`LiftHeight` and the other motion values at **0**, where a UVtools re-save forces
+them to 0.05 (below). So read the slice back with `plate` or `print-properties` —
+0 means SatelLite wrote it and the re-save trap does not apply; 0.05 means
+something handed the file back through UVtools. The two archived slices show the
+test working: P2609-25, solidified through the CLI, reads `LiftHeight: 0.05`,
+while P2609-26, written by SatelLite, reads `LiftHeight: 0`. It says who wrote
+the file, not whether any cavity was cleared.
+
+This sits oddly beside the warning in *UVtools* that the copy inside SatelLite's
+bundle is x86-64 and SIGBUSes. That warning is about **us** pointing our own
+commands at that binary; if the Cavity Detection route works, the same build
+evidently runs fine inside SatelLite's own process. The two are not in conflict,
+and neither licenses calling that binary directly: ours stays `uvtools-macos/`.
+
+Screen the result either way. Which program wrote the file says nothing about
+whether the fill did what you wanted, and no route has been through a print yet —
+every solidified plate on record (P2609-24, P2609-25) went through the CLI.
+
 **Two traps of its own.**
 
 - **It rewrites the motion values, and you cannot undo it.** Saving through
@@ -1258,7 +1292,10 @@ clone will not have one, and everything degrades to the `.goo`-only path
 without it.
 
 Don't point it at the UVtools bundled inside ELEGOO SatelLite: that one is
-x86-64 and crashes with SIGBUS when SatelLite runs it.
+x86-64 and crashes with SIGBUS when SatelLite runs it. That is about **our**
+commands reaching into that bundle. SatelLite's own Cavity Detection tab appears
+to drive that same embedded build in its own process and works — see *Solidify is
+the fix for resin traps, not drain holes*.
 
 Two quirks worth knowing:
 
