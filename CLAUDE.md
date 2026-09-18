@@ -786,12 +786,23 @@ P2609-16 — treat it as "worth a look", never as a prediction. Raw totals are
 useless without excluding the raft: P2609-17 reads 1,071 mm3 in total and
 0.0 mm3 above it.
 
-**Run-to-run variance is real but bounded.** On a model with one large
-interconnected cavity, the segmentation wobbles: the Horned Dragon wings gave
-23 vs 24 cups across runs, and one pocket read 21.7 mm3 in one run and 136.0 mm3
-in another. Totals held to ~1%, and a model with small isolated cavities
-(the body and rocks slice) reproduced exactly. So trust the total, and confirm
-any single-cup figure with a second run before acting on it.
+**Run-to-run variance is real, and the TOTAL is not safe either.** On a model
+with one large interconnected cavity the segmentation wobbles: the Horned Dragon
+wings gave 23 vs 24 cups across runs, and one pocket read 21.7 mm3 in one run and
+136.0 mm3 in another. A model with small isolated cavities (the body and rocks
+slice) reproduced exactly.
+
+It was recorded here that totals held to ~1%. **That is wrong**, and the 11:43
+Horned Dragon body refutes it: two runs of the identical file, no re-save between
+them, gave 6 cups / 9.0 mm3 and 5 cups / 24.7 mm3 above the raft. The same two
+runs on the SatelLite file gave 22.8 and 9.4 mm3 - the numbers crossing over each
+other, which is what showed the difference between the files to be noise rather
+than a result.
+
+So on an interconnected cavity, trust **counts**, not volumes: cup count and resin
+trap count reproduced to within a few percent across every pair of runs, while the
+volume totals moved by a factor of three. Confirm any volume with a second run
+before acting on it, and never compare two files on one run each.
 
 Verdicts were back-filled for every plate screened before this existed, and the
 ten whose outcome was already on record were closed with that outcome. Keep it
@@ -850,9 +861,30 @@ commands at that binary; if the Cavity Detection route works, the same build
 evidently runs fine inside SatelLite's own process. The two are not in conflict,
 and neither licenses calling that binary directly: ours stays `uvtools-macos/`.
 
+**Measured 2026-09-18, and the two routes are NOT equivalent.** Logan sliced the
+Horned Dragon body twice within two minutes - `..._202609181143.goo` raw and
+`..._202609181145-satellite-solidify.goo` through Cavity Detection - and the CLI
+Solidify was run over the raw one for comparison:
+
+    file                 islands   cups   resin traps   LiftHeight
+    raw 11:43                899      6          1600   0
+    cli Solidify             853      0            78   0.05
+    satellite 11:45          900      4          1523   0
+
+**The CLI clears the pockets; Cavity Detection does not.** SatelLite did something
+real - two of the six cups gone, ~80 traps gone, the file 322 KB smaller, and its
+own header volume up 14.9 mm3, which is resin being added - but the main pocket
+survives it: the 6.61 mm3 cup at 43.80 mm sits at the same X=3901 Y=1603 in both
+the raw and the "solidified" file, in both detection runs. The CLI removes every
+one of them and takes resin traps from 1600 to 78.
+
+So use **Cavity Detection to find cavities**, which is what its name says, and the
+CLI when the trapped resin has to actually go. The in-slicer route is not a
+substitute, and no plate has printed through it; both solidified plates on record
+(P2609-24, P2609-25) went through the CLI.
+
 Screen the result either way. Which program wrote the file says nothing about
-whether the fill did what you wanted, and no route has been through a print yet —
-every solidified plate on record (P2609-24, P2609-25) went through the CLI.
+whether the fill did what you wanted.
 
 **Two traps of its own.**
 
@@ -1299,8 +1331,12 @@ the fix for resin traps, not drain holes*.
 
 Two quirks worth knowing:
 
-- `UVtoolsCmd print-properties` **exits 1 even on success.** Judge it by whether
-  its output parses, never by the return code.
+- `UVtoolsCmd` **exits 1 even on success**, and not only for `print-properties`.
+  `run ... Solidify` does it too: on 2026-09-18 it opened the file, solidified
+  layers 300-2652 and saved a valid 132.9 MB output, then returned 1, and a script
+  that trusted the return code threw that good file away. Judge every subcommand
+  by its output - whether the text parses, whether the file arrived - never by the
+  return code.
 - Global flags such as `--no-progress` go *before* the subcommand; `--partial-mode`
   goes after the input file and makes loading nearly instant.
 
