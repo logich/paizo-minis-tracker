@@ -933,9 +933,25 @@ whether the fill did what you wanted.
   spuriously when several UVtools processes run at once — retry before
   believing it.
 
-**Which models are worth screening.** Every print failure so far has been on a
-**50 mm or 75 mm** model — Sarglagon, Gutaki, Scylla, and the Horned Dragon
-before them. None of the 73 models on a 25 mm base has failed a print. There are
+**A clear verdict is not a safe print.** P2609-27, a plate of ten bare 25 mm
+bases, failed at under 50% with the bases off their supports — and screened
+**clear**, with 471 islands whose largest is **4 px2**, three orders of magnitude
+under the bar, and no suction cups at all (2026-09-18). It is the first failure on
+record that screening is blind to, and the reason is structural: island detection
+measures unsupported new *area* and trapped resin. **It does not measure how
+strongly a support holds.** A part can be fully supported by contacts too weak to
+survive the peel, and nothing in the verdict will say so.
+
+The 471 tiny islands are not the tell either, though they look like one. They sit
+in a narrow band from 6.66 to 16.14 mm, but successful plates carry the same
+population — P2609-22 printed fine with 1,221 islands under 5 px2 and P2609-25
+with 406. All that is unusual about this plate is that *every* island is tiny,
+there being no real geometry on a plate of bare discs.
+
+**Which models are worth screening.** Every print failure on a *model* so far has
+been on a **50 mm or 75 mm** one — Sarglagon, Gutaki, Scylla, and the Horned
+Dragon before them. None of the 73 models on a 25 mm base has failed a print;
+P2609-27 was a plate of bases, not a model, and does not change that. There are
 21 on 50/75 mm; screen those, skip the rest.
 
 It costs a full download plus about five minutes, against four to eight hours on
