@@ -943,6 +943,16 @@ the plate, so it only pays on the large ones.
    Layer-0 raft cells have not predicted a failure (see *Support elevation*).
    A large cup mid-model may: P2609-15 tore off its supports at about the height
    of its two largest.
+5. **Clear trapped resin with the UVtools CLI Solidify** (Logan, 2026-09-18), not
+   with drain holes, not by reorienting, and not with SatelLite's Cavity Detection
+   tab - measured the same day, that tab leaves the main pocket behind. The CLI
+   takes every cup to zero without touching the outer contours, so the geometry
+   questions never have to be answered:
+
+       UVtoolsCmd run <file>.goo Solidify -p LayerIndexStart=300 -o <out>.goo
+
+   It exits 1 on success; judge it by the file. Then screen the output and send it
+   by hand. See *Solidify is the fix for resin traps, not drain holes*.
 
 ### Vendor supports are Lychee, ours are Chitubox
 
