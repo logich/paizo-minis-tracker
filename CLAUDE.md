@@ -497,6 +497,36 @@ Scylla failures are explained by island size, i.e. support adequacy, on both
 axes. Treat the orientation guidance above as a way to avoid *future* trouble,
 not as an account of past trouble.
 
+### Printing bare bases: angle them steeply or not at all
+
+Four plates of bare 25 mm pathfinder bases, 2026-09-18 to 20, and they are the
+flat-face problem in its purest form — a base is nothing but a wide flat disc:
+
+    plate      what                 layers/height      outcome
+    P2609-27   ten, angled          954 = 28.62 mm     came off the supports under 50%
+    P2609-28   one, angled          939 = 28.17 mm     completed, but the base WARPED
+    P2609-31   one, near upright    986 = 29.58 mm     clean; the raft shifted
+    P2609-32   twenty-four          986 = 29.58 mm     the P2609-31 setup, printing
+
+**Logan's reading (2026-09-20): angling a base to print always warps it.** Three
+attempts back it: both angled plates failed, one by detaching and one by warping,
+while the near-upright one came out clean. The heights are the only measure of
+angle available here, and they say the clean one stands about 1.4 mm taller.
+
+The mechanism is the one already written down under *The tilt geometry*: peel
+force at any instant follows how much cross-section the peel line is crossing. A
+disc at a shallow angle presents a wide strip every layer and takes the full load
+each time; stood near upright it presents a narrow one. Warping is what that
+repeated load does to a thin flat part when it does not tear the supports off
+first.
+
+Two things this does **not** settle. The raft shift on P2609-31 is a different
+failure — the raft moving is adhesion or a mechanical slip, not support adequacy —
+and a plate-wide raft under 24 bases is the obvious place for it to matter.
+And printing bases **flat on the build plate**, with no supports and no angle at
+all, has never been tried here: it removes the peel problem by removing the
+overhang, at the cost of the underside finish and of getting them off the plate.
+
 ### Choosing an orientation
 
 **The mechanism.** A large island comes from a surface that is nearly parallel
