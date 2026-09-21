@@ -527,6 +527,66 @@ And printing bases **flat on the build plate**, with no supports and no angle at
 all, has never been tried here: it removes the peel problem by removing the
 overhang, at the cost of the underside finish and of getting them off the plate.
 
+### Flat on the plate, and the elephant foot that comes with it
+
+Printing bases flat on the build plate — no angle, no supports, no raft — removes
+the peel problem by removing the overhang. It is also **much** faster: the 25 mm
+base is 3.83 mm thick, so it slices to **128 layers**, about 20 minutes, against
+986 layers and 2.3 hours stood up. Logan has printed 50 mm bases this way
+successfully. The costs are that they are harder to part from the plate than a
+supported model, and that the bottom layers' exposure flares the rim.
+
+**The bottom-exposure sweep (Logan, 2026-09-21).** One base centred on the plate,
+one print per exposure, measured across the bottom rim after cleaning and **before
+curing** — keep every comparison in the same state, since curing shrinks:
+
+    bottom exposure   bottom diameter        object is 24.584 mm
+    27 s              25.32 mm
+    18 s              25.20 mm
+    12 s              25.12 mm
+    8 s               pending, predicted 25.07
+
+The three points are **exactly collinear**, zero residuals on a least-squares fit:
+
+    diameter (mm) = 24.96 + 0.01333 x bottom exposure (s)
+
+So **0.0133 mm of diameter per second**, 6.7 um of radius, about 0.37 px at this
+printer's 18 um pixels.
+
+**Exposure cannot fix it.** The line extrapolates to 24.96 mm at zero bottom
+exposure — still **0.376 mm over the model** — so the target needs -28 s. Between
+27 s and 12 s, a 56% cut in exposure bought back 0.2 mm of a 0.74 mm error. The
+rest is a constant offset present in every layer: normal-exposure bleed and green
+resin, not elephant foot.
+
+Two measurements keep this honest. The slice itself is dimensionally true — layer
+0 is **1366 px = 24.588 mm** against the object's 24.584 — so everything above is
+print physics, not geometry. And the disc's widest sliced layer *is* layer 0;
+above the bottom it settles to 1362 px = 24.52 mm, so **0.07 mm of the edge you
+can feel is the model's own bevel** and chasing the rim to the mid-height
+diameter would overshoot.
+
+### deburr: taking the foot off geometrically
+
+    python3 tools/ledger.py deburr "<file|printer-filename>" [iterations]
+
+Erodes the bottom layers instead of fighting the exposure, which costs adhesion
+only the sliver of contact area it removes. **One iteration is one pixel of
+radius: 0.018 mm, or 0.036 mm on the diameter**, measured 2026-09-21 — a 1366 px
+disc came back 1356 px after five.
+
+The erode is tapered rather than a step: it reads the file's own bottom and
+transition layer counts, then runs one pass per iteration over nested ranges,
+each reaching less far up, because the flare decays as exposure ramps from bottom
+to normal. On the 25 mm bases that is 5 + 7 = 12 layers, and four iterations ran
+over layers 0-11, 0-9, 0-6 and 0-4. It reports layer 0's width in pixels before
+and after and warns if the diameter did not move by twice the iteration count.
+
+**Sizing it:** `iterations = (bottom diameter - mid-height diameter) / 0.036`,
+both measured in the same cured-or-green state. Round down — a pixel is 18 um,
+below what a fingertip finds. `DEBURR_DEFAULT_ITERATIONS` is 4, which is the
+12 s flare from the sweep above; it is a default, not a constant of nature.
+
 ### Choosing an orientation
 
 **The mechanism.** A large island comes from a surface that is nearly parallel

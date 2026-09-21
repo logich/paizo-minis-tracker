@@ -40,6 +40,9 @@ Usage: python3 tools/ledger.py <command> [args]
                                reporting the cup and trap counts before and
                                after — the fix for trapped resin, and the only
                                one measured to work
+  deburr <file> [iterations]   erode the bottom layers of a slice to take the
+                               elephant foot off a part printed flat on the
+                               plate; one iteration is a pixel of radius
   runlog                       settings the printer actually ran with, from its
                                own log — the only place a setting changed by
                                hand on the machine is recorded
@@ -2082,6 +2085,144 @@ def cmd_solidify(source, layer_start=SOLIDIFY_LAYER_START):
     print(f'  python3 tools/ledger.py screen "{out.name}"')
 
 
+# One erode iteration takes one pixel off the radius. Measured on this printer
+# (2026-09-21): a 1366px disc came back 1356px after Iterations=5. At 18um pixels
+# that is 0.018mm of radius, 0.036mm of diameter, per iteration.
+DEBURR_MM_PER_ITERATION = 0.036
+# The exposure-driven flare on the 25mm bases at 12s bottom exposure is about
+# 0.16mm of diameter, from the sweep's 0.0133mm/s slope and its 24.96mm floor.
+# That is where this default comes from; set it from your own measurement of
+# (bottom diameter - mid-height diameter) whenever you have one.
+DEBURR_DEFAULT_ITERATIONS = 4
+
+
+def pixel_pitch_mm(props):
+    """XY pixel pitch, from the plate's own display size and resolution."""
+    def num(key):
+        m = re.search(rf"^{key}:\s*([\d.]+)", props or "", re.MULTILINE)
+        return float(m.group(1)) if m else None
+    w, rx = num("DisplayWidth"), num("ResolutionX")
+    return (w / rx) if w and rx else 0.018
+
+
+def uvtools_properties(local, partial=True):
+    """UVtools' property dump for a slice. Full load when the layers matter."""
+    import sliced, subprocess
+    args = [str(sliced.UVTOOLS), "--no-progress", "print-properties", str(local)]
+    if partial:
+        args.append("--partial-mode")
+    # print-properties exits 1 even on success; judge it by whether it parses.
+    return subprocess.run(args, capture_output=True, text=True, timeout=1800).stdout
+
+
+def first_layer_width(props):
+    """Width in pixels of layer 0's bounding box: the print's footprint.
+
+    Zero under --partial-mode, where no layer is decoded, so pass a full load.
+    """
+    m = re.search(r"^FirstLayer:.*?BoundingRectangle: \{X=\d+,Y=\d+,"
+                  r"Width=(\d+),Height=(\d+)\}", props or "", re.MULTILINE)
+    return (int(m.group(1)), int(m.group(2))) if m else (0, 0)
+
+
+def cmd_deburr(source, iterations=DEBURR_DEFAULT_ITERATIONS):
+    """Erode the bottom layers of a slice to remove the elephant foot.
+
+    Bottom layers are exposed nearly ten times as long as the rest so the print
+    sticks to the plate, and that light bleeds sideways: on the 25mm bases the
+    bottom rim came out 0.74mm over the model at 27s and still 0.54mm over at
+    12s. Exposure alone cannot fix it - the sweep extrapolates to 0.38mm of
+    diameter at zero bottom exposure - so this takes the flare off geometrically
+    instead, where it costs adhesion only the sliver of contact area it removes.
+
+    The erode is tapered, heaviest at the plate and fading out by the end of the
+    transition layers, because that is how the flare itself decays as exposure
+    ramps from bottom to normal. Each pass takes one pixel off the radius.
+    """
+    import sliced, subprocess, tempfile
+    if not sliced.uvtools_available():
+        print("needs UVtools in ./uvtools")
+        return
+    if iterations < 1:
+        print("nothing to do: iterations must be at least 1")
+        return
+    name = source.rsplit("/", 1)[-1]
+    local = Path(source)
+    tmp = None
+    if source.startswith("http") or not local.exists():
+        url = source if source.startswith("http") else PRINTER_URL + urllib.parse.quote(name)
+        tmp = tempfile.NamedTemporaryFile(suffix=Path(name).suffix, delete=False)
+        print(f"downloading {name} ...")
+        sliced.download(url, tmp.name)
+        local = Path(tmp.name)
+        out = Path.cwd() / f"{Path(name).stem}-deburr{iterations}{Path(name).suffix}"
+    else:
+        out = local.with_name(f"{local.stem}-deburr{iterations}{local.suffix}")
+    if out.exists():
+        print(f"{out} exists already — move it aside first")
+        return
+
+    stage = []
+    try:
+        props = uvtools_properties(local, partial=False)
+        pitch = pixel_pitch_mm(props)
+        before_w, _ = first_layer_width(props)
+        m = re.search(r"^TransitionLayerCount:\s*(\d+)", props, re.MULTILINE)
+        transition = int(m.group(1)) if m else 0
+        info = sliced.read_goo(str(local)) if name.lower().endswith(".goo") else {}
+        bottom = int(info.get("bottom_layers") or 5)
+        band = bottom + transition
+        if iterations > band:
+            print(f"{iterations} iterations over only {band} affected layers — "
+                  "that erodes the model, not its foot")
+            return
+        print(f"{bottom} bottom layers + {transition} transition = {band} layers carry "
+              f"the flare\nlayer 0 is {before_w} px = {before_w * pitch:.3f} mm across")
+
+        # Nested ranges: every pass starts at the plate and each one reaches
+        # less far up, so the erode is deepest where the flare is.
+        ends = [max(bottom - 1, band - 1 - round(i * (band - bottom) / max(iterations - 1, 1)))
+                for i in range(iterations)]
+        cur = local
+        for i, end in enumerate(ends, 1):
+            # Staged beside the output, not in /tmp: the repository lives on
+            # another filesystem, and the final rename cannot cross devices.
+            step = out.with_name(f".deburr-{i}-{out.name}")
+            subprocess.run(
+                [str(sliced.UVTOOLS), "--no-progress", "run", str(cur), "Morph",
+                 "-p", "MorphOperation=Erode", "-p", "Iterations=1",
+                 "-p", "LayerIndexStart=0", "-p", f"LayerIndexEnd={end}",
+                 "-o", str(step)], capture_output=True, text=True, timeout=3600)
+            # `run` exits 1 even when it worked, so judge it by the file.
+            if not step.exists():
+                print(f"pass {i} produced no file — check UVtools")
+                return
+            print(f"  pass {i}: 1 px off layers 0-{end}")
+            stage.append(step)
+            cur = step
+        cur.replace(out)
+    finally:
+        if tmp:
+            Path(tmp.name).unlink(missing_ok=True)
+        for s in stage:
+            Path(s).unlink(missing_ok=True)
+
+    after_w, _ = first_layer_width(uvtools_properties(out, partial=False))
+    off = (before_w - after_w) * pitch
+    print(f"\nwrote {out}  ({out.stat().st_size:,} bytes)")
+    print(f"layer 0: {before_w} px -> {after_w} px, "
+          f"{before_w * pitch:.3f} mm -> {after_w * pitch:.3f} mm "
+          f"({off:.3f} mm off the diameter, {off / 2:.3f} off the radius)")
+    if before_w - after_w != iterations * 2:
+        print(f"NOTE: expected {iterations * 2} px off the diameter, got "
+              f"{before_w - after_w}. Check the layer range covered the foot.")
+    print("\nfor the plate notes:")
+    print(f"  deburred: {iterations} tapered erode passes over layers 0-{max(ends)}, "
+          f"layer 0 {before_w} -> {after_w} px ({off:.3f} mm off the diameter)")
+    print("\nUVtools' save rewrites LiftHeight and RetractHeight from 0 to 0.05; "
+          "measured\n  harmless on P2609-24. Send the file by hand, then record it.")
+
+
 def cmd_screen(source, plate_id=None, layer_height=0.03):
     """Run UVtools island detection on a sliced file and give a verdict.
 
@@ -2222,6 +2363,12 @@ if __name__ == "__main__":
             print('usage: ledger.py screen <file|printer-filename> [plate-id|-]')
             sys.exit(2)
         cmd_screen(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
+    elif cmd == "deburr":
+        if len(sys.argv) < 3:
+            print("usage: ledger.py deburr <file|printer-filename> [iterations]")
+            sys.exit(2)
+        cmd_deburr(sys.argv[2],
+                   int(sys.argv[3]) if len(sys.argv) > 3 else DEBURR_DEFAULT_ITERATIONS)
     elif cmd == "solidify":
         if len(sys.argv) < 3:
             print("usage: ledger.py solidify <file|printer-filename> [layer-index-start]")
