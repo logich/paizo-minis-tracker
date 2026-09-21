@@ -544,7 +544,7 @@ curing** — keep every comparison in the same state, since curing shrinks:
     27 s              25.32 mm
     18 s              25.20 mm
     12 s              25.12 mm
-    8 s               pending, predicted 25.07
+    8 s               FAILED TO ADHERE — no measurement
 
 The three points are **exactly collinear**, zero residuals on a least-squares fit:
 
@@ -552,6 +552,14 @@ The three points are **exactly collinear**, zero residuals on a least-squares fi
 
 So **0.0133 mm of diameter per second**, 6.7 um of radius, about 0.37 px at this
 printer's 18 um pixels.
+
+**The floor is between 8 and 12 seconds.** The 8 s print did not stick to the
+plate (Logan, 2026-09-21), which ends the sweep: 12 s works and 8 s does not, on
+a 475 mm2 contact patch. So the line stands on three points and its prediction of
+25.07 mm at 8 s can never be checked. If a lower exposure is ever wanted, the
+knob to try is **more bottom layers**, not less time — bottom layer count adds
+bonded layers without widening the flare, since the flare's width is set by the
+exposure and its height by the count.
 
 **Exposure cannot fix it.** The line extrapolates to 24.96 mm at zero bottom
 exposure — still **0.376 mm over the model** — so the target needs -28 s. Between
@@ -581,6 +589,9 @@ each reaching less far up, because the flare decays as exposure ramps from botto
 to normal. On the 25 mm bases that is 5 + 7 = 12 layers, and four iterations ran
 over layers 0-11, 0-9, 0-6 and 0-4. It reports layer 0's width in pixels before
 and after and warns if the diameter did not move by twice the iteration count.
+
+With 12 s established as the working exposure and 8 s off the table, the erode is
+not one option among several — it is the only lever left on the rim.
 
 **Sizing it:** `iterations = (bottom diameter - mid-height diameter) / 0.036`,
 both measured in the same cured-or-green state. Round down — a pixel is 18 um,
