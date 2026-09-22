@@ -593,6 +593,18 @@ and after and warns if the diameter did not move by twice the iteration count.
 With 12 s established as the working exposure and 8 s off the table, the erode is
 not one option among several — it is the only lever left on the rim.
 
+**Confirmed on a printed base (Logan, 2026-09-22).** The 12 s slice deburred at 4
+iterations measured **24.98 mm**, against 25.12 mm undeburred and a predicted
+24.976. So 0.036 mm per iteration holds on the plate, not just in the slice, and
+the erode transfers one-for-one into cured resin.
+
+**It was still not enough to lose the edge by feel**, which points at the model's
+own bevel rather than at the arithmetic: layer 0 is 1366 px where the disc settles
+to 1362 px above, so the rim has to come in about 0.07 mm *past* the foot before
+it stops standing proud of the part. That is 2 more iterations, 6 in all,
+predicted to land near 24.91 mm. Measuring the mid-height diameter replaces that
+inference with a number — it is the one reading the sweep never took.
+
 **Sizing it:** `iterations = (bottom diameter - mid-height diameter) / 0.036`,
 both measured in the same cured-or-green state. Round down — a pixel is 18 um,
 below what a fingertip finds. `DEBURR_DEFAULT_ITERATIONS` is 4, which is the
