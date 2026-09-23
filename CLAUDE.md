@@ -1181,6 +1181,40 @@ Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
 points at the machine rather than at either support style.
 
+**A second observation now points the same way, and it is a left-right one.**
+P2609-33 printed sixteen bases flat across the plate and **the failures were all
+on the left** (Logan, 2026-09-23). The tilt does not explain that: the vat hinges
+at the rear, so the peel line runs along X and arrives at both sides at once, and
+any peel-sequence effect should show front-to-rear. A left-right split points at
+something fixed and asymmetric across the plate.
+
+The leading candidate is **levelling** — a plate tilted about Y sits higher on the
+left, the first layer is squeezed thinner there, and it bonds weakly, which is a
+detachment failure of exactly this shape. LCD output falling off at that edge
+would do it too, though under-cure usually shows as weak or thin parts rather than
+clean detachment.
+
+**The control print settles what it is not.** P2609-34 ran the *same sixteen-base
+file* at 6 passes instead of 12 and produced all sixteen — same positions, same
+12 s, same cross-section, chamfer depth the only variable. So the count is not the
+problem and neither is the plate on its own:
+
+    P2609-34   16 bases, deburr 6   0.108 mm of radius   all 16
+    P2609-33   16 bases, deburr 12  0.216 mm of radius   left half lost
+
+**12 passes is too deep; 6 is proven.** The left-right asymmetry is real but
+*sub-threshold* — it only surfaces once the deeper chamfer has eaten the adhesion
+margin, so the left is where the plate runs out of margin first rather than where
+a failure starts on its own. That also explains why no single-base test ever saw
+it: they were all centred on the plate, the one spot that never samples the edges.
+
+The asymmetry is still worth chasing on its own account, since it is the second
+observation pointing at a plate region. A levelling check is the direct route. To
+separate machine from file, reprint flipped in X (`UVtoolsCmd run <file> Flip`, or
+`Rotate` 180) and see whether the failures stay on the left of the *plate* or
+follow the parts — but with 6 passes holding everywhere, this is now diagnosis
+rather than something blocking a print.
+
 ## File naming inside a model directory
 
 - `32mm_<code>_STL.stl` — the 32 mm mesh; **this is what gets printed**.
