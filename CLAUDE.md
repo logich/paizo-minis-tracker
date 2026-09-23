@@ -506,12 +506,19 @@ flat-face problem in its purest form — a base is nothing but a wide flat disc:
     P2609-27   ten, angled          954 = 28.62 mm     came off the supports under 50%
     P2609-28   one, angled          939 = 28.17 mm     completed, but the base WARPED
     P2609-31   one, near upright    986 = 29.58 mm     clean; the raft shifted
-    P2609-32   twenty-four          986 = 29.58 mm     the P2609-31 setup, printing
+    P2609-32   twenty-four upright  986 = 29.58 mm     ALL 24 worked, cleaned
 
 **Logan's reading (2026-09-20): angling a base to print always warps it.** Three
 attempts back it: both angled plates failed, one by detaching and one by warping,
 while the near-upright one came out clean. The heights are the only measure of
 angle available here, and they say the clean one stands about 1.4 mm taller.
+
+**Refined by P2609-32 (2026-09-23): all twenty-four came out and cleaned.** So it
+is the *shallow* angle that fails, and the near-upright setup scales from one base
+to a full plate. The raft shift P2609-31 showed did not repeat, which leaves it a
+one-off with no mechanism attached rather than a property of the setup. This is
+the route to reach for when a batch of bases is needed on supports; the flat-on-
+plate route below is the faster one and has its own trade.
 
 The mechanism is the one already written down under *The tilt geometry*: peel
 force at any instant follows how much cross-section the peel line is crossing. A
