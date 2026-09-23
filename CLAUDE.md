@@ -610,6 +610,31 @@ both measured in the same cured-or-green state. Round down — a pixel is 18 um,
 below what a fingertip finds. `DEBURR_DEFAULT_ITERATIONS` is 4, which is the
 12 s flare from the sweep above; it is a default, not a constant of nature.
 
+**The second use, and the better one: a release chamfer (Logan, 2026-09-23).**
+The deburred base was still very hard to get off the plate — a flat disc on a
+flat plate is a suction cup, and removing the elephant foot does nothing about
+that. Erode *past* flush and the bottom becomes a deliberate bevel a spatula can
+enter under, so the part comes off without the edge being levered or chipped.
+
+Logan is running **12 passes**, which on the 5 + 7 layer band produces this
+profile:
+
+    layers 0-4    12 px = 0.216 mm of radius
+    layer  5      11 px
+    layers 6-7     9 and 8 px
+    layers 8-10    6, 4 and 3 px
+    layer 11       1 px
+
+— a chamfer 0.216 mm deep over 0.36 mm of height. Layer 0 goes 1366 -> 1342 px,
+which is **3.5% less contact area**, nothing against adhesion already proven at
+12 s with 4 passes. The rim should measure about **24.69 mm**, so the disc's
+widest point now sits above the chamfer rather than at the plate.
+
+**12 is the current ceiling**, not a chosen number: `cmd_deburr` refuses when
+iterations exceed the bottom-plus-transition band, on the reasoning that eroding
+past the flare cuts the model rather than its foot. For a deeper chamfer that
+guard needs a band argument of its own.
+
 ### Choosing an orientation
 
 **The mechanism.** A large island comes from a surface that is nearly parallel
