@@ -737,7 +737,10 @@ rocks and wings do not fit its reprinted body because the body came from the
 32 mm mesh and they did not — measured on all four of its parts, its `32mm_`
 meshes are **1.150x** the standard ones, so a mixed set is out by 15%.
 
-That set is being reprinted **whole, at standard scale** (Logan, 2026-09-16):
+That set was reprinted **whole, at standard scale**, and **the four parts were
+checked for fit on 2026-09-24 and go together** — which closes the fault Brian
+reported in July and confirms that a whole-set reprint was the right call rather
+than an expensive over-reaction (Logan, 2026-09-16):
 P0059 is Large on a 50 mm base, and the 32 mm body at 84.64 mm tall outgrows
 it. Standard measures Body 73.60, Rocks 54.89, WingL 88.19, WingR 74.81 mm.
 Slice heights are the cheap check that the right family was used: the body and
