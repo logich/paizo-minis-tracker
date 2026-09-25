@@ -31,6 +31,16 @@ SHEET_ID = "136R7lDaQ5BK42xDqrfJR8dN6XYIWq2PyM0_lwJQH2jU"
 GIDS = {"welcome-packs": 0, "season-2": 1034510204, "season-1": 1967321255}
 PNUM = re.compile(r"P(\d{4})(?!\d)")
 FIELDS = ["code", "name", "base_mm", "size", "pack", "release", "file_name", "variants"]
+# Differences that are the SHEET's error, not a correction to models.tsv. Keyed by
+# code, each entry names the exact field and the sheet's wrong value, so only that
+# one difference is suppressed - if the sheet later changes anything else on the
+# same row, diff still reports it. Same idea as ACCEPTED in aon_sizes.py, narrower.
+ACCEPTED = {
+    "P0039": ("pack", "S1P1",
+              "sheet Release Code cell is a typo: the directory on disk is "
+              "2-P0039_Hellbreaker_S1P2 and the sheet's own Release column says "
+              "May 2026, which is S1P2 (browser agent, confirmed 2026-09-25)"),
+}
 
 
 def parse(text):
@@ -124,21 +134,27 @@ def cmd_diff(_):
     sheet = read_snapshot()
     if not sheet: sys.exit("no snapshot yet: run fetch or ingest first")
     models = load_models()
-    new, changed = [], []
+    new, changed, accepted = [], [], []
     for code, s in sorted(sheet.items()):
         m = models.get(code)
         if not m:
             new.append(s); continue
         d = {k: s[k] for k in ("name", "base_mm", "size", "pack") if s[k] and s[k] != m[k]}
+        exc = ACCEPTED.get(code)
+        if exc and d.get(exc[0]) == exc[1]:
+            accepted.append((s, exc)); d.pop(exc[0])
         if d: changed.append((s, d))
     numbered = [c for c in models if re.fullmatch(r"P\d{4}", c)]   # extras packs are keyed by directory name and are not on the sheet
     not_on_sheet = [c for c in numbered if c not in sheet]
     print(f"sheet {len(sheet)} models, models.tsv {len(numbered)} numbered")
     for s in new: print(f"  NEW on sheet, not in models.tsv: {s['code']} {s['name']} {s['base_mm']}mm {s['size']} {s['pack']}")
     for s, d in changed: print(f"  CHANGED {s['code']} {s['name']}: " + ", ".join(f"{k} {models[s['code']][k]!r} -> {s[k]!r}" for k in d))
+    for s, (field, value, why) in accepted:
+        print(f"  accepted {s['code']} {s['name']}: sheet {field} {value!r} is known wrong - {why}")
     if not_on_sheet: print(f"  in models.tsv but not on the sheet — names/codes not filled in there yet, or a tab missing from GIDS: {', '.join(not_on_sheet)}")
     if not new and not changed:
-        print("models.tsv matches the sheet; nothing to hand off"); return
+        tail = f" ({len(accepted)} accepted difference(s) not handed off)" if accepted else ""
+        print(f"models.tsv matches the sheet; nothing to hand off{tail}"); return
     target = INCOMING
     try:
         f = INCOMING.open("w", encoding="utf-8")
