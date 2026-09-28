@@ -1,0 +1,38 @@
+# Season 3 "Creep Season" as announced on the Paizo Printables Discord, captured 2026-09-25,
+# cross-checked the same day against Logan's Archives of Nethys export (lacunafex.sqlite).
+#
+# PRE-RELEASE AND NOT AUTHORITATIVE. The announcement states base sizes and size classes
+# directly, earlier than we normally get them - the Google base sheet still read 72 models
+# with no October rows when this was captured. Confirm against the sheet and the shipped
+# file names before writing models.tsv.
+#
+# No P-numbers exist yet, so none of this can be keyed for merge-reference; join on name
+# once the release lands. pack_guess is INFERRED from the prior seasons' pattern
+# (S2P1..S2PB, WP1/WP2/WP4) and is stated nowhere - confirm from the shipped directories.
+#
+# variants: the announcement's "(3 Miniatures)" annotation, equivalent to the sheet's
+# "(3 Models)" and to variant_of() in ledger.py - each is a separate mini needing a base.
+#
+# aon_size is the size class in Monster Core / NPC Core per the AoN export. It is only a
+# sanity check: what governs printing is the vendor's stated base, since the vendor may
+# deliberately sculpt onto a larger base. Where the two disagree, flag is set and the row
+# needs the sheet or the shipped base STL to settle it. Four rows disagree - see below.
+#
+# group	name	base_mm	size	variants	pack_guess	aon_size	flag
+group	name	base_mm	size	variants	pack_guess	aon_size	flag
+october-release	Dhampirs	25	Medium	3	S3P1	Medium	
+october-release	Coven Aspirant	25	Medium		S3P1	Medium	
+october-release	Scarecrow	25	Medium		S3P1	Medium	
+october-release	Werewolf	25	Medium		S3P1	Medium	
+october-release	Wights	25	Medium	3	S3P1	Medium	
+october-release	Charnel Creation	50	Large		S3P1	Large	
+welcome-pack-expansion	Sajan, Iconic Monk	25	Medium		WP5	-	iconic, no creature entry
+welcome-pack-expansion	Seoni, Iconic Sorcerer	25	Medium		WP5	-	iconic, no creature entry
+welcome-pack-expansion	Jirelle, Iconic Swashbuckler	25	Medium		WP5	-	iconic, no creature entry
+welcome-pack-expansion	Ogre Glutton	50	Large		WP5	Large	
+welcome-pack-expansion	Ogre Boss	50	Large		WP5	Large	
+welcome-pack-expansion	Air Elemental - Phade	25	Medium		WP5	Medium	
+welcome-pack-expansion	Earth Elemental - Living Landslide	50	Large		WP5	Medium	DISAGREES: AoN Living Landslide is Medium (L5, Monster Core), announced Large 50mm
+welcome-pack-expansion	Water Elemental - Brine Shark	50	Large		WP5	Medium	DISAGREES: AoN Brine Shark is Medium (L3, Monster Core), announced Large 50mm
+welcome-pack-expansion	Fortune Dragon	75	Large		WP5	Large/Huge	DISAGREES: announcement is internally inconsistent - Large should be 50mm by its own convention. AoN: Young Fortune Dragon Large, Adult Huge, Ancient Gargantuan. 75mm implies the Adult
+loyalty-reward	Adult Resurrection Dragon	75	Huge		S3PB	Large	DISAGREES: AoN Adult Resurrection Dragon is Large (L12, Monster Core 2); only the Ancient is Huge. Announced Huge 75mm

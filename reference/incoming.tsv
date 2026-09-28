@@ -1,8 +1,7 @@
-# from tools/base_sheet.py diff — sheet rows new or changed vs models.tsv.
-# merge-reference applies matched codes; NEW codes must be added to models.tsv first.
-#
-# EMPTIED 2026-09-12. The only row diff produced was P0039 Hellbreaker pack
-# S1P2 -> S1P1, which is a typo on the sheet: its release column says May 2026
-# and the files on disk are S1P2. Applying it would have corrupted models.tsv.
-# If diff reproduces it, ignore that row rather than merging.
+# Emptied 2026-09-25 by the browser agent. base_sheet.py diff had written one row,
+# P0039 pack S1P2 -> S1P1. That is a typo on the Google sheet, not a correction:
+# the directory on disk is "202605 May Release/2-P0039_Hellbreaker_S1P2" and the
+# sheet's own Release column for that row says May 2026, which is S1P2. Do not
+# merge it. It will reappear on every base_sheet.py diff until base_sheet.py
+# carries an accepted-exception for P0039 - see browser-20260925-1.
 code	name	base_mm	size	pack
