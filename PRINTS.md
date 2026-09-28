@@ -72,8 +72,8 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | 32mm |  | ready | P2609-02 |  |  |
-| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | 32mm |  | ready | P2609-02 |  |  |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | A | 32mm |  | reprint | P2609-02 | fail | BRIAN REJECTED (Logan, 2026-09-28): damaged left leg. Logan reads it as poor supports, consistent with damage he has seen on other models, and the record agrees on the timing: P2609-02 was sliced in Chitubox on 2026-09-08 from the vendor's pre-supported _PRE mesh, which carries the vendor's Lychee supports - four days before SatelLite came into use on 2026-09-12. Weighed against the standing caution that Brian de-supports green resin, so a mark found at review can come from de-supporting rather than the print; Logan's call is that these are support defects. The reprint goes on SatelLite supports |
+| P0094_Athamaru_S2P3 | Athamaru | 25mm | B | 32mm |  | reprint | P2609-02 | fail | BRIAN REJECTED (Logan, 2026-09-28): damage to the head and the tail. Logan reads it as poor supports, consistent with damage he has seen on other models, and the record agrees on the timing: P2609-02 was sliced in Chitubox on 2026-09-08 from the vendor's pre-supported _PRE mesh, which carries the vendor's Lychee supports - four days before SatelLite came into use on 2026-09-12. Weighed against the standing caution that Brian de-supports green resin, so a mark found at review can come from de-supporting rather than the print; Logan's call is that these are support defects. The reprint goes on SatelLite supports |
 | P0094_Athamaru_S2P3 | Athamaru | 25mm | C | 32mm |  | ready | P2609-02 |  |  |
 | P0095_Rigger_S2P3 | Rigger | 25mm | main | 32mm |  | review | P2609-03 |  |  |
 | P0096_Subaquatic_Marauder_S2P3 | Subaquatic Marauder | 25mm | main | 32mm |  | review | P2609-03 |  |  |

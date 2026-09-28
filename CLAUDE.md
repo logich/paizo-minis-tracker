@@ -1098,9 +1098,12 @@ there being no real geometry on a plate of bare discs.
 
 **Which models are worth screening.** Every print failure on a *model* so far has
 been on a **50 mm or 75 mm** one — Sarglagon, Gutaki, Scylla, and the Horned
-Dragon before them. None of the 73 models on a 25 mm base has failed a print;
-P2609-27 was a plate of bases, not a model, and does not change that. There are
-21 on 50/75 mm; screen those, skip the rest.
+Dragon before them. None of the 73 models on a 25 mm base has failed *on the
+plate*; P2609-27 was a plate of bases, not a model, and does not change that.
+Athamaru A and B (2026-09-28) are the first 25 mm rejections, but they came off the
+plate intact and were rejected at review for support damage — a support-origin
+problem, not a footprint one, and not something island detection sees anyway.
+There are 21 on 50/75 mm; screen those, skip the rest.
 
 It costs a full download plus about five minutes, against four to eight hours on
 the plate, so it only pays on the large ones.
@@ -1151,6 +1154,16 @@ supports adequate elsewhere may be under-specified here.
 The record so far is consistent with that, but **confounded**: every
 vendor-supported failure is also a large model, so support origin and footprint
 co-vary and neither is yet isolated.
+
+**The first data point against the confound (2026-09-28).** Brian rejected
+**Athamaru A and B** — a Medium model on a 25 mm base — for support damage: A's
+left leg, B's head and tail. They printed on P2609-02 (2026-09-08), sliced in
+Chitubox from the vendor's `_PRE` mesh, so on the vendor's Lychee supports and
+four days before SatelLite. That is a vendor-supported defect on a *small* model,
+which is what the confound needed: support origin now shows a problem where
+footprint does not. One model is not a pattern, and a review-time defect carries
+the usual caution that Brian de-supports green resin — but Logan reads these as
+support defects of a kind he has seen before, and the reprint goes on SatelLite.
 
 - Vendor `_SUP` (Lychee): Gutaki body warped on the plate, both tentacle arms
   failed to adhere, across 2.8s, 2.9s and 3.0s and a new FEP.
