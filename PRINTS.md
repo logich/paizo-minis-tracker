@@ -24,6 +24,8 @@ Regenerate the dashboard after any change:
 | 25mm | 77 | 52 | Brian counted 52+ needed to glue and primer existing minis (2026-09-12), not counting anything printed this week. A floor, not an exact figure. On hand 77 stated by Logan 2026-09-24, superseding the 53 of the day before |
 | 50mm | 2 | 2 | the 6 on P2609-07 are already allocated to older models, not spare. On hand 2 stated by Logan 2026-09-24. The backlog is 2 because ONE OF THOSE TWO IS ALLOCATED to the Talmandor reprint (Logan, 2026-09-24) - it came off P2609-26, the plate that printed the model - and an allocation to a mini already at cleaned is demand that bases_needed() cannot see, since it only counts parts not yet printed. Carrying it in the backlog is what stops the spare being counted twice |
 | 75mm | 5 | 5 | backlog from older models. On hand 5 stated by Logan 2026-09-24; three came off P2609-35 and the rest from the plate after it |
+| 25mm-other | 0 | 10 | NON-PATHFINDER bases, needed by Logan (2026-10-02). A separate row on purpose: the Pathfinder stock above cannot fill this, so folding it into that size's backlog would report it covered by bases of the wrong kind |
+| 75mm-other | 0 | 3 | NON-PATHFINDER bases, needed by Logan (2026-10-02). A separate row on purpose: the Pathfinder stock above cannot fill this, so folding it into that size's backlog would report it covered by bases of the wrong kind |
 
 ## Plates
 
