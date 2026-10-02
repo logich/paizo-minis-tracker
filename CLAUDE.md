@@ -128,6 +128,25 @@ The `Bases` column on a plate is a record of what that plate made, nothing more.
 A blank `On hand` means unknown, which is not zero: nothing is subtracted and
 `status` prints `?` so the gap is visible rather than silently assumed.
 
+### Blank bases, and why they are their own rows
+
+Most model folders ship two bases: `pathfinder_base_NN.stl`, the stone-textured
+Pathfinder base, and `Round NN.stl`, a **plain disc** - 25.00, 50.00 or 75.00 mm
+across and 3.50 mm thick, against the textured base's 3.83. The blank is for minis
+where the stone does not suit the character or monster; **Brian wants Scylla on a
+blank 75 mm base** (Logan, 2026-10-02).
+
+They are tracked as separate rows in the `## Bases` section - `25mm-blank`,
+`75mm-blank` - not folded into `25mm` and `75mm`. The Pathfinder stock cannot fill a
+blank order, and adding blanks to the Pathfinder backlog would report them covered by
+spare bases of the wrong kind. Size keys are free text, so nothing in the code needed
+changing for that.
+
+A blank is the easiest thing on record to print flat: 117 layers at 3.50 mm, nothing
+on its top to protect. The 12 s / 6-pass flat recipe should carry over, but the
+6-pass figure was measured on the Pathfinder mesh, whose bottom flares slightly; a
+plain cylinder may want a pass less. Check the first plate's rim before batching.
+
 ### Models with no stated base size
 
 The August extras packs are absent from the base-size sheet and ship no base
