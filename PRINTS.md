@@ -88,10 +88,10 @@ Regenerate the dashboard after any change:
 | P0073_Ogre_Glutton_WP6 | Ogre Glutton | 50mm | main | 32mm |  | todo |  |  |  |
 | P0074_Ogre_Boss_WP6 | Ogre Boss | 50mm | main | 32mm |  | todo |  |  |  |
 | P0075_Elemental_Air_Phade_WP6 | Air Elemental - Phade | 25mm | main | 32mm |  | todo |  |  |  |
-| P0076_Elemental_Earth_Living_Landslide_WP6 | Earth Elemental - Living Landslide | 25mm | main | 32mm |  | todo |  |  |  |
-| P0077_Elemental_Fire_Living_Wildfire_WP6 | Elemental Fire - Living Wildfire | 25mm | main | 32mm |  | todo |  |  |  |
-| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | main | 32mm |  | todo |  |  |  |
-| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | with Base | 32mm |  | todo |  |  |  |
+| P0076_Elemental_Earth_Living_Landslide_WP6 | Earth Elemental - Living Landslide | 25mm | main | 32mm |  | todo |  |  |Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
+| P0077_Elemental_Fire_Living_Wildfire_WP6 | Elemental Fire - Living Wildfire | 25mm | main | 32mm |  | todo |  |  |Brian has requested TWO of these (2026-10-05); the ledger tracks one row, so the second is not counted in bases - one extra 25mm needed |
+| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | main | 32mm |  | todo |  |  |Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
+| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | with Base | 32mm |  | todo |  |  |Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | A | 32mm |  | todo |  |  |  |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | B | 32mm |  | todo |  |  |  |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | C | 32mm |  | todo |  |  |  |
