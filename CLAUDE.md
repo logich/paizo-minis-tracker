@@ -1209,8 +1209,17 @@ support defects of a kind he has seen before, and the reprint goes on SatelLite.
   (Logan, 2026-09-15): the Tentacles are clean at 61 mm, and the print is "one
   of the best prints so far".** With P2609-16 printing through a 2326px2 island,
   the 1000px2 threshold from the Lychee-supported Scylla failure does not
-  transfer to EVO supports. See *Screening a print before running it*. Neither
-  part has been reviewed by Brian yet.
+  transfer to EVO supports. See *Screening a print before running it*.
+  **Brian then rejected the Body at review (2026-10-04) for too much support
+  scarring on its back side.** So "one of the best prints so far" was true of
+  the print and not of the finish: EVO supports held, and the contacts landed on
+  a visible face. Reprinted as P2610-01 in the **vendor's pre-supported
+  orientation**, on SatelLite supports. That is the third Scylla finish problem -
+  the one-piece Full scarred on P2609-13 too - and it separates two jobs the
+  record had been treating as one: supports that *hold*, and supports that sit
+  where nobody looks. The vendor's orientation is a cheap way to inherit their
+  judgement about which faces are hidden, and SatelLite's supports keep the
+  holding. Whether that combination works is Brian's verdict on P2610-01.
 
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
