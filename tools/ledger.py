@@ -1624,8 +1624,13 @@ def cmd_merge_reference(path=None):
     """Merge a browser agent's findings into reference/models.tsv.
 
     Expects a TSV with a header naming its columns; `code` is required, and any
-    of `mmf`, `name`, `base_mm`, `size` may accompany it. Artwork URLs under an
-    `artwork` column are downloaded into the model directory.
+    of `mmf`, `name`, `base_mm`, `size`, `pack` may accompany it. Artwork URLs
+    under an `artwork` column are downloaded into the model directory.
+
+    `pack` was ignored until 2026-10-05, when the browser agent read real pack
+    codes off the vendor's artwork filenames (WP6, S3P1) - the vendor's own
+    files, so an authority. A wrong pack from the base SHEET cannot reach here
+    any more: base_sheet.py's ACCEPTED table stops the P0039 typo in diff.
 
     Written for handoff from an agent that has a logged-in browser: this session
     cannot reach MyMiniFactory (object pages 403 scripted requests), and that
@@ -1665,7 +1670,7 @@ def cmd_merge_reference(path=None):
             out.append(line)
             continue
         cells += [""] * (6 - len(cells))
-        for idx, key in ((1, "name"), (2, "base_mm"), (3, "size"), (5, "mmf")):
+        for idx, key in ((1, "name"), (2, "base_mm"), (3, "size"), (4, "pack"), (5, "mmf")):
             if incoming.get(key):
                 cells[idx] = incoming[key]
         out.append("\t".join(cells[:6]).rstrip("\t"))

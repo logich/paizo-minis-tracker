@@ -62,6 +62,16 @@ P0061	Goblin Pyro	25	Small	WP4	https://www.myminifactory.com/object/3d-print-gob
 P0062	Goblin Warrior	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-warrior-816630
 P0063	Goblin Commando	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-commando-816631
 P0064	Goblin Chanter	25	Small	WP4	https://www.myminifactory.com/object/3d-print-goblin-chanter-816632
+P0069	Sajan, Iconic Monk	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-monk-sajan-852751
+P0070	Seoni, Iconic Sorcerer	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-sorcerer-seoni-852757
+P0071	Jirelle, Iconic Swashbuckler	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-swashbuckler-jirelle-852766
+P0072	Fortune Dragon	75	Huge	WP6	https://www.myminifactory.com/object/3d-print-fortune-dragon-852783
+P0073	Ogre Glutton	50	Large	WP6	https://www.myminifactory.com/object/3d-print-ogre-glutton-852787
+P0074	Ogre Boss	50	Large	WP6	https://www.myminifactory.com/object/3d-print-ogre-boss-852790
+P0075	Air Elemental - Phade	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-air-phade-852791
+P0076	Earth Elemental - Living Landslide	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-earth-living-landslide-852792
+P0077	Elemental Fire - Living Wildfire	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-fire-living-wildfire-852793
+P0078	Water Elemental - Brine Shark	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-water-brine-shark-852800
 P0082	Bosun	25	Medium	S2P1	https://www.myminifactory.com/object/3d-print-bosun-816616
 P0083	Marine Marauder	25	Small	S2P1	https://www.myminifactory.com/object/3d-print-marine-marauder-816617
 P0084	Ocean Nomad	25	Medium	S2P1	https://www.myminifactory.com/object/3d-print-ocean-nomad-816618
@@ -81,6 +91,12 @@ P0097	Draugr	25	Medium	S2P3	https://www.myminifactory.com/object/3d-print-draugr
 P0098	Reefclaw	25	Small	S2P3	https://www.myminifactory.com/object/3d-print-reefclaw-837915
 P0099	Gutaki	50	Large	S2P3	https://www.myminifactory.com/object/3d-print-gutaki-837916
 P0100	Scylla	75	Huge	S2PB	https://www.myminifactory.com/object/3d-print-scylla-837920
+P0101	Dhampirs	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-dhampirs-848178
+P0102	Coven Aspirant	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-coven-aspirant-848179
+P0103	Scarecrow	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-scarecrow-848181
+P0104	Werewolf	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-werewolf-848182
+P0105	Wights	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-wights-848183
+P0106	Charnel Creation	50	Large	S3P1	https://www.myminifactory.com/object/3d-print-charnel-creation-848184
 # Extras-sale packs have no P-number, so they are keyed by directory name.
 # Only those whose base size is known are listed; anything absent falls back to
 # DEFAULT_BASE_MM (25mm). The Ironkettles wall is three minis in an army
