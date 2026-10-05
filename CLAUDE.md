@@ -82,7 +82,7 @@ something is wrong.
 
 Each release is a `## <release name>` section holding one table:
 
-    | Model | Mini | Base | Part | Scale | Stage | Plate | Result | Notes |
+    | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Changed | Notes |
 
 - `Model` — the directory name, e.g. `P0094_Athamaru_S2P3`
 - `Mini`, `Base` — **derived; never hand-edit.** `scan` rewrites them from
@@ -96,6 +96,10 @@ Each release is a `## <release name>` section holding one table:
   `printed` onward.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
   `pass` means *Brian approved it* — see below.
+- `Changed` — date `Stage` last changed. `write_ledger` stamps it whenever a Stage
+  differs from the file on disk, so `assign` and `scan` keep it right; it shows on
+  the dashboard chips. Backfilled from git history on 2026-10-05 (119 parts read
+  2026-09-08, the initial seeding).
 - `Notes` — free text.
 
 Print settings live on a **plate**, not on a part, because minis are batched.
