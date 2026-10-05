@@ -31,6 +31,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2610-02 | 2026-10-05 | 32mm_P0069-P0071_WP6_STL_1_202610050927.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  |  |
 | P2610-01 | 2026-10-04 | P0100_Scylla_Body_S2PB_STL_1_202610041450.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Scylla Body reprint, after Brian rejected the P2609-20 body for too much support scarring on its back side (Logan, 2026-10-04). Sliced in ELEGOO SatelLite at 14:50 on 2026-10-04 and rotated to match the vendor's pre-supported orientation, so the support contacts land where the vendor put them rather than where SatelLite's own orientation did. PRINTED 2026-10-04, not yet cleaned. 880 layers = 26.40mm. The orientation and family check out against the vendor's own pre-supported STANDARD body (P0100_Scylla_Body_S2PB_SUP): that mesh stands 27.47mm against this slice's 26.40, and holds 4,075mm3 of model plus supports against this slice's 3,823 - where the 32mm_ pre-supported body is 31.51mm and 5,728mm3. Standard is right for a Huge creature. Screened after printing, for the record: CLEAR, 85 islands, largest 525px2 at 14.40mm; 143 cups, all the 2.6mm3 raft cells, with 0.6mm3 trapped above the raft. Whether the vendor orientation keeps the scarring off the visible back is Brian's call at review |
 | P2609-38 | 2026-09-30 | P0031_Sarglagon_Drowning_Devil_Arm_L_S1P1_STL_1_202609301008.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Sarglagon (Drowning Devil) Arm L, the arm Brian actually rejected for a flat spot on one tentacle - it had been recorded against Arm R, and P2609-19 reprinted the wrong arm (Logan, 2026-09-30). Sliced in ELEGOO SatelLite at 09:56 on 2026-09-30, sliced and not yet on the printer; screened from the sweeps/ copy and the preview cached from it for that reason. SatelLite wrote it (LiftHeight 0). SCREENED CLEAR: 44 islands, largest 185px2 at 15.78mm; 227 cups, all but a handful the 2.6mm3 raft cells, 0.8mm3 trapped above the raft - nothing to solidify. MESH FAMILY is standard: the filename has no 32mm_ prefix, and 1029 layers = 30.87mm is the standard arm's 24.89mm thin axis plus SatelLite's usual ~6mm lift, with the preview showing the arm lying low on its cage; the 32mm_ arm's thin axis alone is 28.63mm. The volume agrees - 5,662.5mm3 against a 2,661.6mm3 standard arm is a 113% support ratio, the range SatelLite's dense cages have run on the Horned Dragon wings and the Athamarus. Standard is right for a Large creature, but the body's family is unrecorded: check that the printed body's longest side reads about 75mm (standard) rather than 86mm (32mm_) before running this plate, or the arm will be 15% out. Photo of the failed original Arm L filed as forensics/P2609-38/prior-failure-arm-l.jpg (Logan, 2026-09-30): the arm and its tentacles as Brian rejected it. It carries no scale reference, so it cannot settle the body's mesh family - the body measurement still does that. PRINTED AND CLEANED (Logan, 2026-10-02); Arm L ready for the next delivery. Not checked against the file that ran: the printer was off when this was recorded, so whether it printed the 09:56 slice screened here or a re-save of it is unconfirmed. Nor is the body's mesh family on record yet. CONFIRMED 2026-10-04 once the printer was back: the file that ran is P0031_Sarglagon_Drowning_Devil_Arm_L_S1P1_STL_1_202609301008.goo, the 09:56 slice re-saved twelve minutes later - identical size (26,637,451 bytes), layer count (1029) and plate preview - so the screen above is that file's. Recorded under the printer's name because that is what ran |
 | P2609-37 | 2026-09-28 | 32mm_P0094_Athamaru_AB_S2P3_STL_1_202609281054.goo | Dragon Resin Durable Grey | 0.03mm | 2.8s | 27.0s | 5 |  |  |  | Athamaru A and B, the reprint of Brian's two rejections from P2609-02 (A's left leg, B's head and tail - support damage on the vendor's Lychee supports). Sliced in ELEGOO SatelLite at 10:54 on 2026-09-28 from the 32mm_ heroic STLs and sent to the printer by hand; not yet started. 1748 layers = 52.44mm, taller than either mesh's longest side, so both figures are tilted. The copy Logan put in sweeps/ is the 11:52 re-save of the same slice - identical size (46,475,277 bytes), layer count, settings and plate preview - so it was screened in place of the printer's file, and this row carries the printer's name because that is what runs. SatelLite wrote it (LiftHeight 0), not solidified and not needing it. SCREENED CLEAR 2026-09-28: 312 islands, largest 481px2 at 23.19mm, under the 1000px2 watch band; 190 cups, all but a handful the 2.6mm3 raft cells, with 0.9mm3 trapped above the raft. MESH FAMILY: the plate is 8,565mm3 against 4,175mm3 of 32mm A+B, a 105% support ratio in line with SatelLite's dense cages on the Horned Dragon wings; the standard pair (2,541mm3) would need 237%, so the volume and the filename agree on 32mm - consistent, not proven, since no supported-mesh export exists to weigh the figures on their own. CAVEAT: a clear screen does not measure support strength (P2609-27), and support damage is exactly what sent these back, so the print and Brian are the test, not this verdict. CONFIRMED by Logan (2026-09-28): both figures were sliced from the 32mm_ heroic STLs, 32mm_P0094_Athamaru_A_S2P3_STL and 32mm_P0094_Athamaru_B_S2P3_STL. That settles the mesh family the volume could only point at. PRINTED AND CLEANED (Logan, 2026-09-29); A and B ready for the next delivery to Brian. Whether the SatelLite supports avoided the leg, head and tail damage the Lychee supports left is his to judge at review |
@@ -72,6 +73,35 @@ Regenerate the dashboard after any change:
 | P2609-05 | 2026-09-02 | 32mm_P0089_Cheliax_Naval_Officer_S2P2_STL.stl_0.030_1.500_2026_09_02_08_16.goo | Elegoo 8K Standard Gray | 0.03mm | 1.5s | 27.0s | 4 |  |  |  |  |
 | P2609-04 | 2026-09-01 | 32mm_P0059_Horned_Dragon_Body_WP4_STL.stl_0.030_1.500_2026_09_01_12_24.goo | Elegoo 8K Standard Gray | 0.03mm | 1.5s | 27.0s | 4 |  |  | re-supported STL; the vendor _SUP mesh detached under peel force |  |
 | P2608-01 | 2026-08-30 | Signifer-flotsam-captain-marauder.goo | Elegoo Abs-like 3.0 | 0.03mm | 1.9s | 27.0s | 4 |  |  |  |  |
+
+## 202610 October Release
+
+| Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P0069_Monk_Sajan_WP6 | Sajan, Iconic Monk | 25mm | main | 32mm |  | sliced | P2610-02 |  |  |
+| P0070_Sorcerer_Seoni_WP6 | Seoni, Iconic Sorcerer | 25mm | main | 32mm |  | sliced | P2610-02 |  |  |
+| P0071_Swashbuckler_Jirelle_WP6 | Jirelle, Iconic Swashbuckler | 25mm | main | 32mm |  | sliced | P2610-02 |  |  |
+| P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | Body | 32mm |  | todo |  |  |  |
+| P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | Head | 32mm |  | todo |  |  |  |
+| P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | WingL | 32mm |  | todo |  |  |  |
+| P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | WingR | 32mm |  | todo |  |  |  |
+| P0073_Ogre_Glutton_WP6 | Ogre Glutton | 50mm | main | 32mm |  | todo |  |  |  |
+| P0074_Ogre_Boss_WP6 | Ogre Boss | 50mm | main | 32mm |  | todo |  |  |  |
+| P0075_Elemental_Air_Phade_WP6 | Air Elemental - Phade | 25mm | main | 32mm |  | todo |  |  |  |
+| P0076_Elemental_Earth_Living_Landslide_WP6 | Earth Elemental - Living Landslide | 25mm | main | 32mm |  | todo |  |  |  |
+| P0077_Elemental_Fire_Living_Wildfire_WP6 | Elemental Fire - Living Wildfire | 25mm | main | 32mm |  | todo |  |  |  |
+| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | main | 32mm |  | todo |  |  |  |
+| P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | with Base | 32mm |  | todo |  |  |  |
+| P0101_Dhampir_S3P1 | Dhampirs | 25mm | A | 32mm |  | todo |  |  |  |
+| P0101_Dhampir_S3P1 | Dhampirs | 25mm | B | 32mm |  | todo |  |  |  |
+| P0101_Dhampir_S3P1 | Dhampirs | 25mm | C | 32mm |  | todo |  |  |  |
+| P0102_Coven Aspirant_S3P1 | Coven Aspirant | 25mm | main | 32mm |  | todo |  |  |  |
+| P0103_Scarecrow_S3P1 | Scarecrow | 25mm | main | 32mm |  | todo |  |  |  |
+| P0104_Werewolf_S3P1 | Werewolf | 25mm | main | 32mm |  | todo |  |  |  |
+| P0105_Wight_S3P1 | Wights | 25mm | A | 32mm |  | todo |  |  |  |
+| P0105_Wight_S3P1 | Wights | 25mm | B | 32mm |  | todo |  |  |  |
+| P0105_Wight_S3P1 | Wights | 25mm | C | 32mm |  | todo |  |  |  |
+| P0106_Charnel Creation_S3P1 | Charnel Creation | 50mm | main | 32mm |  | todo |  |  |  |
 
 ## 202609 September Release
 
