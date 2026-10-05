@@ -107,7 +107,9 @@ APPROVED_STAGE = "approved"  # Brian approved it
 REPRINT_STAGE = "reprint"   # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Kind", "Stage", "Plate",
-           "Result", "Notes"]
+           "Result", "Changed", "Notes"]
+# Changed: the date Stage last changed (YYYY-MM-DD). write_ledger stamps it, so
+# assign and scan keep it right; a hand-edited Stage is stamped on the next write.
 # Kind: blank for the normal print of a model. "extra" marks an additional
 # print kept alongside an existing good one rather than replacing it — the
 # 50mm Talmandor and Living Waterfall, printed large for use as monsters.
@@ -443,9 +445,23 @@ def render_table(columns, rows):
     return out
 
 
+def stamp_changes(sections):
+    """Set Changed to today on every row that is new or whose Stage differs from
+    the ledger on disk, unless Changed was itself edited."""
+    _, _, old, _ = parse_ledger()
+    today = datetime.date.today().isoformat()
+    for release, rows in sections.items():
+        for key, row in rows.items():
+            prev = old.get(release, {}).get(key)
+            if prev is None or (prev.get("Stage") != row.get("Stage")
+                                and prev.get("Changed", "") == row.get("Changed", "")):
+                row["Changed"] = today
+
+
 def write_ledger(preamble, plates, sections, base_stock):
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
+    stamp_changes(sections)
     lines = ["# Paizo Minis — Print Tracker", ""]
     lines += preamble or DEFAULT_PREAMBLE
     lines += ["", "## Bases", ""]
@@ -752,6 +768,7 @@ border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
 border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
 .part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
 border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.part .d{color:var(--muted);font-size:10.5px;margin-left:2px}
 .part.skipped{opacity:.45;text-decoration:line-through}
 .part.ready{background:color-mix(in srgb,var(--accent) 16%,transparent);
 border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
@@ -1045,6 +1062,15 @@ def cmd_backlog(sections, base_stock, disk, e):
     return len(reprints), len(todo)
 
 
+def short_date(iso):
+    """'2026-09-28' -> 'Sep 28'; blank or unparseable -> ''."""
+    try:
+        d = datetime.date.fromisoformat(iso)
+    except ValueError:
+        return ""
+    return f"{d.strftime('%b')} {d.day}"
+
+
 def cmd_build():
     ref = load_reference()
     disk = scan_disk(ref)
@@ -1155,7 +1181,12 @@ def cmd_build():
                 scale = p.get("Scale", NATIVE_SCALE)
                 suffix = "" if scale == NATIVE_SCALE else f' @{e(scale)}'
                 label = f'{e(p["Part"])}{suffix} · {e(p["Stage"])}{warn}'
-                title = " ".join(x for x in [p.get("Plate", ""), p.get("Notes", ""),
+                when = short_date(p.get("Changed", ""))
+                if when:
+                    label += f' <span class="d">{when}</span>'
+                title = " ".join(x for x in [p.get("Plate", ""),
+                                             f'since {p["Changed"]}' if p.get("Changed") else "",
+                                             p.get("Notes", ""),
                                              "needs supports" if warn else ""] if x)
                 chips.append(f'<span class="{cls}" title="{e(title)}">{label}</span>')
             link = info["mmf"] if info else ""
