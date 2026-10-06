@@ -29,6 +29,7 @@ Most sessions are only this. Everything below is detail for when it is not.
 
 **Brian: handed over, approved, rejected**
 
+    python3 tools/ledger.py assign - cured <target>     # cleaned and UV-cured here
     python3 tools/ledger.py assign - ready <target>     # done, waiting for the delivery
     python3 tools/ledger.py assign - review <target>    # handed to Brian
     python3 tools/ledger.py assign - approved <target>  # he passed it; Result set for you
@@ -90,8 +91,8 @@ Each release is a `## <release name>` section holding one table:
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
 - `Scale` — `32mm` for everything on disk. Other values are prints made by
   scaling up in Chitubox; see below.
-- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `ready` → `review` →
-  `approved` → `cured` → `primed` → `painted` → `delivered`, plus `reprint`
+- `Stage` — `todo` → `sliced` → `printed` → `cleaned` → `cured` → `ready` →
+  `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint`
   and `skipped`. Counts as printed from
   `printed` onward.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
@@ -220,18 +221,20 @@ tells you the stage, not the verdict.
 
 Four stages carry this:
 
-- **`ready`** — washed here and waiting for the next delivery, **still
-  supported and uncured**. Deliveries go out roughly weekly, so this is where a
-  mini waits in between. It is the difference between "off the printer" and
-  "with Brian", which `printed` alone could not express.
-- **`review`** — delivered. Brian de-supports it, reviews it, then cures it, in
-  that order. So a part is at its softest when he handles it, and a localised
-  flat spot or pressure mark is as likely to come from de-supporting green
-  resin as from the print itself. Weigh that before blaming a print.
+- **`cured`** — washed and UV-cured here, **still supported**. Since 2026-10-05
+  Logan has his own UV cure station again, so curing happens before delivery
+  rather than on Brian's side after approval.
+- **`ready`** — cleaned, cured and waiting for the next delivery. Deliveries go
+  out roughly weekly, so this is where a mini waits in between. It is the
+  difference between "off the printer" and "with Brian", which `printed` alone
+  could not express.
+- **`review`** — delivered. Brian de-supports it and reviews it. **Parts handed
+  over before 2026-10-05 reached him uncured**, so a localised flat spot or
+  pressure mark on those is as likely to come from de-supporting green resin as
+  from the print itself; weigh that before blaming an older print. Cured parts
+  are harder and that explanation weakens.
 - **`approved`** — Brian passed it. `assign` sets `Result` to `pass` for you,
   since the stage means exactly one thing; no hand-editing needed.
-- **`cured`** — comes *after* approval, because Brian cures. It is not a step
-  on this side.
 - **`reprint`** — Brian rejected it, or it failed on the plate; it has to go
   back on. Put the reason in `Notes` and set `Result` to `fail`. Not
   auto-filled: a reprint is not always a rejection.
@@ -272,7 +275,8 @@ settings decision that can simply wait for the next attempt.
     python3 tools/ledger.py assign - reprint P0094_Athamaru_S2P3   # he rejected it
 
 When he approves, `assign - approved <target>` records it and the verdict
-together; move on to `primed` only when priming actually happens.
+together; move on to `primed` only when priming actually happens. There is no
+curing step after approval any more.
 
 ## Alternative part decompositions
 
