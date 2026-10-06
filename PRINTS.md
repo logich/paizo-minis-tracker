@@ -88,11 +88,11 @@ Regenerate the dashboard after any change:
 | P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | Head | 32mm |  | todo |  |  | 2026-10-05 |  |
 | P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | WingL | 32mm |  | todo |  |  | 2026-10-05 |  |
 | P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | WingR | 32mm |  | todo |  |  | 2026-10-05 |  |
-| P0073_Ogre_Glutton_WP6 | Ogre Glutton | 50mm | main | 32mm |  | cured | P2610-03 |  | 2026-10-06 |  |
-| P0074_Ogre_Boss_WP6 | Ogre Boss | 50mm | main | 32mm |  | cured | P2610-03 |  | 2026-10-06 |  |
-| P0075_Elemental_Air_Phade_WP6 | Air Elemental - Phade | 25mm | main | 32mm |  | cured | P2610-04 |  | 2026-10-06 |  |
-| P0076_Elemental_Earth_Living_Landslide_WP6 | Earth Elemental - Living Landslide | 25mm | main | 32mm |  | cured | P2610-04 |  | 2026-10-06 | Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
-| P0077_Elemental_Fire_Living_Wildfire_WP6 | Elemental Fire - Living Wildfire | 25mm | main | 32mm |  | cured | P2610-04 |  | 2026-10-06 | Brian has requested TWO of these (2026-10-05); the ledger tracks one row, so the second is not counted in bases - one extra 25mm needed |
+| P0073_Ogre_Glutton_WP6 | Ogre Glutton | 50mm | main | 32mm |  | ready | P2610-03 |  | 2026-10-06 |  |
+| P0074_Ogre_Boss_WP6 | Ogre Boss | 50mm | main | 32mm |  | ready | P2610-03 |  | 2026-10-06 |  |
+| P0075_Elemental_Air_Phade_WP6 | Air Elemental - Phade | 25mm | main | 32mm |  | ready | P2610-04 |  | 2026-10-06 |  |
+| P0076_Elemental_Earth_Living_Landslide_WP6 | Earth Elemental - Living Landslide | 25mm | main | 32mm |  | ready | P2610-04 |  | 2026-10-06 | Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
+| P0077_Elemental_Fire_Living_Wildfire_WP6 | Elemental Fire - Living Wildfire | 25mm | main | 32mm |  | ready | P2610-04 |  | 2026-10-06 | Brian has requested TWO of these (2026-10-05); the ledger tracks one row, so the second is not counted in bases - one extra 25mm needed |
 | P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | main | 32mm |  | skipped |  |  | 2026-10-06 | Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
 | P0078_Elemental_Water_Brine_Shark_WP6 | Water Elemental - Brine Shark | 25mm | with Base | 32mm |  | sliced | P2610-05 |  | 2026-10-06 | Brian wants this at the smaller size: 25mm base (Brian, 2026-10-05) |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | A | 32mm |  | todo |  |  | 2026-10-05 |  |
