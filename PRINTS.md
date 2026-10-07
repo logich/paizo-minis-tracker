@@ -262,7 +262,7 @@ Regenerate the dashboard after any change:
 | 2-P0041_Rekhep_Archon_WP2 | Rekhep Archon | 50mm | main | 32mm |  | printed |  | pass | 2026-09-08 |  |
 | 3-P0026_Andoran Golden Legionnaire_S1P1 | Andoran Golden Legionnaire | 25mm | main | 32mm |  | printed |  | pass | 2026-09-08 |  |
 | 3-P0027_Andoran Steel Falcon_S1P1 | Andoran Steel Falcon | 25mm | main | 32mm |  | printed |  | pass | 2026-09-08 |  |
-| 3-P0028_Hellknight Signifer_S1P1 | Hellknight Signifer | 25mm | main | 32mm |  | review | P2609-01 |  | 2026-09-08 | Brian rejected the first print: fingers of the left hand did not print properly. Reprinted 2026-09-07 on P2609-01 |
+| 3-P0028_Hellknight Signifer_S1P1 | Hellknight Signifer | 25mm | main | 32mm |  | primed | P2609-01 | pass | 2026-10-07 | Brian rejected the first print: fingers of the left hand did not print properly. Reprinted 2026-09-07 on P2609-01 Earlier still, before tracking began, a small piece broke off when it was printed in a more brittle resin (Logan, 2026-10-07). The latest print (P2609-01) passed Brian's review and is primed for painting (Logan, 2026-10-07). |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm L | 32mm |  | printed |  | pass | 2026-09-08 |  |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm R | 32mm |  | printed |  | pass | 2026-09-08 |  |
 | 4-P0032_Arboreal_Warden_WP2 | Arboreal Warden | 50mm | arm head | 32mm |  | printed |  | pass | 2026-09-08 |  |
