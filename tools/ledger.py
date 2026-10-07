@@ -830,11 +830,27 @@ background:var(--chip);display:block}
 .shot span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
 color:var(--muted);margin-top:4px;text-align:center}
 .shot.paint span{color:var(--ok)}
+.mmfpost{margin-top:8px;font-size:12px}
+.mmfpost a{color:var(--accent)}
 .missing{border:1px dashed var(--line);border-radius:7px;aspect-ratio:1;display:flex;
 align-items:center;justify-content:center;color:var(--muted);font-size:11px}
 """
 
 GALLERY_KINDS = ("printed", "painted")
+# Where Brian posted his paint job on MyMiniFactory: code <tab> print-page URL.
+# Kept apart from models.tsv, whose columns merge-reference writes by position.
+PAINTED_LINKS = ROOT / "reference" / "painted-links.tsv"
+
+
+def painted_links():
+    """Map code -> [print-page URL] from reference/painted-links.tsv."""
+    out = {}
+    if PAINTED_LINKS.exists():
+        for line in PAINTED_LINKS.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t")
+            if len(parts) >= 2 and parts[0] and not parts[0].startswith(("#", "code")):
+                out.setdefault(parts[0].strip(), []).append(parts[1].strip())
+    return out
 GALLERY_FILE = re.compile(r"^(?P<code>.+?)_(?P<kind>printed|painted)(?:-\d+)?\.(jpe?g|png|webp)$",
                           re.I)
 
@@ -876,6 +892,9 @@ def cmd_photo(code, kind, path):
 def cmd_gallery(sections, disk, ref, e):
     """Write gallery.html: vendor render, your print, Brian's paint job."""
     shots = gallery_shots()
+    links = painted_links()
+    for code in links:
+        shots.setdefault(code, {})
     dirs = model_dirs_by_code()
 
     # code -> (display name, mmf link), from whichever row mentions the model
@@ -935,9 +954,13 @@ def cmd_gallery(sections, disk, ref, e):
                     cells.append(f'<div class="{cls}"><a href="{e(src)}" target="_blank">'
                                  f'<img src="{e(src)}" alt="" loading="lazy"></a>'
                                  f'<span>{e(kind)}</span></div>')
+            more = "".join(
+                f'<a href="{e(u)}" target="_blank" rel="noreferrer">Brian\'s photo on MyMiniFactory &#8599;</a> '
+                for u in links.get(code, []))
             out.append(f'<div class="gcard"><h3>{title}</h3>'
                        f'<div class="code">{e(code)}</div>'
-                       f'<div class="shots">{"".join(cells)}</div></div>')
+                       f'<div class="shots">{"".join(cells)}</div>'
+                       f'{f"<div class=mmfpost>{more}</div>" if more else ""}</div>')
         out.append("</div>")
 
     out.append('<footer>Photographs live in <code>gallery/</code>, named '
