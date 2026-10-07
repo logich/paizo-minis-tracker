@@ -108,7 +108,17 @@ APPROVED_STAGE = "approved"  # Brian approved it
 REPRINT_STAGE = "reprint"   # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Kind", "Stage", "Plate",
-           "Result", "Changed", "Notes"]
+           "Resin", "Failed", "Result", "Changed", "Notes"]
+# Resin: what the part was printed in. Derived from the plate's Resin whenever the
+# part has a plate that is on record, so it is never typed twice and cannot drift;
+# for a print that predates plate tracking there is no plate to read, so the value
+# is hand-set (and survives, since write_ledger only overwrites it from a plate).
+# Blank means unknown.
+# Failed: earlier attempts that failed, "; "-separated, each "<plate>: <resin>"
+# ("no plate" for a print that predates plate tracking). A part's Plate and Resin
+# hold only the latest attempt, so cmd_assign files the old pair here the moment
+# a part goes to reprint or a new plate replaces a failed one. Resin is then the
+# resin of the attempt that is current - the one that worked, once it has.
 # Changed: the date Stage last changed (YYYY-MM-DD). write_ledger stamps it, so
 # assign and scan keep it right; a hand-edited Stage is stamped on the next write.
 # Kind: blank for the normal print of a model. "extra" marks an additional
@@ -357,6 +367,7 @@ def parse_ledger():
         return preamble, plates, sections, base_stock
 
     section = None
+    part_header = None
     in_preamble = True
     for line in LEDGER.read_text(encoding="utf-8").splitlines():
         if line.startswith("## "):
@@ -373,7 +384,10 @@ def parse_ledger():
         if not line.strip().startswith("|"):
             continue
         cells = split_row(line)
-        if not cells or cells[0] in ("Model", "ID", "Size") or set("".join(cells)) <= set("-: "):
+        if cells and cells[0] == "Model":
+            part_header = cells   # read rows by the file's own header, so a
+            continue              # column added to COLUMNS migrates old files
+        if not cells or cells[0] in ("ID", "Size") or set("".join(cells)) <= set("-: "):
             continue
         if section == "Bases":
             cells += [""] * (len(BASE_COLUMNS) - len(cells))
@@ -382,8 +396,10 @@ def parse_ledger():
             cells += [""] * (len(PLATE_COLUMNS) - len(cells))
             plates.append(dict(zip(PLATE_COLUMNS, cells[:len(PLATE_COLUMNS)])))
         elif section:
-            cells += [""] * (len(COLUMNS) - len(cells))
-            row = dict(zip(COLUMNS, cells[:len(COLUMNS)]))
+            cols = part_header or COLUMNS
+            cells += [""] * (len(cols) - len(cells))
+            row = dict(zip(cols, cells[:len(cols)]))
+            row = {c: row.get(c, "") for c in COLUMNS}
             row["Scale"] = row.get("Scale") or NATIVE_SCALE
             sections[section][(row["Model"], row["Part"], row["Scale"])] = row
     while preamble and not preamble[0].strip():
@@ -446,6 +462,50 @@ def render_table(columns, rows):
     return out
 
 
+# Short names for the dashboard chips; anything not listed is shown as written.
+RESIN_SHORT = [("8k standard", "8K Std"), ("dragon resin durable", "Dragon"),
+               ("abs-like", "ABS-like")]
+# Resins that make delicate parts snap; the chip is marked so a thin sword
+# shearing off (the first Graveknight) is visible before it happens again.
+BRITTLE_RESIN = ("abs-like",)
+
+
+def resin_short(resin):
+    low = resin.lower()
+    for needle, short in RESIN_SHORT:
+        if needle in low:
+            return short
+    return resin
+
+
+def resin_brittle(resin):
+    return any(b in resin.lower() for b in BRITTLE_RESIN)
+
+
+def archive_failure(row, plates):
+    """File the row's current plate and resin under Failed, once."""
+    plate = row.get("Plate", "")
+    resin = row.get("Resin", "")
+    if plate:
+        resin = next((p.get("Resin", "") for p in plates if p.get("ID") == plate), resin)
+    if not (plate or resin):
+        return
+    entry = f'{plate or "no plate"}: {resin or "resin unknown"}'
+    have = [x.strip() for x in row.get("Failed", "").split(";") if x.strip()]
+    if entry not in have:
+        row["Failed"] = "; ".join(have + [entry])
+
+
+def derive_resin(sections, plates):
+    """Copy each plated part's resin from its plate; leave hand-set values alone."""
+    by_id = {p.get("ID", ""): p.get("Resin", "") for p in plates}
+    for rows in sections.values():
+        for row in rows.values():
+            resin = by_id.get(row.get("Plate", ""), "")
+            if resin and resin != "?":
+                row["Resin"] = resin
+
+
 def stamp_changes(sections):
     """Set Changed to today on every row that is new or whose Stage differs from
     the ledger on disk, unless Changed was itself edited."""
@@ -463,6 +523,7 @@ def write_ledger(preamble, plates, sections, base_stock):
     sections = OrderedDict(sorted(sections.items(),
                                   key=lambda kv: release_sort_key(kv[0])))
     stamp_changes(sections)
+    derive_resin(sections, plates)
     lines = ["# Paizo Minis — Print Tracker", ""]
     lines += preamble or DEFAULT_PREAMBLE
     lines += ["", "## Bases", ""]
@@ -770,6 +831,8 @@ border-color:color-mix(in srgb,var(--fail) 50%,transparent)}
 .part.review{background:color-mix(in srgb,var(--warn) 20%,transparent);
 border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
 .part .d{color:var(--muted);font-size:10.5px;margin-left:2px}
+.part .rs{color:var(--muted);font-size:10.5px;margin-left:2px;border-left:1px solid currentColor;padding-left:4px}
+.part .rs.brittle{color:var(--warn);font-weight:600}
 .part.skipped{opacity:.45;text-decoration:line-through}
 .part.ready{background:color-mix(in srgb,var(--accent) 16%,transparent);
 border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
@@ -1039,6 +1102,8 @@ def cmd_backlog(sections, base_stock, disk, e):
             if r.get("Plate"):
                 meta.append(f'failed on {e(r["Plate"])}' if show_reason
                             else f'plate {e(r["Plate"])}')
+            if show_reason and r.get("Resin"):
+                meta.append(f'in {e(r["Resin"])}')
             if r["Stage"] == "sliced":
                 meta.append("sliced, on the printer")
             out.append(
@@ -1208,7 +1273,14 @@ def cmd_build():
                 when = short_date(p.get("Changed", ""))
                 if when:
                     label += f' <span class="d">{when}</span>'
+                resin = p.get("Resin", "")
+                if resin and p["Stage"] not in ("todo", SKIPPED_STAGE):
+                    brittle = " brittle" if resin_brittle(resin) else ""
+                    label += (f' <span class="rs{brittle}">'
+                              f'{e(resin_short(resin))}</span>')
                 title = " ".join(x for x in [p.get("Plate", ""),
+                                             resin,
+                                             f'failed earlier: {p["Failed"]}' if p.get("Failed") else "",
                                              f'since {p["Changed"]}' if p.get("Changed") else "",
                                              p.get("Notes", ""),
                                              "needs supports" if warn else ""] if x)
@@ -1539,6 +1611,10 @@ def cmd_assign(plate, stage, targets):
             hit = any(matches(t, release, model, part, scale) for t in targets)
             if not hit:
                 continue
+            if (stage == REPRINT_STAGE and row["Stage"] != REPRINT_STAGE) or (
+                    plate != "-" and row["Stage"] == REPRINT_STAGE
+                    and row.get("Plate") not in ("", plate)):
+                archive_failure(row, plates)
             row["Stage"] = stage
             if stage == APPROVED_STAGE and not row.get("Result"):
                 # "approved" means exactly one thing; no need to hand-edit it.

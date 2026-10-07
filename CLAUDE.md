@@ -83,7 +83,7 @@ something is wrong.
 
 Each release is a `## <release name>` section holding one table:
 
-    | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Changed | Notes |
+    | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Failed | Result | Changed | Notes |
 
 - `Model` — the directory name, e.g. `P0094_Athamaru_S2P3`
 - `Mini`, `Base` — **derived; never hand-edit.** `scan` rewrites them from
@@ -95,6 +95,16 @@ Each release is a `## <release name>` section holding one table:
   `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint`
   and `skipped`. Counts as printed from
   `printed` onward.
+- `Resin` — what the part was printed in. **Derived from the plate's Resin** on
+  every write whenever the part has a plate; hand-set only for prints that
+  predate plate tracking (the 202604-202607 releases were all Elegoo 8K
+  Standard Gray, per Logan 2026-10-07, and are filled in that way). Blank is
+  unknown. The dashboard chip shows a short form, marked for brittle resins
+  (`BRITTLE_RESIN`, currently ABS-like).
+- `Failed` — earlier attempts that failed, `<plate>: <resin>` separated by `;`.
+  `assign` files the old Plate/Resin here when a part goes to `reprint`, or when
+  a new plate replaces a failed one, so the failed resin and the resin that
+  worked are both on record. Unplated failures are hand-set (`no plate: ...`).
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
   `pass` means *Brian approved it* — see below.
 - `Changed` — date `Stage` last changed. `write_ledger` stamps it whenever a Stage
