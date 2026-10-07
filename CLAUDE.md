@@ -83,11 +83,22 @@ something is wrong.
 
 Each release is a `## <release name>` section holding one table:
 
-    | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Failed | Result | Changed | Notes |
+    | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Result | Changed | Notes |
 
 - `Model` — the directory name, e.g. `P0094_Athamaru_S2P3`
 - `Mini`, `Base` — **derived; never hand-edit.** `scan` rewrites them from
   `reference/models.tsv` on every run.
+- `Plate` — the part's print history: plate IDs, oldest first, comma-separated,
+  last = current attempt (`P2610-00, P2610-05`). `assign <plate> ...` appends only
+  when the part was at `reprint`, and then clears `Result`; otherwise it replaces
+  the current plate, so a mistyped plate can be corrected. Each attempt's resin is
+  read from its own plate, so a failed resin and the one that worked both stay
+  on record. Prints that predate plate tracking sit on **legacy plates** (`-00`
+  or `-01`, Date `?`): P2604-00 April, P2604-01 Dragons, P2605-00 May, P2606-00
+  June, P2607-00 July (all Elegoo 8K Standard Gray, per Logan 2026-10-07), and
+  P2610-00, the first Graveknight (ABS-like, sword sheared off). They stand for
+  prints, not for batches. The August release and extras sale have no plate or
+  resin on record for 34 printed parts.
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
 - `Scale` — `32mm` for everything on disk. Other values are prints made by
   scaling up in Chitubox; see below.
@@ -95,16 +106,10 @@ Each release is a `## <release name>` section holding one table:
   `review` → `approved` → `primed` → `painted` → `delivered`, plus `reprint`
   and `skipped`. Counts as printed from
   `printed` onward.
-- `Resin` — what the part was printed in. **Derived from the plate's Resin** on
-  every write whenever the part has a plate; hand-set only for prints that
-  predate plate tracking (the 202604-202607 releases were all Elegoo 8K
-  Standard Gray, per Logan 2026-10-07, and are filled in that way). Blank is
-  unknown. The dashboard chip shows a short form, marked for brittle resins
-  (`BRITTLE_RESIN`, currently ABS-like).
-- `Failed` — earlier attempts that failed, `<plate>: <resin>` separated by `;`.
-  `assign` files the old Plate/Resin here when a part goes to `reprint`, or when
-  a new plate replaces a failed one, so the failed resin and the resin that
-  worked are both on record. Unplated failures are hand-set (`no plate: ...`).
+- `Resin` — **derived; never hand-edit.** Every write sets it from the *current*
+  (last) plate's Resin. The dashboard chip shows a short form, marked for brittle
+  resins (`BRITTLE_RESIN`, currently ABS-like); its hover text lists every attempt
+  with its resin.
 - `Result` — blank, `pass`, or `fail`. **Blank means unknown, not success.**
   `pass` means *Brian approved it* — see below.
 - `Changed` — date `Stage` last changed. `write_ledger` stamps it whenever a Stage

@@ -108,17 +108,13 @@ APPROVED_STAGE = "approved"  # Brian approved it
 REPRINT_STAGE = "reprint"   # Brian rejected it
 
 COLUMNS = ["Model", "Mini", "Base", "Part", "Scale", "Kind", "Stage", "Plate",
-           "Resin", "Failed", "Result", "Changed", "Notes"]
-# Resin: what the part was printed in. Derived from the plate's Resin whenever the
-# part has a plate that is on record, so it is never typed twice and cannot drift;
-# for a print that predates plate tracking there is no plate to read, so the value
-# is hand-set (and survives, since write_ledger only overwrites it from a plate).
-# Blank means unknown.
-# Failed: earlier attempts that failed, "; "-separated, each "<plate>: <resin>"
-# ("no plate" for a print that predates plate tracking). A part's Plate and Resin
-# hold only the latest attempt, so cmd_assign files the old pair here the moment
-# a part goes to reprint or a new plate replaces a failed one. Resin is then the
-# resin of the attempt that is current - the one that worked, once it has.
+           "Resin", "Result", "Changed", "Notes"]
+# Plate: the part's print history - plate IDs, oldest first, comma-separated, the
+# last being the current attempt. A reprint appends rather than overwrites, so
+# every attempt's resin stays readable from its own plate. Prints that predate
+# plate tracking sit on a legacy plate (-00 or -01, date "?") that exists only to
+# carry their resin.
+# Resin: derived from the current (last) plate on every write; never hand-edit.
 # Changed: the date Stage last changed (YYYY-MM-DD). write_ledger stamps it, so
 # assign and scan keep it right; a hand-edited Stage is stamped on the next write.
 # Kind: blank for the normal print of a model. "extra" marks an additional
@@ -482,28 +478,19 @@ def resin_brittle(resin):
     return any(b in resin.lower() for b in BRITTLE_RESIN)
 
 
-def archive_failure(row, plates):
-    """File the row's current plate and resin under Failed, once."""
-    plate = row.get("Plate", "")
-    resin = row.get("Resin", "")
-    if plate:
-        resin = next((p.get("Resin", "") for p in plates if p.get("ID") == plate), resin)
-    if not (plate or resin):
-        return
-    entry = f'{plate or "no plate"}: {resin or "resin unknown"}'
-    have = [x.strip() for x in row.get("Failed", "").split(";") if x.strip()]
-    if entry not in have:
-        row["Failed"] = "; ".join(have + [entry])
+def plate_history(row):
+    """The part's plate IDs, oldest first."""
+    return [x.strip() for x in row.get("Plate", "").split(",") if x.strip()]
 
 
 def derive_resin(sections, plates):
-    """Copy each plated part's resin from its plate; leave hand-set values alone."""
+    """Set each part's Resin from its current plate; blank if there is none."""
     by_id = {p.get("ID", ""): p.get("Resin", "") for p in plates}
     for rows in sections.values():
         for row in rows.values():
-            resin = by_id.get(row.get("Plate", ""), "")
-            if resin and resin != "?":
-                row["Resin"] = resin
+            hist = plate_history(row)
+            resin = by_id.get(hist[-1], "") if hist else ""
+            row["Resin"] = "" if resin == "?" else resin
 
 
 def stamp_changes(sections):
@@ -1099,9 +1086,10 @@ def cmd_backlog(sections, base_stock, disk, e):
             meta = [f'{e(model)}']
             if r.get("Base"):
                 meta.append(f'{e(r["Base"])} base')
-            if r.get("Plate"):
-                meta.append(f'failed on {e(r["Plate"])}' if show_reason
-                            else f'plate {e(r["Plate"])}')
+            if plate_history(r):
+                cur = plate_history(r)[-1]
+                meta.append(f'failed on {e(cur)}' if show_reason
+                            else f'plate {e(cur)}')
             if show_reason and r.get("Resin"):
                 meta.append(f'in {e(r["Resin"])}')
             if r["Stage"] == "sliced":
@@ -1278,9 +1266,12 @@ def cmd_build():
                     brittle = " brittle" if resin_brittle(resin) else ""
                     label += (f' <span class="rs{brittle}">'
                               f'{e(resin_short(resin))}</span>')
-                title = " ".join(x for x in [p.get("Plate", ""),
-                                             resin,
-                                             f'failed earlier: {p["Failed"]}' if p.get("Failed") else "",
+                by_id = {pl.get("ID", ""): pl.get("Resin", "") for pl in plates}
+                hist = plate_history(p)
+                tried = ", ".join(f'{h} ({by_id.get(h) or "resin unknown"})'
+                                  for h in hist)
+                title = " ".join(x for x in [tried if len(hist) > 1 else
+                                             " ".join(hist) + (f" {resin}" if resin else ""),
                                              f'since {p["Changed"]}' if p.get("Changed") else "",
                                              p.get("Notes", ""),
                                              "needs supports" if warn else ""] if x)
@@ -1611,10 +1602,7 @@ def cmd_assign(plate, stage, targets):
             hit = any(matches(t, release, model, part, scale) for t in targets)
             if not hit:
                 continue
-            if (stage == REPRINT_STAGE and row["Stage"] != REPRINT_STAGE) or (
-                    plate != "-" and row["Stage"] == REPRINT_STAGE
-                    and row.get("Plate") not in ("", plate)):
-                archive_failure(row, plates)
+            was_reprint = row["Stage"] == REPRINT_STAGE
             row["Stage"] = stage
             if stage == APPROVED_STAGE and not row.get("Result"):
                 # "approved" means exactly one thing; no need to hand-edit it.
@@ -1623,7 +1611,15 @@ def cmd_assign(plate, stage, targets):
                 # A route not taken was never printed, so it cannot have passed.
                 row["Result"] = ""
             if plate != "-":
-                row["Plate"] = plate
+                hist = plate_history(row)
+                # A new attempt only follows a failure; otherwise the plate being
+                # assigned corrects the current one rather than extending history.
+                if hist and hist[-1] != plate and was_reprint:
+                    hist.append(plate)
+                    row["Result"] = ""
+                else:
+                    hist = hist[:-1] + [plate] if hist else [plate]
+                row["Plate"] = ", ".join(dict.fromkeys(hist))
             label = f"{model} [{part}]"
             changed.append(label if scale == NATIVE_SCALE else f"{label} @{scale}")
     if not changed:
