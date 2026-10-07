@@ -82,7 +82,7 @@ Regenerate the dashboard after any change:
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Result | Changed | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | P0069_Monk_Sajan_WP6 | Sajan, Iconic Monk | 25mm | main | 32mm |  | ready | P2610-02 |  | 2026-10-05 | Cleaned and cured here, ready for delivery (Logan, 2026-10-05). |
-| P0070_Sorcerer_Seoni_WP6 | Seoni, Iconic Sorcerer | 25mm | main | 32mm |  | ready | P2610-02 |  | 2026-10-05 | Cleaned and cured here, ready for delivery (Logan, 2026-10-05). |
+| P0070_Sorcerer_Seoni_WP6 | Seoni, Iconic Sorcerer | 25mm | main | 32mm |  | ready | P2610-02 |  | 2026-10-05 | Cleaned and cured here, ready for delivery (Logan, 2026-10-05). Printed very well in Dragon resin on P2610-02 (Logan, 2026-10-07). Good candidate for comparing Siraya Tech Fast against Dragon, because of the staff and the narrow structures. Not a verdict: Result stays blank until Brian reviews it. |
 | P0071_Swashbuckler_Jirelle_WP6 | Jirelle, Iconic Swashbuckler | 25mm | main | 32mm |  | ready | P2610-02 |  | 2026-10-05 | Cleaned and cured here, ready for delivery (Logan, 2026-10-05). |
 | P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | Body | 32mm |  | todo |  |  | 2026-10-05 |  |
 | P0072_Fortune_Dragon_WP6 | Fortune Dragon | 75mm | Head | 32mm |  | todo |  |  | 2026-10-05 |  |
