@@ -97,8 +97,9 @@ Each release is a `## <release name>` section holding one table:
   or `-01`, Date `?`): P2604-00 April, P2604-01 Dragons, P2605-00 May, P2606-00
   June, P2607-00 July (all Elegoo 8K Standard Gray, per Logan 2026-10-07), and
   P2610-00, the first Graveknight (ABS-like, sword sheared off). They stand for
-  prints, not for batches. The August release and extras sale have no plate or
-  resin on record for 34 printed parts.
+  prints, not for batches. The August release (P2608-00) and extras sale
+  (P2608-02) were Elegoo Abs-like 3.0, per Logan 2026-10-07, and P2610-00 shares
+  that resin.
 - `Part` — `A`, `Body`, `Tentacles L`, `main`, …
 - `Scale` — `32mm` for everything on disk. Other values are prints made by
   scaling up in Chitubox; see below.
