@@ -1759,8 +1759,15 @@ when exporting; UVtools is the fallback that makes old `.ctb` files legible.
 `.goo` carries the Chitubox **profile name** at offset 156, which in practice
 names the resin (`Elegoo Abs-like 3.0`, `Dragon Resin Durable Grey`,
 `Elegoo 8K Standard Gray`, `Elegoo ABS-Like V3 Grey 30um`). `plate` fills the
-Resin column from it. It records the profile the slice was made with, not proof
-of what was in the vat — correct it by hand if they differed.
+Resin column from it.
+
+**Standing rule (Logan, 2026-10-08): trust the sliced file's resin.** The profile
+name in the file is taken to be what is in the vat, and recorded as fact without
+asking or hedging. Only Logan saying there was a problem overrides it — then
+correct the plate by hand. Do not ask him to confirm a resin the file already
+names. The same goes for the exposure and layer settings in the file, except where
+he says they were changed on the printer (see *Settings changed on the printer
+itself*). An unfamiliar profile name is still just the resin: record it as written.
 
 ## Seeing what a plate actually held
 
