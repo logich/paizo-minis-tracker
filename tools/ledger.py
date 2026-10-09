@@ -88,7 +88,7 @@ SKIP_DIRS = {".git", "bases", "V3_Cones_of_Calibration", "nord_autosave", "tools
 # Ordered by how far along a part is. "reprint" ranks below "printed" on
 # purpose: Brian rejected it, so it has to go back on a plate and should show up
 # in the print queue again.
-# Since 2026-10-05 the parts are cured here, in Logan's own UV station, before
+# Since 2026-10-01 the parts are cured here, in Logan's own UV station, before
 # delivery - so "cured" sits before "ready". Until then Brian cured after
 # approval and parts reached him green. Anything delivered before that date was
 # still green when he de-supported it, which keeps a pressure mark from

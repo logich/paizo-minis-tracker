@@ -237,18 +237,22 @@ tells you the stage, not the verdict.
 
 Four stages carry this:
 
-- **`cured`** — washed and UV-cured here, **still supported**. Since 2026-10-05
-  Logan has his own UV cure station again, so curing happens before delivery
-  rather than on Brian's side after approval.
+- **`cured`** — washed, **de-supported while still green**, then UV-cured here
+  (Logan: supports come off before the cure, not after; green resin cuts far
+  more cleanly than cured). Since 2026-10-01, when Brian returned the cure
+  station, Logan has his own UV cure station again, so curing happens before
+  delivery rather than on Brian's side after approval.
 - **`ready`** — cleaned, cured and waiting for the next delivery. Deliveries go
   out roughly weekly, so this is where a mini waits in between. It is the
   difference between "off the printer" and "with Brian", which `printed` alone
   could not express.
-- **`review`** — delivered. Brian de-supports it and reviews it. **Parts handed
-  over before 2026-10-05 reached him uncured**, so a localised flat spot or
-  pressure mark on those is as likely to come from de-supporting green resin as
-  from the print itself; weigh that before blaming an older print. Cured parts
-  are harder and that explanation weakens.
+- **`review`** — delivered. Brian reviews it. Newer parts reach him already
+  de-supported and cured (see `cured`). **Parts handed over before 2026-10-01
+  reached him uncured and still supported**, and he de-supported them green, so
+  a localised flat spot or pressure mark on those is as likely to come from
+  that handling as from the print itself; weigh that before blaming an older
+  print. For newer parts the de-supporting happened here, so any support scar is
+  Logan's removal or the support layout, not Brian's handling.
 - **`approved`** — Brian passed it. `assign` sets `Result` to `pass` for you,
   since the stage means exactly one thing; no hand-editing needed.
 - **`reprint`** — Brian rejected it, or it failed on the plate; it has to go
