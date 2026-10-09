@@ -31,7 +31,8 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P2610-09 | 2026-10-08 | 32mm_P0105_Wight_ABC_S3P1_STL_1_202610082212.goo | Space Grey 8K Standard | 0.03mm | 1.9s | 27.0s | 4 | Wights A, B and C, SatelLite slice 2026-10-08 22:12, on the printer 2026-10-08 (Logan). Preview shows three models. |
+| P2610-10 | 2026-10-09 | 32mm_P0102_P0103_P0104_S3P1_STL_1_202610090754.goo | Space Grey 8K Standard | 0.03mm | 1.9s | 27.0s | 4 |  |  | Coven Aspirant, Scarecrow and Werewolf, SatelLite slice 2026-10-09 07:54, on the printer 2026-10-09 (Logan). Preview shows three models. |
+| P2610-09 | 2026-10-08 | 32mm_P0105_Wight_ABC_S3P1_STL_1_202610082212.goo | Space Grey 8K Standard | 0.03mm | 1.9s | 27.0s | 4 | Wights A, B and C, SatelLite slice 2026-10-08 22:12, on the printer 2026-10-08 (Logan). Preview shows three models. |  |  |  |
 | P2610-08 | 2026-10-08 | 32mm_P0075_Elemental_Air_Phade_WP6_STL_1_202610080822.goo | Space Grey 8K Standard | 0.03mm | 1.9s | 27.0s | 4 | Air (Phade) and TWO Fire (Living Wildfire) elementals at the 32mm heroic size, printing 2026-10-08 at Brian's request (Logan). Preview shows three models. The slice is 1583 layers = 47.49mm, which is the 42.67mm 32mm_ Fire mesh plus a ~5mm lift (standard Fire is 37.10mm), so this is the 32mm_ family, about 1.15x the standard prints on P2610-04. Resin 'Space Grey 8K Standard', as the file names it. 1.9s exposure and 4 bottom layers differ from the Dragon plates; runlog agrees on 1.9s (6.8s per layer). |  |  | Printed and cleaned 2026-10-08 (Logan). Replaces the standard-scale Air and Fire on P2610-04, which Brian rejected as too small. |
 | P2610-07 | 2026-10-07 | ? | Siraya Tech Fast Gray | 0.03mm | 1.8s | 27.0s | 2 |  |  |  | Second set of Sajan, Seoni and Jirelle in Siraya Tech Fast, as a resin test against the Dragon set on P2610-02 (Logan, 2026-10-08). No slice of it is on the printer; settings are Logan's statement that it ran the same as the Dhampir plate P2610-06 (Siraya Tech Fast Gray, 0.03mm, 1.8s, 27s x 2 bottom), not read from a file. Printed 2026-10-07, cleaned and cured. Seoni's finest weapon protrusion broke off during support removal; Sajan and Jirelle had no issues (Logan, 2026-10-08). |
 | P2610-06 | 2026-10-07 | 32mm_P0101_Dhampir_ABC_S3P1_STL_1_202610072338.goo | Siraya Tech Fast Gray | 0.03mm | 1.8s | 27.0s | 2 |  |  |  | Dhampirs A, B and C, SatelLite slice 2026-10-07 23:38, Siraya Tech Fast Gray. A 0.05mm twin of the same slice (23:37, 851 layers) is also on the printer; Logan confirmed the 0.03mm one printed. Printed, cleaned and cured (Logan, 2026-10-08). Minor support nubs left on the cloaks. |
@@ -113,12 +114,12 @@ Regenerate the dashboard after any change:
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | A | 32mm |  | cured | P2610-06 | Siraya Tech Fast Gray |  | 2026-10-08 | Printed in Siraya Tech Fast Gray on P2610-06; minor support nubs left on the cloaks (Logan, 2026-10-08). |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | B | 32mm |  | cured | P2610-06 | Siraya Tech Fast Gray |  | 2026-10-08 | Printed in Siraya Tech Fast Gray on P2610-06; minor support nubs left on the cloaks (Logan, 2026-10-08). |
 | P0101_Dhampir_S3P1 | Dhampirs | 25mm | C | 32mm |  | cured | P2610-06 | Siraya Tech Fast Gray |  | 2026-10-08 | Printed in Siraya Tech Fast Gray on P2610-06; minor support nubs left on the cloaks (Logan, 2026-10-08). |
-| P0102_Coven Aspirant_S3P1 | Coven Aspirant | 25mm | main | 32mm |  | todo |  |  |  | 2026-10-05 |  |
-| P0103_Scarecrow_S3P1 | Scarecrow | 25mm | main | 32mm |  | todo |  |  |  | 2026-10-05 |  |
-| P0104_Werewolf_S3P1 | Werewolf | 25mm | main | 32mm |  | todo |  |  |  | 2026-10-05 |  |
-| P0105_Wight_S3P1 | Wights | 25mm | A | 32mm |  | sliced | P2610-09 | Space Grey 8K Standard |  | 2026-10-08 |  |
-| P0105_Wight_S3P1 | Wights | 25mm | B | 32mm |  | sliced | P2610-09 | Space Grey 8K Standard |  | 2026-10-08 |  |
-| P0105_Wight_S3P1 | Wights | 25mm | C | 32mm |  | sliced | P2610-09 | Space Grey 8K Standard |  | 2026-10-08 |  |
+| P0102_Coven Aspirant_S3P1 | Coven Aspirant | 25mm | main | 32mm |  | sliced | P2610-10 | Space Grey 8K Standard |  | 2026-10-09 |  |
+| P0103_Scarecrow_S3P1 | Scarecrow | 25mm | main | 32mm |  | sliced | P2610-10 | Space Grey 8K Standard |  | 2026-10-09 |  |
+| P0104_Werewolf_S3P1 | Werewolf | 25mm | main | 32mm |  | sliced | P2610-10 | Space Grey 8K Standard |  | 2026-10-09 |  |
+| P0105_Wight_S3P1 | Wights | 25mm | A | 32mm |  | printed | P2610-09 | Space Grey 8K Standard |  | 2026-10-09 |  |
+| P0105_Wight_S3P1 | Wights | 25mm | B | 32mm |  | printed | P2610-09 | Space Grey 8K Standard |  | 2026-10-09 |  |
+| P0105_Wight_S3P1 | Wights | 25mm | C | 32mm |  | printed | P2610-09 | Space Grey 8K Standard |  | 2026-10-09 |  |
 | P0106_Charnel Creation_S3P1 | Charnel Creation | 50mm | main | 32mm |  | cleaned | P2610-05 | Dragon Resin Durable Grey |  | 2026-10-07 |  |
 
 ## 202609 September Release
