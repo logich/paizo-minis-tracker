@@ -1069,7 +1069,7 @@ This sits oddly beside the warning in *UVtools* that the copy inside SatelLite's
 bundle is x86-64 and SIGBUSes. That warning is about **us** pointing our own
 commands at that binary; if the Cavity Detection route works, the same build
 evidently runs fine inside SatelLite's own process. The two are not in conflict,
-and neither licenses calling that binary directly: ours stays `uvtools-macos/`.
+and neither licenses calling that binary directly: ours is the one in `/Applications`.
 
 **Measured 2026-09-18, and the two routes are NOT equivalent.** Logan sliced the
 Horned Dragon body twice within two minutes - `..._202609181143.goo` raw and
@@ -1607,11 +1607,18 @@ Both hosts share this directory, so each keeps its own build, and
 `sliced.UVTOOLS` picks by platform:
 
     Linux server   ./uvtools/UVtoolsCmd                                    linux-x64
-    Mac mini       ./uvtools-macos/UVtools.app/Contents/MacOS/UVtoolsCmd   osx-arm64
+    Mac mini       /Applications/UVtools.app/Contents/MacOS/UVtoolsCmd     osx-arm64
 
 The ledger session moved to the Mac mini on 2026-09-13; the macOS build was
-installed then from the v6.2.0 GitHub release. Both are **gitignored**, since
-a 100-270 MB bundle is a tool we run, not something this repo carries. A fresh
+installed then from the v6.2.0 GitHub release. **The Mac copy must live on local
+disk, in `/Applications` (2026-10-08):** the repo is on an SMB share mounted with
+the `quarantine` option, and a Chrome-downloaded, ad-hoc-signed binary run from it
+is killed silently (exit 137, no output, even for `print-properties`) - it
+wasted three installs. `sliced.UVTOOLS` falls back to `uvtools-macos/` only if
+`/Applications` has none. After a fresh download run `xattr -dr
+com.apple.quarantine /Applications/UVtools.app`. The Linux build stays gitignored
+in the repo, since a 100-270 MB bundle is a tool we run, not something this repo
+carries. A fresh
 clone will not have one, and everything degrades to the `.goo`-only path
 without it.
 

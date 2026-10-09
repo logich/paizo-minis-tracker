@@ -75,10 +75,17 @@ FROM_SATELLITE_NAME = re.compile(
 
 
 # Both hosts share this directory, so each keeps its own build: the Linux bundle
-# in uvtools/, the macOS app bundle in uvtools-macos/.
+# in uvtools/, the macOS app bundle in /Applications. macOS kills a quarantined,
+# ad-hoc-signed binary run from the SMB share the repo lives on (exit 137), so the
+# Mac build must be on local disk; uvtools-macos/ is only the fallback.
 _REPO = Path(__file__).resolve().parent.parent
-UVTOOLS = (_REPO / "uvtools-macos" / "UVtools.app" / "Contents" / "MacOS" / "UVtoolsCmd"
-           if sys.platform == "darwin" else _REPO / "uvtools" / "UVtoolsCmd")
+_MAC_BUNDLE = Path("UVtools.app") / "Contents" / "MacOS" / "UVtoolsCmd"
+if sys.platform == "darwin":
+    UVTOOLS = Path("/Applications") / _MAC_BUNDLE
+    if not UVTOOLS.exists():
+        UVTOOLS = _REPO / "uvtools-macos" / _MAC_BUNDLE
+else:
+    UVTOOLS = _REPO / "uvtools" / "UVtoolsCmd"
 
 # UVtools property name -> the name this module uses.
 UVTOOLS_FIELDS = {
