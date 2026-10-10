@@ -1780,6 +1780,43 @@ names. The same goes for the exposure and layer settings in the file, except whe
 he says they were changed on the printer (see *Settings changed on the printer
 itself*). An unfamiliar profile name is still just the resin: record it as written.
 
+### Resins on record, and the blend test (2026-10-10)
+
+All at 30 um. These are what the plates carry, not manufacturer figures.
+
+    resin                        normal   bottom   bottom layers   used for
+    Dragon Resin Durable Grey    2.8 s    27 s     5               Sept-Oct 6 plates (~38)
+    Elegoo ABS-like 3.0          1.9 s    27 s     4               August release and extras
+    Elegoo 8K Standard Gray      1.9 s    27 s     4               P2610-08/-09/-10; 1.5 s early Sept
+    Siraya Tech Fast Gray        1.8 s    27 s     2               P2610-06, P2610-07 (test)
+    Fast + 15% Tenacious         2.1 s    27 s     5               settled 2026-10-10
+
+**Why:** Dragon is hard to source, so Logan tested Siraya Fast mixed with Tenacious
+as a more available substitute. The mix is about 181 g Fast + 31 g Tenacious, 14.6%
+by weight, and the slicer profile is named **`Fast + 15% Tenacious`**, so `plate`
+records it from the file as usual. The test and its reasoning are in
+`reference/resin-fast-tenacious-blend-test.md`; the traffic is in
+`reference/messages-from-resin.jsonl`, written by a separate resin agent.
+
+What the record shows:
+
+- Straight Fast broke where Dragon did not: Seoni's finest weapon protrusion sheared
+  off in support removal on P2610-07, from the **same slice** as her Dragon print on
+  P2610-02. One sample. ABS-like is the other resin with a recorded breakage (the
+  Graveknight's sword, P2610-00).
+- The blend's cones of calibration: **2.1 s best, 1.9 s also very good** (Logan). He
+  gave no results for 2.3-2.9 s, and none for temperature, so none are recorded.
+- Straight-Fast plates read 1.8 s where Logan's own calibration said 1.9 s. Logan
+  calls that within normal variance, not an error; the ledger keeps what each plate
+  carries.
+- **Nothing here has been judged by Brian.** No blend plate existed when this was
+  written, so whether the blend is as tough as Dragon is untested.
+- The base-flare numbers under *Flat on the plate* (0.0133 mm per second, the 12 s
+  floor, 0.036 mm per deburr pass) were measured on Dragon. Do not assume them for
+  another resin; a base plate in the blend needs its own check.
+- P2610-09 (Wights) and P2610-10 (Coven Aspirant, Scarecrow, Werewolf) are to be
+  reprinted in the blend (Logan, 2026-10-10). They are Space Grey 8K Standard today.
+
 ## Seeing what a plate actually held
 
 `.goo` files embed two rendered previews of the build plate — 116x116 and

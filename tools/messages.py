@@ -14,7 +14,7 @@ one JSON object per line:
      "from": "browser", "to": "ledger", "type": "request",
      "subject": "...", "body": "...", "refs": ["reference/incoming.tsv"], "re": null}
 
-  to    ledger | browser | user
+  to    ledger | browser | resin | user
   type  request  - the recipient must act; open until a reply with type done
         done     - closes the request named in "re"
         question - needs an answer; open until a reply with type answer
@@ -38,8 +38,11 @@ ROOT = Path(__file__).resolve().parent.parent
 FILES = {
     "browser": ROOT / "reference" / "messages-from-browser.jsonl",
     "ledger": ROOT / "reference" / "messages-from-ledger.jsonl",
+    # Resin agent: a Claude chat session working on resin/exposure testing.
+    # Not the user, not the ledger session. Writes only its own file.
+    "resin": ROOT / "reference" / "messages-from-resin.jsonl",
 }
-PARTIES = ("browser", "ledger", "user")
+PARTIES = ("browser", "ledger", "resin", "user")
 TYPES = ("request", "done", "question", "answer", "info")
 CLOSES = {"done": "request", "answer": "question"}
 
