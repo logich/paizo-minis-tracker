@@ -1814,8 +1814,17 @@ What the record shows:
 - The base-flare numbers under *Flat on the plate* (0.0133 mm per second, the 12 s
   floor, 0.036 mm per deburr pass) were measured on Dragon. Do not assume them for
   another resin; a base plate in the blend needs its own check.
-- P2610-09 (Wights) and P2610-10 (Coven Aspirant, Scarecrow, Werewolf) are to be
-  reprinted in the blend (Logan, 2026-10-10). They are Space Grey 8K Standard today.
+- **8K Standard broke a trident (Logan, 2026-10-11).** Athamaru A's trident snapped
+  during support removal on P2610-11, and Logan reads the standard resin as too
+  brittle for it. That is the second thin-part breakage on a cheaper resin after
+  Seoni on straight Fast, and the Graveknight's sword on ABS-like. It is a reading,
+  not a measurement. A's two Dragon prints (P2609-02, P2609-37) reached Brian and were
+  rejected for a damaged leg and a split arm; neither record mentions the trident, so
+  they suggest it survived, but nobody wrote that down.
+- The blend is being tried as alternates, not replacements. P2610-12 reprinted the
+  P2610-10 slice (Coven Aspirant, Scarecrow, Werewolf) at 2.1 s as `32mm-blend`
+  extras beside the 8K Standard copies, so Brian can say which he prefers. Logan is
+  **not** redoing the Wights (P2610-09). Athamaru A is to be reprinted in the blend.
 
 ## Seeing what a plate actually held
 
