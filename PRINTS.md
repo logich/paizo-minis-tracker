@@ -132,7 +132,7 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Result | Changed | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Paizo_giant_cave_centepiede_Supported | Giant Cave Centipede | 25mm | main | 32mm |  | todo |  |  |  | 2026-10-11 | BRIAN HAS REQUESTED THREE of these (Logan, 2026-10-11); the ledger tracks one row, so the other two are not counted in bases - two extra bases needed. Sliced three to a plate in the Fast + 15% Tenacious blend profile (2.1 s, 27 s x 5), file 3x_giant_cave_centepiede_1_202610112214.goo in the extras folder, to print when the current plate finishes. Not yet on the printer. Base 25mm is the default, not a stated size; scale (114% from the 28mm mesh) not yet confirmed. |
+| Paizo_giant_cave_centepiede_Supported | Giant Cave Centipede | 25mm | main | 32mm |  | todo |  |  |  | 2026-10-11 | BRIAN HAS REQUESTED THREE of these (Logan, 2026-10-11); the ledger tracks one row, so the other two are not counted in bases - two extra bases needed. Sliced three to a plate in the Fast + 15% Tenacious blend profile (2.1 s, 27 s x 5), file 3x_giant_cave_centepiede_1_202610112214.goo in the extras folder, to print when the current plate finishes. Not yet on the printer. Base 25mm: the model page says it is a Medium-sized giant centipede (Logan, 2026-10-11), recorded in models.tsv. Scale (114% from the 28mm mesh) not yet confirmed. |
 
 ## 202609 September Release
 
