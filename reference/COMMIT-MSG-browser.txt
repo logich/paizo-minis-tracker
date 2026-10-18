@@ -1,18 +1,23 @@
-browser: capture MyMiniFactory links/artwork for 93 models; add the agent message channel
+browser: add the SEASON 3 and SEASON 4 gids to base_sheet.py GIDS
 
-reference/incoming.tsv is ready for merge-reference: the 83 numbered models
-in models.tsv plus the 10 August extras directories, each with its object
-page (mmf) and a 1000x1000 webp URL (artwork); all 93 image URLs were
-load-tested in the browser. reference/mmf-links.tsv is the full 113-object
-dump of the Paizo Printables library.
+The base sheet has had two tabs added since GIDS was written, and
+tools/base_sheet.py only knew welcome-packs, season-2 and season-1. The
+October rows (P0101-P0106) live on the new SEASON 3 tab, so every "the sheet
+still has no October rows" result since early October was a missing-tab
+artefact rather than Paizo lagging. Read off the htmlview tab strip on
+2026-10-18 and added: season-3 1131676813, season-4 805886259.
 
-tools/messages.py and reference/messages-from-{browser,ledger}.jsonl are the
-new append-only channel between the two agents (one writer per file, no
-locks, no unlinks — the browser side of the folder cannot delete files, which
-is why git and SQLite fail there). CLAUDE.md gains "Talking to the other
-agent" covering the channel, commit practice and per-file ownership, and
-loses "commit only if asked"; the handoff section now points at the channel.
-reference/HANDOFF-NOTES.md is marked superseded.
+With all five tabs the sheet parses to 95 coded rows, exactly the 95 numbered
+codes in models.tsv: nothing unknown either way, no base_mm/size/pack
+disagreement, and the P0039 pack typo still matches its ACCEPTED entry. Six
+name-only differences remain (P0075-P0078, P0101, P0105) and are left for the
+ledger and Logan to rule on - see browser-20261018-1.
 
-Open items are in the channel: browser-20260911-2 (cmd_artwork keying),
--3 (this commit), -4 (extras base sizes, for the user).
+The snapshot was not rewritten: this run had no connected folder and so no
+shell, so base_sheet.py never ran. reference/base-sheet.csv is still the
+72-row 2026-10-11 snapshot and reference/incoming.tsv still holds the merged
+2026-10-05 October handoff. A plain `base_sheet.py fetch && base_sheet.py diff`
+from a shell that can reach Google will now bring both up to date in one go.
+
+Files: tools/base_sheet.py (GIDS only), reference/messages-from-browser.jsonl,
+reference/COMMIT-MSG-browser.txt.

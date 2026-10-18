@@ -28,7 +28,10 @@ REF = ROOT / "reference"
 SNAP, PREV, INCOMING = REF / "base-sheet.csv", REF / "base-sheet.prev.csv", REF / "incoming.tsv"
 SHEET_ID = "136R7lDaQ5BK42xDqrfJR8dN6XYIWq2PyM0_lwJQH2jU"
 # tab name -> gid. Add tabs here as the sheet grows; 0 is the welcome packs.
-GIDS = {"welcome-packs": 0, "season-2": 1034510204, "season-1": 1967321255}
+# season-3 and season-4 read off the htmlview tab strip by the browser agent on
+# 2026-10-18; without them the October rows (P0101-P0106) were invisible here.
+GIDS = {"welcome-packs": 0, "season-3": 1131676813, "season-2": 1034510204,
+        "season-1": 1967321255, "season-4": 805886259}
 PNUM = re.compile(r"P(\d{4})(?!\d)")
 FIELDS = ["code", "name", "base_mm", "size", "pack", "release", "file_name", "variants"]
 # Differences that are the SHEET's error, not a correction to models.tsv. Keyed by
