@@ -34,8 +34,8 @@ GIDS = {"welcome-packs": 0, "season-3": 1131676813, "season-2": 1034510204,
         "season-1": 1967321255, "season-4": 805886259}
 PNUM = re.compile(r"P(\d{4})(?!\d)")
 FIELDS = ["code", "name", "base_mm", "size", "pack", "release", "file_name", "variants"]
-# Differences that are the SHEET's error, not a correction to models.tsv. Keyed by
-# code, each entry names the exact field and the sheet's wrong value, so only that
+# Differences that are the SHEET's wording or error, not a correction to models.tsv.
+# Keyed by code, each entry names the exact field and the sheet's value, so only that
 # one difference is suppressed - if the sheet later changes anything else on the
 # same row, diff still reports it. Same idea as ACCEPTED in aon_sizes.py, narrower.
 ACCEPTED = {
@@ -43,6 +43,18 @@ ACCEPTED = {
               "sheet Release Code cell is a typo: the directory on disk is "
               "2-P0039_Hellbreaker_S1P2 and the sheet's own Release column says "
               "May 2026, which is S1P2 (browser agent, confirmed 2026-09-25)"),
+    "P0075": ("name", "Elemental Air, Phade",
+              "kept as models.tsv has it: word order and punctuation only (Logan, 2026-10-19)"),
+    "P0076": ("name", "Elemental Earth, Living Landslide",
+              "kept as models.tsv has it: word order and punctuation only (Logan, 2026-10-19)"),
+    "P0077": ("name", "Elemental Fire, Living Wildfire",
+              "kept as models.tsv has it: word order and punctuation only (Logan, 2026-10-19)"),
+    "P0078": ("name", "Elemental Water, Brine Shark",
+              "kept as models.tsv has it: word order and punctuation only (Logan, 2026-10-19)"),
+    "P0101": ("name", "Dhampir",
+              "kept as models.tsv has it: the pack ships three variants, so models.tsv's plural matches the MyMiniFactory title (Logan, 2026-10-19)"),
+    "P0105": ("name", "Wight",
+              "kept as models.tsv has it: the pack ships three variants, so models.tsv's plural matches the MyMiniFactory title (Logan, 2026-10-19)"),
 }
 
 
