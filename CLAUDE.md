@@ -1821,6 +1821,11 @@ What the record shows:
   not a measurement. A's two Dragon prints (P2609-02, P2609-37) reached Brian and were
   rejected for a damaged leg and a split arm; neither record mentions the trident, so
   they suggest it survived, but nobody wrote that down.
+- **The blend held the trident (Logan, 2026-10-19).** Athamaru A reprinted in it on
+  P2610-13 and the trident survived support removal, where the 8K Standard print
+  (P2610-11) snapped it. One print, same model and same part, so the best like-for-
+  like on record - but one sample, from two separate slices whose supports may
+  differ, and no verdict from Brian yet.
 - The blend is being tried as alternates, not replacements. P2610-12 reprinted the
   P2610-10 slice (Coven Aspirant, Scarecrow, Werewolf) at 2.1 s as `32mm-blend`
   extras beside the 8K Standard copies, so Brian can say which he prefers. Logan is
