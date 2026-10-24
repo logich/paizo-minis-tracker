@@ -1249,6 +1249,19 @@ support defects of a kind he has seen before, and the reprint goes on SatelLite.
   judgement about which faces are hidden, and SatelLite's supports keep the
   holding. Whether that combination works is Brian's verdict on P2610-01.
 
+- **Lychee 8 with the vendor's presupported orientation, Fortune Dragon WingR
+  (P2610-17, 2026-10-24):** sliced from the vendor's `_PRE.lys` in Lychee Slicer
+  8.0.0 on the blend profile, 3755 layers = 112.65 mm (exactly the true-scale `_SUP`
+  mesh's Z). It came through support removal clean and was **much easier to remove
+  than the EVO supports** (Logan). The EVO auto-supported WingR (P2610-16) had been
+  damaged in removal. It screened WATCH (one island of 1049 px2 at 57.42 mm) and the
+  clear verdict on the EVO slice had meant nothing, so neither screen predicted
+  anything. One part, one print. It also ran with 1 s after cure and 0 after lift,
+  not SatelLite's 1 s after lift, so timing is a second difference between the two
+  slices; they differ in support style, orientation and waits all at once. What this
+  does show is that supports can be *easy to remove* and still hold, which is the
+  second job the Scylla note separated from "supports that hold".
+
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
 points at the machine rather than at either support style.
