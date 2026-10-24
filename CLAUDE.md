@@ -1261,6 +1261,9 @@ support defects of a kind he has seen before, and the reprint goes on SatelLite.
   slices; they differ in support style, orientation and waits all at once. What this
   does show is that supports can be *easy to remove* and still hold, which is the
   second job the Scylla note separated from "supports that hold".
+  **WingL then did the same** (P2610-18, same recipe, 2026-10-24): finished and came off
+  clean. Two wings, two clean removals on Lychee 8's vendor supports, against one
+  damaged wing on EVO. Still not isolated from the other differences above.
 
 Treat it as an open variable rather than a settled cause. It is also not the
 only one — Scylla's defects are confined to one region of the plate, which
