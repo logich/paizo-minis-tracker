@@ -1862,6 +1862,12 @@ What the record shows:
   comparison is mine, not measured. The 3.0 s was deliberately generous against an
   estimate of about 2.5 s (range 2.2-3.0); no cones were run at 50 um, so 3.0 s is a
   working value, not a calibration. The Dragon flare line does not predict this resin.
+- **A 75 mm blank came off easily (P2610-21, Logan, 2026-10-25):** the same settings as the
+  25 mm run (50 um, 3.0 s, 27 s x 5, deburr 9) on a disc with about nine times the contact
+  patch printed really well, and **the flexibility of the blend let him pop it off the
+  plate easily**. That is the opposite of the flat-disc-as-suction-cup problem the
+  Dragon bases had, though the disc's own 1.2 mm bevel helps too and he gave no rim
+  measurements. One plate; do not read it as proof for every 75 mm part.
 - The blend is being tried as alternates, not replacements. P2610-12 reprinted the
   P2610-10 slice (Coven Aspirant, Scarecrow, Werewolf) at 2.1 s as `32mm-blend`
   extras beside the 8K Standard copies, so Brian can say which he prefers. Logan is
