@@ -1842,6 +1842,18 @@ What the record shows:
   (P2610-11) snapped it. One print, same model and same part, so the best like-for-
   like on record - but one sample, from two separate slices whose supports may
   differ, and no verdict from Brian yet.
+- **The blend at 50 um, on bases (P2610-20, Logan, 2026-10-25):** ten plain 25 mm bases
+  flat on the plate, 3.0 s normal (set on the printer; the file said 2.0 s), 27 s x 5
+  bottom, deburr 9, all ten **printed very well**. Rim: **23.74 mm at the plate contact,
+  24.36 mm at mid-height**; whether green or cured was not stated. There is **no
+  elephant foot**: the slice's layer 0 is about 24.26 mm after 9 passes and the print
+  is smaller still, so the bevel is about 0.31 mm of radius, roughly twice the 0.162 mm
+  designed, and mid-height is 0.16 mm under the slice's 24.52 mm. It held at 9 passes
+  where Dragon at 12 s lost half a plate at 12 (P2609-33), consistent with far more
+  bottom exposure and thicker bottom layers (27 s x 5 at 50 um is 0.25 mm), but that
+  comparison is mine, not measured. The 3.0 s was deliberately generous against an
+  estimate of about 2.5 s (range 2.2-3.0); no cones were run at 50 um, so 3.0 s is a
+  working value, not a calibration. The Dragon flare line does not predict this resin.
 - The blend is being tried as alternates, not replacements. P2610-12 reprinted the
   P2610-10 slice (Coven Aspirant, Scarecrow, Werewolf) at 2.1 s as `32mm-blend`
   extras beside the 8K Standard copies, so Brian can say which he prefers. Logan is
