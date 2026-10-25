@@ -163,6 +163,14 @@ blank order, and adding blanks to the Pathfinder backlog would report them cover
 spare bases of the wrong kind. Size keys are free text, so nothing in the code needed
 changing for that.
 
+**The 75 mm blank's bottom edge is already beveled (Logan, 2026-10-25):** layer 0 of the
+slice is 72.52 mm across (4029 px) against the 75.00 mm mesh, so the edge that touches
+the plate is about 1.2 mm in on the radius and the full 75 mm comes higher up. The slice is
+70 layers = 3.50 mm, so it is not scaled. That built-in bevel is already a release
+chamfer a spatula can enter, which makes the deburr passes largely redundant on this
+disc: 9 passes take another 0.162 mm of radius off layer 0 (4029 -> 4011 px), under 1%
+of the contact area. The 25 mm Round was not checked for a bevel of its own.
+
 A blank is the easiest thing on record to print flat: 117 layers at 3.50 mm, nothing
 on its top to protect. The 12 s / 6-pass flat recipe should carry over, but the
 6-pass figure was measured on the Pathfinder mesh, whose bottom flares slightly; a
