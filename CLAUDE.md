@@ -1868,6 +1868,12 @@ What the record shows:
   plate easily**. That is the opposite of the flat-disc-as-suction-cup problem the
   Dragon bases had, though the disc's own 1.2 mm bevel helps too and he gave no rim
   measurements. One plate; do not read it as proof for every 75 mm part.
+- **A straight-Fast mini broke in a drop (Logan, 2026-10-28):** Dhampir A (P2610-06) lost its
+  right arm when it fell from table height onto a chair, and is reprinted in the blend
+  (P2610-24). That is an accident and not a controlled test: nothing here says how a
+  Dragon or blend print would have fared in the same fall, and the arm is a thin part
+  on a sculpt that was not chosen for strength. It does fit the Seoni breakage on
+  straight Fast and the Siraya guide's own warning that Fast is not tough.
 - The blend is being tried as alternates, not replacements. P2610-12 reprinted the
   P2610-10 slice (Coven Aspirant, Scarecrow, Werewolf) at 2.1 s as `32mm-blend`
   extras beside the 8K Standard copies, so Brian can say which he prefers. Logan is
