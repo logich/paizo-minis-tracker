@@ -8,5 +8,5 @@ cups_flagged
 cups_largest	
 cups_above_raft_mm3	0.0
 sha256	0b962bc8766fb8fd3aabe64182ea6ab1cfb724173ff1cac9169fde39c351b1d0
-resolved	
-resolution	
+resolved	2026-10-31
+resolution	superseded; supports not correct, Body reprinted from the P2610-15 file as P2610-29 (Logan, 2026-10-31)
