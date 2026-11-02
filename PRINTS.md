@@ -109,6 +109,21 @@ Regenerate the dashboard after any change:
 | P2604-01 | ? | ? | Elegoo 8K Standard Gray | ? | ? | ? | ? |  |  |  | Legacy plate, not a real print run: stands for the unplated prints of 202604 Dragons, which predate plate tracking. All printed in Elegoo 8K Standard Gray (Logan, 2026-10-07). Settings and date unknown; parts on it were not necessarily batched together. |
 | P2604-00 | ? | ? | Elegoo 8K Standard Gray | ? | ? | ? | ? |  |  |  | Legacy plate, not a real print run: stands for the unplated prints of 202604 April Release, which predate plate tracking. All printed in Elegoo 8K Standard Gray (Logan, 2026-10-07). Settings and date unknown; parts on it were not necessarily batched together. |
 
+## 202611 November Release
+
+| Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Result | Changed | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P0107_Thatchling_S3P2 | Thatchling | 25mm | A | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0107_Thatchling_S3P2 | Thatchling | 25mm | B | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0107_Thatchling_S3P2 | Thatchling | 25mm | C | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0108_Gamekeeper_S3P2 | Gamekeeper | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ija Forgetful Nindoru Full | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ijda Forgetful Nindoru Body | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ijda Forgetful Nindoru Cape | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+
 ## 202610 October Release
 
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Result | Changed | Notes |
