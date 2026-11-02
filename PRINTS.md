@@ -120,6 +120,9 @@ Regenerate the dashboard after any change:
 | P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
 | P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
 | P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | todo |  |  |  | 2026-11-02 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ija Forgetful Nindoru Full | 32mm |  | todo |  |  |  | 2026-11-02 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ijda Forgetful Nindoru Body | 32mm |  | todo |  |  |  | 2026-11-02 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Ijda Forgetful Nindoru Cape | 32mm |  | todo |  |  |  | 2026-11-02 |  |
