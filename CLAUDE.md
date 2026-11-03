@@ -375,6 +375,20 @@ than filing them with parts never printed.
 
 Set it by hand in `PRINTS.md`; `scan` preserves the column and never sets it.
 
+## Extra copies of one part
+
+A row is keyed Model + Part + Scale, so a second copy of the same part needs its own
+`Scale` tag. **Number them `32mm-copy-1`, `32mm-copy-2`** (Logan, 2026-11-03): the `32mm-`
+prefix keeps the size readable and matches the existing `32mm-paco`, `32mm-blend` and
+`32mm-siraya` tags, which stay as they are because they say *why* the copy exists. Put that
+reason in `Notes`, set `Kind` to `extra`, and target the row with `@`:
+
+    python3 tools/ledger.py assign P2611-02 sliced "P0099_Gutaki_S2P3:Body@32mm-copy-1"
+
+A bare target still matches the plain `32mm` row only, so always check the number `assign`
+prints and the `@scale` it echoes. Reprints do not get a tag: they are plate history on
+the same row.
+
 ## Scaled-up prints
 
 Rows are keyed by **Model + Part + Scale**. Everything the library ships is
