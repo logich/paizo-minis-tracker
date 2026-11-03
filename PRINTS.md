@@ -394,20 +394,20 @@ Regenerate the dashboard after any change:
 
 | Model | Mini | Base | Part | Scale | Kind | Stage | Plate | Resin | Result | Changed | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Base | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Head | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Head | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
+| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Base | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Head | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0009_Mirage Dragon_WP1 | Mirage Dragon | 75mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Head | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0010_Diabolic Dragon_WP1 | Diabolic Dragon | 75mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
 | P0011_Empyreal Dragon_WP1 | Empyreal Dragon | 50mm | Body | 32mm |  | painted | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
 | P0011_Empyreal Dragon_WP1 | Empyreal Dragon | 50mm | Head | 32mm |  | painted | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
 | P0011_Empyreal Dragon_WP1 | Empyreal Dragon | 50mm | Tail | 32mm |  | painted | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
 | P0011_Empyreal Dragon_WP1 | Empyreal Dragon | 50mm | Wing L | 32mm |  | painted | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
 | P0011_Empyreal Dragon_WP1 | Empyreal Dragon | 50mm | Wing R | 32mm |  | painted | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
-| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray |  | 2026-11-03 |  |
+| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Body | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Wing L | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
+| P0025_Horned_Dragon_WP1 | Horned Dragon | 25mm | Wing R | 32mm |  | primed | P2604-01 | Elegoo 8K Standard Gray | pass | 2026-11-03 |  |
