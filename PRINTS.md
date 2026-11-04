@@ -31,6 +31,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| P2611-04 | 2026-11-04 | 32mm_P0111_Sojiruh_Shrieking_Nindoru_S3P2_STL_1_202611041034.goo | Siraya 15% Tenacious | 0.03mm | 2.0s | 27.0s | 5 |  |  |  |  |
 | P2611-03 | 2026-11-03 | 32mm_P0108_Gamekeeper_S3P2_STL_1_202611031303.goo | Siraya 15% Tenacious | 0.03mm | 2.0s | 27.0s | 5 |  |  |  | Gamekeeper, Gourd Leshy Witch and Meokdan, three models (preview shows three). Back to 30 um from the 50 um of P2611-01/-02, with exposure lowered to 2.0 s, again because of supports fusing to fine detail (Logan, 2026-11-03). Blend. On the printer 2026-11-03. |
 | P2611-02 | 2026-11-03 | 32mm_P0107_Thatchling_A_S3P2_STL_1_202611030943.goo | Siraya 15% Tenacious 50um | 0.05mm | 2.9s | 27.0s | 5 |  |  |  | Thatchling A, B and C, first November print. Exposure lowered to 2.9 s from the 3.0 s used on the Phade plate (P2611-01), because supports have been fusing to fine detail (Logan, 2026-11-03). Layer 50 um, blend. On the printer 2026-11-03. |
 | P2611-01 | 2026-11-02 | 32mm_P0075_Elemental_Air_Phade_WP6_STL_1_202611021317.goo | Siraya 15% Tenacious 50um | 0.05mm | 3.0s | 27.0s | 5 |  |  |  | Two models: Air Elemental Phade reprint and the Graveknight reprint (Phade's hand was damaged at review, P2610-04/-08). Printed, cleaned and cured (Logan, 2026-11-03). Phade's supports fused to the fine detail of the fingers, so the hand may still be a problem and a different exposure time may be needed; that is Logan's concern, not yet a verdict. Layer 50 um, blend; exposure as sliced. |
@@ -120,12 +121,12 @@ Regenerate the dashboard after any change:
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | A | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | B | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | C | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
-| P0108_Gamekeeper_S3P2 | Gamekeeper | 25mm | main | 32mm |  | sliced | P2611-03 | Siraya 15% Tenacious |  | 2026-11-03 |  |
-| P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | sliced | P2611-03 | Siraya 15% Tenacious |  | 2026-11-03 |  |
-| P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | sliced | P2611-03 | Siraya 15% Tenacious |  | 2026-11-03 |  |
-| P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | todo |  |  |  | 2026-11-02 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | todo |  |  |  | 2026-11-02 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | todo |  |  |  | 2026-11-02 |  |
+| P0108_Gamekeeper_S3P2 | Gamekeeper | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | skipped |  |  |  | 2026-11-02 |  |
 
 ## 202610 October Release
