@@ -1,23 +1,19 @@
-# October 2026 / Season 3 handoff, captured from the MyMiniFactory library 2026-10-05.
-# The library went 113 -> 131 objects: 16 models plus the October PDF and a discount-code post.
-# codes are REAL, read from the vendor artwork filenames, not inferred. Note the Welcome Pack
-# expansion is pack WP6 and P0069-P0078 - my earlier guess of WP5 in season3-announced.tsv was WRONG.
+# November 2026 / Season 3 Part 2 handoff, captured from the MyMiniFactory library 2026-11-02.
+# The library went 131 -> 161 objects; of those, 8 are new Paizo Printables posts: the November
+# PDF, a discount-codes post, and the 6 models below. Codes are REAL, read from the vendor
+# artwork filenames on the library cards (1000X1000-P01xx_..._S3P2), not inferred. Pack is S3P2,
+# confirmed by the object pages' own tag ("Pathfinder paizo S3P2").
+# base_mm and size are DELIBERATELY BLANK: the Google sheet has no S3P2 rows yet (season-3 tab is
+# still the 6 October models), and unlike earlier releases the card badges state only print scale
+# ("28 MM SCALE" / "32 MM SCALE"), not base diameter. Object pages state no base size either.
+# Every artwork URL below was verified to load at 1000x1000 through Chrome on 2026-11-02.
 # merge-reference does not apply the pack column; set pack by hand or extend it.
-# base_mm/size are the vendor's own announced values (post-edit), still absent from the Google sheet.
+# NOTE P0107: the MyMiniFactory object title is singular "Thatchling"; the artwork filename is
+# plural "P0107_Thatchlings_S3P2". Name below is the object title - ruling needed (cf. P0101).
 code	name	base_mm	size	pack	mmf	artwork
-P0069	Sajan, Iconic Monk	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-monk-sajan-852751	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf79df4c35a7.10252834/images/1000X1000-_0009_P0069_Monk_Sajan_WP6.jpg@webp
-P0070	Seoni, Iconic Sorcerer	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-sorcerer-seoni-852757	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf7b49054bf5.90647214/images/1000X1000-_0008_P0070_Sorcerer_Seoni_WP6.jpg@webp
-P0071	Jirelle, Iconic Swashbuckler	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-swashbuckler-jirelle-852766	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf7c7459a702.79771920/images/1000X1000-_0007_P0071_Swashbuckler_Jirelle_WP6.jpg@webp
-P0072	Fortune Dragon	75	Huge	WP6	https://www.myminifactory.com/object/3d-print-fortune-dragon-852783	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80af075c88.37191311/images/1000X1000-_0006_P0072_Fortune_Dragon_WP6.jpg@webp
-P0073	Ogre Glutton	50	Large	WP6	https://www.myminifactory.com/object/3d-print-ogre-glutton-852787	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80de5df0b0.59039214/images/1000X1000-_0005_P0073_Ogre_Glutton_WP6.jpg@webp
-P0074	Ogre Boss	50	Large	WP6	https://www.myminifactory.com/object/3d-print-ogre-boss-852790	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80e00b7f91.45478322/images/1000X1000-_0004_P0074_Ogre_Boss_WP6.jpg@webp
-P0075	Air Elemental - Phade	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-air-phade-852791	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80e140e359.08473646/images/1000X1000-_0003_P0075_Elemental_Air_Phade_WP6.jpg@webp
-P0076	Earth Elemental - Living Landslide	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-earth-living-landslide-852792	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80e2cfc3d0.99056153/images/1000X1000-_0002_P0076_Elemental_Earth_Living_Landslide_WP6.jpg@webp
-P0077	Elemental Fire - Living Wildfire	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-fire-living-wildfire-852793	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf80e4dbdfa3.62507382/images/1000X1000-_0001_P0077_Elemental_Fire_Living_Wildfire_WP6.jpg@webp
-P0078	Water Elemental - Brine Shark	25	Medium	WP6	https://www.myminifactory.com/object/3d-print-elemental-water-brine-shark-852800	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6abf81c22890e6.29578360/images/1000X1000-_0000_P0078_Elemental_Water_Brine_Shark_with_Base_WP6.jpg@webp
-P0101	Dhampirs	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-dhampirs-848178	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafaf0dd8ea43.39186002/images/1000X1000-P0101_Dhampir_S3P1.png@webp
-P0102	Coven Aspirant	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-coven-aspirant-848179	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafaf61204627.16958090/images/1000X1000-P0102_Coven-Aspirant_S3P1.png@webp
-P0103	Scarecrow	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-scarecrow-848181	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafaff95dce43.36148222/images/1000X1000-P0103_Scarecrow_S3P1.png@webp
-P0104	Werewolf	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-werewolf-848182	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafb027dab475.16089128/images/1000X1000-P0104_Werewolf_S3P1.png@webp
-P0105	Wights	25	Medium	S3P1	https://www.myminifactory.com/object/3d-print-wights-848183	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafb0570efec5.42377352/images/1000X1000-P0105_Wights_S3P1.png@webp
-P0106	Charnel Creation	50	Large	S3P1	https://www.myminifactory.com/object/3d-print-charnel-creation-848184	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6aafb0a00ff6a8.63570346/images/1000X1000-P0106_Charnel-Creation_S3P1.png@webp
+P0107	Thatchling			S3P2	https://www.myminifactory.com/object/3d-print-thatchling-864065	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5ac91145970.42132141/images/1000X1000-P0107_Thatchlings_S3P2.jpg@webp
+P0108	Gamekeeper			S3P2	https://www.myminifactory.com/object/3d-print-gamekeeper-864066	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5ad31d1eaf4.56226029/images/1000X1000-P0108_Gamekeeper_S3P2.jpg@webp
+P0109	Gourd Leshy Witch			S3P2	https://www.myminifactory.com/object/3d-print-gourd-leshy-witch-864067	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5ae362969b9.10995834/images/1000X1000-P0109_Gourd%20Leshy%20Witch_S3P2.jpg@webp
+P0110	Meokdan Hungry Nindoru			S3P2	https://www.myminifactory.com/object/3d-print-meokdan-hungry-nindoru-864068	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5ae9ab17fc2.76739518/images/1000X1000-P0110_Meokdan_Hungry_Nindoru_S3P2.jpg@webp
+P0111	Sojiruh Shrieking Nindoru			S3P2	https://www.myminifactory.com/object/3d-print-sojiruh-shrieking-nindoru-864069	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5aedb844fd7.89241318/images/1000X1000-P0111_Sojiruh_Shrieking_Nindoru_S3P2.jpg@webp
+P0112	Ijda Forgetful Nindoru			S3P2	https://www.myminifactory.com/object/3d-print-ijda-forgetful-nindoru-864070	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/6ad5af25051e29.68184730/images/1000X1000-P0112_Ijda_Forgetful_Nindoru_S3P2.jpg@webp

@@ -1,0 +1,19 @@
+# Brian's painted prints, as posted on https://www.myminifactory.com/users/briansouvey
+# Written by tools/brian_prints.py (browser agent). One row per print on his Prints tab.
+# print_id is the key (/prints/<print_id>). posted is the page's own date_created.
+# code is joined from object_id against the mmf column of models.tsv - never from his
+#   title, which is hand-typed and carries typos. Blank code = no matching object id.
+# Whether a photo is filed is NOT recorded here; it is read from gallery/ on each run.
+print_id	posted	code	object_id	his_title	image_url
+161214	2026-09-27	P0087	816621	Sargassum Heap	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab953df3fd28/IMG-5028.6ab953df40824.jpeg
+161218	2026-09-27	P0029	779548	Ort's	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab9660c35048/IMG-5038.6ab9660c35da1.jpeg
+161219	2026-09-27	P0011	779522	Empyreal Dragon	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab966ded533d/IMG-5030.6ab966ded66f7.jpeg
+161220	2026-09-27	P0032	795094	Arboreal Warden	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab9677c4f009/IMG-5035.6ab9677c4fa30.jpeg
+161221	2026-09-27	P0048	807533	Nessari Tyrant Devil	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab9683189899/IMG-5034.6ab968318a30f.jpeg
+161222	2026-09-27	P0040	795097	Leukodaemon	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab968edaa31c/IMG-5033.6ab968edaeae6.jpeg
+161223	2026-09-27	P0046	807530	Skeletal Hellknight Bonesinger	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6ab969b1745bc/IMG-5031.6ab969b17541b.jpeg
+162416	2026-10-26	P0031	779847	Sarglagon - drowned Devil	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6adf829ef10bc/IMG-5119.6adf829ef1e30.jpeg
+162417	2026-10-26	P0060	816628	Vrolikai Demon	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6adf8426800c7/IMG-5121.6adf842680d03.jpeg
+162418	2026-10-26	P0036	795103	Phistophilus Drvil	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6adf84ccf26a9/IMG-5120.6adf84ccf31ca.jpeg
+162419	2026-10-26	P0022	779535	Cinder rat	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6adf85568b692/IMG-5123.6adf85568c66d.jpeg
+162420	2026-10-26	Paizo_fire_serpent__Supported	768531	Fire Serpent	https://images2.myminifactory.com/insecure/plain/https://assets.myminifactory.com/object-images/tmp/images/6adf86694cbfa/IMG-5122.6adf86694d83a.jpeg

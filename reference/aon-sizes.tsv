@@ -14,11 +14,11 @@ P0010	Diabolic Dragon	75	50/75/100		Adult Diabolic Dragon [Divine, Dragon, Unhol
 P0011	Empyreal Dragon	50	50/75/100		Adult Empyreal Dragon [Divine, Dragon, Holy, Huge] L14 (Monster Core); Young Empyreal Dragon [Divine, Dragon, Holy, Large] L10 (Monster Core); Ancient Empyreal Dragon [Divine, Dragon, Holy, Uncommon, Gargantuan] L19 (Monster Core)
 P0012	Boggard Warrior	25	25		Boggard Warrior [Amphibious, Boggard, Humanoid, Medium] L2 (Monster Core)
 P0013	Boggard Swampseer	25	25		Boggard Swampseer [Amphibious, Boggard, Humanoid, Medium] L3 (Monster Core)
-P0014	Boggard Scout	25	25		Boggard Scout [Amphibious, Boggard, Humanoid, Medium] L1 (Pathfinder Game Night: Dawn of the Frogs (Deluxe Adventure))
+P0014	Boggard Scout	25	25		Boggard Scout [Amphibious, Boggard, Humanoid, Medium] L1 (Pathfinder Game Night: Dawn of the Frogs)
 P0015	Rain in Cloudy Day	25			
 P0016	Giant Rat	25	25		Giant Rat [Animal, Small] L-1 (Monster Core)
 P0017	Giant Spider	25			
-P0018	Skeleton Guard	25	25		Skeleton Guard [Mindless, Skeleton, Undead, Unholy, Medium] L-1 (Monster Core); Skeleton Guard [Mindless, Skeleton, Undead, Unholy, Medium] L-1 (Pathfinder Game Night: Dawn of the Frogs (Deluxe Adventure))
+P0018	Skeleton Guard	25	25		Skeleton Guard [Mindless, Skeleton, Undead, Unholy, Medium] L-1 (Pathfinder Game Night: Dawn of the Frogs); Skeleton Guard [Mindless, Skeleton, Undead, Unholy, Medium] L-1 (Monster Core)
 P0019	Kobold Warrior	25	25		Kobold Warrior [Humanoid, Kobold, Small] L-1 (Monster Core)
 P0020	Kobold Trapmaster	25			
 P0021	Kobold Scout	25	25		Kobold Scout [Humanoid, Kobold, Small] L1 (Monster Core)
@@ -28,7 +28,7 @@ P0024	Zolgran, Kobold Boss	25
 P0025	Horned Dragon	25	50/75/100	accepted: base sheet lists the WP1 Horned Dragon as Medium (Logan, 2026-09-11)	Adult Horned Dragon [Amphibious, Dragon, Primal, Huge] L12 (Monster Core); Young Horned Dragon [Amphibious, Dragon, Primal, Large] L8 (Monster Core); Ancient Horned Dragon [Amphibious, Dragon, Primal, Uncommon, Gargantuan] L17 (Monster Core)
 P0026	Andoran Golden Legionnaire	25			
 P0027	Andoran Steel Falcon	25			
-P0028	Hellknight Signifer	25			
+P0028	Hellknight Signifer	25	25		Hellknight Signifer [Human, Humanoid, Medium] L7 (Cheliax, Infernal Inheritance)
 P0029	Ort (Druge Devil)	25			
 P0030	Vordine (Infantry Devil)	25	25		Vordine [Devil, Fiend, Unholy, Medium] L5 (Monster Core)
 P0031	Sarglagon (Drowning Devil)	50	50		Sarglagon [Amphibious, Devil, Fiend, Unholy, Large] L8 (Monster Core)
@@ -42,12 +42,12 @@ P0038	Balisse Angel	25
 P0039	Hellbreaker	25			
 P0040	Leukodaemon	50	50		Leukodaemon [Daemon, Fiend, Unholy, Large] L9 (Monster Core)
 P0041	Rekhep Archon	50			
-P0042	Vidileth Alghollthu	50	50		Vidileth [Aberration, Aquatic, Rare, Large] L14 (Monster Core); Vidileth [Aberration, Aquatic, Illusion, Rare, Large] L6 (The Dead God's Hand)
+P0042	Vidileth Alghollthu	50	50		Vidileth [Aberration, Aquatic, Illusion, Rare, Large] L6 (The Dead God's Hand); Vidileth [Aberration, Aquatic, Rare, Large] L14 (Monster Core)
 P0043	Brastlewark Snarecrafter	25			
 P0044	Order of the Gate Hellknight	25			
 P0045	Twilight Talon	25			
 P0046	Skeletal Hellknight Bonesinger	25	25		Skeletal Hellknight Bonesinger [Skeleton, Uncommon, Undead, Unholy, Medium] L8 (Pathfinder #222: Hellbreakers)
-P0047	Strix	25	25		Strix Kinmate [Humanoid, Strix, Uncommon, Medium] L2 (Monster Core 2); Strix Aerialist [Humanoid, Strix, Uncommon, Medium] L9 (Monster Core 2)
+P0047	Strix	25	25		Strix Hunter [Humanoid, Strix, Uncommon, Medium] L6 (Cheliax, Infernal Inheritance); Strix Kinmate [Humanoid, Strix, Uncommon, Medium] L2 (Monster Core 2); Strix Aerialist [Humanoid, Strix, Uncommon, Medium] L9 (Monster Core 2)
 P0048	Nessari (Tyrant Devil)	50	50		Nessari [Devil, Fiend, Unholy, Large] L20 (Monster Core)
 P0049	Abrogail Adamant	75			
 P0050	Abrogail Thrune	25			
@@ -61,6 +61,16 @@ P0061	Goblin Pyro	25	25		Goblin Pyro [Goblin, Humanoid, Small] L1 (Monster Core)
 P0062	Goblin Warrior	25	25		Goblin Warrior [Goblin, Humanoid, Small] L-1 (Monster Core)
 P0063	Goblin Commando	25	25		Goblin Commando [Goblin, Humanoid, Small] L1 (Monster Core)
 P0064	Goblin Chanter	25	25		Goblin War Chanter [Goblin, Humanoid, Small] L1 (Monster Core)
+P0069	Sajan, Iconic Monk	25			
+P0070	Seoni, Iconic Sorcerer	25			
+P0071	Jirelle, Iconic Swashbuckler	25			
+P0072	Fortune Dragon	75	50/75/100		Adult Fortune Dragon [Arcane, Dragon, Huge] L14 (Monster Core); Young Fortune Dragon [Arcane, Dragon, Large] L10 (Monster Core); Ancient Fortune Dragon [Arcane, Dragon, Uncommon, Gargantuan] L19 (Monster Core)
+P0073	Ogre Glutton	50	50		Ogre Glutton [Giant, Humanoid, Large] L4 (Monster Core)
+P0074	Ogre Boss	50	50		Ogre Boss [Giant, Humanoid, Large] L7 (Monster Core)
+P0075	Air Elemental - Phade	25			
+P0076	Earth Elemental - Living Landslide	25			
+P0077	Elemental Fire - Living Wildfire	25			
+P0078	Water Elemental - Brine Shark	25			
 P0082	Bosun	25	25		Bosun [Human, Humanoid, Medium] L3 (NPC Core)
 P0083	Marine Marauder	25			
 P0084	Ocean Nomad	25	25		Ocean Nomad [Human, Humanoid, Medium] L6 (NPC Core)
@@ -77,20 +87,33 @@ P0094	Athamaru	25	25		Athamaru Hunter [Amphibious, Athamaru, Humanoid, Medium, L
 P0095	Rigger	25	25		Rigger [Human, Humanoid, Medium] L1 (NPC Core)
 P0096	Subaquatic Marauder	25	25		Subaquatic Marauder [Human, Humanoid, Uncommon, Medium] L5 (NPC Core)
 P0097	Draugr	25	25		Draugr [Undead, Water, Medium] L2 (Monster Core 2)
-P0098	Reefclaw	25	25		Reefclaw [Aberration, Aquatic, Small] L1 (Monster Core)
+P0098	Reefclaw	25	25		Reefclaw [Aberration, Aquatic, Small] L1 (Down with King Stankus!)
 P0099	Gutaki	50	50		Gutaki [Aquatic, Beast, Large] L4 (High Seas)
 P0100	Scylla	75	75		Scylla [Aberration, Amphibious, Rare, Huge] L16 (High Seas)
-PQ0030_Hellknight_Chargers	Hellknight Chargers	50	25/100	FLAGGED	Hellknight Armiger [Dwarf, Humanoid, LN, Medium] L4 (Character Guide); Hellknight Paravicar [Human, Humanoid, LN, Medium] L11 (Character Guide); Hellknight Hunter Squad [Human, Humanoid, Troop, Uncommon, Gargantuan] L15 (Pathfinder #223: Hell's Destiny)
+P0101	Dhampirs	25			
+P0102	Coven Aspirant	25	25		Coven Aspirant [Human, Humanoid, Medium] L2 (NPC Core)
+P0103	Scarecrow	25	25		Scarecrow [Construct, Medium] L4 (Monster Core)
+P0104	Werewolf	25	25		Werewolf [Beast, Human, Humanoid, Werecreature, Medium] L3 (Monster Core)
+P0105	Wights	25			
+P0106	Charnel Creation	50	50		Charnel Creation [Construct, Mindless, Uncommon, Large] L8 (Monster Core)
+PQ0030_Hellknight_Chargers	Hellknight Chargers	50	25	accepted: three Hellknight troop models on a shared 50mm base; 50mm stays (Logan, 2026-09-13, user-20260913-1)	Hellknight [Human, Humanoid, Medium] L7 (Cheliax, Infernal Inheritance)
 Paizo_cave_bear_Supported	Cave Bear	50	50		Cave Bear [Animal, Large] L6 (Monster Core)
-Paizo_elk_Supported	Elk	50	25	FLAGGED	Elk [Animal, N, Medium] L1 (Kingmaker Adventure Path)
+Paizo_elk_Supported	Elk	25	25		Elk [Animal, N, Medium] L1 (Kingmaker Adventure Path)
 Paizo_fire_serpent__Supported	Fire Serpent	50			
-Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)				
-Paizo_bastions_Supported	Hellknight Bastions				
-Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars				
-Paizo_Grave_Knight_Supported	Graveknight		25	unstated	Graveknight [Graveknight, Undead, Unholy, Medium] L10 (Monster Core)
-Paizo_Signifers_Supported	Hellknight Signifers				
-Paizo_Ironkettles_wall_Supported	Ironkettle's Wall				
-Paizo_Hellknight_Sharpshooters_Supported	Hellknight Sharpshooters				
-Paizo_Merandals_Hawks_Supported	Merandal's Hawks				
-Paizo_goblin_spellcaster_Supported	Goblin Spellcaster (Pathfinder Quest)				
-PQ0041_Dread_Zombie	Dread Zombie				
+Paizo_orc_malee_Supported	Orc Melee (Pathfinder Quest)	25			
+Paizo_bastions_Supported	Hellknight Bastions	25			
+Paizo_Augustana_irregulars_A_Supported	Augustana Irregulars	25			
+Paizo_Grave_Knight_Supported	Graveknight	25	25		Graveknight [Graveknight, Undead, Unholy, Medium] L10 (Monster Core)
+Paizo_Signifers_Supported	Hellknight Signifers	25			
+Paizo_Ironkettles_wall_Supported	Ironkettle's Wall	25			
+Paizo_Hellknight_Sharpshooters_Supported	Hellknight Sharpshooters	25			
+Paizo_Merandals_Hawks_Supported	Merandal's Hawks	25			
+Paizo_goblin_spellcaster_Supported	Goblin Spellcaster (Pathfinder Quest)	25			
+PQ0041_Dread_Zombie	Dread Zombie	25			
+Paizo_giant_cave_centepiede_Supported	Giant Cave Centipede	25			
+P0107	Thatchling	25	25		Thatchling [Uncommon, Undead, Unholy, Small] L0 (Season of Ghosts (Hardcover))
+P0108	Gamekeeper	25	25		Gamekeeper [Human, Humanoid, Medium] L6 (NPC Core)
+P0109	Gourd Leshy Witch	25	25		Gourd Leshy Witch [Leshy, Plant, Small] L6 (NPC Core)
+P0110	Meokdan Hungry Nindoru	25			
+P0111	Sojiruh Shrieking Nindoru	25			
+P0112	Ijda Forgetful Nindoru	50			
