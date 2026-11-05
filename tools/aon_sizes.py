@@ -49,6 +49,7 @@ ALIAS = {
 # code -> reason. These print as "accepted", never FLAGGED.
 ACCEPTED = {
     "P0025": "base sheet lists the WP1 Horned Dragon as Medium (Logan, 2026-09-11)",
+    "PQ0030_Hellknight_Chargers": "three Hellknight troop models on a shared 50mm base; 50mm stays (Logan, 2026-09-13, user-20260913-1)",
 }
 
 
