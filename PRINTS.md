@@ -31,7 +31,7 @@ Regenerate the dashboard after any change:
 
 | ID | Date | Slicer file | Resin | Layer | Exposure | Bottom exp | Bottom layers | Lift | Bases | Result | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| P2611-05 | 2026-11-04 | pathfinder_base_25_1_202611041807-deburr9.goo | Siraya 15% Tenacious 50um | 0.05mm | 3.0s | 27.0s | 5 |  |  | pass | Plate of Pathfinder 25mm bases (stone-textured, not blanks) flat on the plate at 50 um, the 2026-11-04 18:07 slice put through 9 tapered deburr passes (layer 0 8398 -> 8380 px, 151.164 -> 150.840 mm, 0.324 mm off the diameter; UVtools re-save, so lift 0.05 in the file). Printed successfully (Logan, 2026-11-04). Base count not stated, so Bases left blank and 25mm On hand not changed. |
+| P2611-05 | 2026-11-04 | pathfinder_base_25_1_202611041807-deburr9.goo | Siraya 15% Tenacious 50um | 0.05mm | 3.0s | 27.0s | 5 |  | 18x 25mm | pass | Plate of Pathfinder 25mm bases (stone-textured, not blanks) flat on the plate at 50 um, the 2026-11-04 18:07 slice put through 9 tapered deburr passes (layer 0 8398 -> 8380 px, 151.164 -> 150.840 mm, 0.324 mm off the diameter; UVtools re-save, so lift 0.05 in the file). Printed successfully (Logan, 2026-11-04). All 18 came out clean (Logan, 2026-11-04). 25mm On hand not changed: it is a stated figure, not inferred from plates. |
 | P2611-04 | 2026-11-04 | 32mm_P0111_Sojiruh_Shrieking_Nindoru_S3P2_STL_1_202611041034.goo | Siraya 15% Tenacious | 0.03mm | 2.0s | 27.0s | 5 |  |  |  |  |
 | P2611-03 | 2026-11-03 | 32mm_P0108_Gamekeeper_S3P2_STL_1_202611031303.goo | Siraya 15% Tenacious | 0.03mm | 2.0s | 27.0s | 5 |  |  |  | Gamekeeper, Gourd Leshy Witch and Meokdan, three models (preview shows three). Back to 30 um from the 50 um of P2611-01/-02, with exposure lowered to 2.0 s, again because of supports fusing to fine detail (Logan, 2026-11-03). Blend. On the printer 2026-11-03. |
 | P2611-02 | 2026-11-03 | 32mm_P0107_Thatchling_A_S3P2_STL_1_202611030943.goo | Siraya 15% Tenacious 50um | 0.05mm | 2.9s | 27.0s | 5 |  |  |  | Thatchling A, B and C, first November print. Exposure lowered to 2.9 s from the 3.0 s used on the Phade plate (P2611-01), because supports have been fusing to fine detail (Logan, 2026-11-03). Layer 50 um, blend. On the printer 2026-11-03. |
@@ -122,13 +122,13 @@ Regenerate the dashboard after any change:
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | A | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | B | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
 | P0107_Thatchling_S3P2 | Thatchling | 25mm | C | 32mm |  | printed | P2611-02 | Siraya 15% Tenacious 50um |  | 2026-11-03 |  |
-| P0108_Gamekeeper_S3P2 | Gamekeeper | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | cleaned | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | sliced | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | skipped |  |  |  | 2026-11-02 |  |
+| P0108_Gamekeeper_S3P2 | Gamekeeper | 25mm | main | 32mm |  | ready | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0109_Gourd Leshy Witch_S3P2 | Gourd Leshy Witch | 25mm | main | 32mm |  | ready | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0110_Meokdan_Hungry_Nindoru_S3P2 | Meokdan Hungry Nindoru | 25mm | main | 32mm |  | ready | P2611-03 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | ready |  |  |  | 2026-11-04 |  |
 
 ## 202610 October Release
 
