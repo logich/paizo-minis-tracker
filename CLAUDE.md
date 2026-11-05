@@ -1492,6 +1492,69 @@ once a User-Agent is set, so the agent need only report links. Pasting them into
 chat works just as well as a file; `ledger.py artwork <url>...` takes them
 directly.
 
+### Watching Brian's painted prints
+
+Brian posts photographs of what he has painted to his own MyMiniFactory
+profile, <https://www.myminifactory.com/users/briansouvey>, on the **Prints**
+tab. Those photographs are where `gallery/<code>_painted.jpg` comes from.
+Watching that page is the browser agent's job: `tools/brian_prints.py`, with
+its snapshot in `reference/brian-prints.tsv`. Both are browser-owned.
+
+**Each print names the object it was printed from, so nothing is guessed.** A
+print lives at `/prints/<print_id>`, and that page carries a `<!-- Print Info -->`
+block holding a JSON payload (`data-component-name="CanvasInfoBlockPage"`) with
+the print's title and `date_created`, alongside a link to the source object:
+
+    /object/3d-print-fire-serpent-768531
+
+The trailing number is the MyMiniFactory object id, and that is already the tail
+of the `mmf` column in `reference/models.tsv` — so **the object id joins a
+photograph to a code exactly**. 116 of the 118 rows in `models.tsv` carry an
+`mmf` URL, so the join covers nearly everything.
+
+**Never match on his title.** He types them by hand and they carry typos and
+variants: `Phistophilus Drvil`, `Ort's`, `Sarglagon - drowned Devil`. The object
+id matched all 12 of his existing prints, and the twelve codes it produced were
+exactly the twelve already filed in `gallery/` — an independent check that the
+join is right (2026-11-03).
+
+Getting at them:
+
+- The profile grid is no help by itself: its cards link to a dead
+  `/object/3d-print-0` and read "Untitled Object". The real links are the
+  `/prints/<id>` anchors on the same page.
+- Print pages are **same-origin** with the profile, so one tab can `fetch` all
+  of them without navigating once per print.
+- The tab label states the count outright (`Prints (12)`). A scrape that
+  collects a different number has gone wrong and should be thrown away rather
+  than ingested.
+
+Neither shell can fetch the photograph itself: Cloudflare answers 403 to
+anything that is not a browser, from the mini and from the cloud container
+alike, so `ledger.py artwork`'s User-Agent trick does **not** carry over to
+these. Bridging the bytes out through Chrome does not work either — the
+extension redacts encoded payloads from tool results, by design. So the browser
+agent reports; downloading the photograph and running `ledger.py photo` stays
+with Logan.
+
+    python3 tools/brian_prints.py diff   scraped.tsv   # report only
+    python3 tools/brian_prints.py ingest scraped.tsv   # report, then update the snapshot
+    python3 tools/brian_prints.py list                 # show the snapshot
+
+scraped.tsv is one print per line, no header:
+
+    <print_id>\t<his title>\t<date_created>\t<object path>\t<asset path>
+
+Whether a photograph has been filed is **not** stored: it is read from
+`gallery/` on every run, so the snapshot cannot drift out of step with what is
+actually on disk. An empty scrape never updates the snapshot — a page that
+failed to load is not the same as a profile he emptied — and a print that
+disappears is reported as `GONE` and kept rather than dropped.
+
+A new photograph is **not** an approval. It says the mini reached him and he
+painted it, nothing more; only his verdict moves a part to `approved`, exactly
+as in *Brian's approval gates completion*.
+
 ## Talking to the other agent
 
 Two agents and the user share this repository and never share a session. The
