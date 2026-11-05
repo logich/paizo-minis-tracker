@@ -128,7 +128,7 @@ Regenerate the dashboard after any change:
 | P0111_Sojiruh_Shrieking_Nindoru_S3P2 | Sojiruh Shrieking Nindoru | 25mm | main | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Body | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
 | P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Cape | 32mm |  | ready | P2611-04 | Siraya 15% Tenacious |  | 2026-11-04 |  |
-| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | ready |  |  |  | 2026-11-04 |  |
+| P0112_Ijda_Forgetful_Nindoru_S3P2 | Ijda Forgetful Nindoru | 50mm | Full | 32mm |  | skipped |  |  |  | 2026-11-04 |  |
 
 ## 202610 October Release
 
